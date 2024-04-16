@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.RewriteQueriesToDropUnusedColumns
 import dev.ohjiho.budgetify.data.local.entity.Transaction
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +16,7 @@ interface TransactionDao: BaseDao<Transaction>{
      *
      * @param tagName - Name of the tag
      */
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM transactions INNER JOIN transaction_tag_cross_refs ON transaction_id = uid WHERE tag_name = :tagName")
     fun getTransactions(tagName: String): Flow<List<Transaction>>
 
