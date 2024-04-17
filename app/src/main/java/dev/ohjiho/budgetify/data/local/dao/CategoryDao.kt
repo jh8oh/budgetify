@@ -11,8 +11,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoryDao : BaseDao<Category> {
     /**
-     * Returns a list of all categories in the database
+     * Returns either a list of expense categories or income categories
      */
-    @Query("SELECT * FROM categories")
-    fun getAllCategories(): Flow<List<Category>>
+    @Query("SELECT * FROM categories WHERE isExpense = :isExpense")
+    fun getCategories(isExpense: Boolean): Flow<List<Category>>
 }

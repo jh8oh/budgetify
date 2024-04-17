@@ -8,7 +8,9 @@ import java.time.YearMonth
 
 @Dao
 interface BudgetDao: BaseDao<Budget> {
-
+    /**
+     * Grabs all the budgets for a specified month and year
+     */
     @Query("SELECT * FROM budgets WHERE year_month = :yearMonth")
     fun getBudget(yearMonth: YearMonth): Flow<List<Budget>>
 }
