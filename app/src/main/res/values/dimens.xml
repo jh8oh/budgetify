@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="touch_target_min_height">48dp</dimen>
+
+    <!-- Style -->
+    <dimen name="theme_budgetify_button_padding_horizontal">20dp</dimen>
+    <dimen name="theme_budgetify_button_padding_vertical">8dp</dimen>
+
+    <!-- Set Up Content (General) -->
+    <dimen name="content_set_up_title_margin_start">8dp</dimen>
+    <dimen name="content_set_up_button_margin_between">12dp</dimen>
+    <dimen name="content_set_up_margin_bottom">24dp</dimen>
+
+    <!-- Set Up Content (Welcome) -->
+    <dimen name="content_set_up_welcome_greeting_margin_bottom">8dp</dimen>
+
+    <!-- Set Up Content (Income) -->
+    <dimen name="content_set_up_income_margin_top">16dp</dimen>
+    <dimen name="content_set_up_income_margin_horizontal">28dp</dimen>
+    <dimen name="content_set_up_income_input_margin_top">24dp</dimen>
+    <dimen name="content_set_up_income_input_margin_between">8dp</dimen>
+
+    <!-- Currency Picker Dialog -->
+    <dimen name="item_currency_padding_horizontal">12dp</dimen>
+    <dimen name="item_currency_padding_vertical">8dp</dimen>
+    <dimen name="item_currency_symbol_min_width">28dp</dimen>
+    <dimen name="item_currency_symbol_margin_end">8dp</dimen>
+</resources>
