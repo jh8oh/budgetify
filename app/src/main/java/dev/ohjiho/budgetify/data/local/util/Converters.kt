@@ -1,9 +1,11 @@
 package dev.ohjiho.budgetify.data.local.util
 
 import android.graphics.Color
+import android.icu.util.Currency
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.data.model.CategoryType
 import java.math.BigDecimal
+import java.time.LocalDate
 import java.time.YearMonth
 
 class Converters {
@@ -38,6 +40,28 @@ class Converters {
     @TypeConverter
     fun argbToColor(argb: Int?): Color? {
         return argb?.let { Color.valueOf(argb) }
+    }
+
+    // Currency
+    @TypeConverter
+    fun currencyToString(currency: Currency?): String? {
+        return currency?.currencyCode
+    }
+
+    @TypeConverter
+    fun stringToCurrency(isoCode: String?): Currency? {
+        return isoCode?.let { Currency.getInstance(it) }
+    }
+
+    // LocalDate
+    @TypeConverter
+    fun localDateToString(localDate: LocalDate?): String? {
+        return localDate?.toString()
+    }
+
+    @TypeConverter
+    fun stringToLocalDate(string: String?): LocalDate? {
+        return string?.let { LocalDate.parse(string) }
     }
 
     // YearMonth
