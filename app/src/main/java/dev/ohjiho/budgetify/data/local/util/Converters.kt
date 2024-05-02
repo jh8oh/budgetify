@@ -31,17 +31,6 @@ class Converters {
         return string?.let { enumValueOf<CategoryType>(string) }
     }
 
-    // Color
-    @TypeConverter
-    fun colorToArgb(color: Color?): Int? {
-        return color?.toArgb()
-    }
-
-    @TypeConverter
-    fun argbToColor(argb: Int?): Color? {
-        return argb?.let { Color.valueOf(argb) }
-    }
-
     // Currency
     @TypeConverter
     fun currencyToString(currency: Currency?): String? {

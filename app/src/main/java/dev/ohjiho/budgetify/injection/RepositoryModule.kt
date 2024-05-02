@@ -4,6 +4,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dev.ohjiho.budgetify.data.repository.AccountRepository
+import dev.ohjiho.budgetify.data.repository.AccountRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.BudgetRepository
 import dev.ohjiho.budgetify.data.repository.BudgetRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.CategoryRepository
@@ -15,6 +17,10 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
+    @Singleton
+    @Binds
+    abstract fun bindAccountRepository(repository: AccountRepositoryImpl): AccountRepository
+
     @Singleton
     @Binds
     abstract fun bindBudgetRepository(repository: BudgetRepositoryImpl): BudgetRepository

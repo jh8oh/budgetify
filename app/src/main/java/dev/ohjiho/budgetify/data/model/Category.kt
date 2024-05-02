@@ -9,6 +9,6 @@ enum class CategoryType {
 interface Category {
     var uid: Int
     var name: String
-    var color: Int
+    var color: String
     var categoryType: CategoryType
 }

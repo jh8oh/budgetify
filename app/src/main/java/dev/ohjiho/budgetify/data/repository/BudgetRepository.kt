@@ -14,5 +14,5 @@ interface BudgetRepository : BaseRepository<BudgetEntity> {
 class BudgetRepositoryImpl @Inject constructor(
     private val dao: BudgetDao,
 ) : BaseRepositoryImpl<BudgetEntity, BudgetDao>(dao), BudgetRepository {
-    override fun getBudget(yearMonth: YearMonth): Flow<List<Budget>> = dao.getBudget(yearMonth)
+    override fun getBudget(yearMonth: YearMonth) = dao.getBudget(yearMonth)
 }

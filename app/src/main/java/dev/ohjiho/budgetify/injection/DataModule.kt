@@ -6,8 +6,10 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.ohjiho.budgetify.data.local.BudgetifyDatabase
+import dev.ohjiho.budgetify.data.local.dao.AccountDao
 import dev.ohjiho.budgetify.data.local.dao.BudgetDao
 import dev.ohjiho.budgetify.data.local.dao.CategoryDao
+import dev.ohjiho.budgetify.data.local.dao.TransactionDao
 import javax.inject.Singleton
 
 @Module
@@ -25,8 +27,14 @@ object DataModule {
     }
 
     @Provides
+    fun provideAccountDao(database: BudgetifyDatabase): AccountDao = database.accountDao()
+
+    @Provides
     fun provideBudgetDao(database: BudgetifyDatabase): BudgetDao = database.budgetDao()
 
     @Provides
     fun provideCategoryDao(database: BudgetifyDatabase): CategoryDao = database.categoryDao()
+
+    @Provides
+    fun provideTransactionDao(database: BudgetifyDatabase): TransactionDao = database.transactionDao()
 }

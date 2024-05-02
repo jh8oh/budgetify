@@ -8,7 +8,7 @@ import dev.ohjiho.budgetify.data.model.CategoryType
 @Entity(tableName = "categories")
 data class CategoryEntity(
     override var name: String,
-    override var color: Int,
+    override var color: String,
     override var categoryType: CategoryType,
 ) : Category {
     @PrimaryKey(autoGenerate = true)
