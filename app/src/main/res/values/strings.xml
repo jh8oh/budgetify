@@ -1,21 +1,32 @@
 <resources>
     <string name="app_name">Budgetify</string>
 
-    <!-- Set Up Content (General) -->
+    <!-- Set up content -->
     <string name="content_set_up_back_button_label">Back</string>
     <string name="content_set_up_next_button_label">Next</string>
 
-    <!-- Set Up Content (Welcome) -->
-    <string name="content_set_up_welcome_greeting">Welcome</string>
-    <string name="content_set_up_welcome_description">Please set up your expected income and your budget</string>
-    <string name="content_set_up_welcome_button_label">Get Started</string>
+    <!-- Set up welcome fragment -->
+    <string name="fragment_set_up_welcome_greeting">Welcome</string>
+    <string name="fragment_set_up_welcome_description">Please set up your expected income and your budget</string>
+    <string name="fragment_set_up_welcome_button_label">Get Started</string>
 
-    <!-- Set Up Content (Income) -->
-    <string name="content_set_up_income_title">Add your monthly income</string>
-    <string name="content_set_up_income_description">Please enter your anticipated monthly income. This is the total amount you expect to earn in a month from your primary job, side gigs, or any other sources of income. Understanding your monthly income helps us tailor the budgets to your financial needs.</string>
-    <string name="content_set_up_income_input_hint">Income</string>
-    <string name="content_set_up_income_currency_input_hint">Currency</string>
+    <!-- Set up accounts fragment -->
+    <string name="fragment_set_up_accounts_title">Set up your accounts</string>
+    <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track. Feel free to edit any existing ones as needed.</string>
+    <string name="fragment_set_up_accounts_add_button_label">Add new account</string>
+
+    <!-- Set up income fragment -->
+    <string name="fragment_set_up_income_title">Add your monthly income</string>
+    <string name="fragment_set_up_income_description">Please enter your anticipated monthly income. This is the total amount you expect to earn in a month from your primary job, side gigs, or any other sources of income. Understanding your monthly income helps us tailor the budgets to your financial needs.</string>
+    <string name="fragment_set_up_income_input_hint">Income</string>
+    <string name="fragment_set_up_income_currency_input_hint">Currency</string>
+
+    <!-- Set up budget fragment -->
+    <string name="fragment_set_up_budget_title">Set up your budgets</string>
 
     <!-- Currency Picker Dialog -->
     <string name="dialog_currency_picker_search_hint">Search by name or 3 letter code</string>
+
+    <!-- Account -->
+    <string name="item_account_favourite_content_description">Favourite</string>
 </resources>

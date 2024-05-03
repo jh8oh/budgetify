@@ -8,17 +8,17 @@
 
     <TextView
         android:id="@+id/currency_code"
-        style="@style/TextAppearance.Material3.LabelMedium"
+        style="@style/TextAppearance.Budgetify.Label"
         android:layout_width="wrap_content"
-        android:minWidth="@dimen/item_currency_symbol_min_width"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/item_currency_symbol_margin_end"
+        android:minWidth="@dimen/item_currency_symbol_min_width"
         android:textColor="?colorPrimaryVariant"
         tools:text="CAD" />
 
     <TextView
         android:id="@+id/currency_long_name"
-        style="@style/TextAppearance.Material3.BodyLarge"
+        style="@style/TextAppearance.Budgetify.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="Canadian Dollars" />

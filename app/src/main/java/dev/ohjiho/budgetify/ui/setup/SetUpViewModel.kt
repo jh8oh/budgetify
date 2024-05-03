@@ -6,30 +6,25 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.util.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
-import java.util.Locale
 import javax.inject.Inject
 
 enum class SetUpUiScreen {
-    WELCOME, SET_UP_INCOME, SET_UP_BUDGET
+    WELCOME, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_BUDGET
 }
 
 data class SetUpUiState(
     val screen: SetUpUiScreen = SetUpUiScreen.WELCOME,
-    val income: Int? = null,
-    val mainCurrency: Currency = Currency.getInstance(Locale.getDefault()),
 )
 
 @HiltViewModel
 class SetUpViewModel @Inject constructor() : ViewModel() {
     private val screen = MutableStateFlow(SetUpUiScreen.WELCOME)
-    private val income: MutableStateFlow<Int?> = MutableStateFlow(null)
-    private val mainCurrency = MutableStateFlow(Currency.getInstance(Locale.getDefault()))
 
-    val uiState = combine(screen, income, mainCurrency) { screen, income, mainCurrency ->
-        SetUpUiState(screen = screen, income = income, mainCurrency = mainCurrency)
+    val uiState = screen.map { screen ->
+        SetUpUiState(screen = screen)
     }.stateIn(viewModelScope, WhileUiSubscribed, SetUpUiState())
 
     /**
@@ -43,8 +38,13 @@ class SetUpViewModel @Inject constructor() : ViewModel() {
         return when (currentScreen) {
             SetUpUiScreen.WELCOME -> true
 
-            SetUpUiScreen.SET_UP_INCOME -> {
+            SetUpUiScreen.SET_UP_ACCOUNTS -> {
                 screen.update { SetUpUiScreen.WELCOME }
+                false
+            }
+
+            SetUpUiScreen.SET_UP_INCOME -> {
+                screen.update { SetUpUiScreen.SET_UP_ACCOUNTS }
                 false
             }
 
@@ -60,29 +60,14 @@ class SetUpViewModel @Inject constructor() : ViewModel() {
      *
      * @return true if the current screen is the last screen (Budget); false otherwise.
      */
-    fun nextScreen(): Boolean {
+    fun nextScreen() {
         // TODO Check whether values of screens are correct
         val currentScreen = uiState.value.screen
-        return when (currentScreen) {
-            SetUpUiScreen.WELCOME -> {
-                screen.update { SetUpUiScreen.SET_UP_INCOME }
-                false
-            }
-
-            SetUpUiScreen.SET_UP_INCOME -> {
-                screen.update { SetUpUiScreen.SET_UP_BUDGET }
-                false
-            }
-
-            SetUpUiScreen.SET_UP_BUDGET -> true
+        when (currentScreen) {
+            SetUpUiScreen.WELCOME -> screen.update { SetUpUiScreen.SET_UP_ACCOUNTS }
+            SetUpUiScreen.SET_UP_ACCOUNTS -> screen.update { SetUpUiScreen.SET_UP_INCOME }
+            SetUpUiScreen.SET_UP_INCOME -> screen.update { SetUpUiScreen.SET_UP_BUDGET }
+            SetUpUiScreen.SET_UP_BUDGET -> return
         }
-    }
-
-    fun onIncomeTextChange(input: Int?){
-        income.update { input }
-    }
-
-    fun onCurrencySelected(currency: Currency) {
-        mainCurrency.update { currency }
     }
 }

@@ -1,6 +1,6 @@
 package dev.ohjiho.budgetify.data.model
 
-import android.icu.math.BigDecimal
+import java.math.BigDecimal
 import java.time.LocalDate
 
 interface Transaction {

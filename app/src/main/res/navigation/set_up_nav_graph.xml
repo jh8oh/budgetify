@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/set_up_nav_graph"
+    app:startDestination="@id/nav_fragment_set_up_welcome">
+
+    <fragment
+        android:id="@+id/nav_fragment_set_up_welcome"
+        android:name="dev.ohjiho.budgetify.ui.setup.SetUpWelcomeFragment"
+        tools:layout="@layout/fragment_set_up_welcome">
+        <action
+            android:id="@+id/action_nav_fragment_set_up_welcome_to_nav_fragment_set_up_accounts"
+            app:destination="@id/nav_fragment_set_up_accounts" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_set_up_accounts"
+        android:name="dev.ohjiho.budgetify.ui.setup.SetUpAccountsFragment"
+        tools:layout="@layout/fragment_set_up_accounts">
+        <action
+            android:id="@+id/action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_welcome"
+            app:destination="@id/nav_fragment_set_up_welcome" />
+        <action
+            android:id="@+id/action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_income"
+            app:destination="@id/nav_fragment_set_up_income" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_set_up_income"
+        android:name="dev.ohjiho.budgetify.ui.setup.SetUpIncomeFragment"
+        tools:layout="@layout/fragment_set_up_income">
+        <action
+            android:id="@+id/action_nav_fragment_set_up_income_to_nav_fragment_set_up_accounts"
+            app:destination="@id/nav_fragment_set_up_accounts" />
+        <action
+            android:id="@+id/action_nav_fragment_set_up_income_to_nav_fragment_set_up_budget"
+            app:destination="@id/nav_fragment_set_up_budget" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_fragment_set_up_budget"
+        android:name="dev.ohjiho.budgetify.ui.setup.SetUpBudgetFragment"
+        tools:layout="@layout/fragment_set_up_budget" >
+        <action
+            android:id="@+id/action_nav_fragment_set_up_budget_to_nav_fragment_set_up_income"
+            app:destination="@id/nav_fragment_set_up_income" />
+    </fragment>
+
+</navigation>

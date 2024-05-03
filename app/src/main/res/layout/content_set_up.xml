@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/title"
-        style="@style/TextAppearance.Material3.ActionBar.Title"
+        style="@style/TextAppearance.Budgetify.ActionBar.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_set_up_title_margin_start"
@@ -41,7 +41,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -58,101 +57,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/welcome_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/button_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/background_end_guideline">
-
-        <TextView
-            style="@style/TextAppearance.Material3.HeadlineMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/content_set_up_welcome_greeting_margin_bottom"
-            android:text="@string/content_set_up_welcome_greeting" />
-
-        <TextView
-            style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/content_set_up_welcome_description" />
-
-    </LinearLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/income_content"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/set_up_nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/content_set_up_income_margin_horizontal"
-        android:layout_marginTop="@dimen/content_set_up_income_margin_top"
-        android:visibility="gone"
+        android:layout_marginHorizontal="@dimen/content_set_up_content_margin_horizontal"
+        android:layout_marginTop="@dimen/content_set_up_content_margin_top"
+        android:layout_marginBottom="@dimen/content_set_up_content_margin_bottom"
         app:layout_constraintBottom_toTopOf="@id/button_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/background_end_guideline">
-
-        <TextView
-            android:id="@+id/income_description"
-            style="@style/TextAppearance.Material3.BodyMedium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/content_set_up_income_description"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/income_input_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/content_set_up_income_input_margin_top"
-            android:layout_marginEnd="@dimen/content_set_up_income_input_margin_between"
-            app:layout_constraintEnd_toStartOf="@id/currency_input"
-            app:layout_constraintHorizontal_weight="3"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/income_description">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/income_input"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/content_set_up_income_input_hint"
-                android:inputType="numberDecimal" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/currency_input"
-            style="@style/Widget.AppCompat.Spinner.DropDown"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:maxLines="1"
-            app:layout_constraintBottom_toBottomOf="@id/income_input_container"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_weight="1"
-            app:layout_constraintStart_toEndOf="@id/income_input_container"
-            app:layout_constraintTop_toTopOf="@+id/income_input_container" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/budget_content"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/button_container"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/background_end_guideline">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintTop_toTopOf="@id/background_end_guideline"
+        app:navGraph="@navigation/set_up_nav_graph" />
 
     <LinearLayout
         android:id="@+id/button_container"
@@ -177,7 +96,7 @@
             style="@style/Theme.Budgetify.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/content_set_up_welcome_button_label"
+            android:text="@string/fragment_set_up_welcome_button_label"
             tools:ignore="ButtonStyle" />
     </LinearLayout>
 

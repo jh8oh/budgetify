@@ -1,9 +1,9 @@
 package dev.ohjiho.budgetify.data.local.entity
 
-import android.icu.math.BigDecimal
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dev.ohjiho.budgetify.data.model.Transaction
+import java.math.BigDecimal
 import java.time.LocalDate
 
 @Entity(tableName = "transactions")

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/TextAppearance.Budgetify.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_set_up_accounts_description" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/accounts_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_accounts_recyclerview_margin_top"
+        tools:listitem="@layout/item_account" />
+
+    <Button
+        android:id="@+id/add_account_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
+        android:text="@string/fragment_set_up_accounts_add_button_label" />
+
+</LinearLayout>

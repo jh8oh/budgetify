@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/income_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/income_description"
+        style="@style/TextAppearance.Budgetify.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_set_up_income_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/income_input_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_income_input_margin_top"
+        android:layout_marginEnd="@dimen/fragment_set_up_income_input_margin_between"
+        app:layout_constraintEnd_toStartOf="@id/currency_input"
+        app:layout_constraintHorizontal_weight="3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/income_description">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/income_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fragment_set_up_income_input_hint"
+            android:inputType="numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/currency_input"
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:maxLines="1"
+        app:layout_constraintBottom_toBottomOf="@id/income_input_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_weight="1"
+        app:layout_constraintStart_toEndOf="@id/income_input_container"
+        app:layout_constraintTop_toTopOf="@+id/income_input_container" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,55 +1,60 @@
 package dev.ohjiho.budgetify.ui.setup
 
 import android.animation.ValueAnimator
-import android.content.Intent
-import android.icu.util.Currency
 import android.os.Bundle
 import android.view.View
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import dev.ohjiho.budgetify.R
 import dev.ohjiho.budgetify.databinding.ContentSetUpBinding
-import dev.ohjiho.budgetify.ui.currency.CurrencyPickerDialog
-import dev.ohjiho.budgetify.ui.main.BudgetifyActivity
+import dev.ohjiho.budgetify.util.ScreenMetricsCompat
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
-class SetUpActivity : AppCompatActivity(), CurrencyPickerDialog.Listener {
+class SetUpActivity : AppCompatActivity() {
 
     private val viewModel: SetUpViewModel by viewModels()
     private lateinit var binding: ContentSetUpBinding
 
-    private var currentScreen = SetUpUiScreen.WELCOME
-
-    // Views
-    private val currencyPickerDialog = CurrencyPickerDialog()
-
     // Animations
     private val backgroundStartGuidelineAnimator by lazy {
-        ValueAnimator.ofFloat(0.5f, 0.08f).apply {
+        ValueAnimator.ofInt(fiftyHeight, actionBarSize).apply {
             duration = ANIMATION_DURATION_MILLIS
             addUpdateListener {
-                binding.backgroundStartGuideline.setGuidelinePercent(it.animatedValue as Float)
+                binding.backgroundStartGuideline.setGuidelineBegin(it.animatedValue as Int)
             }
         }
     }
     private val backgroundEndGuidelineAnimator by lazy {
-        ValueAnimator.ofFloat(0.6f, 0.08f).apply {
+        ValueAnimator.ofInt(sixtyHeight, actionBarSize).apply {
             duration = ANIMATION_DURATION_MILLIS
             addUpdateListener {
-                binding.backgroundEndGuideline.setGuidelinePercent(it.animatedValue as Float)
+                binding.backgroundEndGuideline.setGuidelineBegin(it.animatedValue as Int)
             }
         }
     }
 
     // Resources
-    private val nextButtonWelcomeText by lazy { resources.getString(R.string.content_set_up_welcome_button_label) }
+    private val actionBarSize by lazy {
+        applicationContext.theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize)).let {
+            val size = it.getDimensionPixelSize(0, 0)
+            it.recycle()
+            size
+        }
+    }
+    private var fiftyHeight by Delegates.notNull<Int>()
+    private var sixtyHeight by Delegates.notNull<Int>()
+
+    private val nextButtonWelcomeText by lazy { resources.getString(R.string.fragment_set_up_welcome_button_label) }
     private val nextButtonText by lazy { resources.getString(R.string.content_set_up_next_button_label) }
-    private val incomeTitle by lazy { resources.getString(R.string.content_set_up_income_title) }
+    private val accountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
+    private val incomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
+    private val budgetTitle by lazy { resources.getString(R.string.fragment_set_up_budget_title) }
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
@@ -61,90 +66,106 @@ class SetUpActivity : AppCompatActivity(), CurrencyPickerDialog.Listener {
         setContentView(binding.root)
 
         // General views
-        binding.backButton.setOnClickListener {
-            viewModel.onBackPressed()
+        ScreenMetricsCompat.getScreenSize(applicationContext, false).height.let {
+            fiftyHeight = (it * 0.5).toInt()
+            sixtyHeight = (it * 0.6).toInt()
         }
-
-        binding.nextButton.setOnClickListener {
-            if (viewModel.nextScreen()) {
-                startActivity(Intent(this@SetUpActivity, BudgetifyActivity::class.java))
-                finish()
-            }
-        }
-
-        // Income
-        binding.incomeInput.addTextChangedListener {
-            viewModel.onIncomeTextChange(Integer.parseInt(it.toString()))
-        }
-
-        binding.currencyInput.setOnClickListener {
-            currencyPickerDialog.show(supportFragmentManager, CurrencyPickerDialog.TAG)
-        }
+        binding.backgroundStartGuideline.setGuidelineBegin(fiftyHeight)
+        binding.backgroundEndGuideline.setGuidelineBegin(sixtyHeight)
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
                 viewModel.uiState.collect { uiState ->
                     when (uiState.screen) {
                         SetUpUiScreen.WELCOME -> showWelcomeScreen()
+                        SetUpUiScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
                         SetUpUiScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpUiScreen.SET_UP_BUDGET -> showBudgetScreen()
                     }
-
-                    binding.currencyInput.setText(uiState.mainCurrency.currencyCode)
                 }
             }
         }
 
         onBackPressedDispatcher.addCallback(this) {
+            binding.setUpNavHostFragment.findNavController().navigateUp()
             if (viewModel.onBackPressed()) finish()
         }
     }
 
     private fun showWelcomeScreen() {
-        if (currentScreen != SetUpUiScreen.WELCOME) {
-            currentScreen = SetUpUiScreen.WELCOME
-
+        if (backgroundStartGuidelineAnimator.animatedFraction != 0f) {
             backgroundStartGuidelineAnimator.reverse()
             backgroundEndGuidelineAnimator.reverse()
+        }
 
-            binding.appIcon.visibility = View.VISIBLE
-            binding.title.visibility = View.GONE
-            binding.welcomeContent.visibility = View.VISIBLE
-            binding.incomeContent.visibility = View.GONE
-            binding.backButton.visibility = View.GONE
-            binding.nextButton.text = nextButtonWelcomeText
+        binding.appIcon.visibility = View.VISIBLE
+        binding.title.visibility = View.GONE
+        binding.backButton.visibility = View.GONE
+        binding.nextButton.apply {
+            text = nextButtonWelcomeText
+            setOnClickListener {
+                viewModel.nextScreen()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_welcome_to_nav_fragment_set_up_accounts)
+            }
+        }
+    }
+
+    private fun showAccountsScreen() {
+        if (backgroundStartGuidelineAnimator.animatedFraction != 1f) {
+            backgroundStartGuidelineAnimator.start()
+            backgroundEndGuidelineAnimator.start()
+        }
+
+        binding.appIcon.visibility = View.GONE
+        binding.title.apply {
+            visibility = View.VISIBLE
+            text = accountsTitle
+        }
+        binding.backButton.apply {
+            visibility = View.VISIBLE
+            setOnClickListener {
+                viewModel.onBackPressed()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_welcome)
+            }
+        }
+        binding.nextButton.apply {
+            text = nextButtonText
+            setOnClickListener {
+                //TODO Check accounts all OK
+                viewModel.nextScreen()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_income)
+            }
         }
     }
 
     private fun showIncomeScreen() {
-        if (currentScreen != SetUpUiScreen.SET_UP_INCOME) {
-            currentScreen = SetUpUiScreen.SET_UP_INCOME
+        binding.title.text = incomeTitle
 
-            backgroundStartGuidelineAnimator.start()
-            backgroundEndGuidelineAnimator.start()
-
-            binding.appIcon.visibility = View.GONE
-            binding.title.apply {
-                visibility = View.VISIBLE
-                text = incomeTitle
-            }
-            binding.welcomeContent.visibility = View.GONE
-            binding.incomeContent.visibility = View.VISIBLE
-            binding.backButton.visibility = View.VISIBLE
-            binding.nextButton.text = nextButtonText
+        binding.backButton.setOnClickListener {
+            viewModel.onBackPressed()
+            binding.setUpNavHostFragment.findNavController()
+                .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_accounts)
         }
+        binding.nextButton.setOnClickListener {
+            // TODO Check income all OK
+            viewModel.nextScreen()
+            binding.setUpNavHostFragment.findNavController()
+                .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_budget)
+        }
+
     }
 
     private fun showBudgetScreen() {
-        if (currentScreen != SetUpUiScreen.SET_UP_BUDGET) {
-            currentScreen = SetUpUiScreen.SET_UP_BUDGET
-
-
+        binding.backButton.setOnClickListener {
+            viewModel.onBackPressed()
+            binding.setUpNavHostFragment.findNavController()
+                .navigate(R.id.action_nav_fragment_set_up_budget_to_nav_fragment_set_up_income)
         }
-    }
-
-    override fun onCurrencySelected(currency: Currency) {
-        viewModel.onCurrencySelected(currency)
-        currencyPickerDialog.dismiss()
+        binding.nextButton.setOnClickListener {
+            // TODO
+        }
     }
 }

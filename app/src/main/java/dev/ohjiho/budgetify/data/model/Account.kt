@@ -1,7 +1,7 @@
 package dev.ohjiho.budgetify.data.model
 
-import android.icu.util.Currency
 import java.math.BigDecimal
+import android.icu.util.Currency
 
 interface Account {
     var uid: Int
