@@ -7,7 +7,7 @@ import dev.ohjiho.budgetify.data.model.Transaction
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface TransactionRepository {
+interface TransactionRepository : BaseRepository<TransactionEntity> {
     fun getAccountTransactions(accountId: Int): Flow<List<Transaction>>
     fun getCategoryTransactions(categoryId: Int): Flow<List<Transaction>>
 }
@@ -23,13 +23,20 @@ class TransactionRepositoryImpl @Inject constructor(
     }
 
     override suspend fun update(entity: TransactionEntity) {
-        val difference = entity.amount - dao.getTransactionAmount(entity.uid)
-        accountDao.addToAccountCurrentAmount(entity.accountId, difference)
+        val prevTransaction = dao.getTransaction(entity.uid)
+        if (prevTransaction.accountId == entity.accountId) {
+            val difference = entity.amount - prevTransaction.amount
+            accountDao.addToAccountCurrentAmount(entity.accountId, difference)
+        } else {
+            accountDao.addToAccountCurrentAmount(prevTransaction.accountId, prevTransaction.amount.negate())
+            accountDao.addToAccountCurrentAmount(entity.accountId, entity.amount)
+        }
+
         super.update(entity)
     }
 
     override suspend fun delete(vararg entity: TransactionEntity) {
-        for (e in entity){
+        for (e in entity) {
             accountDao.addToAccountCurrentAmount(e.accountId, e.amount.negate())
         }
         super.delete(*entity)

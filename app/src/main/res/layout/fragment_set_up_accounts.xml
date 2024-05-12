@@ -9,6 +9,8 @@
         style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/content_set_up_content_margin_horizontal"
+        android:layout_marginTop="@dimen/content_set_up_content_margin_top"
         android:text="@string/fragment_set_up_accounts_description" />
 
     <androidx.recyclerview.widget.RecyclerView
@@ -23,7 +25,9 @@
         style="@style/Theme.Budgetify.Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/content_set_up_content_margin_horizontal"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
-        android:text="@string/fragment_set_up_accounts_add_button_label" />
+        android:layout_marginBottom="@dimen/content_set_up_content_margin_bottom"
+        android:text="@string/fragment_set_up_accounts_add_button" />
 
 </LinearLayout>

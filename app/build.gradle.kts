@@ -60,6 +60,12 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
 
+    // Currency Picker
+    implementation(libs.ohjiho.currencypicker)
+
+    // Color Picker
+    implementation(libs.ohjiho.colorpicker)
+
     // Chart
     implementation(libs.philjay.androidchart)
 }

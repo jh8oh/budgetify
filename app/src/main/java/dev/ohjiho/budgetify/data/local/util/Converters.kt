@@ -1,14 +1,25 @@
 package dev.ohjiho.budgetify.data.local.util
 
-import android.graphics.Color
-import android.icu.util.Currency
 import androidx.room.TypeConverter
+import dev.ohjiho.budgetify.data.model.AccountType
 import dev.ohjiho.budgetify.data.model.CategoryType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.time.YearMonth
+import java.util.Currency
 
 class Converters {
+    // Account Type
+    @TypeConverter
+    fun accountTypeToString(accountType: AccountType?): String? {
+        return accountType?.name
+    }
+
+    @TypeConverter
+    fun stringToAccountType(string: String?): AccountType? {
+        return string?.let { enumValueOf<AccountType>(it) }
+    }
+
     // Big Decimal
     @TypeConverter
     fun bigDecimalToString(bigDecimal: BigDecimal?): String? {
@@ -20,7 +31,7 @@ class Converters {
         return string?.toBigDecimalOrNull()
     }
 
-    // Category Types
+    // Category Type
     @TypeConverter
     fun categoryTypeToString(categoryType: CategoryType?): String? {
         return categoryType?.name
@@ -28,7 +39,7 @@ class Converters {
 
     @TypeConverter
     fun stringToCategoryType(string: String?): CategoryType? {
-        return string?.let { enumValueOf<CategoryType>(string) }
+        return string?.let { enumValueOf<CategoryType>(it) }
     }
 
     // Currency

@@ -16,7 +16,10 @@
     </style>
 
     <!-- Text -->
-    <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title" />
+    <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
+        <item name="fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:fontFamily">@font/barlow_condensed_regular</item>
+    </style>
 
     <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium" />
 

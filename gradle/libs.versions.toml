@@ -2,16 +2,18 @@
 agp = "8.3.2"
 kotlin = "1.9.23"
 ksp = "1.9.23-1.0.20"
-coreKtx = "1.13.0"
+coreKtx = "1.13.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
-material = "1.11.0"
+material = "1.12.0"
 navigationFragmentKtx = "2.7.7"
 navigationUiKtx = "2.7.7"
 room = "2.6.1"
 hilt = "2.51.1"
+currencyPicker = "1.1.0"
+colorPicker = "1.1.0"
 androidChart = "3.1.0"
 
 [libraries]
@@ -30,6 +32,8 @@ androidx-room-testing = { group = "androidx.room", name = "room-testing", versio
 hilt-android-core = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hilt" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
+ohjiho-currencypicker = { group = "dev.ohjiho", name = "currencypicker", version.ref = "currencyPicker" }
+ohjiho-colorpicker = { group = "dev.ohjiho", name = "colorpicker", version.ref = "colorPicker" }
 philjay-androidchart = { group = "com.github.PhilJay", name = "MPAndroidChart", version.ref = "androidChart" }
 
 [plugins]

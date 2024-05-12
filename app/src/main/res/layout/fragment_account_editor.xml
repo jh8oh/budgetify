@@ -1,6 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/fragment_account_editor_padding_horizontal"
+    android:paddingTop="@dimen/fragment_account_editor_padding_top">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_name_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_account_editor_name_margin_end"
+        app:layout_constraintEnd_toStartOf="@id/account_color"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fragment_account_editor_name_hint"
+            android:inputType="text"
+            android:textAppearance="@style/TextAppearance.Budgetify.BodyLarge" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/account_color"
+        android:layout_width="@dimen/fragment_account_editor_color_size"
+        android:layout_height="@dimen/fragment_account_editor_color_size"
+        android:contentDescription="@string/fragment_account_editor_color_content_description"
+        android:src="@drawable/color_picker_background"
+        app:layout_constraintBottom_toBottomOf="@id/account_name_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_name_container"
+        app:layout_constraintTop_toTopOf="@id/account_name_container" />
+
+    <TextView
+        android:id="@+id/account_starting_amount_label"
+        style="@style/TextAppearance.Budgetify.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_account_editor_starting_amount_margin_between"
+        android:labelFor="@id/account_starting_amount"
+        android:text="@string/fragment_account_editor_starting_amount_label"
+        app:layout_constraintBottom_toBottomOf="@id/account_starting_amount_container"
+        app:layout_constraintEnd_toStartOf="@id/account_starting_amount_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/account_starting_amount_container" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_starting_amount_container"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+        android:layout_marginEnd="@dimen/fragment_account_editor_starting_amount_margin_between"
+        app:layout_constraintEnd_toStartOf="@id/account_currency"
+        app:layout_constraintStart_toEndOf="@id/account_starting_amount_label"
+        app:layout_constraintTop_toBottomOf="@id/account_name_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_starting_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="numberDecimal"
+            android:text="@string/fragment_account_editor_starting_amount_text"
+            android:textAppearance="@style/TextAppearance.Budgetify.BodyLarge" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/account_currency"
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Budgetify.BodyLarge"
+        app:layout_constraintBottom_toBottomOf="@id/account_starting_amount_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/account_starting_amount_container"
+        tools:text="CAD" />
+
+    <TextView
+        android:id="@+id/account_type_label"
+        style="@style/TextAppearance.Budgetify.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_account_editor_type_label"
+        app:layout_constraintBottom_toBottomOf="@id/account_type"
+        app:layout_constraintEnd_toStartOf="@id/account_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/account_type" />
+
+    <Spinner
+        android:id="@+id/account_type"
+        style="@style/Widget.AppCompat.Spinner.DropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_account_editor_type_margin_start"
+        android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+        android:textAppearance="@style/TextAppearance.Budgetify.BodyLarge"
+        app:layout_constraintStart_toEndOf="@id/account_type_label"
+        app:layout_constraintTop_toBottomOf="@id/account_starting_amount_container" />
+
+    <Button
+        android:id="@+id/save_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+        android:text="@string/fragment_account_editor_save_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_type" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,18 +2,18 @@
     <string name="app_name">Budgetify</string>
 
     <!-- Set up content -->
-    <string name="content_set_up_back_button_label">Back</string>
-    <string name="content_set_up_next_button_label">Next</string>
+    <string name="content_set_up_back_button">Back</string>
+    <string name="content_set_up_next_button">Next</string>
 
     <!-- Set up welcome fragment -->
     <string name="fragment_set_up_welcome_greeting">Welcome</string>
     <string name="fragment_set_up_welcome_description">Please set up your expected income and your budget</string>
-    <string name="fragment_set_up_welcome_button_label">Get Started</string>
+    <string name="fragment_set_up_welcome_button">Get Started</string>
 
     <!-- Set up accounts fragment -->
     <string name="fragment_set_up_accounts_title">Set up your accounts</string>
     <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track. Feel free to edit any existing ones as needed.</string>
-    <string name="fragment_set_up_accounts_add_button_label">Add new account</string>
+    <string name="fragment_set_up_accounts_add_button">Add new account</string>
 
     <!-- Set up income fragment -->
     <string name="fragment_set_up_income_title">Add your monthly income</string>
@@ -24,9 +24,17 @@
     <!-- Set up budget fragment -->
     <string name="fragment_set_up_budget_title">Set up your budgets</string>
 
-    <!-- Currency Picker Dialog -->
-    <string name="dialog_currency_picker_search_hint">Search by name or 3 letter code</string>
+    <!-- Account editor fragment -->
+    <string name="fragment_account_editor_add_title">Add new account</string>
+    <string name="fragment_account_editor_edit_title">Edit account</string>
+    <string name="fragment_account_editor_name_hint">Name</string>
+    <string name="fragment_account_editor_color_content_description">Color</string>
+    <string name="fragment_account_editor_starting_amount_label">Initial account balance:</string>
+    <string name="fragment_account_editor_starting_amount_text">0</string>
+    <string name="fragment_account_editor_currency_hint">Currency</string>
+    <string name="fragment_account_editor_type_label">Account type:</string>
+    <string name="fragment_account_editor_save_button">Save</string>
 
-    <!-- Account -->
+    <!-- Account item -->
     <string name="item_account_favourite_content_description">Favourite</string>
 </resources>

@@ -8,10 +8,12 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.ohjiho.budgetify.data.local.BudgetifyDatabase
+import dev.ohjiho.budgetify.data.local.DatabaseInitializer
 import dev.ohjiho.budgetify.data.local.dao.AccountDao
 import dev.ohjiho.budgetify.data.local.dao.BudgetDao
 import dev.ohjiho.budgetify.data.local.dao.CategoryDao
 import dev.ohjiho.budgetify.data.local.dao.TransactionDao
+import javax.inject.Provider
 import javax.inject.Singleton
 
 @Module
@@ -21,12 +23,12 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): BudgetifyDatabase {
+    fun provideDatabase(@ApplicationContext context: Context, accountProvider: Provider<AccountDao>): BudgetifyDatabase {
         return Room.databaseBuilder(
             context.applicationContext,
             BudgetifyDatabase::class.java,
             BUDGETIFY_DATABASE_NAME
-        ).build()
+        ).addCallback(DatabaseInitializer(accountProvider)).build()
     }
 
     @Provides

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -20,10 +19,26 @@
         android:layout_height="180dp"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_app_icon"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/background_end_guideline"
         app:layout_constraintEnd_toEndOf="@id/background"
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="@id/background" />
+
+    <ImageView
+        android:id="@+id/app_bar_back"
+        android:layout_width="@dimen/content_set_up_app_bar_back_size"
+        android:layout_height="@dimen/content_set_up_app_bar_back_size"
+        android:layout_marginStart="@dimen/content_set_up_app_bar_back_margin_start"
+        android:background="@drawable/circular_selectable_item_background"
+        android:contentDescription="@string/content_set_up_back_button"
+        android:padding="4dp"
+        android:src="@drawable/ic_back"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/background_start_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
 
     <TextView
         android:id="@+id/title"
@@ -31,15 +46,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/content_set_up_title_margin_start"
+        android:textAllCaps="true"
         android:textColor="?colorOnPrimary"
         app:layout_constraintBottom_toBottomOf="@id/background_start_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@id/app_bar_back"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_goneMarginStart="@dimen/content_set_up_title_gone_margin_start" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/background_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        app:layout_constraintGuide_begin="0dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -64,40 +82,34 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginHorizontal="@dimen/content_set_up_content_margin_horizontal"
-        android:layout_marginTop="@dimen/content_set_up_content_margin_top"
-        android:layout_marginBottom="@dimen/content_set_up_content_margin_bottom"
-        app:layout_constraintBottom_toTopOf="@id/button_container"
+        app:layout_constraintBottom_toTopOf="@id/next_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@id/background_end_guideline"
         app:navGraph="@navigation/set_up_nav_graph" />
 
-    <LinearLayout
-        android:id="@+id/button_container"
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Theme.Budgetify.Button.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/content_set_up_button_margin_between"
+        android:text="@string/content_set_up_back_button"
+        app:layout_constraintBottom_toBottomOf="@id/next_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/next_button" />
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/Theme.Budgetify.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/content_set_up_margin_bottom"
+        android:text="@string/content_set_up_next_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/back_button"
-            style="@style/Theme.Budgetify.Button.Outlined"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/content_set_up_button_margin_between"
-            android:text="@string/content_set_up_back_button_label"
-            android:visibility="gone" />
-
-        <Button
-            android:id="@+id/next_button"
-            style="@style/Theme.Budgetify.Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/fragment_set_up_welcome_button_label"
-            tools:ignore="ButtonStyle" />
-    </LinearLayout>
+        app:layout_constraintStart_toEndOf="@id/back_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

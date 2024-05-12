@@ -7,7 +7,7 @@ import dev.ohjiho.budgetify.data.model.CategoryType
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-interface CategoryRepository {
+interface CategoryRepository : BaseRepository<CategoryEntity> {
     fun getCategories(categoryType: CategoryType): Flow<List<Category>>
 }
 

@@ -12,12 +12,10 @@ import java.math.BigDecimal
 @Dao
 interface TransactionDao : BaseDao<TransactionEntity> {
     /**
-     * Returns this transaction's amount
-     *
-     * @param uid Transaction's unique ID
+     * Returns a specific transaction based on uid
      */
-    @Query("SELECT amount FROM transactions WHERE uid = :uid")
-    suspend fun getTransactionAmount(uid: Int): BigDecimal
+    @Query("SELECT * FROM transactions WHERE uid = :uid")
+    suspend fun getTransaction(uid: Int): TransactionEntity
 
     /**
      * Returns a list of transactions that falls under the account

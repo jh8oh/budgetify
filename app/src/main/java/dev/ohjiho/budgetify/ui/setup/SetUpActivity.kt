@@ -10,12 +10,15 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.R
+import dev.ohjiho.budgetify.data.model.Account
 import dev.ohjiho.budgetify.databinding.ContentSetUpBinding
 import dev.ohjiho.budgetify.util.ScreenMetricsCompat
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class SetUpActivity : AppCompatActivity() {
 
     private val viewModel: SetUpViewModel by viewModels()
@@ -50,9 +53,11 @@ class SetUpActivity : AppCompatActivity() {
     private var fiftyHeight by Delegates.notNull<Int>()
     private var sixtyHeight by Delegates.notNull<Int>()
 
-    private val nextButtonWelcomeText by lazy { resources.getString(R.string.fragment_set_up_welcome_button_label) }
-    private val nextButtonText by lazy { resources.getString(R.string.content_set_up_next_button_label) }
+    private val nextButtonWelcomeText by lazy { resources.getString(R.string.fragment_set_up_welcome_button) }
+    private val nextButtonText by lazy { resources.getString(R.string.content_set_up_next_button) }
     private val accountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
+    private val accountAddTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
+    private val accountEditTitle by lazy { resources.getString(R.string.fragment_account_editor_edit_title) }
     private val incomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
     private val budgetTitle by lazy { resources.getString(R.string.fragment_set_up_budget_title) }
 
@@ -74,11 +79,12 @@ class SetUpActivity : AppCompatActivity() {
         binding.backgroundEndGuideline.setGuidelineBegin(sixtyHeight)
 
         lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.RESUMED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect { uiState ->
                     when (uiState.screen) {
                         SetUpUiScreen.WELCOME -> showWelcomeScreen()
                         SetUpUiScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
+                        SetUpUiScreen.ACCOUNT_EDITOR -> showAccountEditorScreen(uiState.editingAccount)
                         SetUpUiScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpUiScreen.SET_UP_BUDGET -> showBudgetScreen()
                     }
@@ -98,15 +104,19 @@ class SetUpActivity : AppCompatActivity() {
             backgroundEndGuidelineAnimator.reverse()
         }
 
-        binding.appIcon.visibility = View.VISIBLE
-        binding.title.visibility = View.GONE
-        binding.backButton.visibility = View.GONE
-        binding.nextButton.apply {
-            text = nextButtonWelcomeText
-            setOnClickListener {
-                viewModel.nextScreen()
-                binding.setUpNavHostFragment.findNavController()
-                    .navigate(R.id.action_nav_fragment_set_up_welcome_to_nav_fragment_set_up_accounts)
+        with(binding) {
+            appIcon.visibility = View.VISIBLE
+            appBarBack.visibility = View.GONE
+            title.visibility = View.GONE
+
+            backButton.visibility = View.GONE
+            nextButton.apply {
+                text = nextButtonWelcomeText
+                setOnClickListener {
+                    viewModel.nextScreen()
+                    binding.setUpNavHostFragment.findNavController()
+                        .navigate(R.id.action_nav_fragment_set_up_welcome_to_nav_fragment_set_up_accounts)
+                }
             }
         }
     }
@@ -117,55 +127,105 @@ class SetUpActivity : AppCompatActivity() {
             backgroundEndGuidelineAnimator.start()
         }
 
-        binding.appIcon.visibility = View.GONE
-        binding.title.apply {
-            visibility = View.VISIBLE
-            text = accountsTitle
-        }
-        binding.backButton.apply {
-            visibility = View.VISIBLE
-            setOnClickListener {
-                viewModel.onBackPressed()
-                binding.setUpNavHostFragment.findNavController()
-                    .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_welcome)
+        with(binding) {
+            appIcon.visibility = View.GONE
+            appBarBack.visibility = View.GONE
+            title.apply {
+                visibility = View.VISIBLE
+                text = accountsTitle
+            }
+
+            backButton.apply {
+                visibility = View.VISIBLE
+                setOnClickListener {
+                    viewModel.onBackPressed()
+                    binding.setUpNavHostFragment.findNavController()
+                        .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_welcome)
+                }
+            }
+            nextButton.apply {
+                visibility = View.VISIBLE
+                text = nextButtonText
+                setOnClickListener {
+                    if (viewModel.nextScreen()) {
+                        binding.setUpNavHostFragment.findNavController()
+                            .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_income)
+                    }
+                }
             }
         }
-        binding.nextButton.apply {
-            text = nextButtonText
-            setOnClickListener {
-                //TODO Check accounts all OK
-                viewModel.nextScreen()
-                binding.setUpNavHostFragment.findNavController()
-                    .navigate(R.id.action_nav_fragment_set_up_accounts_to_nav_fragment_set_up_income)
+    }
+
+    private fun showAccountEditorScreen(account: Account?) {
+        if (backgroundStartGuidelineAnimator.animatedFraction != 1f) {
+            backgroundStartGuidelineAnimator.start()
+            backgroundEndGuidelineAnimator.start()
+        }
+
+        with(binding) {
+            appBarBack.apply {
+                visibility = View.VISIBLE
+                if (!hasOnClickListeners()) {
+                    setOnClickListener {
+                        viewModel.onBackPressed()
+                        binding.setUpNavHostFragment.findNavController()
+                            .navigate(R.id.action_nav_fragment_set_up_account_editor_to_nav_fragment_set_up_accounts)
+                    }
+                }
             }
+            title.apply {
+                visibility = View.VISIBLE
+                text = account?.let { accountEditTitle } ?: accountAddTitle
+            }
+
+            backButton.visibility = View.GONE
+            nextButton.visibility = View.GONE
         }
     }
 
     private fun showIncomeScreen() {
-        binding.title.text = incomeTitle
-
-        binding.backButton.setOnClickListener {
-            viewModel.onBackPressed()
-            binding.setUpNavHostFragment.findNavController()
-                .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_accounts)
-        }
-        binding.nextButton.setOnClickListener {
-            // TODO Check income all OK
-            viewModel.nextScreen()
-            binding.setUpNavHostFragment.findNavController()
-                .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_budget)
+        if (backgroundStartGuidelineAnimator.animatedFraction != 1f) {
+            backgroundStartGuidelineAnimator.start()
+            backgroundEndGuidelineAnimator.start()
         }
 
+        with(binding) {
+            title.apply {
+                visibility = View.VISIBLE
+                text = incomeTitle
+            }
+
+            backButton.setOnClickListener {
+                viewModel.onBackPressed()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_accounts)
+            }
+            nextButton.setOnClickListener {
+                viewModel.nextScreen()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_income_to_nav_fragment_set_up_budget)
+            }
+        }
     }
 
     private fun showBudgetScreen() {
-        binding.backButton.setOnClickListener {
-            viewModel.onBackPressed()
-            binding.setUpNavHostFragment.findNavController()
-                .navigate(R.id.action_nav_fragment_set_up_budget_to_nav_fragment_set_up_income)
+        if (backgroundStartGuidelineAnimator.animatedFraction != 1f) {
+            backgroundStartGuidelineAnimator.start()
+            backgroundEndGuidelineAnimator.start()
         }
-        binding.nextButton.setOnClickListener {
-            // TODO
+
+        with(binding) {
+            backgroundStartGuideline.setGuidelineBegin(actionBarSize)
+            backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+
+            backButton.setOnClickListener {
+                viewModel.onBackPressed()
+                binding.setUpNavHostFragment.findNavController()
+                    .navigate(R.id.action_nav_fragment_set_up_budget_to_nav_fragment_set_up_income)
+            }
+            nextButton.setOnClickListener {
+                // TODO
+            }
         }
     }
 }
