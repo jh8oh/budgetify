@@ -43,6 +43,11 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
+    // Modules
+    implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
+    implementation(project(":feature:setup"))
+
     // Room
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
