@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Buttons -->
+    <style name="Theme.Budgetify.Button" parent="@style/Widget.MaterialComponents.Button">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+    </style>
+
+    <!-- Text -->
+    <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
+        <item name="android:textAllCaps">true</item>
+        <item name="textAllCaps">true</item>
+        <item name="fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:fontFamily">@font/barlow_condensed_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:fontFamily">@font/barlow_condensed_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.HeadlineSmall" parent="TextAppearance.Material3.HeadlineSmall">
+        <item name="fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:fontFamily">@font/barlow_condensed_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Label" parent="@style/TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+</resources>

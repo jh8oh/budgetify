@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -17,6 +17,9 @@ android {
         release {
             isMinifyEnabled = false
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,5 +38,17 @@ dependencies {
     androidTestApi(libs.androidx.junit)
     androidTestApi(libs.androidx.espresso.core)
 
-    implementation(project(":core:theme"))
+    // Activity
+    api(libs.androidx.activity.ktx)
+
+    // Lifecycle
+    api(libs.androidx.lifecycle.runtime)
+    api(libs.androidx.lifecycle.viewmodel)
+
+    // Hilt
+    api(libs.hilt.android.core)
+
+    // Modules
+    api(project(":core:theme"))
+    api(project(":core:utils"))
 }
