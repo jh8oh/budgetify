@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="set_up_margin_bottom">24dp</dimen>
+
+    <dimen name="fragment_welcome_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_welcome_greeting_margin_bottom">8dp</dimen>
 </resources>

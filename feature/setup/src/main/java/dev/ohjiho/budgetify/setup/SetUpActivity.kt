@@ -107,6 +107,7 @@ class SetUpActivity : AppCompatActivity() {
             binding.backgroundEndGuideline.setGuidelineBegin(fiftyFiveHeight)
         }
 
+        binding.appIcon.visibility = View.VISIBLE
         binding.backButton.visibility = View.GONE
         binding.nextButton.text = welcomeNextButtonText
 
@@ -124,6 +125,7 @@ class SetUpActivity : AppCompatActivity() {
             binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
         }
 
+        binding.appIcon.visibility = View.GONE
         binding.backButton.visibility = View.VISIBLE
         binding.nextButton.text = nextButtonText
 
