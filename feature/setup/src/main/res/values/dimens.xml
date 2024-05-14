@@ -4,4 +4,14 @@
 
     <dimen name="fragment_welcome_padding_horizontal">16dp</dimen>
     <dimen name="fragment_welcome_greeting_margin_bottom">8dp</dimen>
+
+    <dimen name="fragment_set_up_accounts_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_set_up_accounts_description_margin_top">16dp</dimen>
+    <dimen name="fragment_set_up_accounts_recyclerview_margin_top">16dp</dimen>
+    <dimen name="fragment_set_up_accounts_add_account_button_margin_top">12dp</dimen>
+
+    <dimen name="item_account_height">65dp</dimen>
+    <dimen name="item_account_color_width">8dp</dimen>
+    <dimen name="item_account_name_margin_start">12dp</dimen>
+    <dimen name="item_account_current_amount_margin_end">8dp</dimen>
 </resources>

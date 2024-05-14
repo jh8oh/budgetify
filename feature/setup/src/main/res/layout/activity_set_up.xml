@@ -26,6 +26,17 @@
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="@id/background" />
 
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.Budgetify.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="?colorOnPrimary"
+        app:layout_constraintBottom_toTopOf="@id/background_start_guideline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/background_start_guideline"
         android:layout_width="wrap_content"

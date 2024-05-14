@@ -18,7 +18,7 @@ data class SetUpUiState(
 )
 
 @HiltViewModel
-class SetUpViewModel : ViewModel() {
+internal class SetUpViewModel : ViewModel() {
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
 
     val uiState = combine(screen) { screen ->

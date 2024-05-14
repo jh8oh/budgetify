@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dev.ohjiho.budgetify.setup.accounts.SetUpAccountsFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ScreenMetricsCompat
 import kotlinx.coroutines.launch
@@ -55,6 +56,7 @@ class SetUpActivity : AppCompatActivity() {
 
     private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
     private val nextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
+    private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
@@ -108,6 +110,7 @@ class SetUpActivity : AppCompatActivity() {
         }
 
         binding.appIcon.visibility = View.VISIBLE
+        binding.title.visibility = View.GONE
         binding.backButton.visibility = View.GONE
         binding.nextButton.text = welcomeNextButtonText
 
@@ -126,6 +129,10 @@ class SetUpActivity : AppCompatActivity() {
         }
 
         binding.appIcon.visibility = View.GONE
+        binding.title.apply {
+            visibility = View.VISIBLE
+            text = setUpAccountsTitle
+        }
         binding.backButton.visibility = View.VISIBLE
         binding.nextButton.text = nextButtonText
 
