@@ -23,4 +23,6 @@ rootProject.name = "Budgetify"
 include(":app")
 include(":core:theme")
 include(":core:utils")
+include(":data")
 include(":feature:setup")
+include(":domain")

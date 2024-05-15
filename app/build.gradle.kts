@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.ksp)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
 }
@@ -22,7 +21,7 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -43,20 +42,14 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Modules
-    implementation(project(":core:theme"))
-    implementation(project(":core:utils"))
-    implementation(project(":feature:setup"))
-
-    // Room
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.room.ktx)
-    ksp(libs.androidx.room.compiler)
-    androidTestImplementation(libs.androidx.room.testing)
-
     // Hilt
     implementation(libs.hilt.android.core)
     kapt(libs.hilt.compiler)
-    testImplementation(libs.hilt.android.testing)
-    kaptTest(libs.hilt.compiler)
+
+    // Modules
+    implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":feature:setup"))
 }

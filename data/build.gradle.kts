@@ -1,14 +1,17 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "dev.ohjiho.budgetify.utils"
+    namespace = "dev.ohjiho.budgetify.data"
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,4 +36,20 @@ dependencies {
     testApi(libs.junit)
     androidTestApi(libs.androidx.junit)
     androidTestApi(libs.androidx.espresso.core)
+
+    // Room
+    api(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    api(libs.androidx.room.ktx)
+    testApi(libs.androidx.room.testing)
+
+    // Hilt
+    api(libs.hilt.android.core)
+    kapt(libs.hilt.compiler)
+    testApi(libs.hilt.android.testing)
+    kaptTest(libs.hilt.compiler)
+
+    // Modules
+    api(project(":domain"))
+    api(project(":core:utils"))
 }
