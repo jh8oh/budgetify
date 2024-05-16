@@ -28,5 +28,5 @@ android {
 }
 
 dependencies {
-    api(libs.material)
+    implementation(libs.material)
 }

@@ -1,18 +1,16 @@
-package com.ohjiho.budgetify
+package com.ohjiho.budgetify.splash
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.budgetify.data.sharedprefs.SetUpSharedPrefs
 import dev.ohjiho.budgetify.setup.SetUpActivity
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity: AppCompatActivity() {
+class SplashActivity : AppCompatActivity() {
 
-    @Inject
-    internal lateinit var setUpSharedPrefs: SetUpSharedPrefs
+    private val viewModel: SplashViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +18,7 @@ class MainActivity: AppCompatActivity() {
     }
 
     private fun checkIfSetUp() {
-        val isSetUp = setUpSharedPrefs.isSetUp
+        val isSetUp = viewModel.isSetUp
         if (!isSetUp) {
             startActivity(Intent(this, SetUpActivity::class.java))
             finish()

@@ -20,7 +20,7 @@ data class SetUpUiState(
 )
 
 @HiltViewModel
-internal class SetUpViewModel @Inject constructor(accountRepository: AccountRepository) : ViewModel() {
+internal class SetUpViewModel @Inject constructor(private val accountRepository: AccountRepository) : ViewModel() {
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
 
     val uiState = combine(screen) { screen ->

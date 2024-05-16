@@ -2,9 +2,9 @@ package dev.ohjiho.budgetify.data.repository
 
 import androidx.annotation.WorkerThread
 import dev.ohjiho.budgetify.data.room.dao.BaseDao
-import dev.ohjiho.budgetify.domain.repository.BaseRepository
+import dev.ohjiho.budgetify.domain.repository.BaseRoomRepository
 
-abstract class BaseRepositoryImpl<E, D : BaseDao<E>>(private val dao: D): BaseRepository<E> {
+internal abstract class BaseRoomRepositoryImpl<E, D : BaseDao<E>>(private val dao: D): BaseRoomRepository<E> {
 
     @WorkerThread
     override suspend fun insert(entity: E): Long {

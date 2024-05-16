@@ -31,25 +31,25 @@ android {
 }
 
 dependencies {
-    api(libs.androidx.core.ktx)
-    api(libs.androidx.appcompat)
-    testApi(libs.junit)
-    androidTestApi(libs.androidx.junit)
-    androidTestApi(libs.androidx.espresso.core)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
     // Room
-    api(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.runtime)
     ksp(libs.androidx.room.compiler)
-    api(libs.androidx.room.ktx)
-    testApi(libs.androidx.room.testing)
+    implementation(libs.androidx.room.ktx)
+    testImplementation(libs.androidx.room.testing)
 
     // Hilt
-    api(libs.hilt.android.core)
+    implementation(libs.hilt.android.core)
     kapt(libs.hilt.compiler)
-    testApi(libs.hilt.android.testing)
+    testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
 
     // Modules
-    api(project(":domain"))
-    api(project(":core:utils"))
+    implementation(project(":domain"))
+    implementation(project(":core:utils"))
 }

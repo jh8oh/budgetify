@@ -6,7 +6,7 @@ import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class AccountRepositoryImpl @Inject constructor(private val dao: AccountDao) : BaseRepositoryImpl<AccountEntity, AccountDao>(dao),
+internal class AccountRepositoryImpl @Inject constructor(private val dao: AccountDao) : BaseRoomRepositoryImpl<AccountEntity, AccountDao>(dao),
     AccountRepository {
     override suspend fun update(entity: AccountEntity) {
         val prevAccount = dao.getAccount(entity.uid)

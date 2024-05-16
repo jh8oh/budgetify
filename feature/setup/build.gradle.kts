@@ -33,28 +33,28 @@ android {
 }
 
 dependencies {
-    api(libs.androidx.core.ktx)
-    api(libs.androidx.appcompat)
-    api(libs.material)
-    testApi(libs.junit)
-    androidTestApi(libs.androidx.junit)
-    androidTestApi(libs.androidx.espresso.core)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
     // Activity
-    api(libs.androidx.activity.ktx)
+    implementation(libs.androidx.activity.ktx)
 
     // Lifecycle
-    api(libs.androidx.lifecycle.runtime)
-    api(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
 
     // Hilt
-    api(libs.hilt.android.core)
+    implementation(libs.hilt.android.core)
     kapt(libs.hilt.compiler)
-    testApi(libs.hilt.android.testing)
+    testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
 
     // Modules
-    api(project(":core:theme"))
-    api(project(":core:utils"))
-    api(project(":domain"))
+    implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
+    implementation(project(":domain"))
 }
