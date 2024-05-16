@@ -21,8 +21,8 @@ dependencyResolutionManagement {
 
 rootProject.name = "Budgetify"
 include(":app")
-include(":core:theme")
 include(":core:utils")
+include(":core:theme")
 include(":data")
-include(":feature:setup")
 include(":domain")
+include(":feature:setup")
