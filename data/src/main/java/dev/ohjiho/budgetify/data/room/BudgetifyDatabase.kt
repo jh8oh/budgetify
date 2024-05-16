@@ -1,10 +1,10 @@
-package dev.ohjiho.budgetify.data.local
+package dev.ohjiho.budgetify.data.room
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import dev.ohjiho.budgetify.data.local.dao.AccountDao
-import dev.ohjiho.budgetify.data.local.util.Converters
+import dev.ohjiho.budgetify.data.room.dao.AccountDao
+import dev.ohjiho.budgetify.data.room.util.Converters
 import dev.ohjiho.budgetify.domain.model.AccountEntity
 
 @Database(

@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.data.local.dao
+package dev.ohjiho.budgetify.data.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query

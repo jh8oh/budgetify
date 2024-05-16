@@ -1,6 +1,6 @@
 package dev.ohjiho.budgetify.data.repository
 
-import dev.ohjiho.budgetify.data.local.dao.AccountDao
+import dev.ohjiho.budgetify.data.room.dao.AccountDao
 import dev.ohjiho.budgetify.domain.model.AccountEntity
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow

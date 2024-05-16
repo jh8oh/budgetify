@@ -3,19 +3,24 @@ package com.ohjiho.budgetify
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
+import dev.ohjiho.budgetify.data.sharedprefs.SetUpSharedPrefs
 import dev.ohjiho.budgetify.setup.SetUpActivity
-import dev.ohjiho.budgetify.utils.IS_SET_UP_KEY
-import dev.ohjiho.budgetify.utils.SET_UP_SHARED_PREF
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity: AppCompatActivity() {
+
+    @Inject
+    internal lateinit var setUpSharedPrefs: SetUpSharedPrefs
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkIfSetUp()
     }
 
     private fun checkIfSetUp() {
-        val sharedPreferences = getSharedPreferences(SET_UP_SHARED_PREF, MODE_PRIVATE)
-        val isSetUp = sharedPreferences.getBoolean(IS_SET_UP_KEY, false)
+        val isSetUp = setUpSharedPrefs.isSetUp
         if (!isSetUp) {
             startActivity(Intent(this, SetUpActivity::class.java))
             finish()

@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.data.local.dao
+package dev.ohjiho.budgetify.data.room.dao
 
 import androidx.room.Delete
 import androidx.room.Insert

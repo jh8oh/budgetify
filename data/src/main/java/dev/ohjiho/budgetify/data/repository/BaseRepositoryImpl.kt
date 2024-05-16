@@ -1,7 +1,7 @@
 package dev.ohjiho.budgetify.data.repository
 
 import androidx.annotation.WorkerThread
-import dev.ohjiho.budgetify.data.local.dao.BaseDao
+import dev.ohjiho.budgetify.data.room.dao.BaseDao
 import dev.ohjiho.budgetify.domain.repository.BaseRepository
 
 abstract class BaseRepositoryImpl<E, D : BaseDao<E>>(private val dao: D): BaseRepository<E> {
