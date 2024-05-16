@@ -1,4 +1,4 @@
-package com.ohjiho.budgetify.injection
+package dev.ohjiho.budgetify.data.injection
 
 import dagger.Binds
 import dagger.Module

@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.setup.accounts.SetUpAccountsFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ScreenMetricsCompat
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
+@AndroidEntryPoint
 class SetUpActivity : AppCompatActivity() {
 
     private val viewModel: SetUpViewModel by viewModels()

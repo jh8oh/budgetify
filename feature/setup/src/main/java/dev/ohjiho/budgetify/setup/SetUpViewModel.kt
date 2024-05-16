@@ -3,11 +3,13 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.utils.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import javax.inject.Inject
 
 enum class SetUpScreen {
     WELCOME, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_BUDGET
@@ -18,7 +20,7 @@ data class SetUpUiState(
 )
 
 @HiltViewModel
-internal class SetUpViewModel : ViewModel() {
+internal class SetUpViewModel @Inject constructor(accountRepository: AccountRepository) : ViewModel() {
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
 
     val uiState = combine(screen) { screen ->

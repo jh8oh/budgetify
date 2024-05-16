@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kapt)
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -47,8 +49,12 @@ dependencies {
 
     // Hilt
     api(libs.hilt.android.core)
+    kapt(libs.hilt.compiler)
+    testApi(libs.hilt.android.testing)
+    kaptTest(libs.hilt.compiler)
 
     // Modules
     api(project(":core:theme"))
     api(project(":core:utils"))
+    api(project(":domain"))
 }
