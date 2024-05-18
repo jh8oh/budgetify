@@ -3,8 +3,9 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.model.AccountEntity
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
-import dev.ohjiho.budgetify.utils.WhileUiSubscribed
+import dev.ohjiho.budgetify.utils.ui.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
@@ -17,14 +18,16 @@ enum class SetUpScreen {
 
 data class SetUpUiState(
     val screen: SetUpScreen = SetUpScreen.WELCOME,
+    val accounts: List<AccountEntity> = emptyList(),
 )
 
 @HiltViewModel
-internal class SetUpViewModel @Inject constructor(private val accountRepository: AccountRepository) : ViewModel() {
+internal class SetUpViewModel @Inject constructor(accountRepository: AccountRepository) : ViewModel() {
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
+    private val accounts = accountRepository.getAllAccounts()
 
-    val uiState = combine(screen) { screen ->
-        SetUpUiState(screen = screen[0])
+    val uiState = combine(screen, accounts) { screen, accounts ->
+        SetUpUiState(screen = screen, accounts = accounts)
     }.stateIn(viewModelScope, WhileUiSubscribed, SetUpUiState())
 
     fun onBackPressed(): Boolean {
@@ -57,14 +60,17 @@ internal class SetUpViewModel @Inject constructor(private val accountRepository:
                 screen.update { SetUpScreen.SET_UP_ACCOUNTS }
                 false
             }
+
             SetUpScreen.SET_UP_ACCOUNTS -> {
                 screen.update { SetUpScreen.SET_UP_INCOME }
                 false
             }
+
             SetUpScreen.SET_UP_INCOME -> {
                 screen.update { SetUpScreen.SET_UP_BUDGET }
                 false
             }
+
             else -> true
         }
     }

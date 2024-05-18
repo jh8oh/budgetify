@@ -4,7 +4,7 @@ import android.content.SharedPreferences
 
 internal class SetUpSharedPrefs(private val sharedPrefs: SharedPreferences) {
     companion object {
-        const val SET_UP_SHARED_PREF = "SetUpSharedPref"
+        const val SET_UP_SHARED_PREFS = "SetUpSharedPrefs"
         private const val IS_SET_UP_KEY = "IsSetUp"
     }
 

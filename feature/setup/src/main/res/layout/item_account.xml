@@ -28,7 +28,7 @@
         tools:text="Chequing" />
 
     <TextView
-        android:id="@+id/account_current_amount"
+        android:id="@+id/account_balance"
         style="@style/TextAppearance.Budgetify.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

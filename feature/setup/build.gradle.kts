@@ -43,6 +43,9 @@ dependencies {
     // Activity
     implementation(libs.androidx.activity.ktx)
 
+    // Fragment
+    implementation(libs.androidx.fragment.ktx)
+
     // Lifecycle
     implementation(libs.androidx.lifecycle.runtime)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -56,5 +59,6 @@ dependencies {
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
+    implementation(project(":core:component"))
     implementation(project(":domain"))
 }

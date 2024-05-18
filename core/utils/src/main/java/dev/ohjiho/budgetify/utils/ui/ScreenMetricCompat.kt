@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.utils
+package dev.ohjiho.budgetify.utils.ui
 
 import android.content.Context
 import android.content.res.Resources

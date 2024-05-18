@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.utils
+package dev.ohjiho.budgetify.utils.data
 
 import android.content.Context
 import java.util.Locale

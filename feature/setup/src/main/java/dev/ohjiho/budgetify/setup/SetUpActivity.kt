@@ -14,7 +14,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.setup.accounts.SetUpAccountsFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
-import dev.ohjiho.budgetify.utils.ScreenMetricsCompat
+import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
