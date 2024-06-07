@@ -3,9 +3,9 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:paddingHorizontal="@dimen/fragment_welcome_padding_horizontal"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/fragment_welcome_padding_horizontal">
 
     <TextView
         style="@style/TextAppearance.Budgetify.HeadlineLarge"

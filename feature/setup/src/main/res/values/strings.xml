@@ -7,6 +7,9 @@
     <string name="fragment_welcome_description">Please enter your expected income and your budget in order to start tracking your spending</string>
     <string name="fragment_welcome_next_button">Get Started</string>
 
+    <string name="fragment_set_up_currency_title">Set your currency</string>
+    <string name="fragment_set_up_currency_default_description">Please set your default currency. Not all your accounts have to use this currency.</string>
+
     <string name="fragment_set_up_accounts_title">Set up your accounts</string>
     <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track. Feel free to edit any existing ones as needed.</string>
     <string name="fragment_set_up_accounts_add_button">Add new account</string>

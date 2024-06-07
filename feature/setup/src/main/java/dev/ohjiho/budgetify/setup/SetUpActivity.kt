@@ -13,6 +13,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.setup.accounts.SetUpAccountsFragment
+import dev.ohjiho.budgetify.setup.currency.SetUpCurrencyFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import kotlinx.coroutines.launch
@@ -58,6 +59,7 @@ class SetUpActivity : AppCompatActivity() {
 
     private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
     private val nextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
+    private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
 
     companion object {
@@ -79,6 +81,7 @@ class SetUpActivity : AppCompatActivity() {
                 viewModel.uiState.collect {
                     when (it.screen) {
                         SetUpScreen.WELCOME -> showWelcomeScreen()
+                        SetUpScreen.SET_UP_CURRENCY -> showCurrencyScreen()
                         SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpScreen.SET_UP_BUDGET -> showBudgetsScreen()
@@ -104,7 +107,7 @@ class SetUpActivity : AppCompatActivity() {
 
     @SuppressLint("CommitTransaction")
     private fun showWelcomeScreen() {
-        if (prevScreen == SetUpScreen.SET_UP_ACCOUNTS) {
+        if (prevScreen == SetUpScreen.SET_UP_CURRENCY) {
             backgroundGuidelineAnimator.reverse()
         } else {
             binding.backgroundStartGuideline.setGuidelineBegin(fortyFiveHeight)
@@ -122,7 +125,7 @@ class SetUpActivity : AppCompatActivity() {
     }
 
     @SuppressLint("CommitTransaction")
-    private fun showAccountsScreen() {
+    private fun showCurrencyScreen() {
         if (prevScreen == SetUpScreen.WELCOME) {
             backgroundGuidelineAnimator.start()
         } else {
@@ -133,10 +136,22 @@ class SetUpActivity : AppCompatActivity() {
         binding.appIcon.visibility = View.GONE
         binding.title.apply {
             visibility = View.VISIBLE
-            text = setUpAccountsTitle
+            text = setUpCurrencyTitle
         }
         binding.backButton.visibility = View.VISIBLE
         binding.nextButton.text = nextButtonText
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpCurrencyFragment()).commit()
+
+        prevScreen = SetUpScreen.SET_UP_CURRENCY
+    }
+
+    @SuppressLint("CommitTransaction")
+    private fun showAccountsScreen() {
+        binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
+        binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+
+        binding.title.text = setUpAccountsTitle
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpAccountsFragment()).commit()
 

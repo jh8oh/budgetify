@@ -56,6 +56,8 @@ dependencies {
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
 
+    implementation(libs.ohjiho.currencypicker)
+
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
