@@ -16,7 +16,7 @@ import java.util.Currency
 import javax.inject.Inject
 
 enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_BUDGET
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR_ADD, ACCOUNT_EDITOR_UPDATE, SET_UP_INCOME, SET_UP_BUDGET
 }
 
 data class SetUpUiState(
@@ -32,13 +32,15 @@ internal class SetUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
-    private val defaultCurrency = currencyRepository.getDefaultCurrency()
+    private val defaultCurrency = currencyRepository.getDefaultCurrencyAsFlow()
     private val accounts = accountRepository.getAllAccounts()
+    var editingAccountId: Int? = null
 
     val uiState = combine(screen, defaultCurrency, accounts) { screen, defaultCurrency, accounts ->
         SetUpUiState(screen = screen, defaultCurrency = defaultCurrency, accounts = accounts)
     }.stateIn(viewModelScope, WhileUiSubscribed, SetUpUiState())
 
+    // Screen
     fun onBackPressed(): Boolean {
         val currentScreen = uiState.value.screen
 
@@ -52,6 +54,16 @@ internal class SetUpViewModel @Inject constructor(
 
             SetUpScreen.SET_UP_ACCOUNTS -> {
                 screen.update { SetUpScreen.SET_UP_CURRENCY }
+                false
+            }
+
+            SetUpScreen.ACCOUNT_EDITOR_ADD -> {
+                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
+                false
+            }
+
+            SetUpScreen.ACCOUNT_EDITOR_UPDATE -> {
+                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
                 false
             }
 
@@ -91,10 +103,23 @@ internal class SetUpViewModel @Inject constructor(
             }
 
             SetUpScreen.SET_UP_BUDGET -> true
+
+            else -> false
         }
     }
 
+    // Default Currency
     fun setDefaultCurrency(currency: Currency) {
         currencyRepository.setDefaultCurrency(currency)
+    }
+
+    // Editing Account
+    fun addOrUpdateAccount(accountId: Int?) {
+        editingAccountId = accountId
+        if (accountId == null) {
+            screen.update { SetUpScreen.ACCOUNT_EDITOR_ADD }
+        } else {
+            screen.update { SetUpScreen.ACCOUNT_EDITOR_UPDATE }
+        }
     }
 }

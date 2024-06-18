@@ -1,24 +1,21 @@
-package dev.ohjiho.budgetify.setup.accounts
+package dev.ohjiho.account.recyclerview
 
 import android.annotation.SuppressLint
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import dev.ohjiho.account.databinding.ItemAccountBinding
 import dev.ohjiho.budgetify.domain.model.AccountEntity
-import dev.ohjiho.budgetify.setup.databinding.ItemAccountBinding
-import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
-internal class SetUpAccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
-    RecyclerView.Adapter<SetUpAccountsAdapter.ViewHolder>() {
+internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
+    RecyclerView.Adapter<AccountsAdapter.ViewHolder>() {
 
     private var accountList = listOf<AccountEntity>()
 
     inner class ViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(account: AccountEntity) {
-            binding.accountColor.setBackgroundColor(Color.parseColor(account.color))
-            binding.accountName.text = account.name
-            binding.accountBalance.text = account.balance.toCurrencyFormat(account.currency, binding.root.context)
+            binding.account = account
+            binding.root.setOnClickListener { onClick(account) }
         }
     }
 
@@ -35,7 +32,7 @@ internal class SetUpAccountsAdapter(private val onClick: (AccountEntity) -> Unit
     @SuppressLint("NotifyDataSetChanged")
     fun setAccountList(newAccountList: List<AccountEntity>) {
         // TODO Create diff util so that we don't have to use notifyDataSetChanged()
-        accountList = newAccountList
+        accountList = newAccountList.sortedBy { it.previousId }
         notifyDataSetChanged()
     }
 }

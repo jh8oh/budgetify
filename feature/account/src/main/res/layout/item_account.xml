@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.ohjiho.budgetify.utils.data.CurrencyUtils" />
+
+        <variable
+            name="account"
+            type="dev.ohjiho.budgetify.domain.model.AccountEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/item_account_height"
+        android:background="@drawable/background_selectable_bordered">
+
+        <ImageView
+            android:id="@+id/account_color"
+            android:layout_width="@dimen/item_account_color_width"
+            android:layout_height="0dp"
+            android:background="@{context.getColor(account.colorInt)}"
+            android:importantForAccessibility="no"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:background="@color/maroon_700" />
+
+        <TextView
+            android:id="@+id/account_name"
+            style="@style/TextAppearance.Budgetify.HeadlineSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/item_account_name_margin_start"
+            android:text="@{account.name}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account_color"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Chequing" />
+
+        <TextView
+            android:id="@+id/account_balance"
+            style="@style/TextAppearance.Budgetify.BodyLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/item_account_current_amount_margin_end"
+            android:text="@{CurrencyUtils.toCurrencyFormat(account.balance, account.currency, context)}"
+            app:currencySymbol="@{account.currency}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="CA$ 1300" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

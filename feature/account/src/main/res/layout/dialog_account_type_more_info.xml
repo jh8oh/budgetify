@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dialog_account_type_more_info_padding_horizontal"
+    android:paddingVertical="@dimen/dialog_account_type_more_info_padding_vertical">
+
+    <TextView
+        style="@style/TextAppearance.Budgetify.HeadlineSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialog_account_type_title_margin_bottom"
+        android:text="@string/dialog_account_type_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.Body"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_chequing"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_more_info_chequing_description" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_savings"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_more_info_savings_description" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_credit"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_more_info_credit_description" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.Body"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_investments"
+                android:textStyle="bold" />
+
+            <TextView
+                style="@style/TextAppearance.Budgetify.BodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_more_info_investments_description" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

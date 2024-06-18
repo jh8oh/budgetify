@@ -6,6 +6,7 @@
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Body</item>
     </style>
 
     <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
@@ -13,6 +14,7 @@
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Body</item>
     </style>
 
     <!-- Text -->
@@ -45,6 +47,11 @@
     </style>
 
     <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
     </style>

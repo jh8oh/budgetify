@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="dev.ohjiho.budgetify.utils.data.CurrencyUtils" />
+
+        <import type="dev.ohjiho.budgetify.domain.model.AccountType" />
+
+        <variable
+            name="account"
+            type="dev.ohjiho.budgetify.domain.model.AccountEntity" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/fragment_account_editor_padding_horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/account_name_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fragment_account_editor_account_name_container_margin_top"
+            app:layout_constraintEnd_toStartOf="@id/account_color"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/fragment_account_editor_name_hint"
+                android:text="@{account.name}"
+                android:textAppearance="@style/TextAppearance.Budgetify.Body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/account_color"
+            android:layout_width="@dimen/fragment_account_editor_color_size"
+            android:layout_height="@dimen/fragment_account_editor_color_size"
+            android:layout_marginStart="@dimen/fragment_account_editor_color_margin_start"
+            android:background="@drawable/background_selectable_circular"
+            android:contentDescription="@string/fragment_account_editor_color_content_description"
+            android:padding="@dimen/fragment_account_editor_color_padding"
+            android:src="@drawable/shape_circle_32dp"
+            app:layout_constraintBottom_toBottomOf="@id/account_name_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account_name_container"
+            app:layout_constraintTop_toTopOf="@id/account_name_container"
+            app:tint="@{account.colorInt}" />
+
+        <TextView
+            android:id="@+id/account_balance_label"
+            style="@style/TextAppearance.Budgetify.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/account_balance"
+            android:text="@string/fragment_account_editor_balance_label"
+            app:layout_constraintBottom_toBottomOf="@id/account_balance_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/account_balance_container" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/account_balance_container"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/fragment_account_editor_balance_container_margin_horizontal"
+            android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+            app:layout_constraintEnd_toStartOf="@id/account_currency"
+            app:layout_constraintStart_toEndOf="@id/account_balance_label"
+            app:layout_constraintTop_toBottomOf="@id/account_name_container">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/account_balance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal|numberSigned"
+                android:text="@{CurrencyUtils.toCurrencyFormat(account.balance, account.currency, context)}"
+                android:textAppearance="@style/TextAppearance.Budgetify.Body" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/account_currency"
+            style="@style/Widget.AppCompat.Spinner.DropDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{account.currency.currencyCode}"
+            android:textAppearance="@style/TextAppearance.Budgetify.BodyLarge"
+            app:layout_constraintBottom_toBottomOf="@id/account_balance_container"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/account_balance_container"
+            app:layout_constraintTop_toTopOf="@id/account_balance_container"
+            tools:text="CAD" />
+
+        <TextView
+            android:id="@+id/account_type_label"
+            style="@style/TextAppearance.Budgetify.Body"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_account_editor_type"
+            app:layout_constraintBottom_toBottomOf="@id/toggle_button_container"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/toggle_button_container" />
+
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/toggle_button_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_account_editor_toggle_button_container_margin_start"
+            android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@id/account_type_label"
+            app:layout_constraintTop_toBottomOf="@id/account_balance_container"
+            app:singleSelection="true">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/chequing_button"
+                style="@style/Theme.Budgetify.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{account.accountType == AccountType.CHEQUING}"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/account_type_chequing" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/savings_button"
+                style="@style/Theme.Budgetify.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{account.accountType == AccountType.SAVINGS}"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/account_type_savings" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/credit_button"
+                style="@style/Theme.Budgetify.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{account.accountType == AccountType.CREDIT}"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/account_type_credit" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/investments_button"
+                style="@style/Theme.Budgetify.Button.Outlined"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="@{account.accountType == AccountType.INVESTMENTS}"
+                android:insetTop="0dp"
+                android:insetBottom="0dp"
+                android:text="@string/account_type_investments" />
+
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+
+        <ImageView
+            android:id="@+id/more_info_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/fragment_account_editor_type_info_margin_start"
+            android:background="@drawable/background_selectable_circular"
+            android:contentDescription="@string/fragment_account_editor_type_info_content_description"
+            android:padding="4dp"
+            android:src="@drawable/ic_info"
+            app:layout_constraintBottom_toBottomOf="@id/toggle_button_container"
+            app:layout_constraintStart_toEndOf="@id/toggle_button_container"
+            app:layout_constraintTop_toTopOf="@id/toggle_button_container"
+            app:tint="?colorControlNormal" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

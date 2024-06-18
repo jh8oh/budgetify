@@ -2,15 +2,16 @@
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 activityKtx = "1.9.0"
-fragmentKtx = "1.7.1"
-lifecycle = "2.8.1"
+fragmentKtx = "1.8.0"
+lifecycle = "2.8.2"
 hilt = "2.51.1"
 room = "2.6.1"
 junit = "4.13.2"
 junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 material = "1.12.0"
-currencyPicker = "1.1.0"
+colorPicker = "1.1.0"
+currencyPicker = "1.1.1"
 
 agp = "8.3.2"
 kotlin = "1.9.23"
@@ -35,6 +36,7 @@ junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+ohjiho-colorpicker = { group = "dev.ohjiho", name = "colorpicker", version.ref = "colorPicker" }
 ohjiho-currencypicker = { group = "dev.ohjiho", name = "currencypicker", version.ref = "currencyPicker" }
 
 [plugins]

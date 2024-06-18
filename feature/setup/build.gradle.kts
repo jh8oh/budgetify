@@ -17,11 +17,12 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
         }
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -35,32 +36,24 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.material)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
-
-    // Activity
     implementation(libs.androidx.activity.ktx)
-
-    // Fragment
     implementation(libs.androidx.fragment.ktx)
-
-    // Lifecycle
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
-
-    // Hilt
+    implementation(libs.ohjiho.currencypicker)
     implementation(libs.hilt.android.core)
     kapt(libs.hilt.compiler)
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
+    implementation(libs.androidx.lifecycle.runtime)
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.material)
 
-    implementation(libs.ohjiho.currencypicker)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
 
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
-    implementation(project(":core:component"))
     implementation(project(":domain"))
+    implementation(project(":feature:account"))
 }

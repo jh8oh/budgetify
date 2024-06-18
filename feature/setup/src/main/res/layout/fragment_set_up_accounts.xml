@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="@dimen/fragment_set_up_accounts_padding_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/fragment_set_up_accounts_padding_horizontal">
 
     <TextView
         style="@style/TextAppearance.Budgetify.Body"
@@ -13,7 +13,7 @@
         android:layout_marginTop="@dimen/fragment_set_up_accounts_description_margin_top"
         android:text="@string/fragment_set_up_accounts_description" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <dev.ohjiho.account.recyclerview.AccountsRecyclerView
         android:id="@+id/accounts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

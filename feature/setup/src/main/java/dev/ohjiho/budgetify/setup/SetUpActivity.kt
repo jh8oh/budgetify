@@ -12,8 +12,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.budgetify.setup.accounts.SetUpAccountsFragment
-import dev.ohjiho.budgetify.setup.currency.SetUpCurrencyFragment
+import dev.ohjiho.account.editor.AccountEditorFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import kotlinx.coroutines.launch
@@ -61,6 +60,8 @@ class SetUpActivity : AppCompatActivity() {
     private val nextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
     private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
+    private val accountEditorAddTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
+    private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
@@ -83,6 +84,7 @@ class SetUpActivity : AppCompatActivity() {
                         SetUpScreen.WELCOME -> showWelcomeScreen()
                         SetUpScreen.SET_UP_CURRENCY -> showCurrencyScreen()
                         SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
+                        SetUpScreen.ACCOUNT_EDITOR_ADD, SetUpScreen.ACCOUNT_EDITOR_UPDATE -> showAccountEditorScreen(viewModel.editingAccountId)
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpScreen.SET_UP_BUDGET -> showBudgetsScreen()
                     }
@@ -91,6 +93,10 @@ class SetUpActivity : AppCompatActivity() {
         }
 
         with(binding) {
+            appBarBack.setOnClickListener {
+                viewModel.onBackPressed()
+            }
+
             backButton.setOnClickListener {
                 viewModel.onBackPressed()
             }
@@ -113,7 +119,6 @@ class SetUpActivity : AppCompatActivity() {
             binding.backgroundStartGuideline.setGuidelineBegin(fortyFiveHeight)
             binding.backgroundEndGuideline.setGuidelineBegin(fiftyFiveHeight)
         }
-
         binding.appIcon.visibility = View.VISIBLE
         binding.title.visibility = View.GONE
         binding.backButton.visibility = View.GONE
@@ -132,14 +137,17 @@ class SetUpActivity : AppCompatActivity() {
             binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
             binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
         }
-
         binding.appIcon.visibility = View.GONE
+        binding.appBarBack.visibility = View.GONE
         binding.title.apply {
             visibility = View.VISIBLE
             text = setUpCurrencyTitle
         }
         binding.backButton.visibility = View.VISIBLE
-        binding.nextButton.text = nextButtonText
+        binding.nextButton.apply {
+            visibility = View.VISIBLE
+            text = nextButtonText
+        }
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpCurrencyFragment()).commit()
 
@@ -156,6 +164,21 @@ class SetUpActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpAccountsFragment()).commit()
 
         prevScreen = SetUpScreen.SET_UP_ACCOUNTS
+    }
+
+    @SuppressLint("CommitTransaction")
+    private fun showAccountEditorScreen(accountId: Int?) {
+        binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
+        binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+
+        binding.appBarBack.visibility = View.VISIBLE
+        binding.title.text = accountId?.let { accountEditorUpdateTitle } ?: accountEditorAddTitle
+        binding.backButton.visibility = View.GONE
+        binding.nextButton.visibility = View.GONE
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId)).commit()
+
+        prevScreen = accountId?.let { SetUpScreen.ACCOUNT_EDITOR_UPDATE } ?: SetUpScreen.ACCOUNT_EDITOR_ADD
     }
 
     @SuppressLint("CommitTransaction")

@@ -13,4 +13,7 @@
     <string name="fragment_set_up_accounts_title">Set up your accounts</string>
     <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track. Feel free to edit any existing ones as needed.</string>
     <string name="fragment_set_up_accounts_add_button">Add new account</string>
+
+    <string name="fragment_account_editor_add_title">Add new account</string>
+    <string name="fragment_account_editor_update_title">Update account</string>
 </resources>

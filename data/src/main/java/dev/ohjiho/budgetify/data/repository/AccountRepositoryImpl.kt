@@ -10,6 +10,10 @@ import javax.inject.Inject
 internal class AccountRepositoryImpl @Inject constructor(private val dao: AccountDao, private val sharedPrefs: AccountSharedPrefs) :
     BaseRoomRepositoryImpl<AccountEntity, AccountDao>(dao), AccountRepository {
     override suspend fun insert(entity: AccountEntity): Long {
+        if (entity.previousId == 0) {
+            entity.previousId = sharedPrefs.lastId
+        }
+
         return super.insert(entity).also {
             sharedPrefs.lastId = it.toInt()
         }

@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.setup.currency
+package dev.ohjiho.budgetify.setup
 
 import android.app.AlertDialog
 import android.os.Bundle
@@ -10,13 +10,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dev.ohjiho.budgetify.setup.SetUpViewModel
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpCurrencyBinding
 import dev.ohjiho.currencypicker.CurrencySpinner
 import kotlinx.coroutines.launch
 import java.util.Currency
 
-class SetUpCurrencyFragment : Fragment(), CurrencySpinner.Listener {
+internal class SetUpCurrencyFragment : Fragment(), CurrencySpinner.Listener {
 
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpCurrencyBinding

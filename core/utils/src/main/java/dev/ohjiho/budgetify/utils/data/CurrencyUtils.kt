@@ -1,14 +1,19 @@
+@file:JvmName("CurrencyUtils")
 package dev.ohjiho.budgetify.utils.data
 
 import android.content.Context
 import java.math.BigDecimal
+import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Currency
 
-fun BigDecimal.toCurrencyFormat(currency: Currency, context: Context? = null): String {
+fun toCurrencyFormat(amount: BigDecimal, currency: Currency, context: Context? = null): String {
     val locale = context?.let { getLocale(it) } ?: getLocale()
-    return NumberFormat.getCurrencyInstance(locale).run {
+    return (NumberFormat.getCurrencyInstance(locale) as DecimalFormat).run {
         this.currency = currency
-        format(this@toCurrencyFormat)
+        this.decimalFormatSymbols = decimalFormatSymbols.apply {
+            currencySymbol = ""
+        }
+        format(amount)
     }
 }

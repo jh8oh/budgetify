@@ -1,11 +1,23 @@
 package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
+import dev.ohjiho.budgetify.domain.model.AccountType
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.Currency
 
 internal class Converters {
+    // Account Type
+    @TypeConverter
+    fun accountTypeToString(accountType: AccountType?): String? {
+        return accountType?.name
+    }
+
+    @TypeConverter
+    fun stringToAccountType(string: String?): AccountType? {
+        return string?.let { AccountType.valueOf(it) }
+    }
+
     // Big Decimal
     @TypeConverter
     fun bigDecimalToString(bigDecimal: BigDecimal?): String? {
