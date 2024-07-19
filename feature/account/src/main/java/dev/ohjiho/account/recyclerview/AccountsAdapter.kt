@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.account.databinding.ItemAccountBinding
 import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
 internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
     RecyclerView.Adapter<AccountsAdapter.ViewHolder>() {
@@ -13,9 +14,15 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
     private var accountList = listOf<AccountEntity>()
 
     inner class ViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(account: AccountEntity) {
-            binding.account = account
-            binding.root.setOnClickListener { onClick(account) }
+            with(binding) {
+                accountColor.setBackgroundColor(account.colorInt)
+                accountName.text = account.name
+                accountBalance.text =
+                    "${account.balance.toCurrencyFormat(account.currency, binding.root.context)} ${account.currency.currencyCode}"
+                root.setOnClickListener { onClick(account) }
+            }
         }
     }
 

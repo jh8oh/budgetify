@@ -1,6 +1,7 @@
 package dev.ohjiho.budgetify.utils.primitive
 
 import java.math.BigDecimal
+import java.text.NumberFormat
 
 fun String.toDecimal(decimal: Int): String {
     var result = ""
@@ -40,5 +41,5 @@ fun String.toDecimal(decimal: Int): String {
 }
 
 fun String.removeLeadingZeros(): String {
-    return BigDecimal(this.replace(",", "")).toString()
+    return NumberFormat.getNumberInstance().format(BigDecimal(this.replace(",", "")))
 }

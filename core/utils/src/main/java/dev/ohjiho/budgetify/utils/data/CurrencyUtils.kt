@@ -7,13 +7,13 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Currency
 
-fun toCurrencyFormat(amount: BigDecimal, currency: Currency, context: Context? = null): String {
+fun BigDecimal.toCurrencyFormat(currency: Currency, context: Context? = null): String {
     val locale = context?.let { getLocale(it) } ?: getLocale()
     return (NumberFormat.getCurrencyInstance(locale) as DecimalFormat).run {
         this.currency = currency
         this.decimalFormatSymbols = decimalFormatSymbols.apply {
             currencySymbol = ""
         }
-        format(amount)
+        format(this@toCurrencyFormat)
     }
 }

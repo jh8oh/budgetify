@@ -10,6 +10,7 @@
     <string name="fragment_account_editor_balance_label">Balance:</string>
     <string name="fragment_account_editor_type">Account Type:</string>
     <string name="fragment_account_editor_type_info_content_description">Account type help</string>
+    <string name="fragment_account_editor_save_button">Save</string>
 
     <string name="dialog_account_type_title">Type Explanation</string>
     <string name="dialog_account_type_more_info_chequing_description">The most basic transactional account you can have. Offers easy access to your money for day-to-day spending.</string>

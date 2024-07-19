@@ -16,6 +16,7 @@
     <dimen name="fragment_account_editor_balance_container_margin_horizontal">8dp</dimen>
     <dimen name="fragment_account_editor_toggle_button_container_margin_start">8dp</dimen>
     <dimen name="fragment_account_editor_type_info_margin_start">16dp</dimen>
+    <dimen name="fragment_account_editor_save_button_margin_bottom">16dp</dimen>
 
     <dimen name="dialog_account_type_more_info_padding_horizontal">12dp</dimen>
     <dimen name="dialog_account_type_more_info_padding_vertical">16dp</dimen>

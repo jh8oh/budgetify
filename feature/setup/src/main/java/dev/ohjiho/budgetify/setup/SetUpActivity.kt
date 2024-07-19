@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 import kotlin.properties.Delegates
 
 @AndroidEntryPoint
-class SetUpActivity : AppCompatActivity() {
+class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
     private val viewModel: SetUpViewModel by viewModels()
     private lateinit var binding: ActivitySetUpBinding
@@ -138,7 +138,6 @@ class SetUpActivity : AppCompatActivity() {
             binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
         }
         binding.appIcon.visibility = View.GONE
-        binding.appBarBack.visibility = View.GONE
         binding.title.apply {
             visibility = View.VISIBLE
             text = setUpCurrencyTitle
@@ -159,7 +158,10 @@ class SetUpActivity : AppCompatActivity() {
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
         binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
 
+        binding.appBarBack.visibility = View.GONE
         binding.title.text = setUpAccountsTitle
+        binding.backButton.visibility = View.VISIBLE
+        binding.nextButton.visibility = View.VISIBLE
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpAccountsFragment()).commit()
 
@@ -176,9 +178,13 @@ class SetUpActivity : AppCompatActivity() {
         binding.backButton.visibility = View.GONE
         binding.nextButton.visibility = View.GONE
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, this)).commit()
 
         prevScreen = accountId?.let { SetUpScreen.ACCOUNT_EDITOR_UPDATE } ?: SetUpScreen.ACCOUNT_EDITOR_ADD
+    }
+
+    override fun onSave() {
+        viewModel.onBackPressed()
     }
 
     @SuppressLint("CommitTransaction")
