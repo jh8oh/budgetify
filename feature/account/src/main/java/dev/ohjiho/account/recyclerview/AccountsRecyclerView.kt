@@ -35,7 +35,6 @@ class AccountsRecyclerView @JvmOverloads constructor(
         }
 
         layoutManager = LinearLayoutManager(context)
-        addItemDecoration(SpaceItemDecoration(verticalSpace = 4))
     }
 
     fun setListener(listener: Listener) {

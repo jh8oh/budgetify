@@ -17,7 +17,7 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
         @SuppressLint("SetTextI18n")
         fun bind(account: AccountEntity) {
             with(binding) {
-                accountColor.setBackgroundColor(account.colorInt)
+                accountColor.setColorFilter(account.colorInt)
                 accountName.text = account.name
                 accountBalance.text =
                     "${account.balance.toCurrencyFormat(account.currency, binding.root.context)} ${account.currency.currencyCode}"
