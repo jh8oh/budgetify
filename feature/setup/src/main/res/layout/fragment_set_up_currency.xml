@@ -26,6 +26,7 @@
         android:padding="@dimen/fragment_set_up_currency_default_currency_padding"
         android:textColor="?colorPrimaryVariant"
         android:textSize="@dimen/fragment_set_up_currency_default_currency_text_size"
+        android:textStyle="bold"
         tools:text="CAD" />
 
 </LinearLayout>

@@ -2,6 +2,6 @@
 <resources>
     <dimen name="background_selectable_bordered_corner_radius">2dp</dimen>
 
-    <dimen name="theme_budgetify_button_padding_horizontal">20dp</dimen>
-    <dimen name="theme_budgetify_button_padding_vertical">8dp</dimen>
+    <dimen name="theme_budgetify_button_padding_horizontal">28dp</dimen>
+    <dimen name="theme_budgetify_button_padding_vertical">12dp</dimen>
 </resources>
