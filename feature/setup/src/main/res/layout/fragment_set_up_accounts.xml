@@ -20,7 +20,7 @@
         android:layout_marginTop="@dimen/fragment_set_up_accounts_recyclerview_margin_top"
         tools:listitem="@layout/item_account" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/add_account_button"
         style="@style/Theme.Budgetify.Button.Outlined"
         android:layout_width="match_parent"

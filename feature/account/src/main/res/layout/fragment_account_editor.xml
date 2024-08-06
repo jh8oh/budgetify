@@ -103,7 +103,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/chequing_button"
-            style="@style/Theme.Budgetify.Button.Outlined"
+            style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetTop="0dp"
@@ -112,7 +112,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/savings_button"
-            style="@style/Theme.Budgetify.Button.Outlined"
+            style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetTop="0dp"
@@ -121,7 +121,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/credit_button"
-            style="@style/Theme.Budgetify.Button.Outlined"
+            style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetTop="0dp"
@@ -130,7 +130,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/investments_button"
-            style="@style/Theme.Budgetify.Button.Outlined"
+            style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:insetTop="0dp"
@@ -153,8 +153,9 @@
         app:layout_constraintTop_toTopOf="@id/toggle_button_container"
         app:tint="?colorControlNormal" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/save_button"
+        style="@style/Theme.Budgetify.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/fragment_account_editor_save_button_margin_bottom"

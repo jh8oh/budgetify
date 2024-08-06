@@ -6,15 +6,16 @@
     <color name="teal_700">#018786</color>
     <color name="maroon_700">#B21720</color>
     <color name="maroon_900">#96000F</color>
-    <color name="black">#000</color>
+    <!--<color name="black">#000</color>-->
     <color name="black_900">#161616</color>
     <color name="black_800">#363636</color>
-    <color name="black_700">#545454</color>
+    <!--<color name="black_700">#545454</color>-->
+    <color name="black_700_alpha_12">#1F545454</color>
     <color name="black_600">#676767</color>
     <color name="black_500">#8F8F8F</color>
     <color name="black_400">#AFAFAF</color>
-    <color name="black_300">#D4D4D4</color>
-    <color name="black_200">#E5E5E5</color>
+    <!--<color name="black_300">#D4D4D4</color>-->
+    <!--<color name="black_200">#E5E5E5</color>-->
     <color name="black_100">#F0F0F0</color>
     <color name="white">#FFF</color>
 

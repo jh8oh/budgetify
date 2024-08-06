@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Buttons -->
-    <style name="Theme.Budgetify.Button" parent="@style/Widget.MaterialComponents.Button">
+    <style name="Theme.Budgetify.Button" parent="@style/Widget.Material3.Button">
         <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
@@ -9,7 +9,7 @@
         <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
     </style>
 
-    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.Material3.Button.OutlinedButton">
         <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
@@ -17,9 +17,23 @@
         <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
     </style>
 
-    <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.AppCompat.Button">
+    <style name="Theme.Budgetify.Button.Toggle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
+        <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
     </style>
 
     <!-- Text -->

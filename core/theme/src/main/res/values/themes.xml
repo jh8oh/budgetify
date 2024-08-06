@@ -17,7 +17,7 @@
         <!-- Text color -->
         <item name="android:textColorPrimary">@color/color_text_primary</item>
         <!-- Outline color -->
-        <item name="colorOutline">@color/black_700</item>
+        <item name="colorOutline">@color/black_700_alpha_12</item>
     </style>
 
     <style name="Theme.Budgetify.NoActionBar" parent="Theme.Budgetify">

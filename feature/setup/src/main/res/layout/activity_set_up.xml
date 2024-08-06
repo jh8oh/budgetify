@@ -82,33 +82,38 @@
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/next_button"
+        app:layout_constraintBottom_toTopOf="@id/button_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/background_end_guideline" />
 
-    <Button
-        android:id="@+id/back_button"
-        style="@style/Theme.Budgetify.Button.Outlined"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/button_container"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/set_up_margin_bottom"
-        android:text="@string/fragment_set_up_back_button"
-        app:layout_constraintBottom_toBottomOf="@id/next_button"
-        app:layout_constraintEnd_toStartOf="@id/next_button"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/next_button" />
-
-    <Button
-        android:id="@+id/next_button"
-        style="@style/Theme.Budgetify.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/set_up_default_padding_horizontal"
         android:layout_marginBottom="@dimen/set_up_margin_bottom"
-        android:text="@string/fragment_set_up_next_button"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/back_button" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/back_button"
+            style="@style/Theme.Budgetify.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
+            app:icon="@drawable/ic_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/Theme.Budgetify.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_set_up_next_button" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
