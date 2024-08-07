@@ -6,32 +6,32 @@
     android:layout_height="@dimen/item_account_height"
     android:background="?selectableItemBackground">
 
-    <ImageView
-        android:id="@+id/account_color"
-        android:layout_width="@dimen/item_account_color_size"
-        android:layout_height="@dimen/item_account_color_size"
-        android:src="@drawable/background_circle"
-        android:importantForAccessibility="no"
-        android:layout_marginHorizontal="@dimen/item_account_color_margin_start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/maroon_700" />
-
     <TextView
         android:id="@+id/account_name"
-        style="@style/TextAppearance.Budgetify.HeadlineSmall"
+        style="@style/TextAppearance.Budgetify.BodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_account_name_margin_start"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@id/account_color"
+        app:layout_constraintBottom_toTopOf="@id/account_institution"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Chequing" />
 
     <TextView
+        android:id="@+id/account_institution"
+        style="@style/TextAppearance.Budgetify.BodySmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/item_account_institution_margin_top"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/account_name"
+        app:layout_constraintTop_toBottomOf="@id/account_name"
+        tools:text="CIBC" />
+
+    <TextView
         android:id="@+id/account_balance"
-        style="@style/TextAppearance.Budgetify.BodyLarge"
+        style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/item_account_current_amount_margin_end"

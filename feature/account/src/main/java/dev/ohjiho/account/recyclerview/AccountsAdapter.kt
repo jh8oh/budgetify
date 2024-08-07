@@ -5,41 +5,81 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.account.databinding.ItemAccountBinding
+import dev.ohjiho.account.databinding.ItemAccountHeaderBinding
 import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
 internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
-    RecyclerView.Adapter<AccountsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var accountList = listOf<AccountEntity>()
+    private var accounts = emptyList<Any>()
 
-    inner class ViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class AccountHeaderViewHolder(private val binding: ItemAccountHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(type: AccountType) {
+            with(binding) {
+                accountType.text = type.toString()
+            }
+        }
+    }
+
+    inner class AccountViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun bind(account: AccountEntity) {
             with(binding) {
-                accountColor.setColorFilter(account.colorInt)
                 accountName.text = account.name
+                accountInstitution.text = account.institution
                 accountBalance.text =
-                    "${account.balance.toCurrencyFormat(account.currency, binding.root.context)} ${account.currency.currencyCode}"
+                    "${
+                        account.balance.toCurrencyFormat(
+                            account.currency,
+                            binding.root.context
+                        )
+                    } ${account.currency.currencyCode}"
                 root.setOnClickListener { onClick(account) }
             }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(ItemAccountBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+    override fun getItemViewType(position: Int): Int {
+        return when (accounts[position]) {
+            is AccountType -> HEADER_VIEW_TYPE
+            else -> ACCOUNT_VIEW_TYPE
+        }
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(accountList[position])
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            HEADER_VIEW_TYPE -> AccountHeaderViewHolder(ItemAccountHeaderBinding.inflate(layoutInflater, parent, false))
+            else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false))
+        }
     }
 
-    override fun getItemCount() = accountList.size
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        when (holder.itemViewType) {
+            HEADER_VIEW_TYPE -> (holder as AccountHeaderViewHolder).bind(accounts[position] as AccountType)
+            else -> (holder as AccountViewHolder).bind(accounts[position] as AccountEntity)
+        }
+    }
+
+    override fun getItemCount() = accounts.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun setAccountList(newAccountList: List<AccountEntity>) {
+        newAccountList.groupBy { it.accountType }.let { map ->
+            val liquidAccounts = map[AccountType.LIQUID]?.let { listOf(AccountType.LIQUID) + it } ?: emptyList()
+            val debtAccounts = map[AccountType.DEBT]?.let { listOf(AccountType.DEBT) + it } ?: emptyList()
+            val investmentAccounts = map[AccountType.INVESTMENTS]?.let { listOf(AccountType.INVESTMENTS) + it } ?: emptyList()
+            accounts = liquidAccounts + debtAccounts + investmentAccounts
+        }
+
         // TODO Create diff util so that we don't have to use notifyDataSetChanged()
-        accountList = newAccountList.sortedBy { it.previousId }
         notifyDataSetChanged()
+    }
+
+    companion object {
+        private const val HEADER_VIEW_TYPE = 0
+        private const val ACCOUNT_VIEW_TYPE = 1
     }
 }

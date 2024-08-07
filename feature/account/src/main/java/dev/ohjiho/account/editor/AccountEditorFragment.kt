@@ -12,9 +12,6 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.account.R
 import dev.ohjiho.account.databinding.FragmentAccountEditorBinding
-import dev.ohjiho.budgetify.utils.primitive.removeLeadingZeros
-import dev.ohjiho.budgetify.utils.primitive.toDecimal
-import dev.ohjiho.colorpicker.ColorPicker
 import dev.ohjiho.currencypicker.CurrencySpinner
 import java.util.Currency
 
@@ -26,14 +23,6 @@ class AccountEditorFragment : Fragment() {
 
     private var listener: Listener? = null
 
-    private val colorPickerDialog: AlertDialog by lazy {
-        val colorPicker = ColorPicker(requireContext(), object : ColorPicker.Listener {
-            override fun onColorClick(colorInt: Int) {
-                colorPickerDialog.dismiss()
-            }
-        }).setColors(dev.ohjiho.budgetify.theme.R.array.colorpicker_colors).createView()
-        AlertDialog.Builder(requireContext()).setView(colorPicker).create()
-    }
     private val currencySpinnerDialog: AlertDialog by lazy {
         val currencySpinner = CurrencySpinner(requireContext()).apply {
             setListener(object : CurrencySpinner.Listener {
@@ -64,8 +53,12 @@ class AccountEditorFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.getInt(ACCOUNT_ID_ARG)?.let {
-
+        if (savedInstanceState == null) {
+            arguments?.getInt(ACCOUNT_ID_ARG)?.let {
+                if (it != 0){
+                    viewModel.initWithAccountId(it)
+                }
+            }
         }
     }
 
@@ -73,20 +66,9 @@ class AccountEditorFragment : Fragment() {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
         with(binding) {
-
         }
 
         return binding.root
-    }
-
-    private fun decimalizeAccountBalance() {
-        with(binding) {
-            val decimal = accountBalance.text.toString().toDecimal(2).removeLeadingZeros()
-            if (accountBalance.text.toString() != decimal) {
-                accountBalance.setText(decimal)
-                accountBalance.setSelection(decimal.length)
-            }
-        }
     }
 
     private fun setListener(listener: Listener?) {
@@ -97,8 +79,10 @@ class AccountEditorFragment : Fragment() {
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
 
         fun newInstance(accountId: Int? = null, listener: Listener? = null) = AccountEditorFragment().apply {
-            arguments = Bundle().apply {
-                accountId?.let { putInt(ACCOUNT_ID_ARG, it) }
+            accountId?.let {
+                arguments = Bundle().apply {
+                    putInt(ACCOUNT_ID_ARG, it)
+                }
             }
             setListener(listener)
         }

@@ -7,7 +7,7 @@
     android:paddingVertical="@dimen/dialog_account_type_more_info_padding_vertical">
 
     <TextView
-        style="@style/TextAppearance.Budgetify.HeadlineSmall"
+        style="@style/TextAppearance.Budgetify.Headline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_account_type_title_margin_bottom"
@@ -24,7 +24,6 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/account_type_chequing"
                 android:textStyle="bold" />
 
             <TextView
@@ -32,8 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
-                android:layout_weight="1"
-                android:text="@string/dialog_account_type_more_info_chequing_description" />
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
@@ -43,7 +41,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/account_type_savings"
                 android:textStyle="bold" />
 
             <TextView
@@ -51,8 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
-                android:layout_weight="1"
-                android:text="@string/dialog_account_type_more_info_savings_description" />
+                android:layout_weight="1" />
         </TableRow>
 
         <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
@@ -62,7 +58,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/account_type_credit"
                 android:textStyle="bold" />
 
             <TextView
@@ -70,27 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
-                android:layout_weight="1"
-                android:text="@string/dialog_account_type_more_info_credit_description" />
-        </TableRow>
-
-        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
-
-            <TextView
-                style="@style/TextAppearance.Budgetify.Body"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="@string/account_type_investments"
-                android:textStyle="bold" />
-
-            <TextView
-                style="@style/TextAppearance.Budgetify.BodySmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
-                android:layout_weight="1"
-                android:text="@string/dialog_account_type_more_info_investments_description" />
+                android:layout_weight="1" />
         </TableRow>
     </TableLayout>
 

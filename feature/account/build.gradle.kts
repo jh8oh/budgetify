@@ -40,7 +40,6 @@ dependencies {
     kapt(libs.hilt.compiler)
     testImplementation(libs.hilt.android.testing)
     kaptTest(libs.hilt.compiler)
-    implementation(libs.ohjiho.colorpicker)
     implementation(libs.ohjiho.currencypicker)
     implementation(libs.material)
     testImplementation(libs.junit)

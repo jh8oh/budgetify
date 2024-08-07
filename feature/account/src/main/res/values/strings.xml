@@ -1,20 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="account_type_chequing">Chequing</string>
-    <string name="account_type_savings">Savings</string>
-    <string name="account_type_investments">Investments</string>
-    <string name="account_type_credit">Credit</string>
-
-    <string name="fragment_account_editor_name_hint">Name</string>
-    <string name="fragment_account_editor_color_content_description">Account color</string>
-    <string name="fragment_account_editor_balance_label">Balance:</string>
-    <string name="fragment_account_editor_type">Account Type:</string>
-    <string name="fragment_account_editor_type_info_content_description">Account type help</string>
-    <string name="fragment_account_editor_save_button">Save</string>
-
     <string name="dialog_account_type_title">Type Explanation</string>
-    <string name="dialog_account_type_more_info_chequing_description">The most basic transactional account you can have. Offers easy access to your money for day-to-day spending.</string>
-    <string name="dialog_account_type_more_info_savings_description">Used to store money to accrue interest over time. Great for building an emergency fund or savings for certain goals.</string>
-    <string name="dialog_account_type_more_info_credit_description">Money borrowed which you can repay later, often with interest. Helps you build credit score.</string>
-    <string name="dialog_account_type_more_info_investments_description">Money placed in stocks, bonds, and other assets to grow your wealth over time, though it carries some level of risk.</string>
 </resources>

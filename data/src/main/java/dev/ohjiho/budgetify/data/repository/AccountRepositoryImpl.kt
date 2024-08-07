@@ -7,18 +7,8 @@ import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-internal class AccountRepositoryImpl @Inject constructor(private val dao: AccountDao, private val sharedPrefs: AccountSharedPrefs) :
+internal class AccountRepositoryImpl @Inject constructor(private val dao: AccountDao) :
     BaseRoomRepositoryImpl<AccountEntity, AccountDao>(dao), AccountRepository {
-    override suspend fun insert(entity: AccountEntity): Long {
-        if (entity.previousId == 0) {
-            entity.previousId = sharedPrefs.lastId
-        }
-
-        return super.insert(entity).also {
-            sharedPrefs.lastId = it.toInt()
-        }
-    }
-
     override suspend fun getAccount(uid: Int): AccountEntity = dao.getAccount(uid)
     override fun getAllAccounts(): Flow<List<AccountEntity>> = dao.getAllAccounts()
 }

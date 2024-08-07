@@ -1,23 +1,26 @@
 package dev.ohjiho.budgetify.domain.model
 
-import androidx.annotation.ColorInt
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
 import java.util.Currency
 
 enum class AccountType {
-    CHEQUING, SAVINGS, CREDIT, INVESTMENTS;
+    LIQUID, DEBT, INVESTMENTS;
 
     override fun toString(): String {
-        return name.first() + name.substring(1).lowercase()
+        return when (this) {
+            LIQUID -> "Cash Accounts"
+            DEBT -> "Credit & Loans"
+            INVESTMENTS -> "Investments"
+        }
     }
 }
 
 @Entity(tableName = "accounts")
 data class AccountEntity(
     var name: String,
-    @ColorInt var colorInt: Int,
+    var institution: String,
     var accountType: AccountType,
     var balance: BigDecimal,
     var currency: Currency,
@@ -25,16 +28,11 @@ data class AccountEntity(
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
 
-    var previousId: Int = 0
-
     companion object {
-        // Translates to grey_500
-        private const val DEFAULT_COLOR = -6381922
-
         fun newInstance(currency: Currency = Currency.getInstance("USD")) = AccountEntity(
             "",
-            DEFAULT_COLOR,
-            AccountType.CHEQUING,
+            "",
+            AccountType.LIQUID,
             BigDecimal.ZERO,
             currency
         )

@@ -25,12 +25,6 @@ internal object SharedPrefsModule {
 
     @Singleton
     @Provides
-    fun provideAccountSharedPreferences(@ApplicationContext context: Context): AccountSharedPrefs {
-        return AccountSharedPrefs(context.getSharedPreferences(ACCOUNT_SHARED_PREFS, Context.MODE_PRIVATE))
-    }
-
-    @Singleton
-    @Provides
     fun provideCurrencySharedPreference(@ApplicationContext context: Context): CurrencySharedPrefs {
         return CurrencySharedPrefs(context.getSharedPreferences(CURRENCY_SHARED_PREFS, Context.MODE_PRIVATE))
     }
