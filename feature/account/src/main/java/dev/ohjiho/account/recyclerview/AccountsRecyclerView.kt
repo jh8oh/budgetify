@@ -6,7 +6,6 @@ import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.domain.model.AccountEntity
-import dev.ohjiho.component.recyclerview.SpaceItemDecoration
 
 class AccountsRecyclerView @JvmOverloads constructor(
     context: Context,
