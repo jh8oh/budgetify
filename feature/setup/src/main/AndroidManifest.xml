@@ -6,7 +6,8 @@
             android:name=".SetUpActivity"
             android:excludeFromRecents="true"
             android:noHistory="true"
-            android:theme="@style/Theme.Budgetify.NoActionBar" />
+            android:theme="@style/Theme.Budgetify.NoActionBar"
+            android:windowSoftInputMode="stateVisible|adjustResize" />
     </application>
 
 </manifest>

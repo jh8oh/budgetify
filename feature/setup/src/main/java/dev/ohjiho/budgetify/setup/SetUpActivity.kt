@@ -60,8 +60,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private val nextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
     private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
-    private val accountEditorAddTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
-    private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
@@ -93,10 +91,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         }
 
         with(binding) {
-            appBarBack.setOnClickListener {
-                viewModel.onBackPressed()
-            }
-
             backButton.setOnClickListener {
                 viewModel.onBackPressed()
             }
@@ -155,35 +149,35 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
     @SuppressLint("CommitTransaction")
     private fun showAccountsScreen() {
-        binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
-        binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
-
-        binding.appBarBack.visibility = View.GONE
-        binding.title.text = setUpAccountsTitle
-        binding.backButton.visibility = View.VISIBLE
-        binding.nextButton.visibility = View.VISIBLE
+        binding.title.apply {
+            visibility = View.VISIBLE
+            text = setUpAccountsTitle
+        }
+        binding.buttonContainer.visibility = View.VISIBLE
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpAccountsFragment()).commit()
+        supportFragmentManager.executePendingTransactions()
+        binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
+        binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
 
         prevScreen = SetUpScreen.SET_UP_ACCOUNTS
     }
 
     @SuppressLint("CommitTransaction")
     private fun showAccountEditorScreen(accountId: Int?) {
-        binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
-        binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+        binding.title.visibility = View.GONE
+        binding.buttonContainer.visibility = View.GONE
 
-        binding.appBarBack.visibility = View.VISIBLE
-        binding.title.text = accountId?.let { accountEditorUpdateTitle } ?: accountEditorAddTitle
-        binding.backButton.visibility = View.GONE
-        binding.nextButton.visibility = View.GONE
-
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, this)).commit()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, this, true))
+            .commit()
+        supportFragmentManager.executePendingTransactions()
+        binding.backgroundStartGuideline.setGuidelineBegin(0)
+        binding.backgroundEndGuideline.setGuidelineBegin(0)
 
         prevScreen = accountId?.let { SetUpScreen.ACCOUNT_EDITOR_UPDATE } ?: SetUpScreen.ACCOUNT_EDITOR_ADD
     }
 
-    override fun onSave() {
+    override fun onEditorBack() {
         viewModel.onBackPressed()
     }
 

@@ -29,14 +29,7 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
             with(binding) {
                 accountName.text = account.name
                 accountInstitution.text = account.institution
-                accountBalance.text =
-                    "${
-                        account.balance.toCurrencyFormat(
-                            account.currency,
-                            binding.root.context
-                        )
-                    } ${account.currency.currencyCode}"
-                root.setOnClickListener { onClick(account) }
+                accountBalance.text = account.balance.toCurrencyFormat(account.currency, true, binding.root.context)
             }
         }
     }
@@ -52,7 +45,11 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
             HEADER_VIEW_TYPE -> AccountHeaderViewHolder(ItemAccountHeaderBinding.inflate(layoutInflater, parent, false))
-            else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false))
+            else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false)).apply {
+                itemView.setOnClickListener {
+                    onClick(accounts[adapterPosition] as AccountEntity)
+                }
+            }
         }
     }
 

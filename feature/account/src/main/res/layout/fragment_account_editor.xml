@@ -1,8 +1,224 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?android:actionBarSize"
+        android:background="?colorPrimary"
+        android:importantForAccessibility="no"
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/app_bar_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_account_editor_app_bar_icon_margin"
+        android:background="@drawable/background_selectable_circular"
+        android:contentDescription="@string/fragment_account_editor_back"
+        android:padding="@dimen/fragment_account_editor_app_bar_icon_padding"
+        android:src="@drawable/ic_back"
+        app:layout_constraintBottom_toBottomOf="@id/app_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorOnPrimary" />
+
+    <TextView
+        android:id="@+id/title"
+        style="@style/TextAppearance.Budgetify.ActionBar.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_account_editor_add_title"
+        android:textColor="?colorOnPrimary"
+        app:layout_constraintBottom_toBottomOf="@id/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/app_bar_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_account_editor_app_bar_icon_margin"
+        android:background="@drawable/background_selectable_circular"
+        android:contentDescription="@string/fragment_account_editor_back"
+        android:padding="@dimen/fragment_account_editor_app_bar_icon_padding"
+        android:src="@drawable/ic_delete"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/app_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorOnPrimary" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_name_container"
+        style="@style/Theme.Budgetify.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_account_editor_name_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_bar">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_name"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fragment_account_editor_name_hint"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_institution_container"
+        style="@style/Theme.Budgetify.TextInputLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_name_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_institution"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fragment_account_editor_institution_hint"
+            android:imeOptions="actionNext"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_balance_container"
+        style="@style/Theme.Budgetify.TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_account_editor_margin_between"
+        android:layout_marginEnd="@dimen/fragment_account_editor_balance_margin_end"
+        app:layout_constraintEnd_toStartOf="@id/account_currency_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_institution_container">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/account_balance"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/fragment_account_editor_balance_hint"
+            android:inputType="numberSigned|numberDecimal" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_currency_container"
+        style="@style/Theme.Budgetify.TextInputLayout.DropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_account_editor_margin_horizontal"
+        app:layout_constraintBottom_toBottomOf="@id/account_balance_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/account_balance_container"
+        app:layout_constraintTop_toTopOf="@id/account_balance_container">
+
+        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+            android:id="@+id/account_currency"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="@string/fragment_account_editor_currency_hint"
+            android:inputType="none|textNoSuggestions"
+            android:minWidth="@dimen/fragment_account_editor_currency_min_width"
+            tools:text="CAD" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/account_type_label"
+        style="@style/TextAppearance.Budgetify.Body"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_account_editor_type_margin_top"
+        android:text="@string/fragment_account_editor_type_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_balance_container" />
+
+    <ImageView
+        android:id="@+id/more_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_account_editor_info_button_margin_start"
+        android:background="@drawable/background_selectable_circular"
+        android:clickable="true"
+        android:contentDescription="@string/fragment_account_editor_info_button_content_description"
+        android:padding="@dimen/fragment_account_editor_info_button_padding"
+        android:src="@drawable/ic_info"
+        app:layout_constraintBottom_toBottomOf="@id/account_type_label"
+        app:layout_constraintStart_toEndOf="@id/account_type_label"
+        app:layout_constraintTop_toTopOf="@id/account_type_label"
+        app:tint="?colorControlNormal" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/account_type_toggle_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_account_editor_type_toggle_group_margin_top"
+        android:orientation="horizontal"
+        app:checkedButton="@id/liquid_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/account_type_label"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/liquid_button"
+            style="@style/Theme.Budgetify.Button.Toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_type_liquid" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/debt_button"
+            style="@style/Theme.Budgetify.Button.Toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_type_debt" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/investments_button"
+            style="@style/Theme.Budgetify.Button.Toggle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/account_type_investments" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <Button
+        android:id="@+id/save_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/fragment_account_editor_margin_horizontal"
+        android:layout_marginBottom="@dimen/fragment_account_editor_save_button_margin_bottom"
+        android:text="@string/fragment_account_editor_save_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -36,6 +36,15 @@
         <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
     </style>
 
+    <!-- Text Inputs -->
+    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+
+    <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Body</item>
+    </style>
+
     <!-- Text -->
     <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
         <item name="textAllCaps">true</item>

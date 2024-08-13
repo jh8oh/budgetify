@@ -27,14 +27,4 @@ data class AccountEntity(
 ) {
     @PrimaryKey(autoGenerate = true)
     var uid: Int = 0
-
-    companion object {
-        fun newInstance(currency: Currency = Currency.getInstance("USD")) = AccountEntity(
-            "",
-            "",
-            AccountType.LIQUID,
-            BigDecimal.ZERO,
-            currency
-        )
-    }
 }

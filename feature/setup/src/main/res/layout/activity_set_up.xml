@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
+    <View
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="?colorPrimary"
-        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@id/background_start_guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -25,21 +24,6 @@
         app:layout_constraintEnd_toEndOf="@id/background"
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="@id/background" />
-
-    <ImageView
-        android:id="@+id/app_bar_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_account_editor_back_margin_start"
-        android:background="@drawable/background_selectable_circular"
-        android:contentDescription="@string/fragment_set_up_back_button"
-        android:padding="@dimen/fragment_account_editor_back_padding"
-        android:src="@drawable/ic_back"
-        android:visibility="gone"
-        app:layout_constraintBottom_toTopOf="@id/background_start_guideline"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:tint="?colorOnPrimary" />
 
     <TextView
         android:id="@+id/title"
