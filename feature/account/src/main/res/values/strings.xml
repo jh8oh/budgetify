@@ -9,8 +9,9 @@
     <string name="fragment_account_editor_back">Back</string>
     <string name="fragment_account_editor_name_hint">Account Name</string>
     <string name="fragment_account_editor_name_blank_error">Please provide a name</string>
-    <string name="fragment_account_editor_institution_hint">Institution</string>
+    <string name="fragment_account_editor_institution_hint">Institution (Optional)</string>
     <string name="fragment_account_editor_balance_hint">Balance</string>
+    <string name="fragment_account_editor_default_balance_text">0</string>
     <string name="fragment_account_editor_currency_hint">Currency</string>
     <string name="fragment_account_editor_type_label">Account Type</string>
     <string name="fragment_account_editor_info_button_content_description">Account Type Explanation</string>

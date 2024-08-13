@@ -116,6 +116,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/fragment_account_editor_balance_hint"
+            android:text="@string/fragment_account_editor_default_balance_text"
             android:inputType="numberSigned|numberDecimal" />
 
     </com.google.android.material.textfield.TextInputLayout>

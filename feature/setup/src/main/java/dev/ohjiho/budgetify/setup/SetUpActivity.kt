@@ -5,6 +5,7 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -61,10 +62,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
 
-    companion object {
-        private const val ANIMATION_DURATION_MILLIS: Long = 500
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetUpBinding.inflate(layoutInflater)
@@ -96,7 +93,12 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
             }
 
             nextButton.setOnClickListener {
-                viewModel.nextScreen()
+                if (viewModel.uiState.value.accounts.isEmpty() && viewModel.uiState.value.screen == SetUpScreen.SET_UP_ACCOUNTS) {
+                    // Check any accounts exist post set up accounts screen
+                    Toast.makeText(this@SetUpActivity, ACCOUNTS_EMPTY_TOAST_MSG, Toast.LENGTH_LONG).show()
+                } else {
+                    viewModel.nextScreen()
+                }
             }
         }
 
@@ -170,6 +172,8 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, this, true))
             .commit()
+        // executePendingTransactions() required so that commit() is not done asynchronously and is instead done right before the
+        // activity app bar disappears for AccountEditorFragment's app bar
         supportFragmentManager.executePendingTransactions()
         binding.backgroundStartGuideline.setGuidelineBegin(0)
         binding.backgroundEndGuideline.setGuidelineBegin(0)
@@ -199,5 +203,10 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpBudgetsFragment()).commit()
 
         prevScreen = SetUpScreen.SET_UP_BUDGET
+    }
+
+    companion object {
+        private const val ANIMATION_DURATION_MILLIS: Long = 500
+        private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
     }
 }

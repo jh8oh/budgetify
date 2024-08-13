@@ -100,6 +100,7 @@ class AccountEditorFragment : Fragment() {
                 listener?.onEditorBack()
             }
             accountName.doAfterTextChanged {
+                // Remove error once any text has been inputted
                 accountName.error = null
             }
             accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
@@ -127,6 +128,7 @@ class AccountEditorFragment : Fragment() {
             saveButton.setOnClickListener {
                 reformatBalanceEditText()
                 if (accountName.text.isNullOrBlank()) {
+                    accountName.setText("")     // Clears text in case it only contains whitespace
                     accountName.error = accountNameBlankError
                 } else {
                     viewModel.saveAccount(
@@ -174,7 +176,7 @@ class AccountEditorFragment : Fragment() {
                                     AccountType.INVESTMENTS -> accountTypeToggleGroup.check(investmentsButton.id)
                                 }
                             } ?: run {
-                                accountBalance.setText("0")
+                                reformatBalanceEditText()       // Reformats the default balance text ("0")
                             }
                         }
                     }
