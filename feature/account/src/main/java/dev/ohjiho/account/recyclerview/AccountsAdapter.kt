@@ -2,6 +2,7 @@ package dev.ohjiho.account.recyclerview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.account.databinding.ItemAccountBinding
@@ -28,7 +29,11 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
         fun bind(account: AccountEntity) {
             with(binding) {
                 accountName.text = account.name
-                accountInstitution.text = account.institution
+                if (account.institution.isBlank()) {
+                    accountInstitution.visibility = View.GONE
+                } else {
+                    accountInstitution.text = account.institution
+                }
                 accountBalance.text = account.balance.toCurrencyFormat(account.currency, true, binding.root.context)
             }
         }

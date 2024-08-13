@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
@@ -62,6 +63,7 @@ class AccountEditorFragment : Fragment() {
         context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true)
         typedValue.data
     }
+    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -97,6 +99,9 @@ class AccountEditorFragment : Fragment() {
                 viewModel.deleteAccount()
                 listener?.onEditorBack()
             }
+            accountName.doAfterTextChanged {
+                accountName.error = null
+            }
             accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
             accountCurrencyContainer.setEndIconOnClickListener { currencySpinnerDialog.show() }
             accountBalance.setOnFocusChangeListener { _, hasFocus ->
@@ -121,13 +126,17 @@ class AccountEditorFragment : Fragment() {
             moreInfoButton.setOnClickListener { moreInfoDialog.show() }
             saveButton.setOnClickListener {
                 reformatBalanceEditText()
-                viewModel.saveAccount(
-                    accountName.text.toString(),
-                    accountInstitution.text.toString(),
-                    getAccountType(),
-                    accountBalance.text.toString().toBigDecimalAfterSanitize()
-                )
-                listener?.onEditorBack()
+                if (accountName.text.isNullOrBlank()) {
+                    accountName.error = accountNameBlankError
+                } else {
+                    viewModel.saveAccount(
+                        accountName.text.toString().trim(),
+                        accountInstitution.text.toString().trim(),
+                        getAccountType(),
+                        accountBalance.text.toString().toBigDecimalAfterSanitize()
+                    )
+                    listener?.onEditorBack()
+                }
             }
 
             if (arguments?.getBoolean(FROM_SET_UP_ARG) != true) {
@@ -164,6 +173,8 @@ class AccountEditorFragment : Fragment() {
                                     AccountType.DEBT -> accountTypeToggleGroup.check(debtButton.id)
                                     AccountType.INVESTMENTS -> accountTypeToggleGroup.check(investmentsButton.id)
                                 }
+                            } ?: run {
+                                accountBalance.setText("0")
                             }
                         }
                     }

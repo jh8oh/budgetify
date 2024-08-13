@@ -20,5 +20,6 @@ fun BigDecimal.toCurrencyFormat(currency: Currency, showCurrencyCode: Boolean, c
 }
 
 fun String.reformat(currency: Currency, context: Context? = null): String {
+    if (isNullOrEmpty()) return "0"
     return toBigDecimalAfterSanitize().toCurrencyFormat(currency, false, context)
 }
