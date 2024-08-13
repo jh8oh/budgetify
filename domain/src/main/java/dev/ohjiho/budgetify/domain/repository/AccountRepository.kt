@@ -6,4 +6,5 @@ import kotlinx.coroutines.flow.Flow
 interface AccountRepository : BaseRoomRepository<AccountEntity> {
     suspend fun getAccount(uid: Int): AccountEntity
     fun getAllAccounts(): Flow<List<AccountEntity>>
+    fun getAllUniqueInstitutions(): Flow<List<String>>
 }

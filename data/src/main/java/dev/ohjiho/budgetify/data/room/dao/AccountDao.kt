@@ -12,4 +12,7 @@ internal interface AccountDao : BaseDao<AccountEntity> {
 
     @Query("SELECT * FROM accounts")
     fun getAllAccounts(): Flow<List<AccountEntity>>
+
+    @Query("SELECT DISTINCT institution FROM accounts")
+    fun getAllUniqueInstitutions(): Flow<List<String>>
 }

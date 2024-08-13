@@ -11,4 +11,5 @@ internal class AccountRepositoryImpl @Inject constructor(private val dao: Accoun
     BaseRoomRepositoryImpl<AccountEntity, AccountDao>(dao), AccountRepository {
     override suspend fun getAccount(uid: Int): AccountEntity = dao.getAccount(uid)
     override fun getAllAccounts(): Flow<List<AccountEntity>> = dao.getAllAccounts()
+    override fun getAllUniqueInstitutions(): Flow<List<String>> = dao.getAllUniqueInstitutions()
 }

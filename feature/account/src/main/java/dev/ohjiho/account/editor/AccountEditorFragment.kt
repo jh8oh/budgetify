@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,9 +33,9 @@ class AccountEditorFragment : Fragment() {
 
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
-
     private var listener: Listener? = null
 
+    // Dialogs
     private val currencySpinnerDialog: AlertDialog by lazy {
         val currencySpinner = CurrencySpinner(requireContext()).apply {
             setListener(object : CurrencySpinner.Listener {
@@ -52,6 +53,7 @@ class AccountEditorFragment : Fragment() {
             .create()
     }
 
+    // Resources
     private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
     private val appBarNonSetUpColor by lazy {
         val typedValue = TypedValue()
@@ -91,6 +93,8 @@ class AccountEditorFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
+        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf())
+
         with(binding) {
             appBarBack.setOnClickListener {
                 listener?.onEditorBack()
@@ -103,6 +107,7 @@ class AccountEditorFragment : Fragment() {
                 // Remove error once any text has been inputted
                 accountName.error = null
             }
+            accountInstitution.setAdapter(adapter)
             accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
             accountCurrencyContainer.setEndIconOnClickListener { currencySpinnerDialog.show() }
             accountBalance.setOnFocusChangeListener { _, hasFocus ->
@@ -185,8 +190,19 @@ class AccountEditorFragment : Fragment() {
 
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.accountCurrency.collect {
-                        accountCurrency.setText(it.currencyCode)
+                    launch {
+                        viewModel.uniqueInstitution.collect{
+                            adapter.apply {
+                                clear()
+                                addAll(it)
+                                notifyDataSetChanged()
+                            }
+                        }
+                    }
+                    launch {
+                        viewModel.accountCurrency.collect {
+                            accountCurrency.setText(it.currencyCode)
+                        }
                     }
                 }
             }

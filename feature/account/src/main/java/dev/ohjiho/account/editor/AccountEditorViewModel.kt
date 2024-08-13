@@ -22,6 +22,7 @@ internal class AccountEditorViewModel @Inject constructor(
 
     val accountEntity: MutableStateFlow<AccountEntity?> = MutableStateFlow(null)
     val accountCurrency = MutableStateFlow(currencyRepository.getDefaultCurrency())
+    val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initWithAccountId(accountId: Int) {
         viewModelScope.launch {
