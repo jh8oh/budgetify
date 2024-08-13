@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -144,7 +145,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
             text = nextButtonText
         }
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpCurrencyFragment()).commit()
+        navigateFragmentTo(SetUpCurrencyFragment())
 
         prevScreen = SetUpScreen.SET_UP_CURRENCY
     }
@@ -157,8 +158,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         }
         binding.buttonContainer.visibility = View.VISIBLE
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpAccountsFragment()).commit()
-        supportFragmentManager.executePendingTransactions()
+        navigateFragmentTo(SetUpAccountsFragment(), true)
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
         binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
 
@@ -170,11 +170,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         binding.title.visibility = View.GONE
         binding.buttonContainer.visibility = View.GONE
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, this, true))
-            .commit()
-        // executePendingTransactions() required so that commit() is not done asynchronously and is instead done right before the
-        // activity app bar disappears for AccountEditorFragment's app bar
-        supportFragmentManager.executePendingTransactions()
+        navigateFragmentTo(AccountEditorFragment.newInstance(accountId, this, true), true)
         binding.backgroundStartGuideline.setGuidelineBegin(0)
         binding.backgroundEndGuideline.setGuidelineBegin(0)
 
@@ -185,24 +181,36 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         viewModel.onBackPressed()
     }
 
-    @SuppressLint("CommitTransaction")
+
     private fun showIncomeScreen() {
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
         binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpIncomeFragment()).commit()
+        navigateFragmentTo(SetUpIncomeFragment())
 
         prevScreen = SetUpScreen.SET_UP_INCOME
     }
 
-    @SuppressLint("CommitTransaction")
     private fun showBudgetsScreen() {
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
         binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, SetUpBudgetsFragment()).commit()
+        navigateFragmentTo(SetUpBudgetsFragment())
 
         prevScreen = SetUpScreen.SET_UP_BUDGET
+    }
+
+    @SuppressLint("CommitTransaction")
+    private fun navigateFragmentTo(fragment: Fragment, isInstant: Boolean = false) {
+        val existingFragment = supportFragmentManager.findFragmentById(R.id.fragment_container)
+        if (existingFragment != null && existingFragment.javaClass == fragment.javaClass) return
+
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit()
+        if (isInstant) {
+            // executePendingTransactions() required so that commit() is not done asynchronously and is instead done instantly to
+            // matched with the start of another animation
+            supportFragmentManager.executePendingTransactions()
+        }
     }
 
     companion object {
