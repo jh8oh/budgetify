@@ -1,4 +1,4 @@
-package dev.ohjiho.account
+package dev.ohjiho.budgetify.account
 
 import org.junit.Test
 

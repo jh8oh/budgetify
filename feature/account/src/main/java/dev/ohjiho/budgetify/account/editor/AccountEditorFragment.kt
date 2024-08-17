@@ -1,4 +1,4 @@
-package dev.ohjiho.account.editor
+package dev.ohjiho.budgetify.account.editor
 
 import android.app.AlertDialog
 import android.content.Context

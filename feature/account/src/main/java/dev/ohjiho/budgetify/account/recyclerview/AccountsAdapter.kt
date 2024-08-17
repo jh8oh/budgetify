@@ -1,4 +1,4 @@
-package dev.ohjiho.account.recyclerview
+package dev.ohjiho.budgetify.account.recyclerview
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

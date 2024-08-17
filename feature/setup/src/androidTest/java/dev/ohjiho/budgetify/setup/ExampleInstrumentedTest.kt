@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.domain
+package dev.ohjiho.budgetify.setup
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("dev.ohjiho.budgetify.domain.test", appContext.packageName)
+        assertEquals("dev.ohjiho.account.test", appContext.packageName)
     }
 }
