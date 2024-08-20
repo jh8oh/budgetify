@@ -32,8 +32,8 @@ internal class SetUpCurrencyFragment : Fragment(), CurrencySpinner.Listener {
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.uiState.collect {
-                    binding.defaultCurrency.text = it.defaultCurrency.currencyCode
+                viewModel.defaultCurrency.collect {
+                    binding.defaultCurrency.text = it.currencyCode
                 }
             }
         }

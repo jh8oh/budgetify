@@ -14,7 +14,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.account.editor.AccountEditorFragment
+import dev.ohjiho.budgetify.account.editor.AccountEditorFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import kotlinx.coroutines.launch
@@ -84,6 +84,9 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpScreen.SET_UP_BUDGET -> showBudgetsScreen()
                     }
+                    it.toastMessage.getContentIfNotHandled()?.let { message ->
+                        Toast.makeText(this@SetUpActivity, message, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -94,12 +97,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
             }
 
             nextButton.setOnClickListener {
-                if (viewModel.uiState.value.accounts.isEmpty() && viewModel.uiState.value.screen == SetUpScreen.SET_UP_ACCOUNTS) {
-                    // Check any accounts exist post set up accounts screen
-                    Toast.makeText(this@SetUpActivity, ACCOUNTS_EMPTY_TOAST_MSG, Toast.LENGTH_LONG).show()
-                } else {
-                    viewModel.nextScreen()
-                }
+                viewModel.nextScreen()
             }
         }
 
@@ -215,6 +213,5 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
-        private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
     }
 }

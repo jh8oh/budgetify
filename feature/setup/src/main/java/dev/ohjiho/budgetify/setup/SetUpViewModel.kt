@@ -3,10 +3,10 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.model.AccountEntity
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.utils.data.getLocale
+import dev.ohjiho.budgetify.utils.flow.Event
 import dev.ohjiho.budgetify.utils.ui.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
@@ -21,8 +21,7 @@ enum class SetUpScreen {
 
 data class SetUpUiState(
     val screen: SetUpScreen = SetUpScreen.WELCOME,
-    val defaultCurrency: Currency = Currency.getInstance(getLocale()),
-    val accounts: List<AccountEntity> = emptyList(),
+    val toastMessage: Event<String?> = Event(null),
 )
 
 @HiltViewModel
@@ -32,13 +31,16 @@ internal class SetUpViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
-    private val defaultCurrency = currencyRepository.getDefaultCurrencyAsFlow()
-    private val accounts = accountRepository.getAllAccounts()
+    private val toastMessage = MutableStateFlow<Event<String?>>(Event(null))
     var editingAccountId: Int? = null
 
-    val uiState = combine(screen, defaultCurrency, accounts) { screen, defaultCurrency, accounts ->
-        SetUpUiState(screen = screen, defaultCurrency = defaultCurrency, accounts = accounts)
+    val uiState = combine(screen, toastMessage) { screen, toastMessage ->
+        SetUpUiState(screen = screen, toastMessage = toastMessage)
     }.stateIn(viewModelScope, WhileUiSubscribed, SetUpUiState())
+
+    val defaultCurrency = currencyRepository.getDefaultCurrencyAsFlow()
+        .stateIn(viewModelScope, WhileUiSubscribed, Currency.getInstance(getLocale()))
+    val accounts = accountRepository.getAllAccounts().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
 
     // Screen
     fun onBackPressed(): Boolean {
@@ -93,7 +95,11 @@ internal class SetUpViewModel @Inject constructor(
             }
 
             SetUpScreen.SET_UP_ACCOUNTS -> {
-                screen.update { SetUpScreen.SET_UP_INCOME }
+                if (accounts.value.isEmpty()) {
+                    toastMessage.update { Event(ACCOUNTS_EMPTY_TOAST_MSG) }
+                } else {
+                    screen.update { SetUpScreen.SET_UP_INCOME }
+                }
                 false
             }
 
@@ -121,5 +127,9 @@ internal class SetUpViewModel @Inject constructor(
         } else {
             screen.update { SetUpScreen.ACCOUNT_EDITOR_UPDATE }
         }
+    }
+
+    companion object {
+        private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
     }
 }
