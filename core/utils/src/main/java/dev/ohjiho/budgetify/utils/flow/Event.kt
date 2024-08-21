@@ -1,6 +1,6 @@
 package dev.ohjiho.budgetify.utils.flow
 
-open class Event<out T>(private val content: T) {
+open class Event<T>(private var content: T) {
     var hasBeenHandled = false
         private set
 

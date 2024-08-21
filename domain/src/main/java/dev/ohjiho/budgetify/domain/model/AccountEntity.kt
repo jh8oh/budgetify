@@ -6,12 +6,12 @@ import java.math.BigDecimal
 import java.util.Currency
 
 enum class AccountType {
-    LIQUID, DEBT, INVESTMENTS;
+    LIQUID, CREDIT, INVESTMENTS;
 
     override fun toString(): String {
         return when (this) {
             LIQUID -> "Cash Accounts"
-            DEBT -> "Credit & Loans"
+            CREDIT -> "Credit"
             INVESTMENTS -> "Investments"
         }
     }
@@ -21,7 +21,7 @@ enum class AccountType {
 data class AccountEntity(
     var name: String,
     var institution: String,
-    var accountType: AccountType,
+    var type: AccountType,
     var balance: BigDecimal,
     var currency: Currency,
 ) {

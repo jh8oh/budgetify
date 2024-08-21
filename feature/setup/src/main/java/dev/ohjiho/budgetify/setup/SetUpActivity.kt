@@ -168,7 +168,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         binding.title.visibility = View.GONE
         binding.buttonContainer.visibility = View.GONE
 
-        navigateFragmentTo(AccountEditorFragment.newInstance(accountId, this, true), true)
+        navigateFragmentTo(AccountEditorFragment.newInstance(this, accountId, true), true)
         binding.backgroundStartGuideline.setGuidelineBegin(0)
         binding.backgroundEndGuideline.setGuidelineBegin(0)
 

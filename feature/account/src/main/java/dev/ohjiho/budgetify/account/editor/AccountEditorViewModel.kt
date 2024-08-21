@@ -20,54 +20,35 @@ internal class AccountEditorViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
 ) : ViewModel() {
 
-    val accountEntity: MutableStateFlow<AccountEntity?> = MutableStateFlow(null)
-    val accountCurrency = MutableStateFlow(currencyRepository.getDefaultCurrency())
+    var isNewAccount = MutableStateFlow(true)
+    val editorAccount: MutableStateFlow<AccountEntity> =
+        MutableStateFlow(AccountEntity("", "", AccountType.LIQUID, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initWithAccountId(accountId: Int) {
+        isNewAccount.update { false }
         viewModelScope.launch {
-            accountRepository.getAccount(accountId).let { account ->
-                accountEntity.update { account }
-                accountCurrency.update { account.currency }
-            }
+            editorAccount.update { accountRepository.getAccount(accountId) }
         }
     }
 
-    fun updateCurrency(currency: Currency) {
-        accountCurrency.update { currency }
+    fun updateEditorAccount(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
+        editorAccount.update { AccountEntity(name, institution, type, balance, currency) }
     }
 
-    fun saveAccount(accountName: String, accountInstitution: String, accountType: AccountType, accountBalance: BigDecimal) {
+    fun saveAccount() {
         viewModelScope.launch {
-            accountEntity.value?.let {
-                accountRepository.update(
-                    it.apply {
-                        this.name = accountName
-                        this.institution = accountInstitution
-                        this.accountType = accountType
-                        this.balance = accountBalance
-                        this.currency = accountCurrency.value
-                    }
-                )
-            } ?: run {
-                accountRepository.insert(
-                    AccountEntity(
-                        accountName,
-                        accountInstitution,
-                        accountType,
-                        accountBalance,
-                        accountCurrency.value
-                    )
-                )
+            if (isNewAccount.value) {
+                accountRepository.insert(editorAccount.value)
+            } else {
+                accountRepository.update(editorAccount.value)
             }
         }
     }
 
     fun deleteAccount() {
         viewModelScope.launch {
-            accountEntity.value?.let {
-                accountRepository.delete(it)
-            }
+            accountRepository.delete(editorAccount.value)
         }
     }
 }

@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="@string/account_type_debt"
+                android:text="@string/account_type_credit"
                 android:textStyle="bold" />
 
             <TextView
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
                 android:layout_weight="1"
-                android:text="@string/dialog_account_type_debt_explanation" />
+                android:text="@string/dialog_account_type_credit_explanation" />
         </TableRow>
 
         <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">

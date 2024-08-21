@@ -40,7 +40,7 @@ class AccountEditorFragment : Fragment() {
         val currencySpinner = CurrencySpinner(requireContext()).apply {
             setListener(object : CurrencySpinner.Listener {
                 override fun onCurrencySelected(currency: Currency) {
-                    viewModel.updateCurrency(currency)
+                    binding.accountCurrency.setText(currency.currencyCode)
                     currencySpinnerDialog.dismiss()
                 }
             })
@@ -54,7 +54,7 @@ class AccountEditorFragment : Fragment() {
     }
 
     // Resources
-    private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
+    private val accountEditorNewTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
     private val appBarNonSetUpColor by lazy {
         val typedValue = TypedValue()
         context?.theme?.resolveAttribute(android.R.attr.colorBackground, typedValue, true)
@@ -66,6 +66,14 @@ class AccountEditorFragment : Fragment() {
         typedValue.data
     }
     private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
+
+    interface Listener {
+        fun onEditorBack()
+    }
+
+    private fun setListener(listener: Listener?) {
+        this.listener = listener
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -96,6 +104,53 @@ class AccountEditorFragment : Fragment() {
         val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf())
 
         with(binding) {
+            // Check if from set up (Used to set color)
+            if (arguments?.getBoolean(FROM_SET_UP_ARG) != true) {
+                appBar.setBackgroundColor(appBarNonSetUpColor)
+                appBarBack.setColorFilter(onAppBarNonSetUpColor)
+                appBarDelete.setColorFilter(onAppBarNonSetUpColor)
+                title.setTextColor(onAppBarNonSetUpColor)
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    // Check if new account
+                    launch {
+                        viewModel.isNewAccount.collect {
+                            if (it){
+                                appBarDelete.visibility = View.GONE
+                                title.text = accountEditorNewTitle
+                            }
+                        }
+                    }
+                    // Populate institution adapter
+                    launch {
+                        viewModel.uniqueInstitution.collect {
+                            adapter.apply {
+                                clear()
+                                addAll(it)
+                                notifyDataSetChanged()
+                            }
+                        }
+                    }
+                    // Populate various account EditTexts
+                    launch {
+                        viewModel.editorAccount.collect { account ->
+                            accountName.setText(account.name)
+                            accountInstitution.setText(account.institution)
+                            accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
+                            accountCurrency.setText(account.currency.currencyCode)
+                            when (account.type) {
+                                AccountType.LIQUID -> accountTypeToggleGroup.check(liquidButton.id)
+                                AccountType.CREDIT -> accountTypeToggleGroup.check(creditButton.id)
+                                AccountType.INVESTMENTS -> accountTypeToggleGroup.check(investmentsButton.id)
+                            }
+                        }
+                    }
+                }
+            }
+
+            // App bar
             appBarBack.setOnClickListener {
                 listener?.onEditorBack()
             }
@@ -103,13 +158,17 @@ class AccountEditorFragment : Fragment() {
                 viewModel.deleteAccount()
                 listener?.onEditorBack()
             }
+            // Name
             accountName.doAfterTextChanged {
                 // Remove error once any text has been inputted
                 accountName.error = null
             }
+            // Institution
             accountInstitution.setAdapter(adapter)
+            // Currency
             accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
             accountCurrencyContainer.setEndIconOnClickListener { currencySpinnerDialog.show() }
+            // Balance
             accountBalance.setOnFocusChangeListener { _, hasFocus ->
                 if (!hasFocus) {
                     reformatBalanceEditText()
@@ -129,81 +188,17 @@ class AccountEditorFragment : Fragment() {
                     else -> false
                 }
             }
+            // More Info
             moreInfoButton.setOnClickListener { moreInfoDialog.show() }
+            // Save button
             saveButton.setOnClickListener {
-                reformatBalanceEditText()
                 if (accountName.text.isNullOrBlank()) {
                     accountName.setText("")     // Clears text in case it only contains whitespace
                     accountName.error = accountNameBlankError
                 } else {
-                    viewModel.saveAccount(
-                        accountName.text.toString().trim(),
-                        accountInstitution.text.toString().trim(),
-                        getAccountType(),
-                        accountBalance.text.toString().toBigDecimalAfterSanitize()
-                    )
+                    updateAccount()
+                    viewModel.saveAccount()
                     listener?.onEditorBack()
-                }
-            }
-
-            if (arguments?.getBoolean(FROM_SET_UP_ARG) != true) {
-                appBar.setBackgroundColor(appBarNonSetUpColor)
-                appBarBack.setColorFilter(onAppBarNonSetUpColor)
-                appBarDelete.setColorFilter(onAppBarNonSetUpColor)
-                title.setTextColor(onAppBarNonSetUpColor)
-            }
-
-            savedInstanceState?.let { state ->
-                if (state.getBoolean(IS_CURRENCY_DIALOG_SHOWN)) {
-                    currencySpinnerDialog.show()
-                }
-                if (state.getBoolean(IS_MORE_INFO_DIALOG_SHOWN)) {
-                    moreInfoDialog.show()
-                }
-
-                accountName.setText(state.getString(NAME_TEXT))
-                accountInstitution.setText(state.getString(INSTITUTION_TEXT))
-                accountBalance.setText(state.getString(BALANCE_TEXT))
-                accountTypeToggleGroup.check(state.getInt(ACCOUNT_TYPE_ID, liquidButton.id))
-            } ?: run {
-                viewLifecycleOwner.lifecycleScope.launch {
-                    repeatOnLifecycle(Lifecycle.State.STARTED) {
-                        viewModel.accountEntity.collect { account ->
-                            account?.let {
-                                title.text = accountEditorUpdateTitle
-                                appBarDelete.visibility = View.VISIBLE
-                                accountName.setText(it.name)
-                                accountInstitution.setText(it.institution)
-                                accountBalance.setText(it.balance.toCurrencyFormat(it.currency, false, context))
-                                when (it.accountType) {
-                                    AccountType.LIQUID -> accountTypeToggleGroup.check(liquidButton.id)
-                                    AccountType.DEBT -> accountTypeToggleGroup.check(debtButton.id)
-                                    AccountType.INVESTMENTS -> accountTypeToggleGroup.check(investmentsButton.id)
-                                }
-                            } ?: run {
-                                reformatBalanceEditText()       // Reformats the default balance text ("0")
-                            }
-                        }
-                    }
-                }
-            }
-
-            viewLifecycleOwner.lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    launch {
-                        viewModel.uniqueInstitution.collect{
-                            adapter.apply {
-                                clear()
-                                addAll(it)
-                                notifyDataSetChanged()
-                            }
-                        }
-                    }
-                    launch {
-                        viewModel.accountCurrency.collect {
-                            accountCurrency.setText(it.currencyCode)
-                        }
-                    }
                 }
             }
         }
@@ -211,31 +206,32 @@ class AccountEditorFragment : Fragment() {
         return binding.root
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_CURRENCY_DIALOG_SHOWN, currencySpinnerDialog.isShowing)
-        outState.putBoolean(IS_MORE_INFO_DIALOG_SHOWN, moreInfoDialog.isShowing)
-        with(binding) {
-            outState.putString(NAME_TEXT, accountName.text.toString())
-            outState.putString(INSTITUTION_TEXT, accountInstitution.text.toString())
-            outState.putString(BALANCE_TEXT, accountBalance.text.toString())
-            outState.putInt(ACCOUNT_TYPE_ID, accountTypeToggleGroup.checkedButtonId)
+    private fun reformatBalanceEditText() {
+        binding.accountBalance.apply {
+            setText(text.toString().reformat(viewModel.editorAccount.value.currency, context))
         }
     }
 
-    private fun setListener(listener: Listener?) {
-        this.listener = listener
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        updateAccount()
     }
 
-    private fun reformatBalanceEditText() {
-        binding.accountBalance.setText(binding.accountBalance.text.toString().reformat(viewModel.accountCurrency.value, context))
+    private fun updateAccount() {
+        viewModel.updateEditorAccount(
+            binding.accountName.text.toString().trim(),
+            binding.accountInstitution.text.toString().trim(),
+            getAccountType(),
+            binding.accountBalance.text.toString().toBigDecimalAfterSanitize(),
+            Currency.getInstance(binding.accountCurrency.text.toString())
+        )
     }
 
     private fun getAccountType(): AccountType {
         with(binding) {
             return when (accountTypeToggleGroup.checkedButtonId) {
                 liquidButton.id -> AccountType.LIQUID
-                debtButton.id -> AccountType.DEBT
+                creditButton.id -> AccountType.CREDIT
                 else -> AccountType.INVESTMENTS
             }
         }
@@ -244,14 +240,8 @@ class AccountEditorFragment : Fragment() {
     companion object {
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
         private const val FROM_SET_UP_ARG = "FROM_SET_UP"
-        private const val IS_CURRENCY_DIALOG_SHOWN = "IS_CURRENCY_DIALOG_SHOWN"
-        private const val IS_MORE_INFO_DIALOG_SHOWN = "IS_MORE_INFO_DIALOG_SHOWN"
-        private const val NAME_TEXT = "NAME_TEXT"
-        private const val INSTITUTION_TEXT = "INSTITUTION_TEXT"
-        private const val BALANCE_TEXT = "ACCOUNT_BALANCE_TEXT"
-        private const val ACCOUNT_TYPE_ID = "ACCOUNT_TYPE_ID"
 
-        fun newInstance(accountId: Int? = null, listener: Listener? = null, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
+        fun newInstance(listener: Listener? = null, accountId: Int? = null, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
                 accountId?.let { putInt(ACCOUNT_ID_ARG, it) }
                 putBoolean(FROM_SET_UP_ARG, fromSetUp)
@@ -259,9 +249,5 @@ class AccountEditorFragment : Fragment() {
 
             setListener(listener)
         }
-    }
-
-    interface Listener {
-        fun onEditorBack()
     }
 }
