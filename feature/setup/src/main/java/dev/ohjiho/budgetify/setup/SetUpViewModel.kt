@@ -3,15 +3,18 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.model.AccountEntity
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.utils.data.getLocale
 import dev.ohjiho.budgetify.utils.flow.Event
-import dev.ohjiho.budgetify.utils.ui.WhileUiSubscribed
+import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import java.math.BigDecimal
 import java.util.Currency
 import javax.inject.Inject
 
@@ -22,6 +25,13 @@ enum class SetUpScreen {
 data class SetUpUiState(
     val screen: SetUpScreen = SetUpScreen.WELCOME,
     val toastMessage: Event<String?> = Event(null),
+)
+
+data class SetUpIncomeState(
+    val isIncome: Boolean = true,
+    val amount: BigDecimal = BigDecimal.ZERO,
+    val isMonthly: Boolean = true,
+    val account: AccountEntity? = null,
 )
 
 @HiltViewModel
@@ -41,6 +51,7 @@ internal class SetUpViewModel @Inject constructor(
     val defaultCurrency = currencyRepository.getDefaultCurrencyAsFlow()
         .stateIn(viewModelScope, WhileUiSubscribed, Currency.getInstance(getLocale()))
     val accounts = accountRepository.getAllAccounts().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
+    val setUpIncomeState = MutableStateFlow(SetUpIncomeState())
 
     // Screen
     fun onBackPressed(): Boolean {
@@ -97,14 +108,19 @@ internal class SetUpViewModel @Inject constructor(
             SetUpScreen.SET_UP_ACCOUNTS -> {
                 if (accounts.value.isEmpty()) {
                     toastMessage.update { Event(ACCOUNTS_EMPTY_TOAST_MSG) }
-                } else {
+                } else{
+                    replaceIncomeAccountIfNotExist()
                     screen.update { SetUpScreen.SET_UP_INCOME }
                 }
                 false
             }
 
             SetUpScreen.SET_UP_INCOME -> {
-                screen.update { SetUpScreen.SET_UP_BUDGET }
+                if (setUpIncomeState.value.amount == BigDecimal.ZERO) {
+                    toastMessage.update { Event(INCOME_ZERO_TOAST_MSG) }
+                } else {
+                    screen.update { SetUpScreen.SET_UP_BUDGET }
+                }
                 false
             }
 
@@ -129,7 +145,22 @@ internal class SetUpViewModel @Inject constructor(
         }
     }
 
+    // Income
+    fun replaceIncomeAccountIfNotExist() {
+        if (accounts.value.isEmpty()) return
+
+        // Check if the account set in income still exists. Otherwise, set the income account to be the first of list of accounts if it's not empty
+        if (setUpIncomeState.value.account == null || !accounts.value.contains(setUpIncomeState.value.account)) {
+            setUpIncomeState.update { setUpIncomeState.value.copy(account = accounts.value[0]) }
+        }
+    }
+
+    fun updateIncomeState(isIncome: Boolean, amount:BigDecimal, isMonthly: Boolean, account: AccountEntity?) {
+        setUpIncomeState.update { SetUpIncomeState(isIncome, amount, isMonthly, account) }
+    }
+
     companion object {
         private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
+        private const val INCOME_ZERO_TOAST_MSG = "Please set an income/budget"
     }
 }

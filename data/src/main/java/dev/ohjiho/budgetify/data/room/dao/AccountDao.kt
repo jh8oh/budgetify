@@ -10,7 +10,7 @@ internal interface AccountDao : BaseDao<AccountEntity> {
     @Query("SELECT * FROM accounts WHERE uid = :uid")
     suspend fun getAccount(uid: Int): AccountEntity
 
-    @Query("SELECT * FROM accounts")
+    @Query("SELECT * FROM accounts ORDER BY type ASC, name ASC")
     fun getAllAccounts(): Flow<List<AccountEntity>>
 
     @Query("SELECT DISTINCT institution FROM accounts")

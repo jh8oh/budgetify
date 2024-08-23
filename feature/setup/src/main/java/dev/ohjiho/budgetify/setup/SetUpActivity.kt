@@ -119,7 +119,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         binding.backButton.visibility = View.GONE
         binding.nextButton.text = welcomeNextButtonText
 
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, WelcomeFragment()).commit()
+        navigateFragmentTo(WelcomeFragment())
 
         prevScreen = SetUpScreen.WELCOME
     }
@@ -138,12 +138,10 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
             text = setUpCurrencyTitle
         }
         binding.backButton.visibility = View.VISIBLE
-        binding.nextButton.apply {
-            visibility = View.VISIBLE
-            text = nextButtonText
-        }
+        binding.nextButton.text = nextButtonText
 
-        navigateFragmentTo(SetUpCurrencyFragment())
+        navigateFragmentTo(SetUpCurrencyFragment(), true)
+        binding.navButtonContainer.visibility = View.VISIBLE
 
         prevScreen = SetUpScreen.SET_UP_CURRENCY
     }
@@ -154,7 +152,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
             visibility = View.VISIBLE
             text = setUpAccountsTitle
         }
-        binding.buttonContainer.visibility = View.VISIBLE
+        binding.navButtonContainer.visibility = View.GONE
 
         navigateFragmentTo(SetUpAccountsFragment(), true)
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
@@ -166,7 +164,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     @SuppressLint("CommitTransaction")
     private fun showAccountEditorScreen(accountId: Int?) {
         binding.title.visibility = View.GONE
-        binding.buttonContainer.visibility = View.GONE
 
         navigateFragmentTo(AccountEditorFragment.newInstance(this, accountId, true), true)
         binding.backgroundStartGuideline.setGuidelineBegin(0)

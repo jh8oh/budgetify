@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.utils.ui
+package dev.ohjiho.budgetify.utils.flow
 
 import kotlinx.coroutines.flow.SharingStarted
 

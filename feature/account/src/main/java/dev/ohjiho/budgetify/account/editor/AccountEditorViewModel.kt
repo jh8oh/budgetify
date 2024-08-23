@@ -8,6 +8,7 @@ import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -22,7 +23,7 @@ internal class AccountEditorViewModel @Inject constructor(
 
     var isNewAccount = MutableStateFlow(true)
     val editorAccount: MutableStateFlow<AccountEntity> =
-        MutableStateFlow(AccountEntity("", "", AccountType.LIQUID, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
+        MutableStateFlow(AccountEntity("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initWithAccountId(accountId: Int) {
@@ -33,7 +34,11 @@ internal class AccountEditorViewModel @Inject constructor(
     }
 
     fun updateEditorAccount(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
-        editorAccount.update { AccountEntity(name, institution, type, balance, currency) }
+        editorAccount.getAndUpdate {
+            it.copy(name, institution, type, balance, currency).apply {
+                uid = it.uid
+            }
+        }
     }
 
     fun saveAccount() {

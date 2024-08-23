@@ -8,8 +8,6 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -21,9 +19,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.account.R
 import dev.ohjiho.account.databinding.FragmentAccountEditorBinding
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.utils.data.reformat
 import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
+import dev.ohjiho.budgetify.utils.ui.reformatBalanceAfterTextChange
 import dev.ohjiho.currencypicker.CurrencySpinner
 import kotlinx.coroutines.launch
 import java.util.Currency
@@ -35,12 +33,18 @@ class AccountEditorFragment : Fragment() {
     private lateinit var binding: FragmentAccountEditorBinding
     private var listener: Listener? = null
 
+    // Adapter
+    private val institutionAdapter by lazy {
+        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf<String>())
+    }
+
     // Dialogs
     private val currencySpinnerDialog: AlertDialog by lazy {
         val currencySpinner = CurrencySpinner(requireContext()).apply {
             setListener(object : CurrencySpinner.Listener {
                 override fun onCurrencySelected(currency: Currency) {
                     binding.accountCurrency.setText(currency.currencyCode)
+                    binding.accountBalance.reformatBalanceAfterTextChange(currency)
                     currencySpinnerDialog.dismiss()
                 }
             })
@@ -101,8 +105,6 @@ class AccountEditorFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
-        val adapter = ArrayAdapter<String>(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf())
-
         with(binding) {
             // Check if from set up (Used to set color)
             if (arguments?.getBoolean(FROM_SET_UP_ARG) != true) {
@@ -126,7 +128,7 @@ class AccountEditorFragment : Fragment() {
                     // Populate institution adapter
                     launch {
                         viewModel.uniqueInstitution.collect {
-                            adapter.apply {
+                            institutionAdapter.apply {
                                 clear()
                                 addAll(it)
                                 notifyDataSetChanged()
@@ -141,7 +143,7 @@ class AccountEditorFragment : Fragment() {
                             accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
                             accountCurrency.setText(account.currency.currencyCode)
                             when (account.type) {
-                                AccountType.LIQUID -> accountTypeToggleGroup.check(liquidButton.id)
+                                AccountType.CASH -> accountTypeToggleGroup.check(cashButton.id)
                                 AccountType.CREDIT -> accountTypeToggleGroup.check(creditButton.id)
                                 AccountType.INVESTMENTS -> accountTypeToggleGroup.check(investmentsButton.id)
                             }
@@ -164,30 +166,12 @@ class AccountEditorFragment : Fragment() {
                 accountName.error = null
             }
             // Institution
-            accountInstitution.setAdapter(adapter)
+            accountInstitution.setAdapter(institutionAdapter)
             // Currency
             accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
             accountCurrencyContainer.setEndIconOnClickListener { currencySpinnerDialog.show() }
             // Balance
-            accountBalance.setOnFocusChangeListener { _, hasFocus ->
-                if (!hasFocus) {
-                    reformatBalanceEditText()
-                }
-            }
-            accountBalance.setOnEditorActionListener { _, actionId, _ ->
-                return@setOnEditorActionListener when (actionId) {
-                    EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_NEXT, EditorInfo.IME_ACTION_PREVIOUS -> {
-                        reformatBalanceEditText()
-                        (context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(
-                            accountBalance.windowToken,
-                            0
-                        )
-                        true
-                    }
-
-                    else -> false
-                }
-            }
+            accountBalance.reformatBalanceAfterTextChange(viewModel.editorAccount.value.currency)
             // More Info
             moreInfoButton.setOnClickListener { moreInfoDialog.show() }
             // Save button
@@ -206,31 +190,27 @@ class AccountEditorFragment : Fragment() {
         return binding.root
     }
 
-    private fun reformatBalanceEditText() {
-        binding.accountBalance.apply {
-            setText(text.toString().reformat(viewModel.editorAccount.value.currency, context))
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         updateAccount()
     }
 
     private fun updateAccount() {
-        viewModel.updateEditorAccount(
-            binding.accountName.text.toString().trim(),
-            binding.accountInstitution.text.toString().trim(),
-            getAccountType(),
-            binding.accountBalance.text.toString().toBigDecimalAfterSanitize(),
-            Currency.getInstance(binding.accountCurrency.text.toString())
-        )
+        with(binding){
+            viewModel.updateEditorAccount(
+                accountName.text.toString().trim(),
+                accountInstitution.text.toString().trim(),
+                getAccountType(),
+                accountBalance.text.toString().toBigDecimalAfterSanitize(),
+                Currency.getInstance(accountCurrency.text.toString())
+            )
+        }
     }
 
     private fun getAccountType(): AccountType {
         with(binding) {
             return when (accountTypeToggleGroup.checkedButtonId) {
-                liquidButton.id -> AccountType.LIQUID
+                cashButton.id -> AccountType.CASH
                 creditButton.id -> AccountType.CREDIT
                 else -> AccountType.INVESTMENTS
             }

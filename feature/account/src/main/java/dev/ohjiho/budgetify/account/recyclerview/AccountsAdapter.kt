@@ -70,10 +70,10 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
     @SuppressLint("NotifyDataSetChanged")
     fun setAccountList(newAccountList: List<AccountEntity>) {
         newAccountList.groupBy { it.type }.let { map ->
-            val liquidAccounts = map[AccountType.LIQUID]?.let { listOf(AccountType.LIQUID) + it } ?: emptyList()
+            val cashAccounts = map[AccountType.CASH]?.let { listOf(AccountType.CASH) + it } ?: emptyList()
             val creditAccounts = map[AccountType.CREDIT]?.let { listOf(AccountType.CREDIT) + it } ?: emptyList()
             val investmentAccounts = map[AccountType.INVESTMENTS]?.let { listOf(AccountType.INVESTMENTS) + it } ?: emptyList()
-            accounts = liquidAccounts + creditAccounts + investmentAccounts
+            accounts = cashAccounts + creditAccounts + investmentAccounts
         }
 
         // TODO Create diff util so that we don't have to use notifyDataSetChanged()

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="account_type_liquid">Cash</string>
+    <string name="account_type_cash">Cash</string>
     <string name="account_type_credit">Credit</string>
     <string name="account_type_investments">Investment</string>
 
@@ -18,7 +18,7 @@
     <string name="fragment_account_editor_save_button">Save</string>
 
     <string name="dialog_account_type_title">Type Explanation</string>
-    <string name="dialog_account_type_liquid_explanation">Chequing, savings, &amp; cash: Basic accounts that offers easy access to your money for day-to-day spending.</string>
+    <string name="dialog_account_type_cash_explanation">Chequing, savings, &amp; cash: Basic accounts that offers easy access to your money for day-to-day spending.</string>
     <string name="dialog_account_type_credit_explanation">Credit &amp; loans: Money borrowed which you can repay later, often with interest.</string>
     <string name="dialog_account_type_investments_explanation">Stocks, bonds, &amp; other assets: Money placed in accounts that are mainly used to grow your wealth over time.</string>
 </resources>

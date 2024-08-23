@@ -25,11 +25,13 @@
         <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
     </style>
 
-    <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
-        <item name="textAllCaps">true</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="fontFamily">@font/montserrat_medium</item>
-        <item name="android:fontFamily">@font/montserrat_medium</item>
+    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
@@ -47,11 +49,18 @@
 
     <!-- Text -->
     <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
-        <item name="textAllCaps">true</item>
-        <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/barlow_condensed_regular</item>
         <item name="android:fontFamily">@font/barlow_condensed_regular</item>
         <item name="android:letterSpacing">0.03</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.HeadlineExtraLarge" parent="TextAppearance.Budgetify.Body">
+        <item name="android:textColor">?colorPrimaryVariant</item>
+        <item name="android:textSize">56sp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
@@ -86,5 +95,12 @@
     <style name="TextAppearance.Budgetify.Label" parent="@style/TextAppearance.Material3.LabelMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
     </style>
 </resources>

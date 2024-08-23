@@ -7,7 +7,6 @@
     android:paddingHorizontal="@dimen/fragment_set_up_currency_padding_horizontal">
 
     <TextView
-        android:id="@+id/default_description"
         style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,17 +16,13 @@
 
     <TextView
         android:id="@+id/default_currency"
-        style="@style/TextAppearance.Budgetify.Body"
+        style="@style/TextAppearance.Budgetify.HeadlineExtraLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/fragment_set_up_currency_default_currency_margin_top"
         android:background="?selectableItemBackground"
-        android:letterSpacing="0.02"
         android:padding="@dimen/fragment_set_up_currency_default_currency_padding"
-        android:textColor="?colorPrimaryVariant"
-        android:textSize="@dimen/fragment_set_up_currency_default_currency_text_size"
-        android:textStyle="bold"
         tools:text="CAD" />
 
 </LinearLayout>

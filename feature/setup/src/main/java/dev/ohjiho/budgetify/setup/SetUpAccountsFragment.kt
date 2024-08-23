@@ -39,6 +39,8 @@ internal class SetUpAccountsFragment : Fragment() {
                     viewModel.addOrUpdateAccount(account.uid)
                 }
             })
+            backButton.setOnClickListener { viewModel.onBackPressed() }
+            nextButton.setOnClickListener { viewModel.nextScreen() }
         }
 
         return binding.root

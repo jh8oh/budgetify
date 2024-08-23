@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingHorizontal="@dimen/fragment_set_up_accounts_padding_horizontal">
 
     <TextView
+        android:id="@+id/set_up_accounts_description"
         style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_description_margin_top"
-        android:text="@string/fragment_set_up_accounts_description" />
+        android:text="@string/fragment_set_up_accounts_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <dev.ohjiho.budgetify.account.recyclerview.AccountsRecyclerView
         android:id="@+id/accounts_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_recyclerview_margin_top"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/add_account_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/set_up_accounts_description"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:listitem="@layout/item_account" />
 
     <com.google.android.material.button.MaterialButton
@@ -26,6 +37,39 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
-        android:text="@string/fragment_set_up_accounts_add_button" />
+        android:layout_marginBottom="@dimen/fragment_set_up_accounts_add_account_button_margin_bottom"
+        android:text="@string/fragment_set_up_accounts_add_button"
+        app:layout_constraintBottom_toTopOf="@id/nav_button_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/accounts_recycler_view" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/nav_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/set_up_margin_bottom"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/back_button"
+            style="@style/Theme.Budgetify.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
+            app:icon="@drawable/ic_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/Theme.Budgetify.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_set_up_next_button" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
