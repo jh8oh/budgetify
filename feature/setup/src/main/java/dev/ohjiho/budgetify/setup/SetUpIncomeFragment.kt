@@ -126,7 +126,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 intoLabel.visibility = View.VISIBLE
                 accountContainer.visibility = View.VISIBLE
             } else {
-                resources.getColor(R.color.orange_700, requireContext().theme).let {
+                resources.getColor(R.color.color_budget_text, requireContext().theme).let {
                     currency.setTextColor(it)
                     amount.setTextColor(it)
                 }

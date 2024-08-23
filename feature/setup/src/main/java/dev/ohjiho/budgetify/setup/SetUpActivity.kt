@@ -62,6 +62,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private val nextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
     private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
+    private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -180,6 +181,8 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private fun showIncomeScreen() {
         binding.backgroundStartGuideline.setGuidelineBegin(actionBarSize)
         binding.backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+
+        binding.title.text = setUpIncomeTitle
 
         navigateFragmentTo(SetUpIncomeFragment())
 

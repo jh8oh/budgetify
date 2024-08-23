@@ -6,8 +6,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import dev.ohjiho.budgetify.data.sharedprefs.AccountSharedPrefs
-import dev.ohjiho.budgetify.data.sharedprefs.AccountSharedPrefs.Companion.ACCOUNT_SHARED_PREFS
 import dev.ohjiho.budgetify.data.sharedprefs.CurrencySharedPrefs
 import dev.ohjiho.budgetify.data.sharedprefs.CurrencySharedPrefs.Companion.CURRENCY_SHARED_PREFS
 import dev.ohjiho.budgetify.data.sharedprefs.SetUpSharedPrefs

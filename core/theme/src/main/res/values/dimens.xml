@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="background_selectable_bordered_corner_radius">2dp</dimen>
-
     <dimen name="theme_budgetify_button_padding_horizontal">32dp</dimen>
     <dimen name="theme_budgetify_button_padding_vertical">16dp</dimen>
     <dimen name="theme_budgetify_icon_button_padding">@dimen/theme_budgetify_button_padding_vertical</dimen>

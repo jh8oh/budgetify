@@ -11,7 +11,6 @@ import dev.ohjiho.budgetify.utils.flow.Event
 import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
