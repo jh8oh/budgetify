@@ -24,6 +24,6 @@
     <dimen name="fragment_set_up_income_budget_toggle_margin_top">6dp</dimen>
     <dimen name="fragment_set_up_income_amount_margin_top">8dp</dimen>
     <dimen name="fragment_set_up_income_currency_margin_end">8dp</dimen>
-    <dimen name="fragment_set_up_income_per_margin_top">16dp</dimen>
+    <dimen name="fragment_set_up_income_per_margin_top">12dp</dimen>
     <dimen name="fragment_set_up_income_frequency_account_margin_between">8dp</dimen>
 </resources>

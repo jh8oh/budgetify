@@ -1,6 +1,7 @@
 package dev.ohjiho.budgetify.setup
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +29,7 @@ internal class SetUpIncomeFragment : Fragment() {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, FREQUENCY_LIST)
     }
     private val accountAdapter by lazy {
-        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf<String>())
+        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, viewModel.accounts.value.map { it.name })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -76,12 +77,18 @@ internal class SetUpIncomeFragment : Fragment() {
                     onSwitchIncomeBudgetToggle(checkedId == incomeButton.id)
                 }
             }
-            frequency.setAdapter(frequencyAdapter)
-            account.setAdapter(accountAdapter)
-            account.setOnItemClickListener { _, _, position, _ ->
-                val accountCurrency = viewModel.accounts.value[position].currency
-                currency.text = accountCurrency.currencyCode
-                amount.reformatBalanceAfterTextChange(accountCurrency)
+            frequency.apply {
+                setAdapter(frequencyAdapter)
+                threshold = IMPOSSIBLE_THRESHOLD
+            }
+            account.apply {
+                setAdapter(accountAdapter)
+                threshold = IMPOSSIBLE_THRESHOLD
+                setOnItemClickListener { _, _, position, _ ->
+                    val accountCurrency = viewModel.accounts.value[position].currency
+                    currency.text = accountCurrency.currencyCode
+                    amount.reformatBalanceAfterTextChange(accountCurrency)
+                }
             }
             backButton.setOnClickListener {
                 saveIncomeState()
@@ -126,7 +133,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 intoLabel.visibility = View.VISIBLE
                 accountContainer.visibility = View.VISIBLE
             } else {
-                resources.getColor(R.color.color_budget_text, requireContext().theme).let {
+                resources.getColor(R.color.orange_700, requireContext().theme).let {
                     currency.setTextColor(it)
                     amount.setTextColor(it)
                 }
@@ -140,6 +147,7 @@ internal class SetUpIncomeFragment : Fragment() {
     }
 
     companion object {
+        private val IMPOSSIBLE_THRESHOLD = 1000
         private val FREQUENCY_LIST = listOf("week", "month")
     }
 }
