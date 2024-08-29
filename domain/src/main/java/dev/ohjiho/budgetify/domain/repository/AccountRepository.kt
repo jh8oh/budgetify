@@ -1,10 +1,10 @@
 package dev.ohjiho.budgetify.domain.repository
 
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 import kotlinx.coroutines.flow.Flow
 
-interface AccountRepository : BaseRoomRepository<AccountEntity> {
-    suspend fun getAccount(uid: Int): AccountEntity
-    fun getAllAccounts(): Flow<List<AccountEntity>>
+interface AccountRepository : BaseRoomRepository<Account> {
+    suspend fun getAccount(uid: Int): Account
+    fun getAllAccounts(): Flow<List<Account>>
     fun getAllUniqueInstitutions(): Flow<List<String>>
 }

@@ -3,7 +3,7 @@ package dev.ohjiho.budgetify.account.editor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
@@ -22,8 +22,8 @@ internal class AccountEditorViewModel @Inject constructor(
 ) : ViewModel() {
 
     var isNewAccount = MutableStateFlow(true)
-    val editorAccount: MutableStateFlow<AccountEntity> =
-        MutableStateFlow(AccountEntity("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
+    val editorAccount: MutableStateFlow<Account> =
+        MutableStateFlow(Account("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initWithAccountId(accountId: Int) {

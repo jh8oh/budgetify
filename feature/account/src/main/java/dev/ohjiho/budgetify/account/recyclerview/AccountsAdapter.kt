@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.account.databinding.ItemAccountBinding
 import dev.ohjiho.account.databinding.ItemAccountHeaderBinding
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
-internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
+internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var accounts = emptyList<Any>()
@@ -26,7 +26,7 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
 
     inner class AccountViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
-        fun bind(account: AccountEntity) {
+        fun bind(account: Account) {
             with(binding) {
                 accountName.text = account.name
                 if (account.institution.isBlank()) {
@@ -52,7 +52,7 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
             HEADER_VIEW_TYPE -> AccountHeaderViewHolder(ItemAccountHeaderBinding.inflate(layoutInflater, parent, false))
             else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false)).apply {
                 itemView.setOnClickListener {
-                    onClick(accounts[adapterPosition] as AccountEntity)
+                    onClick(accounts[adapterPosition] as Account)
                 }
             }
         }
@@ -61,14 +61,14 @@ internal class AccountsAdapter(private val onClick: (AccountEntity) -> Unit) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
             HEADER_VIEW_TYPE -> (holder as AccountHeaderViewHolder).bind(accounts[position] as AccountType)
-            else -> (holder as AccountViewHolder).bind(accounts[position] as AccountEntity)
+            else -> (holder as AccountViewHolder).bind(accounts[position] as Account)
         }
     }
 
     override fun getItemCount() = accounts.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setAccountList(newAccountList: List<AccountEntity>) {
+    fun setAccountList(newAccountList: List<Account>) {
         newAccountList.groupBy { it.type }.let { map ->
             val cashAccounts = map[AccountType.CASH]?.let { listOf(AccountType.CASH) + it } ?: emptyList()
             val creditAccounts = map[AccountType.CREDIT]?.let { listOf(AccountType.CREDIT) + it } ?: emptyList()

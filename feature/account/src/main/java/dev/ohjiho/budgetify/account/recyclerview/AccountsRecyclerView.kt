@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 
 class AccountsRecyclerView @JvmOverloads constructor(
     context: Context,
@@ -16,7 +16,7 @@ class AccountsRecyclerView @JvmOverloads constructor(
     private var listener: Listener? = null
 
     interface Listener{
-        fun onClick(account: AccountEntity)
+        fun onClick(account: Account)
     }
 
     init {
@@ -40,7 +40,7 @@ class AccountsRecyclerView @JvmOverloads constructor(
         this.listener = listener
     }
 
-    fun setAccountList(accountList: List<AccountEntity>){
+    fun setAccountList(accountList: List<Account>){
         (adapter as AccountsAdapter).setAccountList(accountList)
     }
 }

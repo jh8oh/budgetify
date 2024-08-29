@@ -5,10 +5,10 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import dev.ohjiho.budgetify.data.room.dao.AccountDao
 import dev.ohjiho.budgetify.data.room.util.Converters
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 
 @Database(
-    entities = [AccountEntity::class],
+    entities = [Account::class],
     version = 1,
     exportSchema = false
 )

@@ -71,7 +71,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         supportFragmentManager.navigateTo(R.id.fragment_container, setUpAccountsFragment, true)
     }
 
-    @SuppressLint("CommitTransaction")
     private fun showAccountEditorScreen(accountId: Int?) {
         binding.appBar.visibility = View.GONE
 

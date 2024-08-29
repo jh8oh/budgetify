@@ -10,7 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.ohjiho.budgetify.account.recyclerview.AccountsRecyclerView
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpAccountsBinding
 import kotlinx.coroutines.launch
 
@@ -35,7 +35,7 @@ internal class SetUpAccountsFragment : Fragment() {
                 viewModel.addOrUpdateAccount(null)
             }
             accountsRecyclerView.setListener(object : AccountsRecyclerView.Listener {
-                override fun onClick(account: AccountEntity) {
+                override fun onClick(account: Account) {
                     viewModel.addOrUpdateAccount(account.uid)
                 }
             })

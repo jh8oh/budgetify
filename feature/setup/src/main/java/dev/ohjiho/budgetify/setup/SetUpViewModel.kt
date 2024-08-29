@@ -3,7 +3,7 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.model.AccountEntity
+import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.utils.data.getLocale
@@ -30,7 +30,7 @@ data class SetUpIncomeState(
     val isIncome: Boolean = true,
     val amount: BigDecimal = BigDecimal.ZERO,
     val isMonthly: Boolean = true,
-    val account: AccountEntity? = null,
+    val account: Account? = null,
 )
 
 @HiltViewModel
@@ -154,7 +154,7 @@ internal class SetUpViewModel @Inject constructor(
         }
     }
 
-    fun updateIncomeState(isIncome: Boolean, amount:BigDecimal, isMonthly: Boolean, account: AccountEntity?) {
+    fun updateIncomeState(isIncome: Boolean, amount:BigDecimal, isMonthly: Boolean, account: Account?) {
         setUpIncomeState.update { SetUpIncomeState(isIncome, amount, isMonthly, account) }
     }
 
