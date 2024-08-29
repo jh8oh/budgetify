@@ -21,5 +21,6 @@
     <string name="fragment_set_up_income_frequency_default">month</string>
     <string name="fragment_set_up_income_into">into</string>
 
+    <string name="fragment_set_up_budget_title">Set up your budget</string>
     <string name="fragment_set_up_budget_next_button">Finish</string>
 </resources>

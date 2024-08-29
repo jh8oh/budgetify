@@ -1,6 +1,5 @@
 package dev.ohjiho.budgetify.setup
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -26,11 +25,12 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private val welcomeAndSetUpCurrencyFragment by lazy { WelcomeAndSetUpCurrencyFragment() }
     private val setUpAccountsFragment by lazy { SetUpAccountsFragment() }
     private val setUpIncomeFragment by lazy { SetUpIncomeFragment() }
-    private val setUpBudgetsFragment by lazy { SetUpBudgetsFragment() }
+    private val setUpBudgetFragment by lazy { SetUpBudgetFragment() }
 
     // Resources
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
     private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
+    private val setUpBudgetTitle by lazy { resources.getString(R.string.fragment_set_up_budget_title) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +45,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
                         SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
                         SetUpScreen.ACCOUNT_EDITOR_ADD, SetUpScreen.ACCOUNT_EDITOR_UPDATE -> showAccountEditorScreen(viewModel.editingAccountId)
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
-                        SetUpScreen.SET_UP_BUDGET -> showBudgetsScreen()
+                        SetUpScreen.SET_UP_BUDGET -> showBudgetScreen()
                     }
                     it.toastMessage.getContentIfNotHandled()?.let { message ->
                         Toast.makeText(this@SetUpActivity, message, Toast.LENGTH_LONG).show()
@@ -88,7 +88,9 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         supportFragmentManager.navigateTo(R.id.fragment_container, setUpIncomeFragment)
     }
 
-    private fun showBudgetsScreen() {
-        supportFragmentManager.navigateTo(R.id.fragment_container, setUpBudgetsFragment)
+    private fun showBudgetScreen() {
+        binding.title.text = setUpBudgetTitle
+
+        supportFragmentManager.navigateTo(R.id.fragment_container, setUpBudgetFragment)
     }
 }

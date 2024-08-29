@@ -17,16 +17,16 @@ import java.math.BigDecimal
 import java.util.Currency
 import javax.inject.Inject
 
-enum class SetUpScreen {
+internal enum class SetUpScreen {
     WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR_ADD, ACCOUNT_EDITOR_UPDATE, SET_UP_INCOME, SET_UP_BUDGET
 }
 
-data class SetUpUiState(
+internal data class SetUpUiState(
     val screen: SetUpScreen = SetUpScreen.WELCOME,
     val toastMessage: Event<String?> = Event(null),
 )
 
-data class SetUpIncomeState(
+internal data class SetUpIncomeState(
     val isIncome: Boolean = true,
     val amount: BigDecimal = BigDecimal.ZERO,
     val isMonthly: Boolean = true,
