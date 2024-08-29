@@ -24,7 +24,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     // Fragments
     private val welcomeAndSetUpCurrencyFragment by lazy { WelcomeAndSetUpCurrencyFragment() }
     private val setUpAccountsFragment by lazy { SetUpAccountsFragment() }
-    private val setUpIncomeFragment by lazy { SetUpIncomeFragment() }
     private val setUpBudgetFragment by lazy { SetUpBudgetFragment() }
 
     // Resources
@@ -85,7 +84,8 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private fun showIncomeScreen() {
         binding.title.text = setUpIncomeTitle
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, setUpIncomeFragment)
+        // Requires new view so that the adapter is updated
+        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpIncomeFragment())
     }
 
     private fun showBudgetScreen() {

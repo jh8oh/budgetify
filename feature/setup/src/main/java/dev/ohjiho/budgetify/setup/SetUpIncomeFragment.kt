@@ -1,7 +1,6 @@
 package dev.ohjiho.budgetify.setup
 
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -38,36 +37,19 @@ internal class SetUpIncomeFragment : Fragment() {
         with(binding) {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    launch {
-                        viewModel.accounts.collect { accountEntities ->
-                            if (accountEntities.isEmpty()) {
-                                // Return to previous screen if accounts is somehow empty
-                                viewModel.onBackPressed()
-                            } else {
-                                viewModel.replaceIncomeAccountIfNotExist()
-                                accountAdapter.apply {
-                                    clear()
-                                    addAll(accountEntities.map { it.name })
-                                    notifyDataSetChanged()
-                                }
-                            }
+                    viewModel.setUpIncomeState.collect {
+                        val accountCurrency = it.account!!.currency
+                        incomeBudgetToggle.check(if (it.isIncome) incomeButton.id else budgetButton.id)
+                        onSwitchIncomeBudgetToggle(it.isIncome)
+                        currency.text = accountCurrency.currencyCode
+                        if (it.amount != BigDecimal.ZERO) {
+                            amount.setText(it.amount.toCurrencyFormat(accountCurrency, false, context))
+                        } else {
+                            amount.hint = BigDecimal.ZERO.toCurrencyFormat(accountCurrency, false, context)
                         }
-                    }
-                    launch {
-                        viewModel.setUpIncomeState.collect {
-                            val accountCurrency = it.account!!.currency
-                            incomeBudgetToggle.check(if (it.isIncome) incomeButton.id else budgetButton.id)
-                            onSwitchIncomeBudgetToggle(it.isIncome)
-                            currency.text = accountCurrency.currencyCode
-                            if (it.amount != BigDecimal.ZERO) {
-                                amount.setText(it.amount.toCurrencyFormat(accountCurrency, false, context))
-                            } else {
-                                amount.hint = BigDecimal.ZERO.toCurrencyFormat(accountCurrency, false, context)
-                            }
-                            amount.reformatBalanceAfterTextChange(accountCurrency)
-                            frequency.setText(if (it.isMonthly) FREQUENCY_LIST[1] else FREQUENCY_LIST[0], false)
-                            account.setText(it.account.name, false)
-                        }
+                        amount.reformatBalanceAfterTextChange(accountCurrency)
+                        frequency.setText(if (it.isMonthly) FREQUENCY_LIST[1] else FREQUENCY_LIST[0], false)
+                        account.setText(it.account.name, false)
                     }
                 }
             }

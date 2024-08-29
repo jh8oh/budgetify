@@ -10,10 +10,12 @@
     <TextView
         android:id="@+id/account_name"
         style="@style/TextAppearance.Budgetify.BodyLarge"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_account_name_margin_start"
+        android:layout_marginEnd="@dimen/item_account_name_margin_end"
         app:layout_constraintBottom_toTopOf="@id/account_institution"
+        app:layout_constraintEnd_toStartOf="@id/account_balance"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
@@ -22,10 +24,12 @@
     <TextView
         android:id="@+id/account_institution"
         style="@style/TextAppearance.Budgetify.BodySmall"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/item_account_institution_margin_top"
+        android:layout_marginEnd="@dimen/item_account_institution_margin_end"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/account_balance"
         app:layout_constraintStart_toStartOf="@id/account_name"
         app:layout_constraintTop_toBottomOf="@id/account_name"
         tools:text="CIBC" />
