@@ -50,6 +50,7 @@ dependencies {
     kaptTest(libs.hilt.compiler)
 
     // Modules
+    implementation(project(":core:theme"))
     implementation(project(":core:utils"))
     implementation(project(":domain"))
 }

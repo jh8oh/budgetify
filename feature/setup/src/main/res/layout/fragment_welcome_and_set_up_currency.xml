@@ -18,7 +18,7 @@
         android:layout_width="180dp"
         android:layout_height="180dp"
         android:importantForAccessibility="no"
-        android:src="@drawable/ic_app_icon"
+        android:src="@drawable/app_icon"
         app:layout_constraintBottom_toBottomOf="@id/background_end_guideline"
         app:layout_constraintEnd_toEndOf="@id/background"
         app:layout_constraintStart_toStartOf="@id/background"
@@ -89,7 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
-            app:icon="@drawable/ic_back" />
+            app:icon="@drawable/ic_arrow_back" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"

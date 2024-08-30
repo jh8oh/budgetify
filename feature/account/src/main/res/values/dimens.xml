@@ -8,6 +8,7 @@
     <dimen name="item_account_institution_margin_end">@dimen/item_account_name_margin_end</dimen>
     <dimen name="item_account_current_amount_margin_end">8dp</dimen>
 
+    <dimen name="fragment_account_editor_app_bar_icon_size">32dp</dimen>
     <dimen name="fragment_account_editor_app_bar_icon_padding">4dp</dimen>
     <dimen name="fragment_account_editor_app_bar_icon_margin">16dp</dimen>
     <dimen name="fragment_account_editor_margin_horizontal">16dp</dimen>
@@ -16,6 +17,7 @@
     <dimen name="fragment_account_editor_balance_margin_end">8dp</dimen>
     <dimen name="fragment_account_editor_currency_min_width">100dp</dimen>
     <dimen name="fragment_account_editor_type_margin_top">16dp</dimen>
+    <dimen name="fragment_account_editor_info_button_size">24dp</dimen>
     <dimen name="fragment_account_editor_info_button_padding">2dp</dimen>
     <dimen name="fragment_account_editor_info_button_margin_start">6dp</dimen>
     <dimen name="fragment_account_editor_type_toggle_group_margin_top">4dp</dimen>

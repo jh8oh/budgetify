@@ -34,7 +34,7 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_account_button"
         style="@style/Theme.Budgetify.Button.Outlined"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
         android:layout_marginBottom="@dimen/fragment_set_up_accounts_add_account_button_margin_bottom"
@@ -61,7 +61,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
-            app:icon="@drawable/ic_back" />
+            app:icon="@drawable/ic_arrow_back" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/next_button"

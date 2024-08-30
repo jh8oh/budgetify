@@ -21,12 +21,12 @@ enum class AccountType {
 /**
  * An account that the user holds
  *
- * @property uid The unique ID that refers to this account.
- * @param name The name of the account.
- * @param institution The name of the company that holds this account.
- * @param type The type of account (Cash, Credit, or Investment)
- * @param balance The amount of money that the account currently has.
- * @param currency The currency that the account uses.
+ * @property uid The unique identifier that refers to this account.
+ * @property name The name of the account.
+ * @property institution The name of the company that holds this account.
+ * @property type The type of account (Cash, Credit, or Investment)
+ * @property balance The amount of money that the account currently has.
+ * @property currency The currency that the account uses.
  */
 @Entity(tableName = "accounts")
 data class Account(

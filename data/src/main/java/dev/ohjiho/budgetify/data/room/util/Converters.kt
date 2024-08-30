@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.theme.icons.Icon
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.Currency
@@ -38,6 +39,17 @@ internal class Converters {
     @TypeConverter
     fun stringToCurrency(isoCode: String?): Currency? {
         return isoCode?.let { Currency.getInstance(it) }
+    }
+
+    // Icon
+    @TypeConverter
+    fun iconToOrdinal(icon: Icon?): Int? {
+        return icon?.ordinal
+    }
+
+    @TypeConverter
+    fun ordinalToIcon(ordinal: Int?): Icon? {
+        return ordinal?.let { Icon.entries[it] }
     }
 
     // LocalDate
