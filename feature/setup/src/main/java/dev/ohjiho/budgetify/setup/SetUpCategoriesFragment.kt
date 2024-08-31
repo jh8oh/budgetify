@@ -6,21 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpBudgetBinding
+import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpCategoriesBinding
 
-internal class SetUpBudgetFragment : Fragment() {
+class SetUpCategoriesFragment : Fragment() {
 
     private val viewModel: SetUpViewModel by activityViewModels()
-    private lateinit var binding: FragmentSetUpBudgetBinding
+    private lateinit var binding: FragmentSetUpCategoriesBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentSetUpBudgetBinding.inflate(inflater)
+        binding = FragmentSetUpCategoriesBinding.inflate(inflater)
 
         with(binding) {
             backButton.setOnClickListener { viewModel.onBackPressed() }
-            nextButton.setOnClickListener {
-                // Go back to main activity
-            }
+            nextButton.setOnClickListener { viewModel.nextScreen() }
         }
 
         return binding.root

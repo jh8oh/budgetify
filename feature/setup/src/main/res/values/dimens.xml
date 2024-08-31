@@ -25,4 +25,8 @@
     <dimen name="fragment_set_up_income_currency_margin_end">8dp</dimen>
     <dimen name="fragment_set_up_income_per_margin_top">12dp</dimen>
     <dimen name="fragment_set_up_income_frequency_account_margin_between">8dp</dimen>
+
+    <dimen name="fragment_set_up_categories_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+
+    <dimen name="fragment_set_up_budget_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
 </resources>

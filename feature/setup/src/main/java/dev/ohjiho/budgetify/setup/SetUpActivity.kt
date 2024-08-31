@@ -24,11 +24,13 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     // Fragments
     private val welcomeAndSetUpCurrencyFragment by lazy { WelcomeAndSetUpCurrencyFragment() }
     private val setUpAccountsFragment by lazy { SetUpAccountsFragment() }
+    private val setUpCategoriesFragment by lazy { SetUpCategoriesFragment() }
     private val setUpBudgetFragment by lazy { SetUpBudgetFragment() }
 
     // Resources
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
     private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
+    private val setUpCategoriesTitle by lazy { resources.getString(R.string.fragment_setup_categories_title) }
     private val setUpBudgetTitle by lazy { resources.getString(R.string.fragment_set_up_budget_title) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +46,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
                         SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
                         SetUpScreen.ACCOUNT_EDITOR_ADD, SetUpScreen.ACCOUNT_EDITOR_UPDATE -> showAccountEditorScreen(viewModel.editingAccountId)
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
+                        SetUpScreen.SET_UP_CATEGORIES -> showCategoriesScreen()
                         SetUpScreen.SET_UP_BUDGET -> showBudgetScreen()
                     }
                     it.toastMessage.getContentIfNotHandled()?.let { message ->
@@ -86,6 +89,12 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
         // Requires new view so that the adapter is updated
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpIncomeFragment())
+    }
+
+    private fun showCategoriesScreen() {
+        binding.title.text = setUpCategoriesTitle
+
+        supportFragmentManager.navigateTo(R.id.fragment_container, setUpCategoriesFragment)
     }
 
     private fun showBudgetScreen() {

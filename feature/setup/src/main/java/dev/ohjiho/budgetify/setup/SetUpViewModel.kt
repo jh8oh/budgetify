@@ -18,7 +18,7 @@ import java.util.Currency
 import javax.inject.Inject
 
 internal enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR_ADD, ACCOUNT_EDITOR_UPDATE, SET_UP_INCOME, SET_UP_BUDGET
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR_ADD, ACCOUNT_EDITOR_UPDATE, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET
 }
 
 internal data class SetUpUiState(
@@ -84,8 +84,13 @@ internal class SetUpViewModel @Inject constructor(
                 false
             }
 
-            SetUpScreen.SET_UP_BUDGET -> {
+            SetUpScreen.SET_UP_CATEGORIES -> {
                 screen.update { SetUpScreen.SET_UP_INCOME }
+                false
+            }
+
+            SetUpScreen.SET_UP_BUDGET -> {
+                screen.update { SetUpScreen.SET_UP_CATEGORIES }
                 false
             }
         }
@@ -118,8 +123,13 @@ internal class SetUpViewModel @Inject constructor(
                 if (setUpIncomeState.value.amount == BigDecimal.ZERO) {
                     toastMessage.update { Event(INCOME_ZERO_TOAST_MSG) }
                 } else {
-                    screen.update { SetUpScreen.SET_UP_BUDGET }
+                    screen.update { SetUpScreen.SET_UP_CATEGORIES }
                 }
+                false
+            }
+
+            SetUpScreen.SET_UP_CATEGORIES -> {
+                screen.update { SetUpScreen.SET_UP_BUDGET }
                 false
             }
 
