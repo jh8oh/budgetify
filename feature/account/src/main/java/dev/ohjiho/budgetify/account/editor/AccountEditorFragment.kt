@@ -22,7 +22,7 @@ import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 import dev.ohjiho.budgetify.utils.ui.reformatBalanceAfterTextChange
-import dev.ohjiho.currencypicker.CurrencySpinner
+import dev.ohjiho.currencypicker.CurrencyPicker
 import kotlinx.coroutines.launch
 import java.util.Currency
 
@@ -39,9 +39,9 @@ class AccountEditorFragment : Fragment() {
     }
 
     // Dialogs
-    private val currencySpinnerDialog: AlertDialog by lazy {
-        val currencySpinner = CurrencySpinner(requireContext()).apply {
-            setListener(object : CurrencySpinner.Listener {
+    private val currencyPicker by lazy {
+        CurrencyPicker(requireContext()).apply {
+            setListener(object : CurrencyPicker.Listener {
                 override fun onCurrencySelected(currency: Currency) {
                     binding.accountCurrency.setText(currency.currencyCode)
                     binding.accountBalance.reformatBalanceAfterTextChange(currency)
@@ -49,7 +49,9 @@ class AccountEditorFragment : Fragment() {
                 }
             })
         }
-        AlertDialog.Builder(requireContext()).setView(currencySpinner).create()
+    }
+    private val currencySpinnerDialog: AlertDialog by lazy {
+        AlertDialog.Builder(requireContext()).setView(currencyPicker).create()
     }
     private val moreInfoDialog: AlertDialog by lazy {
         AlertDialog.Builder(requireContext())
@@ -141,6 +143,7 @@ class AccountEditorFragment : Fragment() {
                             accountName.setText(account.name)
                             accountInstitution.setText(account.institution)
                             accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
+                            currencyPicker.setSelectedCurrency(account.currency)
                             accountCurrency.setText(account.currency.currencyCode)
                             when (account.type) {
                                 AccountType.CASH -> accountTypeToggleGroup.check(cashButton.id)
@@ -168,8 +171,8 @@ class AccountEditorFragment : Fragment() {
             // Institution
             accountInstitution.setAdapter(institutionAdapter)
             // Currency
-            accountCurrency.setOnClickListener { currencySpinnerDialog.show() }
-            accountCurrencyContainer.setEndIconOnClickListener { currencySpinnerDialog.show() }
+            accountCurrency.setOnClickListener { showCurrencyPickerDialog() }
+            accountCurrencyContainer.setEndIconOnClickListener { showCurrencyPickerDialog() }
             // Balance
             accountBalance.reformatBalanceAfterTextChange(viewModel.editorAccount.value.currency)
             // More Info
@@ -188,6 +191,11 @@ class AccountEditorFragment : Fragment() {
         }
 
         return binding.root
+    }
+
+    private fun showCurrencyPickerDialog() {
+        currencyPicker.setSelectedCurrency(Currency.getInstance(binding.accountCurrency.text.toString()))
+        currencySpinnerDialog.show()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
