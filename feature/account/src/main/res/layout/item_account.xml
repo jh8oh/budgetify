@@ -9,7 +9,7 @@
 
     <TextView
         android:id="@+id/account_name"
-        style="@style/TextAppearance.Budgetify.BodyLarge"
+        style="?textAppearanceBodyLarge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_account_name_margin_start"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/account_institution"
-        style="@style/TextAppearance.Budgetify.BodySmall"
+        style="?textAppearanceBodySmall"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/item_account_institution_margin_top"
@@ -36,7 +36,6 @@
 
     <TextView
         android:id="@+id/account_balance"
-        style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/item_account_current_amount_margin_end"

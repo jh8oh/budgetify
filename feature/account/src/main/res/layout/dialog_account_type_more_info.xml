@@ -7,7 +7,7 @@
     android:paddingVertical="@dimen/dialog_account_type_more_info_padding_vertical">
 
     <TextView
-        style="@style/TextAppearance.Budgetify.Headline"
+        style="?textAppearanceHeadlineMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dialog_account_type_title_margin_bottom"
@@ -20,7 +20,6 @@
         <TableRow>
 
             <TextView
-                style="@style/TextAppearance.Budgetify.Body"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -28,7 +27,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                style="@style/TextAppearance.Budgetify.BodySmall"
+                style="?textAppearanceBodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
@@ -39,7 +38,6 @@
         <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
 
             <TextView
-                style="@style/TextAppearance.Budgetify.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -47,7 +45,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                style="@style/TextAppearance.Budgetify.BodySmall"
+                style="?textAppearanceBodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
@@ -58,7 +56,6 @@
         <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
 
             <TextView
-                style="@style/TextAppearance.Budgetify.Body"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -66,7 +63,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                style="@style/TextAppearance.Budgetify.BodySmall"
+                style="?textAppearanceBodySmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"

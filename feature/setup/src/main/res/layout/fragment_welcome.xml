@@ -8,14 +8,13 @@
     android:paddingHorizontal="@dimen/fragment_welcome_padding_horizontal">
 
     <TextView
-        style="@style/TextAppearance.Budgetify.HeadlineLarge"
+        style="?textAppearanceHeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/fragment_welcome_greeting_margin_bottom"
         android:text="@string/fragment_welcome_greeting" />
 
     <TextView
-        style="@style/TextAppearance.Budgetify.Body"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/fragment_welcome_description"

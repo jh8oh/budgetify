@@ -6,7 +6,7 @@
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.Material3.Button.OutlinedButton">
@@ -14,7 +14,7 @@
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
@@ -22,7 +22,7 @@
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
@@ -44,7 +44,7 @@
     <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
 
     <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Body</item>
+        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
     </style>
 
     <!-- Text -->
