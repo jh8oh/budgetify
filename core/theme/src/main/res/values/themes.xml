@@ -27,6 +27,7 @@
         <item name="textAppearanceBodyLarge">@style/TextAppearance.Budgetify.BodyLarge</item>
         <item name="textAppearanceBodyMedium">@style/TextAppearance.Budgetify.Body</item>
         <item name="textAppearanceBodySmall">@style/TextAppearance.Budgetify.BodySmall</item>
+        <item name="textAppearanceLabelMedium">@style/TextAppearance.Budgetify.Label</item>
         <item name="textAppearanceButton">@style/TextAppearance.Budgetify.Button</item>
 
         <item name="android:textViewStyle">?textAppearanceBodyMedium</item>
