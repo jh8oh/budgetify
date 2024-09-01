@@ -12,14 +12,15 @@
         android:layout_width="@dimen/item_category_icon_size"
         android:layout_height="@dimen/item_category_icon_size"
         android:contentDescription="@string/item_category_icon_content_description"
+        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        tools:background="@color/cyan"
         tools:src="@drawable/cat_exp_home" />
 
     <TextView
         android:id="@+id/category_name"
-        style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/item_category_title_margin_start"

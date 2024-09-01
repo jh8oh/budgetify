@@ -18,7 +18,7 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
         fun bind(category: Category) {
             with(binding) {
                 categoryIcon.setImageResource(category.icon.drawableRes)
-                categoryIcon.setColorFilter(ContextCompat.getColor(itemView.context, category.icon.colorRes))
+                categoryIcon.setBackgroundColor(ContextCompat.getColor(itemView.context, category.icon.colorRes))
                 categoryName.text = category.name
             }
         }
@@ -68,7 +68,7 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
         private const val HEADER_VIEW_TYPE = 0
         private const val CATEGORY_VIEW_TYPE = 1
 
-        private const val NEED_HEADER = "Need"
-        private const val WANT_HEADER = "Want"
+        private const val NEED_HEADER = "Needs"
+        private const val WANT_HEADER = "Wants"
     }
 }
