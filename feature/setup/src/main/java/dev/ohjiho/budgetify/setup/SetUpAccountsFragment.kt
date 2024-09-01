@@ -14,7 +14,7 @@ import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpAccountsBinding
 import kotlinx.coroutines.launch
 
-internal class SetUpAccountsFragment : Fragment() {
+internal class SetUpAccountsFragment : Fragment(){
 
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpAccountsBinding

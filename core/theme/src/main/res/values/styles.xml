@@ -17,6 +17,13 @@
         <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
+    <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+    </style>
+
     <style name="Theme.Budgetify.Button.Toggle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
         <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
@@ -25,11 +32,11 @@
         <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
-    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+    <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:textSize">12sp</item>
     </style>

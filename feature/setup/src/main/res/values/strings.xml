@@ -22,6 +22,8 @@
     <string name="fragment_set_up_income_into">into</string>
 
     <string name="fragment_setup_categories_title">Set up your categories</string>
+    <string name="fragment_set_up_categories_description">Add in the categories you wish to include for your budget.</string>
+    <string name="fragment_set_up_categories_add_button">Add new category</string>
 
     <string name="fragment_set_up_budget_title">Set up your budget</string>
     <string name="fragment_set_up_budget_next_button">Finish</string>

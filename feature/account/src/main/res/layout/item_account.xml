@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_account_height"
-    android:background="?selectableItemBackground"
-    tools:ignore="Overdraw">
+    android:background="?selectableItemBackground">
 
     <TextView
         android:id="@+id/account_name"

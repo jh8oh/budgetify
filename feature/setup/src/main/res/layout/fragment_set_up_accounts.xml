@@ -32,12 +32,13 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_account_button"
-        style="@style/Theme.Budgetify.Button.Outlined"
+        style="@style/Theme.Budgetify.Button.Outlined.Small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
         android:layout_marginBottom="@dimen/fragment_set_up_accounts_add_account_button_margin_bottom"
         android:text="@string/fragment_set_up_accounts_add_button"
+        app:icon="@drawable/ic_add"
         app:layout_constraintBottom_toTopOf="@id/nav_button_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

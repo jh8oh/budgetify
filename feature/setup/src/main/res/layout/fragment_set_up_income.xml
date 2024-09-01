@@ -27,14 +27,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/income_button"
-            style="@style/Theme.Budgetify.Button.Toggle.Small"
+            style="@style/Theme.Budgetify.Button.Toggle.Option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_set_up_income_button" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/budget_button"
-            style="@style/Theme.Budgetify.Button.Toggle.Small"
+            style="@style/Theme.Budgetify.Button.Toggle.Option"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/color_budget_button_background"

@@ -44,10 +44,6 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
         }
     }
 
-    // Fragments
-    private val welcomeFragment by lazy { WelcomeFragment() }
-    private val setUpCurrencyFragment by lazy { SetUpCurrencyFragment() }
-
     // Resources
     private val actionBarSize by lazy {
         requireActivity().applicationContext.theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize)).let {
@@ -106,7 +102,7 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             nextButton.text = welcomeNextButtonText
         }
 
-        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, welcomeFragment)
+        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, WelcomeFragment())
 
         prevScreen = SetUpScreen.WELCOME
     }
@@ -125,7 +121,7 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             nextButton.text = currencyNextButtonText
         }
 
-        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, setUpCurrencyFragment)
+        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, SetUpCurrencyFragment())
 
         prevScreen = SetUpScreen.SET_UP_CURRENCY
     }

@@ -13,25 +13,14 @@ class AccountsRecyclerView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
 ) : RecyclerView(context, attr, defStyleAttr) {
 
-    private var listener: Listener? = null
+    private var listener: Listener? = if (context is Listener) context else null
 
-    interface Listener{
+    interface Listener {
         fun onClick(account: Account)
     }
 
     init {
-        adapter = AccountsAdapter{
-            if (listener == null){
-                try {
-                    listener = context as Listener
-                } catch (e: ClassCastException) {
-                    Log.e("AccountsRecyclerView", "Context must implement AccountsRecyclerView.Listener")
-                    throw e
-                }
-            }
-
-            listener!!.onClick(it)
-        }
+        adapter = AccountsAdapter { listener?.onClick(it) }
 
         layoutManager = LinearLayoutManager(context)
     }
@@ -40,7 +29,7 @@ class AccountsRecyclerView @JvmOverloads constructor(
         this.listener = listener
     }
 
-    fun setAccountList(accountList: List<Account>){
+    fun setAccountList(accountList: List<Account>) {
         (adapter as AccountsAdapter).setAccountList(accountList)
     }
 }

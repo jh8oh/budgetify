@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="item_category_height">48dp</dimen>
+    <dimen name="item_category_padding_horizontal">8dp</dimen>
+    <dimen name="item_category_icon_size">36dp</dimen>
+    <dimen name="item_category_title_margin_start">4dp</dimen>
+</resources>

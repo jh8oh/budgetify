@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.ohjiho.account"
+    namespace = "dev.ohjiho.budgetify.account"
     compileSdk = 34
 
     defaultConfig {

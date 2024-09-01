@@ -43,13 +43,13 @@ internal class Converters {
 
     // Icon
     @TypeConverter
-    fun iconToOrdinal(icon: Icon?): Int? {
-        return icon?.ordinal
+    fun iconToName(icon: Icon?): String? {
+        return icon?.name
     }
 
     @TypeConverter
-    fun ordinalToIcon(ordinal: Int?): Icon? {
-        return ordinal?.let { Icon.entries[it] }
+    fun nameToIcon(name: String?): Icon? {
+        return name?.let { Icon.valueOf(it) }
     }
 
     // LocalDate

@@ -27,6 +27,10 @@
     <dimen name="fragment_set_up_income_frequency_account_margin_between">8dp</dimen>
 
     <dimen name="fragment_set_up_categories_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+    <dimen name="fragment_set_up_categories_description_margin_top">@dimen/set_up_default_margin_top</dimen>
+    <dimen name="fragment_set_up_categories_recyclerview_margin_top">16dp</dimen>
+    <dimen name="fragment_set_up_categories_add_category_button_margin_top">8dp</dimen>
+    <dimen name="fragment_set_up_categories_add_category_button_margin_bottom">12dp</dimen>
 
     <dimen name="fragment_set_up_budget_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
 </resources>

@@ -7,7 +7,7 @@ import dev.ohjiho.budgetify.theme.icons.Icon
 /**
  * A category that a transaction will fall under.
  */
-interface Category {
+sealed interface Category {
     var uid: Int
     val name: String
     val icon: Icon
@@ -26,7 +26,7 @@ data class ExpenseCategory(
     override val name: String,
     override val icon: Icon,
     val isNeed: Boolean,
-) : Category{
+) : Category {
     @PrimaryKey(autoGenerate = true)
     override var uid: Int = 0
 }

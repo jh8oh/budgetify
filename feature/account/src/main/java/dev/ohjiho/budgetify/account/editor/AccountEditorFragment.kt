@@ -16,8 +16,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.account.R
-import dev.ohjiho.account.databinding.FragmentAccountEditorBinding
+import dev.ohjiho.budgetify.account.R
+import dev.ohjiho.budgetify.account.databinding.FragmentAccountEditorBinding
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat

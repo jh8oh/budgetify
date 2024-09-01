@@ -19,31 +19,62 @@
     <color name="black_100">#f0f0f0</color>
     <color name="white">#fff</color>
 
+    <color name="red">#ff0000</color>
+    <color name="maroon">#b03060</color>
     <color name="saddle_brown">#8b4513</color>
+    <color name="dark_golden_rod">#b8860b</color>
+    <color name="orange">#ff8c00</color>
+    <color name="yellow">#ffff00</color>
+    <color name="yellow_green">#9acd32</color>
+    <color name="green_yellow">#adff2f</color>
+    <color name="dark_olive_green">#556b2f</color>
     <color name="forest_green">#228b22</color>
-    <color name="olive">#808000</color>
-    <color name="dark_slate_blue">#483d8b</color>
+    <color name="lime_green">#32cd32</color>
+    <color name="spring_green">#00ff7f</color>
+    <color name="cyan">#00ffff</color>
+    <color name="dark_sea_green">#8fbc8f</color>
     <color name="dark_cyan">#008b8b</color>
     <color name="steel_blue">#4682b4</color>
-    <color name="dark_blue">#00008b</color>
-    <color name="dark_sea_green">#8fbc8f</color>
-    <color name="dark_magenta">#8b008b</color>
-    <color name="red">#ff0000</color>
-    <color name="orange">#ffa500</color>
-    <color name="yellow">#ffff00</color>
-    <color name="burly_wood">#deb887</color>
-    <color name="lime">#00ff00</color>
-    <color name="blue_violet">#8a2be2</color>
-    <color name="crimson">#dc143c</color>
-    <color name="cyan">#00ffff</color>
-    <color name="blue">#0000ff</color>
-    <color name="green_yellow">#adff2f</color>
-    <color name="coral">#ff7f50</color>
-    <color name="fuchsia">#ff00ff</color>
     <color name="dodger_blue">#1e90ff</color>
-    <color name="pale_violet_red">#db7093</color>
-    <color name="light_blue">#add8e6</color>
-    <color name="deep_pink">#ff1493</color>
+    <color name="blue">#0000ff</color>
+    <color name="dark_blue">#00008b</color>
+    <color name="dark_slate_blue">#483d8b</color>
+    <color name="dark_magenta">#8b008b</color>
+    <color name="blue_violet">#8a2be2</color>
     <color name="violet">#ee82ee</color>
+    <color name="pale_violet_red">#db7093</color>
+    <color name="fuchsia">#ff00ff</color>
+    <color name="deep_pink">#ff1493</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <color name="coral">#ff7f50</color>
+    <color name="khaki">#f0e68c</color>
+    <color name="burly_wood">#deb887</color>
+
+
+
+    <color name="light_blue">#add8e6</color>
+
+
     <color name="pale_green">#98fb98</color>
 </resources>

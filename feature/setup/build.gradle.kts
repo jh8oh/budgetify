@@ -55,4 +55,5 @@ dependencies {
     implementation(project(":core:utils"))
     implementation(project(":domain"))
     implementation(project(":feature:account"))
+    implementation(project(":feature:category"))
 }

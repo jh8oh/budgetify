@@ -5,10 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import dev.ohjiho.account.databinding.ItemAccountBinding
-import dev.ohjiho.account.databinding.ItemAccountHeaderBinding
+import dev.ohjiho.budgetify.account.databinding.ItemAccountBinding
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.theme.databinding.ItemHeaderBinding
+import dev.ohjiho.budgetify.theme.viewholder.HeaderViewHolder
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
 internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
@@ -16,16 +17,7 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
 
     private var accounts = emptyList<Any>()
 
-    inner class AccountHeaderViewHolder(private val binding: ItemAccountHeaderBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(type: AccountType) {
-            with(binding) {
-                accountType.text = type.toString()
-            }
-        }
-    }
-
     inner class AccountViewHolder(private val binding: ItemAccountBinding) : RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun bind(account: Account) {
             with(binding) {
                 accountName.text = account.name
@@ -49,7 +41,7 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            HEADER_VIEW_TYPE -> AccountHeaderViewHolder(ItemAccountHeaderBinding.inflate(layoutInflater, parent, false))
+            HEADER_VIEW_TYPE -> HeaderViewHolder(ItemHeaderBinding.inflate(layoutInflater, parent, false))
             else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false)).apply {
                 itemView.setOnClickListener {
                     onClick(accounts[adapterPosition] as Account)
@@ -60,7 +52,7 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            HEADER_VIEW_TYPE -> (holder as AccountHeaderViewHolder).bind(accounts[position] as AccountType)
+            HEADER_VIEW_TYPE -> (holder as HeaderViewHolder).bind((accounts[position] as AccountType).name)
             else -> (holder as AccountViewHolder).bind(accounts[position] as Account)
         }
     }

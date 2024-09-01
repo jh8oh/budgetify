@@ -21,12 +21,6 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private val viewModel: SetUpViewModel by viewModels()
     private lateinit var binding: ActivitySetUpBinding
 
-    // Fragments
-    private val welcomeAndSetUpCurrencyFragment by lazy { WelcomeAndSetUpCurrencyFragment() }
-    private val setUpAccountsFragment by lazy { SetUpAccountsFragment() }
-    private val setUpCategoriesFragment by lazy { SetUpCategoriesFragment() }
-    private val setUpBudgetFragment by lazy { SetUpBudgetFragment() }
-
     // Resources
     private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
     private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
@@ -63,14 +57,14 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
     private fun showWelcomeAndSetUpCurrencyScreen() {
         binding.appBar.visibility = View.GONE
-        supportFragmentManager.navigateTo(R.id.fragment_container, welcomeAndSetUpCurrencyFragment, true)
+        supportFragmentManager.navigateTo(R.id.fragment_container, WelcomeAndSetUpCurrencyFragment(), true)
     }
 
     private fun showAccountsScreen() {
         binding.appBar.visibility = View.VISIBLE
         binding.title.text = setUpAccountsTitle
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, setUpAccountsFragment, true)
+        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpAccountsFragment(), true)
     }
 
     private fun showAccountEditorScreen(accountId: Int?) {
@@ -94,12 +88,12 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
     private fun showCategoriesScreen() {
         binding.title.text = setUpCategoriesTitle
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, setUpCategoriesFragment)
+        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpCategoriesFragment())
     }
 
     private fun showBudgetScreen() {
         binding.title.text = setUpBudgetTitle
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, setUpBudgetFragment)
+        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpBudgetFragment())
     }
 }

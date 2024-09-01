@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="theme_budgetify_button_padding_horizontal">32dp</dimen>
-    <dimen name="theme_budgetify_button_padding_vertical">16dp</dimen>
+    <!-- Buttons -->
+    <dimen name="theme_budgetify_button_padding_horizontal">36dp</dimen>
+    <dimen name="theme_budgetify_button_padding_vertical">18dp</dimen>
     <dimen name="theme_budgetify_icon_button_padding">@dimen/theme_budgetify_button_padding_vertical</dimen>
-    <dimen name="theme_budgetify_button_small_padding_horizontal">12dp</dimen>
-    <dimen name="theme_budgetify_button_small_padding_vertical">6dp</dimen>
+    <dimen name="theme_budgetify_button_small_padding_horizontal">24dp</dimen>
+    <dimen name="theme_budgetify_button_small_padding_vertical">12dp</dimen>
+    <dimen name="theme_budgetify_button_extra_small_padding_horizontal">12dp</dimen>
+    <dimen name="theme_budgetify_button_extra_small_padding_vertical">6dp</dimen>
+
+    <!-- ViewHolder -->
+    <dimen name="item_header_margin_top">8dp</dimen>
 </resources>

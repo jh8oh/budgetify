@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
+import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.utils.data.getLocale
 import dev.ohjiho.budgetify.utils.flow.Event
@@ -37,6 +38,7 @@ internal data class SetUpIncomeState(
 internal class SetUpViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository,
     accountRepository: AccountRepository,
+    categoryRepository: CategoryRepository
 ) : ViewModel() {
 
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
@@ -51,6 +53,7 @@ internal class SetUpViewModel @Inject constructor(
         .stateIn(viewModelScope, WhileUiSubscribed, Currency.getInstance(getLocale()))
     val accounts = accountRepository.getAllAccounts().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
     val setUpIncomeState = MutableStateFlow(SetUpIncomeState())
+    val expenseCategories = categoryRepository.getAllExpenseCategories().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
 
     // Screen
     fun onBackPressed(): Boolean {
