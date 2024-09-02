@@ -94,8 +94,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/fragment_set_up_income_frequency_account_margin_between"
-        android:layout_marginTop="@dimen/fragment_set_up_income_per_margin_top"
-        android:baselineAligned="true"
         app:layout_constraintBottom_toBottomOf="@id/account_container"
         app:layout_constraintEnd_toStartOf="@id/into_label"
         app:layout_constraintStart_toEndOf="@id/per_label"
@@ -122,7 +120,6 @@
         android:text="@string/fragment_set_up_income_into"
         app:layout_constraintBottom_toBottomOf="@id/account_container"
         app:layout_constraintEnd_toStartOf="@id/account_container"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toEndOf="@id/frequency_container"
         app:layout_constraintTop_toTopOf="@id/account_container" />
 
