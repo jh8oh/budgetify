@@ -32,6 +32,11 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         binding = ActivitySetUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.appBar)
+        binding.appBar.setNavigationOnClickListener {
+            viewModel.onBackPressed()
+        }
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
@@ -62,37 +67,37 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
 
     private fun showAccountsScreen() {
         binding.appBar.visibility = View.VISIBLE
-        binding.title.text = setUpAccountsTitle
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        title = setUpAccountsTitle
 
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpAccountsFragment(), true)
     }
 
     private fun showAccountEditorScreen(accountId: Int?) {
-        binding.appBar.visibility = View.GONE
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newInstance(this, accountId, true), true)
+        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newInstance(this, accountId, true))
     }
 
     override fun onEditorBack() {
         viewModel.onBackPressed()
     }
 
-
     private fun showIncomeScreen() {
-        binding.title.text = setUpIncomeTitle
+        title = setUpIncomeTitle
 
         // Requires new view so that the adapter is updated
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpIncomeFragment())
     }
 
     private fun showCategoriesScreen() {
-        binding.title.text = setUpCategoriesTitle
+        title = setUpCategoriesTitle
 
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpCategoriesFragment())
     }
 
     private fun showBudgetScreen() {
-        binding.title.text = setUpBudgetTitle
+        title = setUpBudgetTitle
 
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpBudgetFragment())
     }

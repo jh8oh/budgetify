@@ -6,9 +6,15 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -61,9 +67,12 @@ class AccountEditorFragment : Fragment() {
 
     // Resources
     private val accountEditorNewTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
-    private val appBarNonSetUpColor by lazy {
+    private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
+    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
+
+    private val onAppBarSetUpColor by lazy {
         val typedValue = TypedValue()
-        context?.theme?.resolveAttribute(android.R.attr.colorBackground, typedValue, true)
+        context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)
         typedValue.data
     }
     private val onAppBarNonSetUpColor by lazy {
@@ -71,7 +80,6 @@ class AccountEditorFragment : Fragment() {
         context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true)
         typedValue.data
     }
-    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
 
     interface Listener {
         fun onEditorBack()
@@ -108,22 +116,41 @@ class AccountEditorFragment : Fragment() {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
         with(binding) {
-            // Check if from set up (Used to set color)
-            if (arguments?.getBoolean(FROM_SET_UP_ARG) != true) {
-                appBar.setBackgroundColor(appBarNonSetUpColor)
-                appBarBack.setColorFilter(onAppBarNonSetUpColor)
-                appBarDelete.setColorFilter(onAppBarNonSetUpColor)
-                title.setTextColor(onAppBarNonSetUpColor)
-            }
-
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
                     // Check if new account
                     launch {
                         viewModel.isNewAccount.collect {
-                            if (it){
-                                appBarDelete.visibility = View.GONE
-                                title.text = accountEditorNewTitle
+                            (activity as AppCompatActivity).apply {
+                                if (it) {
+                                    title = accountEditorNewTitle
+                                } else {
+                                    title = accountEditorUpdateTitle
+                                    addMenuProvider(object : MenuProvider {
+                                        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                                            menuInflater.inflate(R.menu.menu_account_editor, menu)
+
+                                            menu.findItem(R.id.account_delete).icon = ContextCompat.getDrawable(
+                                                requireContext(),
+                                                dev.ohjiho.budgetify.theme.R.drawable.ic_delete
+                                            )?.apply {
+                                                setTint(if (arguments?.getBoolean(FROM_SET_UP_ARG) == true) onAppBarSetUpColor else onAppBarNonSetUpColor)
+                                            }
+                                        }
+
+                                        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                                            return when (menuItem.itemId) {
+                                                R.id.account_delete -> {
+                                                    viewModel.deleteAccount()
+                                                    listener?.onEditorBack()
+                                                    true
+                                                }
+
+                                                else -> false
+                                            }
+                                        }
+                                    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+                                }
                             }
                         }
                     }
@@ -155,14 +182,6 @@ class AccountEditorFragment : Fragment() {
                 }
             }
 
-            // App bar
-            appBarBack.setOnClickListener {
-                listener?.onEditorBack()
-            }
-            appBarDelete.setOnClickListener {
-                viewModel.deleteAccount()
-                listener?.onEditorBack()
-            }
             // Name
             accountName.doAfterTextChanged {
                 // Remove error once any text has been inputted
@@ -204,7 +223,7 @@ class AccountEditorFragment : Fragment() {
     }
 
     private fun updateAccount() {
-        with(binding){
+        with(binding) {
             viewModel.updateEditorAccount(
                 accountName.text.toString().trim(),
                 accountInstitution.text.toString().trim(),
