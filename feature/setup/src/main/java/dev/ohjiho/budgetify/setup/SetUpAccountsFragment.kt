@@ -10,6 +10,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.ohjiho.budgetify.account.recyclerview.AccountsRecyclerView
+import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpAccountsBinding
 import kotlinx.coroutines.launch
@@ -32,7 +33,7 @@ internal class SetUpAccountsFragment : Fragment(){
 
         with(binding) {
             addAccountButton.setOnClickListener {
-                viewModel.addOrUpdateAccount(null)
+                viewModel.addOrUpdateAccount(NON_EXISTENT_ID)
             }
             accountsRecyclerView.setListener(object : AccountsRecyclerView.Listener {
                 override fun onClick(account: Account) {

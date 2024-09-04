@@ -3,6 +3,7 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
@@ -19,7 +20,7 @@ import java.util.Currency
 import javax.inject.Inject
 
 internal enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR_ADD, ACCOUNT_EDITOR_UPDATE, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET
 }
 
 internal data class SetUpUiState(
@@ -43,7 +44,7 @@ internal class SetUpViewModel @Inject constructor(
 
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
     private val toastMessage = MutableStateFlow<Event<String?>>(Event(null))
-    var editingAccountId: Int? = null
+    var editingAccountId: Int = NON_EXISTENT_ID
 
     val uiState = combine(screen, toastMessage) { screen, toastMessage ->
         SetUpUiState(screen = screen, toastMessage = toastMessage)
@@ -72,12 +73,7 @@ internal class SetUpViewModel @Inject constructor(
                 false
             }
 
-            SetUpScreen.ACCOUNT_EDITOR_ADD -> {
-                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
-                false
-            }
-
-            SetUpScreen.ACCOUNT_EDITOR_UPDATE -> {
+            SetUpScreen.ACCOUNT_EDITOR -> {
                 screen.update { SetUpScreen.SET_UP_ACCOUNTS }
                 false
             }
@@ -148,17 +144,13 @@ internal class SetUpViewModel @Inject constructor(
     }
 
     // Editing Account
-    fun addOrUpdateAccount(accountId: Int?) {
+    fun addOrUpdateAccount(accountId: Int) {
         editingAccountId = accountId
-        if (accountId == null) {
-            screen.update { SetUpScreen.ACCOUNT_EDITOR_ADD }
-        } else {
-            screen.update { SetUpScreen.ACCOUNT_EDITOR_UPDATE }
-        }
+        screen.update { SetUpScreen.ACCOUNT_EDITOR }
     }
 
     // Income
-    fun replaceIncomeAccountIfNotExist() {
+    private fun replaceIncomeAccountIfNotExist() {
         if (accounts.value.isEmpty()) return
 
         // Check if the account set in income still exists. Otherwise, set the income account to be the first of list of accounts if it's not empty

@@ -16,7 +16,7 @@ import dev.ohjiho.budgetify.utils.ui.navigateTo
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
+class SetUpActivity : AppCompatActivity() {
 
     private val viewModel: SetUpViewModel by viewModels()
     private lateinit var binding: ActivitySetUpBinding
@@ -43,7 +43,7 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
                     when (it.screen) {
                         SetUpScreen.WELCOME, SetUpScreen.SET_UP_CURRENCY -> showWelcomeAndSetUpCurrencyScreen()
                         SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
-                        SetUpScreen.ACCOUNT_EDITOR_ADD, SetUpScreen.ACCOUNT_EDITOR_UPDATE -> showAccountEditorScreen(viewModel.editingAccountId)
+                        SetUpScreen.ACCOUNT_EDITOR -> showAccountEditorScreen(viewModel.editingAccountId)
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpScreen.SET_UP_CATEGORIES -> showCategoriesScreen()
                         SetUpScreen.SET_UP_BUDGET -> showBudgetScreen()
@@ -73,14 +73,10 @@ class SetUpActivity : AppCompatActivity(), AccountEditorFragment.Listener {
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpAccountsFragment(), true)
     }
 
-    private fun showAccountEditorScreen(accountId: Int?) {
+    private fun showAccountEditorScreen(accountId: Int) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newInstance(this, accountId, true))
-    }
-
-    override fun onEditorBack() {
-        viewModel.onBackPressed()
+        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, true))
     }
 
     private fun showIncomeScreen() {

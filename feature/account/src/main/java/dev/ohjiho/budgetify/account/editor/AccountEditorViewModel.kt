@@ -3,6 +3,7 @@ package dev.ohjiho.budgetify.account.editor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
@@ -27,6 +28,8 @@ internal class AccountEditorViewModel @Inject constructor(
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initWithAccountId(accountId: Int) {
+        if (accountId == NON_EXISTENT_ID) return
+
         isNewAccount.update { false }
         viewModelScope.launch {
             editorAccount.update { accountRepository.getAccount(accountId) }

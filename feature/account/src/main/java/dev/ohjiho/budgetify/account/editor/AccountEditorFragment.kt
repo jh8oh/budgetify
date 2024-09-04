@@ -37,7 +37,6 @@ class AccountEditorFragment : Fragment() {
 
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
-    private var listener: Listener? = null
 
     // Adapter
     private val institutionAdapter by lazy {
@@ -81,33 +80,11 @@ class AccountEditorFragment : Fragment() {
         typedValue.data
     }
 
-    interface Listener {
-        fun onEditorBack()
-    }
-
-    private fun setListener(listener: Listener?) {
-        this.listener = listener
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (listener == null) {
-            try {
-                this.listener = context as Listener
-            } catch (e: ClassCastException) {
-                Log.e("AccountEditorFragment", "Context must implement AccountEditorFragment.Listener")
-                throw e
-            }
-        }
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             arguments?.getInt(ACCOUNT_ID_ARG)?.let {
-                if (it != 0) {
-                    viewModel.initWithAccountId(it)
-                }
+                viewModel.initWithAccountId(it)
             }
         }
     }
@@ -142,7 +119,7 @@ class AccountEditorFragment : Fragment() {
                                             return when (menuItem.itemId) {
                                                 R.id.account_delete -> {
                                                     viewModel.deleteAccount()
-                                                    listener?.onEditorBack()
+                                                    requireActivity().onBackPressedDispatcher.onBackPressed()
                                                     true
                                                 }
 
@@ -204,7 +181,7 @@ class AccountEditorFragment : Fragment() {
                 } else {
                     updateAccount()
                     viewModel.saveAccount()
-                    listener?.onEditorBack()
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
             }
         }
@@ -248,13 +225,11 @@ class AccountEditorFragment : Fragment() {
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
         private const val FROM_SET_UP_ARG = "FROM_SET_UP"
 
-        fun newInstance(listener: Listener? = null, accountId: Int? = null, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
+        fun newInstance(accountId: Int, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
-                accountId?.let { putInt(ACCOUNT_ID_ARG, it) }
+                putInt(ACCOUNT_ID_ARG, accountId)
                 putBoolean(FROM_SET_UP_ARG, fromSetUp)
             }
-
-            setListener(listener)
         }
     }
 }
