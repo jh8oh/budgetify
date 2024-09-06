@@ -8,7 +8,7 @@
     <path
         android:fillColor="?android:colorBackground"
         android:pathData="M180,840q-24,0 -42,-18t-18,-42v-600q0,-23 18,-41.5t42,-18.5h600q23,0 41.5,18.5T840,180v600q0,24 -18.5,42T780,840L180,840ZM180,780h157v-210h-20q-12.75,0 -21.37,-8.63Q287,552.75 287,540v-360L180,180v600ZM623,780h157v-600L673,180v360q0,12.75 -8.62,21.37Q655.75,570 643,570h-20v210ZM377,780h206v-210h-20q-12.75,0 -21.37,-8.63Q533,552.75 533,540v-360L427,180v360q0,12.75 -8.62,21.37Q409.75,570 397,570h-20v210Z"
-        android:strokeWidth="4"
+        android:strokeWidth="2"
         android:strokeColor="?colorOnBackground" />
 
 </vector>
