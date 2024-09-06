@@ -1,9 +1,7 @@
 package dev.ohjiho.budgetify.account.editor
 
 import android.app.AlertDialog
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.Menu
@@ -93,44 +91,41 @@ class AccountEditorFragment : Fragment() {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
         with(binding) {
-            viewLifecycleOwner.lifecycleScope.launch {
-                repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    // Check if new account
-                    launch {
-                        viewModel.isNewAccount.collect {
-                            (activity as AppCompatActivity).apply {
-                                if (it) {
-                                    title = accountEditorNewTitle
-                                } else {
-                                    title = accountEditorUpdateTitle
-                                    addMenuProvider(object : MenuProvider {
-                                        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                                            menuInflater.inflate(R.menu.menu_account_editor, menu)
+            // Check if new account
+            (activity as AppCompatActivity).apply {
+                if (viewModel.isNewAccount) {
+                    title = accountEditorNewTitle
+                } else {
+                    title = accountEditorUpdateTitle
+                    addMenuProvider(object : MenuProvider {
+                        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                            menuInflater.inflate(R.menu.menu_account_editor, menu)
 
-                                            menu.findItem(R.id.account_delete).icon = ContextCompat.getDrawable(
-                                                requireContext(),
-                                                dev.ohjiho.budgetify.theme.R.drawable.ic_delete
-                                            )?.apply {
-                                                setTint(if (arguments?.getBoolean(FROM_SET_UP_ARG) == true) onAppBarSetUpColor else onAppBarNonSetUpColor)
-                                            }
-                                        }
-
-                                        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                                            return when (menuItem.itemId) {
-                                                R.id.account_delete -> {
-                                                    viewModel.deleteAccount()
-                                                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                                                    true
-                                                }
-
-                                                else -> false
-                                            }
-                                        }
-                                    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-                                }
+                            menu.findItem(R.id.account_delete).icon = ContextCompat.getDrawable(
+                                requireContext(),
+                                dev.ohjiho.budgetify.theme.R.drawable.ic_delete
+                            )?.apply {
+                                setTint(if (arguments?.getBoolean(FROM_SET_UP_ARG) == true) onAppBarSetUpColor else onAppBarNonSetUpColor)
                             }
                         }
-                    }
+
+                        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                            return when (menuItem.itemId) {
+                                R.id.account_delete -> {
+                                    viewModel.deleteAccount()
+                                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                                    true
+                                }
+
+                                else -> false
+                            }
+                        }
+                    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+                }
+            }
+
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
                     // Populate institution adapter
                     launch {
                         viewModel.uniqueInstitution.collect {

@@ -22,7 +22,7 @@ internal class AccountEditorViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
 ) : ViewModel() {
 
-    var isNewAccount = MutableStateFlow(true)
+    var isNewAccount = true
     val editorAccount: MutableStateFlow<Account> =
         MutableStateFlow(Account("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
@@ -30,7 +30,7 @@ internal class AccountEditorViewModel @Inject constructor(
     fun initWithAccountId(accountId: Int) {
         if (accountId == NON_EXISTENT_ID) return
 
-        isNewAccount.update { false }
+        isNewAccount = false
         viewModelScope.launch {
             editorAccount.update { accountRepository.getAccount(accountId) }
         }
@@ -46,7 +46,7 @@ internal class AccountEditorViewModel @Inject constructor(
 
     fun saveAccount() {
         viewModelScope.launch {
-            if (isNewAccount.value) {
+            if (isNewAccount) {
                 accountRepository.insert(editorAccount.value)
             } else {
                 accountRepository.update(editorAccount.value)
