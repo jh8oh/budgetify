@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.icons
+package dev.ohjiho.budgetify.theme.icon
 
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -40,6 +40,8 @@ enum class Icon(@DrawableRes val drawableRes: Int, @ColorRes val colorRes: Int, 
     MONEY_IN(R.drawable.cat_inc_money_in, R.color.royal_blue, false),
     REFUND(R.drawable.cat_inc_refund, R.color.cyan, false);
 
-    fun getExpenseIcons() = Icon.entries.filter { it.isExpense }
-    fun getIncomeIcons() = Icon.entries.filter { !it.isExpense }
+    companion object{
+        fun getExpenseIcons() = Icon.entries.filter { it.isExpense }
+        fun getIncomeIcons() = Icon.entries.filter { !it.isExpense }
+    }
 }

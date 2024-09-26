@@ -2,7 +2,7 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.theme.icons.Icon
+import dev.ohjiho.budgetify.theme.icon.Icon
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.Currency

@@ -2,19 +2,11 @@ package dev.ohjiho.budgetify.account.editor
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import androidx.core.view.MenuProvider
 import androidx.core.widget.doAfterTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -23,6 +15,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.account.R
 import dev.ohjiho.budgetify.account.databinding.FragmentAccountEditorBinding
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.theme.fragment.EditorFragment
 import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 import dev.ohjiho.budgetify.utils.ui.reformatBalanceAfterTextChange
@@ -31,7 +24,7 @@ import kotlinx.coroutines.launch
 import java.util.Currency
 
 @AndroidEntryPoint
-class AccountEditorFragment : Fragment() {
+class AccountEditorFragment : EditorFragment() {
 
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
@@ -63,20 +56,9 @@ class AccountEditorFragment : Fragment() {
     }
 
     // Resources
-    private val accountEditorNewTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
-    private val accountEditorUpdateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
+    override val newTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
+    override val updateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
     private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
-
-    private val onAppBarSetUpColor by lazy {
-        val typedValue = TypedValue()
-        context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)
-        typedValue.data
-    }
-    private val onAppBarNonSetUpColor by lazy {
-        val typedValue = TypedValue()
-        context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true)
-        typedValue.data
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,38 +73,7 @@ class AccountEditorFragment : Fragment() {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
         with(binding) {
-            // Check if new account
-            (activity as AppCompatActivity).apply {
-                if (viewModel.isNewAccount) {
-                    title = accountEditorNewTitle
-                } else {
-                    title = accountEditorUpdateTitle
-                    addMenuProvider(object : MenuProvider {
-                        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                            menuInflater.inflate(R.menu.menu_account_editor, menu)
-
-                            menu.findItem(R.id.account_delete).icon = ContextCompat.getDrawable(
-                                requireContext(),
-                                dev.ohjiho.budgetify.theme.R.drawable.ic_delete
-                            )?.apply {
-                                setTint(if (arguments?.getBoolean(FROM_SET_UP_ARG) == true) onAppBarSetUpColor else onAppBarNonSetUpColor)
-                            }
-                        }
-
-                        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-                            return when (menuItem.itemId) {
-                                R.id.account_delete -> {
-                                    viewModel.deleteAccount()
-                                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                                    true
-                                }
-
-                                else -> false
-                            }
-                        }
-                    }, viewLifecycleOwner, Lifecycle.State.RESUMED)
-                }
-            }
+            setUpEditorAppBar(viewModel.isNewAccount)
 
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -174,7 +125,7 @@ class AccountEditorFragment : Fragment() {
                     accountName.setText("")     // Clears text in case it only contains whitespace
                     accountName.error = accountNameBlankError
                 } else {
-                    updateAccount()
+                    saveState()
                     viewModel.saveAccount()
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
@@ -189,12 +140,11 @@ class AccountEditorFragment : Fragment() {
         currencySpinnerDialog.show()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        updateAccount()
+    override fun onDelete() {
+        viewModel.deleteAccount()
     }
 
-    private fun updateAccount() {
+    override fun saveState() {
         with(binding) {
             viewModel.updateEditorAccount(
                 accountName.text.toString().trim(),
@@ -218,7 +168,6 @@ class AccountEditorFragment : Fragment() {
 
     companion object {
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
-        private const val FROM_SET_UP_ARG = "FROM_SET_UP"
 
         fun newInstance(accountId: Int, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
             arguments = Bundle().apply {

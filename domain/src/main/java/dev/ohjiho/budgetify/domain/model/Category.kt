@@ -2,7 +2,7 @@ package dev.ohjiho.budgetify.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import dev.ohjiho.budgetify.theme.icons.Icon
+import dev.ohjiho.budgetify.theme.icon.Icon
 
 /**
  * A category that a transaction will fall under.
