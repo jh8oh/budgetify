@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Buttons -->
+    <style name="Theme.Budgetify.Button" parent="@style/Widget.Material3.Button">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
+        <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
+    </style>
+
+    <!-- Text Inputs -->
+    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+
+    <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
+    </style>
+
+    <!-- Text -->
+    <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
+        <item name="fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:fontFamily">@font/barlow_condensed_regular</item>
+        <item name="android:letterSpacing">0.03</item>
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.HeadlineExtraLarge" parent="TextAppearance.Budgetify.Body">
+        <item name="android:textColor">?colorPrimaryVariant</item>
+        <item name="android:textSize">56sp</item>
+        <item name="android:letterSpacing">0.02</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:letterSpacing">-0.02</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Label" parent="TextAppearance.Material3.LabelMedium">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
+        <item name="textAllCaps">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+</resources>

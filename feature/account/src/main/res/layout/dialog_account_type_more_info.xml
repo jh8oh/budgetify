@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dialog_account_type_more_info_padding_horizontal"
+    android:paddingVertical="@dimen/dialog_account_type_more_info_padding_vertical">
+
+    <TextView
+        style="?textAppearanceHeadlineMedium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dialog_account_type_title_margin_bottom"
+        android:text="@string/dialog_account_type_title" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow>
+
+            <TextView
+                style="?textAppearanceBodyMedium"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_cash"
+                android:textStyle="bold" />
+
+            <TextView
+                style="?textAppearanceBodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_cash_explanation" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
+
+            <TextView
+                style="?textAppearanceBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_credit"
+                android:textStyle="bold" />
+
+            <TextView
+                style="?textAppearanceBodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_credit_explanation" />
+        </TableRow>
+
+        <TableRow android:layout_marginTop="@dimen/dialog_account_type_spacing_vertical">
+
+            <TextView
+                style="?textAppearanceBodyMedium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="@string/account_type_investments"
+                android:textStyle="bold" />
+
+            <TextView
+                style="?textAppearanceBodySmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dialog_account_type_spacing_horizontal"
+                android:layout_weight="1"
+                android:text="@string/dialog_account_type_investments_explanation" />
+        </TableRow>
+    </TableLayout>
+
+</LinearLayout>

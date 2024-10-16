@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/fragment_set_up_currency_padding_horizontal"
+    android:paddingVertical="@dimen/fragment_set_up_currency_padding_vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/fragment_set_up_currency_default_description" />
+
+    <dev.ohjiho.currencypicker.CurrencyPicker
+        android:id="@+id/currency_picker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_currency_currency_picker_margin_top" />
+
+</LinearLayout>

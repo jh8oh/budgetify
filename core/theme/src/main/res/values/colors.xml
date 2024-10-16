@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="ic_launcher_background">#14845C</color>
+
+    <color name="teal_500">#009688</color>
+    <color name="teal_700">#018786</color>
+    <color name="maroon_700">#b21720</color>
+    <color name="maroon_900">#96000f</color>
+    <!--<color name="black">#000</color>-->
+    <color name="black_900">#161616</color>
+    <color name="black_800">#363636</color>
+    <!--<color name="black_700">#545454</color>-->
+    <color name="black_700_alpha_12">#1F545454</color>
+    <color name="black_600">#676767</color>
+    <color name="black_500">#8f8f8f</color>
+    <color name="black_400">#afafaf</color>
+    <!--<color name="black_300">#d4d4d4</color>-->
+    <!--<color name="black_200">#e5e5e5</color>-->
+    <color name="black_100">#f0f0f0</color>
+    <color name="white">#fff</color>
+
+    <color name="pale_violet_red">#dc627b</color>
+    <color name="indian_red">#982d47</color>
+    <color name="maroon">#b03060</color>
+    <color name="brown">#9A6324</color>
+    <color name="dark_golden_rod">#b8860b</color>
+    <color name="orange">#f58231</color>
+    <color name="coral">#ff7f50</color>
+    <color name="burly_wood">#deb887</color>
+    <color name="navajo_white">#f6cf86</color>
+    <color name="khaki">#f0e68c</color>
+    <color name="yellow_green">#9acd32</color>
+    <color name="green_yellow">#adff2f</color>
+    <color name="dark_olive_green">#556b2f</color>
+    <color name="forest_green">#228b22</color>
+    <color name="lime_green">#32cd32</color>
+    <color name="spring_green">#00ff7f</color>
+    <color name="pale_green">#98fb98</color>
+    <color name="light_blue">#add8e6</color>
+    <color name="dark_sea_green">#8fbc8f</color>
+    <color name="dark_cyan">#008b8b</color>
+    <color name="steel_blue">#4682b4</color>
+    <color name="cyan">#42d4f4</color>
+    <color name="dodger_blue">#1e90ff</color>
+    <color name="royal_blue">#0162c0</color>
+    <color name="dark_slate_blue">#004b98</color>
+    <color name="dark_magenta">#8b008b</color>
+    <color name="blue_violet">#8a2be2</color>
+    <color name="lavender">#dcbeff</color>
+    <color name="violet">#ee82ee</color>
+    <color name="plum">#ff92d1</color>
+    <color name="purple">#7d0070</color>
+</resources>

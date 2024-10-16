@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/fragment_set_up_income_padding_horizontal">
+
+    <TextView
+        android:id="@+id/income_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_income_description_margin_top"
+        android:text="@string/fragment_set_up_income_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/income_budget_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_income_budget_toggle_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/income_description"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/income_button"
+            style="@style/Theme.Budgetify.Button.Toggle.Option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_set_up_income_button" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/budget_button"
+            style="@style/Theme.Budgetify.Button.Toggle.Option"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/color_budget_button_background"
+            android:text="@string/fragment_set_up_income_budget_button"
+            android:textColor="@color/color_budget_button_text"
+            app:strokeColor="@color/color_budget_button_stroke" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <TextView
+        android:id="@+id/currency"
+        style="?textAppearanceHeadlineLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/fragment_set_up_income_currency_margin_end"
+        android:textColor="?colorPrimaryVariant"
+        app:layout_constraintBaseline_toBaselineOf="@id/amount"
+        app:layout_constraintBottom_toBottomOf="@id/amount"
+        app:layout_constraintEnd_toStartOf="@id/amount"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="CAD" />
+
+    <EditText
+        android:id="@+id/amount"
+        style="@style/TextAppearance.Budgetify.HeadlineExtraLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_income_amount_margin_top"
+        android:background="@android:color/transparent"
+        android:imeOptions="actionDone"
+        android:importantForAutofill="no"
+        android:inputType="numberDecimal"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/currency"
+        app:layout_constraintTop_toBottomOf="@id/income_budget_toggle"
+        tools:ignore="LabelFor"
+        tools:text="1332.32" />
+
+    <TextView
+        android:id="@+id/per_label"
+        style="?textAppearanceBodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:labelFor="@id/frequency"
+        android:text="@string/fragment_set_up_income_per"
+        app:layout_constraintBottom_toBottomOf="@id/account_container"
+        app:layout_constraintEnd_toStartOf="@id/frequency_container"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/account_container" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/frequency_container"
+        style="@style/Theme.Budgetify.TextInputLayout.DropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_set_up_income_frequency_account_margin_between"
+        app:layout_constraintBottom_toBottomOf="@id/account_container"
+        app:layout_constraintEnd_toStartOf="@id/into_label"
+        app:layout_constraintStart_toEndOf="@id/per_label"
+        app:layout_constraintTop_toTopOf="@id/account_container">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/frequency"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:lines="1"
+            android:text="@string/fragment_set_up_income_frequency_default" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/into_label"
+        style="?textAppearanceBodyLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_set_up_income_frequency_account_margin_between"
+        android:labelFor="@id/account"
+        android:text="@string/fragment_set_up_income_into"
+        app:layout_constraintBottom_toBottomOf="@id/account_container"
+        app:layout_constraintEnd_toStartOf="@id/account_container"
+        app:layout_constraintStart_toEndOf="@id/frequency_container"
+        app:layout_constraintTop_toTopOf="@id/account_container" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/account_container"
+        style="@style/Theme.Budgetify.TextInputLayout.DropdownMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_set_up_income_frequency_account_margin_between"
+        android:layout_marginTop="@dimen/fragment_set_up_income_per_margin_top"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/into_label"
+        app:layout_constraintTop_toBottomOf="@id/amount">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+            android:id="@+id/account"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            tools:text="Chequing" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:id="@+id/nav_button_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/set_up_margin_bottom"
+        android:animateLayoutChanges="true"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/back_button"
+            style="@style/Theme.Budgetify.IconButton.Outlined"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
+            app:icon="@drawable/ic_arrow_back" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/next_button"
+            style="@style/Theme.Budgetify.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_set_up_next_button" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
