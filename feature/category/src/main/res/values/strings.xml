@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="item_category_icon_content_description">Category Icon</string>
+    <string name="category_icon_content_description">Category Icon</string>
+
+    <string name="fragment_category_editor_add_title">Add new category</string>
+    <string name="fragment_category_editor_update_title">Update category</string>
+    <string name="fragment_category_editor_icon_dropdown_content_description">Dropdown</string>
+    <string name="fragment_category_editor_name_blank_error">Please provide a name</string>
+    <string name="fragment_category_editor_need_or_want_label">Essential?</string>
+    <string name="fragment_category_editor_need_button">Need</string>
+    <string name="fragment_category_editor_want_button">Want</string>
+    <string name="fragment_category_editor_save_button">Save</string>
 </resources>

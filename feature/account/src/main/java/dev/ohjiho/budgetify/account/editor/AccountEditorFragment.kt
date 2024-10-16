@@ -64,7 +64,7 @@ class AccountEditorFragment : EditorFragment() {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
             arguments?.getInt(ACCOUNT_ID_ARG)?.let {
-                viewModel.initWithAccountId(it)
+                viewModel.initWithId(it)
             }
         }
     }
@@ -72,12 +72,12 @@ class AccountEditorFragment : EditorFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentAccountEditorBinding.inflate(inflater)
 
-        with(binding) {
-            setUpEditorAppBar(viewModel.isNewAccount)
+        setUpEditorAppBar(viewModel.isNew)
 
+        with(binding) {
+            // Populate views
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    // Populate institution adapter
                     launch {
                         viewModel.uniqueInstitution.collect {
                             institutionAdapter.apply {
@@ -87,9 +87,8 @@ class AccountEditorFragment : EditorFragment() {
                             }
                         }
                     }
-                    // Populate various account EditTexts
                     launch {
-                        viewModel.editorAccount.collect { account ->
+                        viewModel.account.collect { account ->
                             accountName.setText(account.name)
                             accountInstitution.setText(account.institution)
                             accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
@@ -116,7 +115,7 @@ class AccountEditorFragment : EditorFragment() {
             accountCurrency.setOnClickListener { showCurrencyPickerDialog() }
             accountCurrencyContainer.setEndIconOnClickListener { showCurrencyPickerDialog() }
             // Balance
-            accountBalance.reformatBalanceAfterTextChange(viewModel.editorAccount.value.currency)
+            accountBalance.reformatBalanceAfterTextChange(viewModel.account.value.currency)
             // More Info
             moreInfoButton.setOnClickListener { moreInfoDialog.show() }
             // Save button
@@ -146,7 +145,7 @@ class AccountEditorFragment : EditorFragment() {
 
     override fun saveState() {
         with(binding) {
-            viewModel.updateEditorAccount(
+            viewModel.updateState(
                 accountName.text.toString().trim(),
                 accountInstitution.text.toString().trim(),
                 getAccountType(),

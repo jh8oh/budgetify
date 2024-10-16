@@ -20,7 +20,7 @@ import java.util.Currency
 import javax.inject.Inject
 
 internal enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR, SET_UP_INCOME, SET_UP_CATEGORIES, CATEGORY_EDITOR, SET_UP_BUDGET
 }
 
 internal data class SetUpUiState(
@@ -45,6 +45,7 @@ internal class SetUpViewModel @Inject constructor(
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
     private val toastMessage = MutableStateFlow<Event<String?>>(Event(null))
     var editingAccountId: Int = NON_EXISTENT_ID
+    var editingCategoryId: Int = NON_EXISTENT_ID
 
     val uiState = combine(screen, toastMessage) { screen, toastMessage ->
         SetUpUiState(screen = screen, toastMessage = toastMessage)
@@ -85,6 +86,11 @@ internal class SetUpViewModel @Inject constructor(
 
             SetUpScreen.SET_UP_CATEGORIES -> {
                 screen.update { SetUpScreen.SET_UP_INCOME }
+                false
+            }
+
+            SetUpScreen.CATEGORY_EDITOR -> {
+                screen.update { SetUpScreen.SET_UP_CATEGORIES }
                 false
             }
 
@@ -157,6 +163,12 @@ internal class SetUpViewModel @Inject constructor(
         if (setUpIncomeState.value.account == null || !accounts.value.contains(setUpIncomeState.value.account)) {
             setUpIncomeState.update { setUpIncomeState.value.copy(account = accounts.value[0]) }
         }
+    }
+
+    // Editing Category
+    fun addOrUpdateCategory(categoryId: Int) {
+        editingCategoryId = categoryId
+        screen.update { SetUpScreen.CATEGORY_EDITOR }
     }
 
     fun updateIncomeState(isIncome: Boolean, amount:BigDecimal, isMonthly: Boolean, account: Account?) {

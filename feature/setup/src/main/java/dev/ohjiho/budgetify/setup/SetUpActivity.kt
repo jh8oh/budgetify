@@ -11,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.account.editor.AccountEditorFragment
+import dev.ohjiho.budgetify.category.editor.CategoryEditorFragment
 import dev.ohjiho.budgetify.setup.databinding.ActivitySetUpBinding
 import dev.ohjiho.budgetify.utils.ui.navigateTo
 import kotlinx.coroutines.launch
@@ -46,6 +47,7 @@ class SetUpActivity : AppCompatActivity() {
                         SetUpScreen.ACCOUNT_EDITOR -> showAccountEditorScreen(viewModel.editingAccountId)
                         SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
                         SetUpScreen.SET_UP_CATEGORIES -> showCategoriesScreen()
+                        SetUpScreen.CATEGORY_EDITOR -> showCategoryEditorScreen(viewModel.editingCategoryId)
                         SetUpScreen.SET_UP_BUDGET -> showBudgetScreen()
                     }
                     it.toastMessage.getContentIfNotHandled()?.let { message ->
@@ -87,9 +89,16 @@ class SetUpActivity : AppCompatActivity() {
     }
 
     private fun showCategoriesScreen() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
         title = setUpCategoriesTitle
 
         supportFragmentManager.navigateTo(R.id.fragment_container, SetUpCategoriesFragment())
+    }
+
+    private fun showCategoryEditorScreen(categoryId: Int) {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.newInstance(true, categoryId, true))
     }
 
     private fun showBudgetScreen() {

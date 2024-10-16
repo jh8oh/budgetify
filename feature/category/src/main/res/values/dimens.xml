@@ -1,7 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <dimen name="item_category_height">48dp</dimen>
     <dimen name="item_category_padding_horizontal">8dp</dimen>
     <dimen name="item_category_icon_size">36dp</dimen>
+    <dimen name="item_category_icon_padding">4dp</dimen>
     <dimen name="item_category_title_margin_start">6dp</dimen>
+
+    <dimen name="fragment_category_editor_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_category_editor_icon_size">48dp</dimen>
+    <dimen name="fragment_category_editor_icon_padding">6dp</dimen>
+    <dimen name="fragment_category_editor_icon_offset_margin_top">6dp</dimen> <!-- Required to align category_icon with category_name_container -->
+    <dimen name="fragment_category_editor_icon_margin_end">4dp</dimen>
+    <dimen name="fragment_category_editor_name_margin_top">8dp</dimen>
+    <dimen name="fragment_category_editor_need_or_want_toggle_group_margin_start">12dp</dimen>
+    <dimen name="fragment_category_editor_need_or_want_toggle_group_margin_top">8dp</dimen>
+    <dimen name="fragment_category_editor_save_button_margin_bottom">16dp</dimen>
 </resources>

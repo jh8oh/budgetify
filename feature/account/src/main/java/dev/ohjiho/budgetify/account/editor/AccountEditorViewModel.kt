@@ -9,7 +9,6 @@ import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
@@ -22,23 +21,23 @@ internal class AccountEditorViewModel @Inject constructor(
     private val accountRepository: AccountRepository,
 ) : ViewModel() {
 
-    var isNewAccount = true
-    val editorAccount: MutableStateFlow<Account> =
+    var isNew = true
+    val account: MutableStateFlow<Account> =
         MutableStateFlow(Account("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
-    fun initWithAccountId(accountId: Int) {
-        if (accountId == NON_EXISTENT_ID) return
+    fun initWithId(id: Int) {
+        if (id == NON_EXISTENT_ID) return
 
-        isNewAccount = false
+        isNew = false
         viewModelScope.launch {
-            editorAccount.update { accountRepository.getAccount(accountId) }
+            account.update { accountRepository.getAccount(id) }
         }
     }
 
-    fun updateEditorAccount(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
-        editorAccount.getAndUpdate {
-            it.copy(name, institution, type, balance, currency).apply {
+    fun updateState(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
+        account.update {
+            Account(name, institution, type, balance, currency).apply {
                 uid = it.uid
             }
         }
@@ -46,17 +45,17 @@ internal class AccountEditorViewModel @Inject constructor(
 
     fun saveAccount() {
         viewModelScope.launch {
-            if (isNewAccount) {
-                accountRepository.insert(editorAccount.value)
+            if (isNew) {
+                accountRepository.insert(account.value)
             } else {
-                accountRepository.update(editorAccount.value)
+                accountRepository.update(account.value)
             }
         }
     }
 
     fun deleteAccount() {
         viewModelScope.launch {
-            accountRepository.delete(editorAccount.value)
+            accountRepository.delete(account.value)
         }
     }
 }

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/fragment_category_editor_padding_horizontal">
+
+    <ImageView
+        android:id="@+id/category_icon"
+        android:layout_width="@dimen/fragment_category_editor_icon_size"
+        android:layout_height="@dimen/fragment_category_editor_icon_size"
+        android:layout_marginTop="@dimen/fragment_category_editor_icon_offset_margin_top"
+        android:layout_marginEnd="@dimen/fragment_category_editor_icon_margin_end"
+        android:contentDescription="@string/category_icon_content_description"
+        android:padding="@dimen/fragment_category_editor_icon_padding"
+        app:layout_constraintBottom_toBottomOf="@id/category_name_container"
+        app:layout_constraintEnd_toStartOf="@id/category_name_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/category_name_container"
+        tools:background="@color/cyan"
+        tools:src="@drawable/cat_exp_home" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/category_name_container"
+        style="@style/Theme.Budgetify.TextInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_category_editor_name_margin_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/category_icon"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/category_name"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/need_or_want_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fragment_category_editor_need_or_want_label"
+        app:layout_constraintBottom_toBottomOf="@id/need_or_want_toggle_group"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/need_or_want_toggle_group" />
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/need_or_want_toggle_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_category_editor_need_or_want_toggle_group_margin_start"
+        android:layout_marginTop="@dimen/fragment_category_editor_need_or_want_toggle_group_margin_top"
+        android:orientation="horizontal"
+        app:checkedButton="@id/need_button"
+        app:layout_constraintStart_toEndOf="@id/need_or_want_label"
+        app:layout_constraintTop_toBottomOf="@id/category_name_container"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/need_button"
+            style="@style/Theme.Budgetify.Button.Toggle.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_category_editor_need_button" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/want_button"
+            style="@style/Theme.Budgetify.Button.Toggle.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_category_editor_want_button" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <Button
+        android:id="@+id/save_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/fragment_category_editor_save_button_margin_bottom"
+        android:text="@string/fragment_category_editor_save_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

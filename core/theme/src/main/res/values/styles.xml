@@ -32,6 +32,13 @@
         <item name="android:textAppearance">?textAppearanceButton</item>
     </style>
 
+    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
+    </style>
+
     <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
         <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
         <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>

@@ -41,5 +41,14 @@ internal class CategoryRepositoryImpl @Inject constructor(
         }
     }
 
+    // Expense Categories
+    override suspend fun getExpenseCategory(uid: Int): ExpenseCategory = expenseCategoryDao.getExpenseCategory(uid)
+
     override fun getAllExpenseCategories(): Flow<List<ExpenseCategory>> = expenseCategoryDao.getAllExpenseCategories()
+
+    // Income Categories
+    override suspend fun getIncomeCategory(uid: Int): IncomeCategory = incomeCategoryDao.getIncomeCategory(uid)
+
+    override fun getAllIncomeCategories(): Flow<List<IncomeCategory>> = incomeCategoryDao.getAllIncomeCategories()
+
 }
