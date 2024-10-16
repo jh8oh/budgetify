@@ -15,5 +15,5 @@
     <dimen name="fragment_category_editor_name_margin_top">8dp</dimen>
     <dimen name="fragment_category_editor_need_or_want_toggle_group_margin_start">12dp</dimen>
     <dimen name="fragment_category_editor_need_or_want_toggle_group_margin_top">8dp</dimen>
-    <dimen name="fragment_category_editor_save_button_margin_bottom">16dp</dimen>
+    <dimen name="fragment_category_editor_save_button_margin_bottom">24dp</dimen>
 </resources>
