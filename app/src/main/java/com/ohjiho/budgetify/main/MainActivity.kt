@@ -1,4 +1,4 @@
-package com.ohjiho.budgetify.splash
+package com.ohjiho.budgetify.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +8,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.setup.SetUpActivity
 
 @AndroidEntryPoint
-class SplashActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    private val viewModel: SplashViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

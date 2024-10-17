@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="288dp"
+            android:height="288dp"
+            android:viewportWidth="288"
+            android:viewportHeight="288">
+            <group
+                android:name="icon"
+                android:pivotX="144"
+                android:pivotY="144">
+                <path
+                    android:name="seventyFivePercent"
+                    android:pathData="M206 144a62 62 0 1 0 -124 0 62 62 0 1 0 124 0"
+                    android:strokeWidth="7"
+                    android:strokeColor="#fff"
+                    android:trimPathEnd="0"
+                    android:trimPathOffset="0.25" />
+                <group android:name="twentyFivePercentContainer">
+                    <path
+                        android:name="twentyFivePercent"
+                        android:pathData="M206 144a62 62 0 1 0 -124 0 62 62 0 1 0 124 0"
+                        android:strokeWidth="7"
+                        android:strokeColor="#fff"
+                        android:trimPathEnd="0" />
+                </group>
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <target android:name="icon">
+        <aapt:attr name="android:animation">
+            <set android:ordering="together">
+                <objectAnimator
+                    android:duration="50"
+                    android:propertyName="scaleX"
+                    android:startOffset="850"
+                    android:valueFrom="1"
+                    android:valueTo="0.8" />
+                <objectAnimator
+                    android:duration="50"
+                    android:propertyName="scaleY"
+                    android:startOffset="850"
+                    android:valueFrom="1"
+                    android:valueTo="0.8" />
+                <objectAnimator
+                    android:duration="50"
+                    android:propertyName="scaleX"
+                    android:startOffset="925"
+                    android:valueFrom="0.8"
+                    android:valueTo="1" />
+                <objectAnimator
+                    android:duration="50"
+                    android:propertyName="scaleY"
+                    android:startOffset="925"
+                    android:valueFrom="0.8"
+                    android:valueTo="1" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="seventyFivePercent">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="600"
+                android:interpolator="@android:anim/accelerate_interpolator"
+                android:propertyName="trimPathEnd"
+                android:valueFrom="0"
+                android:valueTo="0.75" />
+        </aapt:attr>
+    </target>
+    <target android:name="twentyFivePercent">
+        <aapt:attr name="android:animation">
+            <set android:ordering="together">
+                <objectAnimator
+                    android:duration="200"
+                    android:interpolator="@android:anim/decelerate_interpolator"
+                    android:propertyName="trimPathEnd"
+                    android:startOffset="750"
+                    android:valueFrom="0"
+                    android:valueTo="0.25" />
+                <objectAnimator
+                    android:duration="0"
+                    android:propertyName="strokeColor"
+                    android:startOffset="900"
+                    android:valueFrom="#fff"
+                    android:valueTo="#64FFDA" />
+            </set>
+        </aapt:attr>
+    </target>
+    <target android:name="twentyFivePercentContainer">
+        <aapt:attr name="android:animation">
+            <set
+                android:interpolator="@android:anim/anticipate_overshoot_interpolator"
+                android:ordering="together">
+                <objectAnimator
+                    android:duration="125"
+                    android:propertyName="translateX"
+                    android:startOffset="975"
+                    android:valueFrom="0"
+                    android:valueTo="9.074" />
+                <objectAnimator
+                    android:duration="125"
+                    android:propertyName="translateY"
+                    android:startOffset="975"
+                    android:valueFrom="0"
+                    android:valueTo="-8" />
+            </set>
+        </aapt:attr>
+    </target>
+</animated-vector>

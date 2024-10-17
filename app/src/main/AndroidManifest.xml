@@ -15,7 +15,7 @@
         android:theme="@style/Theme.Budgetify"
         tools:targetApi="tiramisu">
         <activity
-            android:name="com.ohjiho.budgetify.splash.SplashActivity"
+            android:name="com.ohjiho.budgetify.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
