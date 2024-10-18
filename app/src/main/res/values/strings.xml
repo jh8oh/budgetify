@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Budgetify</string>
+
+    <string name="nav_overview_title">Overview</string>
+    <string name="nav_finances_title">Finances</string>
+    <string name="nav_stats_title">Stats</string>
+    <string name="nav_settings_title">Setting</string>
+    <string name="fab_content_description">Add Transaction</string>
 </resources>
