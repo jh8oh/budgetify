@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_main_bottom_app_bar_height" />
+
+    <com.google.android.material.bottomappbar.BottomAppBar
+        android:id="@+id/bottom_app_bar"
+        style="@style/Widget.MaterialComponents.BottomAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_main_bottom_app_bar_height"
+        android:layout_gravity="bottom"
+        app:backgroundTint="?colorPrimary"
+        app:contentInsetStart="0dp"
+        app:fabAlignmentMode="end"
+        app:fabCradleMargin="@dimen/activity_main_fab_cradle_margin"
+        app:fabCradleRoundedCornerRadius="@dimen/activity_main_fab_cradle_rounded_corner_radius"
+        app:fabCradleVerticalOffset="@dimen/activity_main_fab_cradle_vertical_offset">
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            style="@style/Widget.Design.BottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:paddingVertical="@dimen/activity_main_bottom_navigation_view_padding_vertical"
+            app:itemBackground="?attr/selectableItemBackground"
+            app:itemIconTint="?colorOnPrimary"
+            app:itemTextColor="?colorOnPrimary"
+            app:menu="@menu/menu_bottom_nav" />
+
+    </com.google.android.material.bottomappbar.BottomAppBar>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="?colorSecondary"
+        android:contentDescription="@string/fab_content_description"
+        android:src="@drawable/ic_add"
+        app:layout_anchor="@id/bottom_app_bar"
+        app:tint="?colorOnSecondary" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
