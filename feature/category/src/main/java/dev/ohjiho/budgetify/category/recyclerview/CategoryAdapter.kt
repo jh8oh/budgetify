@@ -6,7 +6,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.category.databinding.ItemCategoryBinding
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.domain.model.ExpenseCategory
 import dev.ohjiho.budgetify.theme.databinding.ItemHeaderBinding
 import dev.ohjiho.budgetify.theme.viewholder.HeaderViewHolder
 
@@ -52,9 +51,9 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
 
     override fun getItemCount() = categories.size
 
-    fun setCategoryList(categoryList: List<Category>, isExpense: Boolean) {
+    fun setCategoryList(isExpense: Boolean, categoryList: List<Category>) {
         if (isExpense) {
-            categoryList.groupBy { (it as ExpenseCategory).isNeed }.let { map ->
+            categoryList.groupBy { it.isNeed }.let { map ->
                 val needCategories = map[true]?.let { listOf(NEED_HEADER) + it } ?: emptyList()
                 val wantCategories = map[false]?.let { listOf(WANT_HEADER) + it } ?: emptyList()
                 categories = needCategories + wantCategories

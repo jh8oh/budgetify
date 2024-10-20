@@ -9,8 +9,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import dev.ohjiho.budgetify.data.room.BudgetifyDatabase
 import dev.ohjiho.budgetify.data.room.dao.AccountDao
-import dev.ohjiho.budgetify.data.room.dao.ExpenseCategoryDao
-import dev.ohjiho.budgetify.data.room.dao.IncomeCategoryDao
+import dev.ohjiho.budgetify.data.room.dao.CategoryDao
 import javax.inject.Singleton
 
 @Module
@@ -32,8 +31,5 @@ internal object RoomModule {
     fun provideAccountDao(database: BudgetifyDatabase): AccountDao = database.accountDao()
 
     @Provides
-    fun provideExpenseCategoryDao(database: BudgetifyDatabase): ExpenseCategoryDao = database.expenseCategoryDao()
-
-    @Provides
-    fun provideIncomeCategoryDao(database: BudgetifyDatabase): IncomeCategoryDao = database.incomeCategoryDao()
+    fun provideCategoryDao(database: BudgetifyDatabase): CategoryDao = database.categoryDao()
 }

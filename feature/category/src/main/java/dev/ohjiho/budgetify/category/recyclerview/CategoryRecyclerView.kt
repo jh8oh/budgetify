@@ -5,8 +5,6 @@ import android.util.AttributeSet
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.domain.model.ExpenseCategory
-import dev.ohjiho.budgetify.domain.model.IncomeCategory
 
 class CategoryRecyclerView @JvmOverloads constructor(
     context: Context,
@@ -30,11 +28,7 @@ class CategoryRecyclerView @JvmOverloads constructor(
         this.listener = listener
     }
 
-    fun setExpenseCategories(expenseCategoryList: List<ExpenseCategory>) {
-        (adapter as CategoryAdapter).setCategoryList(expenseCategoryList, true)
-    }
-
-    fun setIncomeCategories(incomeCategoryList: List<IncomeCategory>) {
-        (adapter as CategoryAdapter).setCategoryList(incomeCategoryList, false)
+    fun setCategories(isExpense: Boolean, categoryList: List<Category>) {
+        (adapter as CategoryAdapter).setCategoryList(isExpense, categoryList)
     }
 }

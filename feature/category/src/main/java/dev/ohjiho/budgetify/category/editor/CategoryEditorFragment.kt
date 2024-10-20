@@ -13,7 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.FragmentCategoryEditorBinding
-import dev.ohjiho.budgetify.domain.model.ExpenseCategory
+import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.theme.fragment.EditorFragment
 import dev.ohjiho.budgetify.theme.icon.Icon
 import kotlinx.coroutines.launch
@@ -34,10 +34,8 @@ class CategoryEditorFragment : EditorFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.let {
-                val isExpense = it.getBoolean(IS_EXPENSE)
-                val categoryId = it.getInt(CATEGORY_ID)
-                viewModel.initWithId(isExpense, categoryId)
+            arguments?.getInt(CATEGORY_ID)?.let {
+                viewModel.initWithId(it)
             }
         }
     }
@@ -54,10 +52,10 @@ class CategoryEditorFragment : EditorFragment() {
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
                         categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
-                        if (category is ExpenseCategory) {
+                        if (category.type == CategoryType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE
                             needOrWantToggleGroup.visibility = View.VISIBLE
-                            needOrWantToggleGroup.check(if (category.isNeed) needButton.id else wantButton.id)
+                            needOrWantToggleGroup.check(if (category.isNeed == true) needButton.id else wantButton.id)
                         } else {
                             needOrWantLabel.visibility = View.GONE
                             needOrWantToggleGroup.visibility = View.GONE
@@ -100,12 +98,10 @@ class CategoryEditorFragment : EditorFragment() {
     }
 
     companion object {
-        private const val IS_EXPENSE = "IS_EXPENSE"
         private const val CATEGORY_ID = "CATEGORY_ID"
 
-        fun newInstance(isExpense: Boolean, categoryId: Int, fromSetUp: Boolean = false) = CategoryEditorFragment().apply {
+        fun newInstance(categoryId: Int, fromSetUp: Boolean = false) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {
-                putBoolean(IS_EXPENSE, isExpense)
                 putInt(CATEGORY_ID, categoryId)
                 putBoolean(FROM_SET_UP_ARG, fromSetUp)
             }

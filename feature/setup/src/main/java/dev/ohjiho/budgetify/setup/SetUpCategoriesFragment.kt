@@ -26,7 +26,7 @@ class SetUpCategoriesFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.expenseCategories.collect {
-                    binding.categoryRecyclerView.setExpenseCategories(it)
+                    binding.categoryRecyclerView.setCategories(true, it)
                 }
             }
         }

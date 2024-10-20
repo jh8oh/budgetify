@@ -98,7 +98,7 @@ class SetUpActivity : AppCompatActivity() {
     private fun showCategoryEditorScreen(categoryId: Int) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.newInstance(true, categoryId, true))
+        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.newInstance(categoryId, true))
     }
 
     private fun showBudgetScreen() {

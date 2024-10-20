@@ -4,45 +4,28 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import dev.ohjiho.budgetify.theme.icon.Icon
 
+enum class CategoryType {
+    EXPENSE,
+    INCOME,
+    TRANSFER
+}
+
 /**
  * A category that a transaction will fall under.
- */
-sealed interface Category {
-    var uid: Int
-    val name: String
-    val icon: Icon
-}
-
-/**
- * A category that an expense transaction will fall under.
  *
  * @property uid The unique identifier that refers to this category.
  * @property name The name of the category.
+ * @property type The type of category (expense, income, or transfer)
  * @property icon The icon to be displayed by the category.
- * @property isNeed Whether or not this category falls under a necessity (otherwise, it's a want).
+ * @property isNeed Whether or not this category falls under a necessity (otherwise, it's a want). [ONLY FOR EXPENSE CATEGORIES]
  */
-@Entity(tableName = "expense_categories")
-data class ExpenseCategory(
-    override val name: String,
-    override val icon: Icon,
-    val isNeed: Boolean,
-) : Category {
+@Entity(tableName = "categories")
+data class Category(
+    val name: String,
+    val type: CategoryType,
+    val icon: Icon,
+    val isNeed: Boolean? = null,
+) {
     @PrimaryKey(autoGenerate = true)
-    override var uid: Int = 0
-}
-
-/**
- * A category that an income transaction will fall under.
- *
- * @property uid The unique identifier that refers to this category.
- * @property name The name of the category.
- * @property icon The icon to be displayed by the category.
- */
-@Entity(tableName = "income_categories")
-data class IncomeCategory(
-    override val name: String,
-    override val icon: Icon,
-) : Category {
-    @PrimaryKey(autoGenerate = true)
-    override var uid: Int = 0
+    var uid: Int = 0
 }

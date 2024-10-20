@@ -1,54 +1,22 @@
 package dev.ohjiho.budgetify.data.repository
 
-import androidx.annotation.WorkerThread
-import dev.ohjiho.budgetify.data.room.dao.ExpenseCategoryDao
-import dev.ohjiho.budgetify.data.room.dao.IncomeCategoryDao
+import dev.ohjiho.budgetify.data.room.dao.CategoryDao
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.domain.model.ExpenseCategory
-import dev.ohjiho.budgetify.domain.model.IncomeCategory
-import dev.ohjiho.budgetify.domain.repository.BaseRoomRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-internal class CategoryRepositoryImpl @Inject constructor(
-    private val expenseCategoryDao: ExpenseCategoryDao,
-    private val incomeCategoryDao: IncomeCategoryDao,
-) : BaseRoomRepository<Category>, CategoryRepository {
-    @WorkerThread
-    override suspend fun insert(entity: Category): Long {
-        return when (entity) {
-            is ExpenseCategory -> expenseCategoryDao.insert(entity)
-            is IncomeCategory -> incomeCategoryDao.insert(entity)
-        }
-    }
+internal class CategoryRepositoryImpl @Inject constructor(private val dao: CategoryDao) :
+    BaseRoomRepositoryImpl<Category, CategoryDao>(dao), CategoryRepository {
 
-    @WorkerThread
-    override suspend fun update(entity: Category) {
-        when (entity) {
-            is ExpenseCategory -> expenseCategoryDao.update(entity)
-            is IncomeCategory -> incomeCategoryDao.update(entity)
-        }
-    }
+    override suspend fun getCategory(uid: Int): Category = dao.getCategory(uid)
 
-    @WorkerThread
-    override suspend fun delete(vararg entity: Category) {
-        for (c in entity) {
-            when (c) {
-                is ExpenseCategory -> expenseCategoryDao.delete(c)
-                is IncomeCategory -> incomeCategoryDao.delete(c)
-            }
-        }
-    }
+    // Transfer
+    override fun getTransferCategory(): Category = dao.getTransferCategory()
 
-    // Expense Categories
-    override suspend fun getExpenseCategory(uid: Int): ExpenseCategory = expenseCategoryDao.getExpenseCategory(uid)
+    // Expense
+    override fun getAllExpenseCategories(): Flow<List<Category>> = dao.getAllExpenseCategories()
 
-    override fun getAllExpenseCategories(): Flow<List<ExpenseCategory>> = expenseCategoryDao.getAllExpenseCategories()
-
-    // Income Categories
-    override suspend fun getIncomeCategory(uid: Int): IncomeCategory = incomeCategoryDao.getIncomeCategory(uid)
-
-    override fun getAllIncomeCategories(): Flow<List<IncomeCategory>> = incomeCategoryDao.getAllIncomeCategories()
-
+    // Income
+    override fun getAllIncomeCategories(): Flow<List<Category>> = dao.getAllIncomeCategories()
 }

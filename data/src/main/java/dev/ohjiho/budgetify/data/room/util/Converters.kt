@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.theme.icon.Icon
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -28,6 +29,17 @@ internal class Converters {
     @TypeConverter
     fun stringToBigDecimal(string: String?): BigDecimal? {
         return string?.toBigDecimalOrNull()
+    }
+
+    // Category Type
+    @TypeConverter
+    fun categoryTypeToString(categoryType: CategoryType?): String? {
+        return categoryType?.name
+    }
+
+    @TypeConverter
+    fun stringToCategoryType(name: String?): CategoryType? {
+        return name?.let { CategoryType.valueOf(it) }
     }
 
     // Currency
