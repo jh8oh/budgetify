@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="activity_main_bottom_app_bar_height">60dp</dimen>
     <dimen name="activity_main_bottom_navigation_view_padding_vertical">2dp</dimen>
     <dimen name="activity_main_fab_cradle_margin">10dp</dimen>
     <dimen name="activity_main_fab_cradle_rounded_corner_radius">6dp</dimen>

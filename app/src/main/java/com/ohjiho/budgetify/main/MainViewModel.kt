@@ -8,4 +8,5 @@ import javax.inject.Inject
 @HiltViewModel
 class MainViewModel @Inject constructor(setUpRepository: SetUpRepository) : ViewModel() {
     val isSetUp = setUpRepository.isSetUp()
+    val isReady = true
 }
