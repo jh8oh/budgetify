@@ -33,19 +33,21 @@ android {
 }
 
 dependencies {
+    // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.activity.ktx)
     implementation(libs.androidx.fragment.ktx)
-    implementation(libs.ohjiho.currencypicker)
-    implementation(libs.hilt.android.core)
-    kapt(libs.hilt.compiler)
-    testImplementation(libs.hilt.android.testing)
-    kaptTest(libs.hilt.compiler)
-    implementation(libs.androidx.lifecycle.runtime)
-    implementation(libs.androidx.lifecycle.viewmodel)
     implementation(libs.material)
 
+    // Hilt
+    implementation(libs.hilt.android.core)
+    kapt(libs.hilt.compiler)
+
+    // Currency Picker
+    implementation(libs.ohjiho.currencypicker)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

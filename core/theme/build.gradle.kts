@@ -31,5 +31,6 @@ android {
 }
 
 dependencies {
+    // Core
     implementation(libs.material)
 }
