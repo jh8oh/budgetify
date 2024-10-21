@@ -17,7 +17,6 @@
         android:icon="@drawable/ic_settings"
         android:title="@string/nav_settings_title" />
     <item
-        android:id="@+id/placeholder"
         android:enabled="false"
         android:title="" />
 </menu>
