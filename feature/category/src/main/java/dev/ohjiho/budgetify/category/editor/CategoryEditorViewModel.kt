@@ -30,14 +30,15 @@ internal class CategoryEditorViewModel @Inject constructor(
         }
     }
 
-    fun updateState(name: String, icon: Icon, isNeed: Boolean) {
+    fun updateIconState(icon: Icon) {
         category.update {
-            Category(
-                name,
-                it.type,
-                icon,
-                if (it.type == CategoryType.EXPENSE) isNeed else null
-            ).apply { uid = it.uid }
+            it.copy(icon = icon).apply { uid = it.uid }
+        }
+    }
+
+    fun updateState(name: String, isNeed: Boolean) {
+        category.update {
+            it.copy(name = name, isNeed = if (it.type == CategoryType.EXPENSE) isNeed else null).apply { uid = it.uid }
         }
     }
 

@@ -1,21 +1,27 @@
 package dev.ohjiho.budgetify.category.editor
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
+import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.FragmentCategoryEditorBinding
 import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.theme.fragment.EditorFragment
-import dev.ohjiho.budgetify.theme.icon.Icon
+import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
+import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat.toPx
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -24,7 +30,35 @@ class CategoryEditorFragment : EditorFragment() {
     private val viewModel by viewModels<CategoryEditorViewModel>()
     private lateinit var binding: FragmentCategoryEditorBinding
 
-    private var icon: Icon = Icon.HOME
+    // Dialog
+    private val iconAdapter = IconAdapter{
+        viewModel.updateIconState(it)
+        iconDialog.dismiss()
+    }
+
+    private val iconDialog: AlertDialog by lazy {
+        val dialogView = FrameLayout(requireContext()).apply {
+            layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+            setPadding(
+                12.toPx(ScreenMetricsCompat.getDensity(context)),
+                16.toPx(ScreenMetricsCompat.getDensity(context)),
+                12.toPx(ScreenMetricsCompat.getDensity(context)),
+                16.toPx(ScreenMetricsCompat.getDensity(context))
+            )
+            addView(RecyclerView(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
+                layoutManager = GridLayoutManager(requireContext(), 6)
+                adapter = iconAdapter
+            })
+        }
+
+        AlertDialog.Builder(requireContext()).apply {
+            setView(dialogView)
+            setNegativeButton("Cancel") { dialog, _ ->
+                dialog.cancel()
+            }
+        }.create()
+    }
 
     // Resources
     override val newTitle by lazy { resources.getString(R.string.fragment_category_editor_add_title) }
@@ -52,6 +86,7 @@ class CategoryEditorFragment : EditorFragment() {
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
                         categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
+                        iconAdapter.setIsExpense(category.type == CategoryType.EXPENSE)
                         if (category.type == CategoryType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE
                             needOrWantToggleGroup.visibility = View.VISIBLE
@@ -70,7 +105,9 @@ class CategoryEditorFragment : EditorFragment() {
                 categoryName.error = null
             }
             // Icon
-            // TODO open dialog with icons
+            categoryIcon.setOnClickListener {
+                iconDialog.show()
+            }
             // Save button
             saveButton.setOnClickListener {
                 if (categoryName.text.isNullOrBlank()) {
@@ -93,7 +130,7 @@ class CategoryEditorFragment : EditorFragment() {
 
     override fun saveState() {
         with(binding) {
-            viewModel.updateState(categoryName.text.toString(), icon, needOrWantToggleGroup.checkedButtonId == needButton.id)
+            viewModel.updateState(categoryName.text.toString(), needOrWantToggleGroup.checkedButtonId == needButton.id)
         }
     }
 
