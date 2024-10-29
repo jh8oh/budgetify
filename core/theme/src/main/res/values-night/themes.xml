@@ -16,7 +16,7 @@
         <item name="android:colorBackground">@color/black_850</item>
         <item name="colorOnBackground">@color/black_100</item>
         <!-- Surface color -->
-        <item name="colorSurface">@color/black_700</item>
+        <item name="colorSurface">@color/black_800</item>
         <item name="colorOnSurface">@color/black_100</item>
         <!-- Text color -->
         <item name="android:textColorPrimary">@color/color_text_primary</item>

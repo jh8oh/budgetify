@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_main_bottom_app_bar_height"
         android:layout_gravity="bottom"
-        app:backgroundTint="?colorPrimary"
+        app:backgroundTint="?colorSurface"
         app:contentInsetStart="0dp"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="@dimen/activity_main_fab_cradle_margin"
@@ -30,12 +30,11 @@
             android:id="@+id/bottom_nav"
             style="@style/Widget.Design.BottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/activity_main_bottom_app_bar_height"
             android:background="@android:color/transparent"
-            android:paddingVertical="@dimen/activity_main_bottom_navigation_view_padding_vertical"
             app:itemBackground="?attr/selectableItemBackground"
-            app:itemIconTint="?colorOnPrimary"
-            app:itemTextColor="?colorOnPrimary"
+            app:itemIconTint="?colorOnSurface"
+            app:itemTextColor="?colorOnSurface"
             app:menu="@menu/menu_bottom_nav" />
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -43,10 +42,10 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="?colorSecondary"
+        android:backgroundTint="?colorPrimary"
         android:contentDescription="@string/fab_content_description"
         android:src="@drawable/ic_add"
         app:layout_anchor="@id/bottom_app_bar"
-        app:tint="?colorOnSecondary" />
+        app:tint="?colorOnPrimary" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
