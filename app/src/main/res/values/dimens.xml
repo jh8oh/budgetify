@@ -5,4 +5,8 @@
     <dimen name="activity_main_fab_cradle_margin">10dp</dimen>
     <dimen name="activity_main_fab_cradle_rounded_corner_radius">6dp</dimen>
     <dimen name="activity_main_fab_cradle_vertical_offset">12dp</dimen>
+
+    <dimen name="dialog_add_transaction_padding_horizontal">16dp</dimen>
+    <dimen name="dialog_add_transaction_padding_vertical">12dp</dimen>
+    <dimen name="dialog_add_transaction_drawable_padding">6dp</dimen>
 </resources>
