@@ -18,18 +18,19 @@
         <!-- Status bar color -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Background color -->
-        <item name="android:colorBackground">@color/black_800</item>
+        <item name="android:colorBackground">@color/black_850</item>
         <item name="colorOnBackground">@color/black_100</item>
+        <!-- Surface color -->
+        <item name="colorSurface">@color/black_700</item>
+        <item name="colorOnSurface">@color/black_100</item>
         <!-- Text color -->
         <item name="android:textColorPrimary">@color/color_text_primary</item>
         <!-- Outline color -->
         <item name="colorOutline">@color/black_500</item>
 
         <!-- Text -->
-        <item name="textAppearanceTitleMedium">@style/TextAppearance.Budgetify.ActionBar.Title
-        </item>
-        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.Budgetify.HeadlineLarge
-        </item>
+        <item name="textAppearanceTitleMedium">@style/TextAppearance.Budgetify.ActionBar.Title</item>
+        <item name="textAppearanceHeadlineLarge">@style/TextAppearance.Budgetify.HeadlineLarge</item>
         <item name="textAppearanceHeadlineMedium">@style/TextAppearance.Budgetify.Headline</item>
         <item name="textAppearanceBodyLarge">@style/TextAppearance.Budgetify.BodyLarge</item>
         <item name="textAppearanceBodyMedium">@style/TextAppearance.Budgetify.Body</item>

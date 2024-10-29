@@ -1,5 +1,6 @@
 package dev.ohjiho.budgetify.category.recyclerview
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -51,6 +52,7 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
 
     override fun getItemCount() = categories.size
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setCategoryList(isExpense: Boolean, categoryList: List<Category>) {
         if (isExpense) {
             categoryList.groupBy { it.isNeed }.let { map ->
@@ -61,6 +63,9 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
         } else {
             categories = categoryList
         }
+
+        // TODO Create diff util so that we don't have to use notifyDataSetChanged()
+        notifyDataSetChanged()
     }
 
     companion object {

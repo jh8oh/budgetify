@@ -8,6 +8,7 @@
     <color name="purple_900">#4a148c</color>
     <!--<color name="black">#000</color>-->
     <color name="black_900">#161616</color>
+    <color name="black_850">#262626</color>
     <color name="black_800">#363636</color>
     <color name="black_700">#545454</color>
     <color name="black_700_alpha_12">#1F545454</color>

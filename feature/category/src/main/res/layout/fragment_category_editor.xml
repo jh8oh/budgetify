@@ -8,12 +8,12 @@
 
     <ImageView
         android:id="@+id/category_icon"
-        android:layout_width="@dimen/fragment_category_editor_icon_size"
-        android:layout_height="@dimen/fragment_category_editor_icon_size"
+        android:layout_width="@dimen/item_icon_size"
+        android:layout_height="@dimen/item_icon_size"
         android:layout_marginTop="@dimen/fragment_category_editor_icon_offset_margin_top"
         android:layout_marginEnd="@dimen/fragment_category_editor_icon_margin_end"
         android:contentDescription="@string/category_icon_content_description"
-        android:padding="@dimen/fragment_category_editor_icon_padding"
+        android:padding="@dimen/item_icon_padding"
         app:layout_constraintBottom_toBottomOf="@id/category_name_container"
         app:layout_constraintEnd_toStartOf="@id/category_name_container"
         app:layout_constraintStart_toStartOf="parent"
