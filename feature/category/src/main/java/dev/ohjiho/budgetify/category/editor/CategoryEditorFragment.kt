@@ -156,10 +156,10 @@ class CategoryEditorFragment : EditorFragment() {
     }
 
     companion object {
-        private const val CATEGORY_ID = "CATEGORY_ID"
-
         private const val DIALOG_HORIZONTAL_PADDING = 12
         private const val DIALOG_VERTICAL_PADDING = 16
+
+        private const val CATEGORY_ID = "CATEGORY_ID"
 
         fun newInstance(categoryId: Int, fromSetUp: Boolean = false) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {

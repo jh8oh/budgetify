@@ -1,20 +1,16 @@
 plugins {
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.kapt)
     alias(libs.plugins.hilt)
 }
 
 android {
-    namespace = "dev.ohjiho.budgetify"
+    namespace = "dev.ohjiho.budgetify.transaction"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "dev.ohjiho.budgetify"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +18,6 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
     buildFeatures {
@@ -41,12 +36,8 @@ dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.splashscreen)
+    implementation(libs.androidx.fragment.ktx)
     implementation(libs.material)
-
-    // Navigation
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
 
     // Hilt
     implementation(libs.hilt.android.core)
@@ -57,18 +48,8 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    // Leak Canary
-    debugImplementation(libs.leakcanary)
-
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
-    implementation(project(":data"))
     implementation(project(":domain"))
-    implementation(project(":feature:setup"))
-    implementation(project(":feature:overview"))
-    implementation(project(":feature:finances"))
-    implementation(project(":feature:stats"))
-    implementation(project(":feature:settings"))
-    implementation(project(":feature:transaction"))
 }

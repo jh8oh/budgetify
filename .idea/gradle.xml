@@ -23,6 +23,7 @@
             <option value="$PROJECT_DIR$/feature/settings" />
             <option value="$PROJECT_DIR$/feature/setup" />
             <option value="$PROJECT_DIR$/feature/stats" />
+            <option value="$PROJECT_DIR$/feature/transaction" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

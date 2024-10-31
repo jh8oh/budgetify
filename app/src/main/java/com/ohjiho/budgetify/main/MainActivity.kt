@@ -13,7 +13,10 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.R
 import dev.ohjiho.budgetify.databinding.ActivityMainBinding
 import dev.ohjiho.budgetify.databinding.DialogAddTransactionBinding
+import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.setup.SetUpActivity
+import dev.ohjiho.budgetify.transaction.TransactionEditorFragment
+import dev.ohjiho.budgetify.utils.ui.navigateTo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -25,14 +28,26 @@ class MainActivity : AppCompatActivity() {
     private val addTransactionDialog: AlertDialog by lazy {
         val binding = DialogAddTransactionBinding.inflate(LayoutInflater.from(this)).apply {
             newExpense.setOnClickListener {
+                supportFragmentManager.navigateTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.EXPENSE)
+                )
                 addTransactionDialog.dismiss()
             }
 
             newIncome.setOnClickListener {
+                supportFragmentManager.navigateTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.INCOME)
+                )
                 addTransactionDialog.dismiss()
             }
 
             newTransfer.setOnClickListener {
+                supportFragmentManager.navigateTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.TRANSFER)
+                )
                 addTransactionDialog.dismiss()
             }
         }
