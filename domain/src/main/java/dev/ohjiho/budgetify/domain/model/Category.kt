@@ -2,7 +2,7 @@ package dev.ohjiho.budgetify.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import dev.ohjiho.budgetify.theme.icon.Icon
+import dev.ohjiho.budgetify.icons.Icon
 
 enum class CategoryType {
     EXPENSE,

@@ -3,7 +3,7 @@ package dev.ohjiho.budgetify.data.room.util
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.model.CategoryType
-import dev.ohjiho.budgetify.theme.icon.Icon
+import dev.ohjiho.budgetify.icons.Icon
 import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.Currency
