@@ -16,7 +16,7 @@ import dev.ohjiho.budgetify.databinding.DialogAddTransactionBinding
 import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.setup.SetUpActivity
 import dev.ohjiho.budgetify.transaction.TransactionEditorFragment
-import dev.ohjiho.budgetify.utils.ui.navigateTo
+import dev.ohjiho.budgetify.utils.ui.navigateWithBackStackTo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private val addTransactionDialog: AlertDialog by lazy {
         val binding = DialogAddTransactionBinding.inflate(LayoutInflater.from(this)).apply {
             newExpense.setOnClickListener {
-                supportFragmentManager.navigateTo(
+                supportFragmentManager.navigateWithBackStackTo(
                     R.id.fragment_container,
                     TransactionEditorFragment.newInstance(CategoryType.EXPENSE)
                 )
@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             newIncome.setOnClickListener {
-                supportFragmentManager.navigateTo(
+                supportFragmentManager.navigateWithBackStackTo(
                     R.id.fragment_container,
                     TransactionEditorFragment.newInstance(CategoryType.INCOME)
                 )
@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             newTransfer.setOnClickListener {
-                supportFragmentManager.navigateTo(
+                supportFragmentManager.navigateWithBackStackTo(
                     R.id.fragment_container,
                     TransactionEditorFragment.newInstance(CategoryType.TRANSFER)
                 )
