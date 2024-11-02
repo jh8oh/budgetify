@@ -7,7 +7,7 @@ import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
-import dev.ohjiho.budgetify.theme.icon.Icon
+import dev.ohjiho.budgetify.icons.Icon
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch

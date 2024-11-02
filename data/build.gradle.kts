@@ -51,7 +51,7 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Modules
-    implementation(project(":core:theme"))
+    implementation(project(":core:icons"))
     implementation(project(":core:utils"))
     implementation(project(":domain"))
 }
