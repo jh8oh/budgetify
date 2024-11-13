@@ -3,7 +3,9 @@
     <color name="ic_launcher_background">#14845C</color>
 
     <color name="teal_500">#009688</color>
+    <color name="teal_500_alpha_12">#1F009688</color>
     <color name="teal_700">#018786</color>
+
     <!--<color name="black">#000</color>-->
     <color name="black_900">#161616</color>
     <color name="black_850">#262626</color>

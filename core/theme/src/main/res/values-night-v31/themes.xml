@@ -23,6 +23,8 @@
         <item name="android:textColorPrimary">@color/color_text_primary</item>
         <!-- Outline color -->
         <item name="colorOutline">@color/black_500</item>
+        <!-- Pressed color -->
+        <item name="android:colorPressedHighlight">@color/teal_500_alpha_12</item>
 
         <!-- Text -->
         <item name="textAppearanceTitleMedium">@style/TextAppearance.Budgetify.ActionBar.Title</item>
