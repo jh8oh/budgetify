@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_main"
+    app:startDestination="@id/nav_overview_fragment">
+
+    <fragment
+        android:id="@+id/nav_overview_fragment"
+        android:name="dev.ohjiho.budgetify.overview.OverviewFragment"
+        tools:layout="@layout/fragment_overview" />
+
+    <fragment
+        android:id="@+id/nav_finances_fragment"
+        android:name="dev.ohjiho.budgetify.finances.FinancesFragment"
+        tools:layout="@layout/fragment_finances" />
+
+    <fragment
+        android:id="@+id/nav_stats_fragment"
+        android:name="dev.ohjiho.budgetify.stats.StatsFragment"
+        tools:layout="@layout/fragment_stats" />
+
+    <fragment
+        android:id="@+id/nav_settings_fragment"
+        android:name="dev.ohjiho.budgetify.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>

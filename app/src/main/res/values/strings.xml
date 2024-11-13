@@ -6,4 +6,8 @@
     <string name="nav_stats_title">Stats</string>
     <string name="nav_settings_title">Setting</string>
     <string name="fab_content_description">Add Transaction</string>
+
+    <string name="dialog_add_transaction_expense">New expense</string>
+    <string name="dialog_add_transaction_income">New income</string>
+    <string name="dialog_add_transaction_transfer">New transfer</string>
 </resources>

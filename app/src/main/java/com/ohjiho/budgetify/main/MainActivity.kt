@@ -2,39 +2,88 @@ package com.ohjiho.budgetify.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
+import android.view.LayoutInflater
 import android.view.ViewTreeObserver
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.R
+import dev.ohjiho.budgetify.databinding.ActivityMainBinding
+import dev.ohjiho.budgetify.databinding.DialogAddTransactionBinding
+import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.setup.SetUpActivity
+import dev.ohjiho.budgetify.transaction.TransactionEditorFragment
+import dev.ohjiho.budgetify.utils.ui.navigateWithBackStackTo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+
+    // Dialog
+    private val addTransactionDialog: AlertDialog by lazy {
+        val binding = DialogAddTransactionBinding.inflate(LayoutInflater.from(this)).apply {
+            newExpense.setOnClickListener {
+                supportFragmentManager.navigateWithBackStackTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.EXPENSE)
+                )
+                addTransactionDialog.dismiss()
+            }
+
+            newIncome.setOnClickListener {
+                supportFragmentManager.navigateWithBackStackTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.INCOME)
+                )
+                addTransactionDialog.dismiss()
+            }
+
+            newTransfer.setOnClickListener {
+                supportFragmentManager.navigateWithBackStackTo(
+                    R.id.fragment_container,
+                    TransactionEditorFragment.newInstance(CategoryType.TRANSFER)
+                )
+                addTransactionDialog.dismiss()
+            }
+        }
+
+        AlertDialog.Builder(this).apply {
+            setView(binding.root)
+        }.create()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val content: View = findViewById(android.R.id.content)
-        content.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
-            override fun onPreDraw(): Boolean {
-                checkIfSetUp()
-                return if (viewModel.isReady) {
-                    content.viewTreeObserver.removeOnPreDrawListener(this)
-                    true
-                } else {
-                    false
+        with(binding) {
+            root.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    checkIfSetUp()
+                    return if (viewModel.isReady) {
+                        root.viewTreeObserver.removeOnPreDrawListener(this)
+                        true
+                    } else {
+                        false
+                    }
                 }
+            })
+
+            fab.setOnClickListener {
+                addTransactionDialog.show()
             }
-        })
+            bottomNav.setupWithNavController((supportFragmentManager.findFragmentById(R.id.fragment_container) as NavHostFragment).navController)
+        }
     }
 
     private fun checkIfSetUp() {
-        val isSetUp = viewModel.isSetUp
+        val isSetUp = true
         if (!isSetUp) {
             startActivity(Intent(this, SetUpActivity::class.java))
             finish()

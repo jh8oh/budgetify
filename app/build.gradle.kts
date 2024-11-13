@@ -25,6 +25,9 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures {
+        viewBinding = true
+    }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
@@ -39,6 +42,11 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.splashscreen)
+    implementation(libs.material)
+
+    // Navigation
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
 
     // Hilt
     implementation(libs.hilt.android.core)
@@ -54,7 +62,13 @@ dependencies {
 
     // Modules
     implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":feature:setup"))
+    implementation(project(":feature:overview"))
+    implementation(project(":feature:finances"))
+    implementation(project(":feature:stats"))
+    implementation(project(":feature:settings"))
+    implementation(project(":feature:transaction"))
 }

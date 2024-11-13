@@ -1,66 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Buttons -->
-    <style name="Theme.Budgetify.Button" parent="@style/Widget.Material3.Button">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">?textAppearanceButton</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.Material3.Button.OutlinedButton">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">?textAppearanceButton</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Toggle" parent="@style/Widget.MaterialComponents.Button.OutlinedButton">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
-        <item name="android:textAppearance">?textAppearanceButton</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
-        <item name="android:minHeight">0dp</item>
-        <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
-        <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
-    </style>
-
-    <!-- Text Inputs -->
-    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
-
-    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
-
-    <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
-        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
-    </style>
-
+    <!-- App-wide Styles -->
     <!-- Text -->
     <style name="TextAppearance.Budgetify.ActionBar.Title" parent="@style/TextAppearance.Material3.ActionBar.Title">
         <item name="fontFamily">@font/barlow_condensed_regular</item>
@@ -116,5 +56,77 @@
         <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <!-- Text Inputs -->
+    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+
+    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+
+    <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
+        <item name="android:textAppearance">?textAppearanceBodyMedium</item>
+    </style>
+
+    <!-- Buttons -->
+    <style name="Theme.Budgetify.Button" parent="@style/Widget.Material3.Button">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Outlined" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_padding_vertical</item>
+        <item name="android:textAppearance">?textAppearanceButton</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
+        </item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle" parent="Theme.Budgetify.Button.Outlined">
+        <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
+        <item name="strokeColor">@color/color_button_stroke</item>
+        <item name="backgroundTint">@color/color_button_background_tint</item>
+        <item name="rippleColor">?android:colorPressedHighlight</item>
+        <item name="android:textColor">@color/color_button_text</item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
+        </item>
+    </style>
+
+    <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
+        <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
+    </style>
+
+    <!-- Component Styles -->
+    <style name="KeypadKey">
+        <item name="android:layout_width">@dimen/component_keypad_width</item>
+        <item name="android:layout_height">@dimen/component_keypad_height</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/background_keypad_key</item>
+        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
     </style>
 </resources>

@@ -8,4 +8,4 @@
     android:padding="@dimen/item_icon_padding"
     android:layout_margin="@dimen/item_icon_margin"
     tools:background="@color/cyan"
-    tools:src="@drawable/cat_exp_home" />
+    tools:src="@drawable/ic_exp_home" />
