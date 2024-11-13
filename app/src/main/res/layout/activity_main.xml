@@ -19,7 +19,6 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_main_bottom_app_bar_height"
         android:layout_gravity="bottom"
-        app:backgroundTint="?colorSurface"
         app:contentInsetStart="0dp"
         app:fabAlignmentMode="end"
         app:fabCradleMargin="@dimen/activity_main_fab_cradle_margin"
