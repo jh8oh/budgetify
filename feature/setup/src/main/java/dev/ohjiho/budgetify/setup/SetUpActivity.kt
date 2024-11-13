@@ -78,7 +78,7 @@ class SetUpActivity : AppCompatActivity() {
     private fun showAccountEditorScreen(accountId: Int) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newInstance(accountId, true))
+        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.newSetUpInstance(accountId))
     }
 
     private fun showIncomeScreen() {
@@ -98,7 +98,7 @@ class SetUpActivity : AppCompatActivity() {
     private fun showCategoryEditorScreen(categoryId: Int) {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.newInstance(categoryId, true))
+        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.newSetUpInstance(categoryId))
     }
 
     private fun showBudgetScreen() {

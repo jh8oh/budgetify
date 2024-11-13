@@ -29,6 +29,11 @@ class AccountEditorFragment : EditorFragment() {
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
 
+    // Resources
+    override val newTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
+    override val updateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
+    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
+
     // Adapter
     private val institutionAdapter by lazy {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf<String>())
@@ -54,11 +59,6 @@ class AccountEditorFragment : EditorFragment() {
             .setView(R.layout.dialog_account_type_more_info)
             .create()
     }
-
-    // Resources
-    override val newTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
-    override val updateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
-    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,11 +139,17 @@ class AccountEditorFragment : EditorFragment() {
         currencySpinnerDialog.show()
     }
 
-    override fun onDelete() {
-        viewModel.deleteAccount()
-    }
-
     override fun saveState() {
+        fun getAccountType(): AccountType {
+            with(binding) {
+                return when (accountTypeToggleGroup.checkedButtonId) {
+                    cashButton.id -> AccountType.CASH
+                    creditButton.id -> AccountType.CREDIT
+                    else -> AccountType.INVESTMENTS
+                }
+            }
+        }
+
         with(binding) {
             viewModel.updateState(
                 accountName.text.toString().trim(),
@@ -155,23 +161,23 @@ class AccountEditorFragment : EditorFragment() {
         }
     }
 
-    private fun getAccountType(): AccountType {
-        with(binding) {
-            return when (accountTypeToggleGroup.checkedButtonId) {
-                cashButton.id -> AccountType.CASH
-                creditButton.id -> AccountType.CREDIT
-                else -> AccountType.INVESTMENTS
-            }
-        }
+    override fun onDelete() {
+        viewModel.deleteAccount()
     }
 
     companion object {
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
 
-        fun newInstance(accountId: Int, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
+        fun newSetUpInstance(accountId: Int) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
                 putInt(ACCOUNT_ID_ARG, accountId)
-                putBoolean(FROM_SET_UP_ARG, fromSetUp)
+                putBoolean(FROM_SET_UP_ARG, true)
+            }
+        }
+
+        fun newInstance(accountId: Int) = AccountEditorFragment().apply {
+            arguments = Bundle().apply {
+                putInt(ACCOUNT_ID_ARG, accountId)
             }
         }
     }

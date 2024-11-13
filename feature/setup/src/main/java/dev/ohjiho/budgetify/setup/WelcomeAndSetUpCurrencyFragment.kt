@@ -25,6 +25,20 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
 
     private var prevScreen: SetUpScreen? = null
 
+    // Resources
+    private val actionBarSize by lazy {
+        requireActivity().applicationContext.theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize)).let {
+            val size = it.getDimensionPixelSize(0, 0)
+            it.recycle()
+            size
+        }
+    }
+    private var fortyFiveHeight by Delegates.notNull<Int>()
+    private var fiftyFiveHeight by Delegates.notNull<Int>()
+
+    private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
+    private val currencyNextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
+
     // Animations
     private val backgroundGuidelineAnimator by lazy {
         val startGuidelineAnimator = ValueAnimator.ofInt(fortyFiveHeight, actionBarSize).apply {
@@ -43,20 +57,6 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             playTogether(startGuidelineAnimator, endGuidelineAnimator)
         }
     }
-
-    // Resources
-    private val actionBarSize by lazy {
-        requireActivity().applicationContext.theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize)).let {
-            val size = it.getDimensionPixelSize(0, 0)
-            it.recycle()
-            size
-        }
-    }
-    private var fortyFiveHeight by Delegates.notNull<Int>()
-    private var fiftyFiveHeight by Delegates.notNull<Int>()
-
-    private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
-    private val currencyNextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

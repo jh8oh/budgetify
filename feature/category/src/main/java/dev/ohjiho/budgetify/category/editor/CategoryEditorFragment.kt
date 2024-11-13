@@ -33,7 +33,19 @@ class CategoryEditorFragment : EditorFragment() {
     private val viewModel by viewModels<CategoryEditorViewModel>()
     private lateinit var binding: FragmentCategoryEditorBinding
 
-    // Dialog
+    // Resources
+    override val newTitle by lazy { resources.getString(R.string.fragment_category_editor_add_title) }
+    override val updateTitle by lazy { resources.getString(R.string.fragment_category_editor_update_title) }
+    private val categoryNameBlankError by lazy { resources.getString(R.string.fragment_category_editor_name_blank_error) }
+
+    private val iconPressAnimation by lazy {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_press)
+    }
+    private val iconReleaseAnimation by lazy {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_release)
+    }
+
+    // Adapter
     private val iconAdapter: IconAdapter by lazy {
         IconAdapter(requireContext()) {
             viewModel.updateIconState(it)
@@ -41,6 +53,7 @@ class CategoryEditorFragment : EditorFragment() {
         }
     }
 
+    // Dialog
     private val iconDialog: AlertDialog by lazy {
         val dialogView = FrameLayout(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -63,18 +76,6 @@ class CategoryEditorFragment : EditorFragment() {
                 dialog.cancel()
             }
         }.create()
-    }
-
-    // Resources
-    override val newTitle by lazy { resources.getString(R.string.fragment_category_editor_add_title) }
-    override val updateTitle by lazy { resources.getString(R.string.fragment_category_editor_update_title) }
-    private val categoryNameBlankError by lazy { resources.getString(R.string.fragment_category_editor_name_blank_error) }
-
-    private val iconPressAnimation by lazy {
-        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_press)
-    }
-    private val iconReleaseAnimation by lazy {
-        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_release)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -145,14 +146,14 @@ class CategoryEditorFragment : EditorFragment() {
         return binding.root
     }
 
-    override fun onDelete() {
-        viewModel.deleteCategory()
-    }
-
     override fun saveState() {
         with(binding) {
             viewModel.updateState(categoryName.text.toString(), needOrWantToggleGroup.checkedButtonId == needButton.id)
         }
+    }
+
+    override fun onDelete() {
+        viewModel.deleteCategory()
     }
 
     companion object {
@@ -161,10 +162,16 @@ class CategoryEditorFragment : EditorFragment() {
 
         private const val CATEGORY_ID = "CATEGORY_ID"
 
-        fun newInstance(categoryId: Int, fromSetUp: Boolean = false) = CategoryEditorFragment().apply {
+        fun newSetUpInstance(categoryId: Int) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {
                 putInt(CATEGORY_ID, categoryId)
-                putBoolean(FROM_SET_UP_ARG, fromSetUp)
+                putBoolean(FROM_SET_UP_ARG, true)
+            }
+        }
+
+        fun newInstance(categoryId: Int) = CategoryEditorFragment().apply {
+            arguments = Bundle().apply {
+                putInt(CATEGORY_ID, categoryId)
             }
         }
     }

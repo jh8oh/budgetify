@@ -59,14 +59,14 @@ abstract class EditorFragment : Fragment() {
         }
     }
 
-    abstract fun onDelete()
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         saveState()
     }
 
     abstract fun saveState()
+
+    abstract fun onDelete()
 
     companion object {
         @JvmStatic
