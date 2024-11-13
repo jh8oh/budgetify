@@ -14,7 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.R
 import dev.ohjiho.budgetify.databinding.ActivityMainBinding
 import dev.ohjiho.budgetify.databinding.DialogAddTransactionBinding
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.setup.SetUpActivity
 import dev.ohjiho.budgetify.transaction.TransactionEditorFragment
 
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfSetUp() {
-        val isSetUp = true
+        val isSetUp = viewModel.isSetUp
         if (!isSetUp) {
             startActivity(Intent(this, SetUpActivity::class.java))
             finish()

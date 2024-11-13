@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.FragmentCategoryEditorBinding
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.theme.fragment.EditorFragment
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat.toPx
@@ -99,8 +99,8 @@ class CategoryEditorFragment : EditorFragment() {
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
                         categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
-                        iconAdapter.setIsExpense(category.type == CategoryType.EXPENSE)
-                        if (category.type == CategoryType.EXPENSE) {
+                        iconAdapter.setIsExpense(category.transactionType == TransactionType.EXPENSE)
+                        if (category.transactionType == TransactionType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE
                             needOrWantToggleGroup.visibility = View.VISIBLE
                             needOrWantToggleGroup.check(if (category.isNeed == true) needButton.id else wantButton.id)

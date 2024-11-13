@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.icons.Icon
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +19,7 @@ internal class CategoryEditorViewModel @Inject constructor(
 ) : ViewModel() {
 
     var isNew = true
-    val category: MutableStateFlow<Category> = MutableStateFlow(Category("", CategoryType.EXPENSE, Icon.HOME, true))
+    val category: MutableStateFlow<Category> = MutableStateFlow(Category("", TransactionType.EXPENSE, Icon.HOME, true))
 
     fun initWithId(id: Int) {
         if (id == NON_EXISTENT_ID) return
@@ -38,7 +38,7 @@ internal class CategoryEditorViewModel @Inject constructor(
 
     fun updateState(name: String, isNeed: Boolean) {
         category.update {
-            it.copy(name = name, isNeed = if (it.type == CategoryType.EXPENSE) isNeed else null).apply { uid = it.uid }
+            it.copy(name = name, isNeed = if (it.transactionType == TransactionType.EXPENSE) isNeed else null).apply { uid = it.uid }
         }
     }
 

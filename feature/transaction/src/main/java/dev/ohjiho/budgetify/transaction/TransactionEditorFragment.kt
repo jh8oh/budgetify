@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.theme.component.keypad.Keypad
 import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBinding
 
@@ -18,7 +18,7 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(CATEGORY_TYPE)?.let {
+            arguments?.getInt(TRANSACTION_TYPE)?.let {
 
             }
         }
@@ -47,10 +47,10 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
     }
 
     companion object {
-        private const val CATEGORY_TYPE = "CATEGORY_TYPE"
+        private const val TRANSACTION_TYPE = "TRANSACTION_TYPE"
 
-        fun bundle(categoryType: CategoryType) = Bundle().apply {
-            putInt(CATEGORY_TYPE, categoryType.ordinal)
+        fun bundle(transactionType: TransactionType) = Bundle().apply {
+            putInt(TRANSACTION_TYPE, transactionType.ordinal)
         }
     }
 }

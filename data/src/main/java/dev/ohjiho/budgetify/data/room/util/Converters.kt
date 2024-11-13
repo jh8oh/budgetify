@@ -2,7 +2,7 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.icons.Icon
 import java.math.BigDecimal
 import java.time.LocalDate
@@ -33,13 +33,13 @@ internal class Converters {
 
     // Category Type
     @TypeConverter
-    fun categoryTypeToString(categoryType: CategoryType?): String? {
-        return categoryType?.name
+    fun categoryTypeToString(transactionType: TransactionType?): String? {
+        return transactionType?.name
     }
 
     @TypeConverter
-    fun stringToCategoryType(name: String?): CategoryType? {
-        return name?.let { CategoryType.valueOf(it) }
+    fun stringToCategoryType(name: String?): TransactionType? {
+        return name?.let { TransactionType.valueOf(it) }
     }
 
     // Currency
