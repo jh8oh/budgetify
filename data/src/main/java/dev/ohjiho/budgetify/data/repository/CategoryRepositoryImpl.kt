@@ -12,7 +12,7 @@ internal class CategoryRepositoryImpl @Inject constructor(private val dao: Categ
     override suspend fun getCategory(uid: Int): Category = dao.getCategory(uid)
 
     // Transfer
-    override fun getTransferCategory(): Category = dao.getTransferCategory()
+    override suspend fun getTransferCategory(): Category = dao.getTransferCategory()
 
     // Expense
     override fun getAllExpenseCategories(): Flow<List<Category>> = dao.getAllExpenseCategories()

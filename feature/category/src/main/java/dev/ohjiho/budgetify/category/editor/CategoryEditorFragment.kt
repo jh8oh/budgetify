@@ -100,8 +100,8 @@ class CategoryEditorFragment : EditorFragment() {
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
                         categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
-                        iconAdapter.setIsExpense(category.transactionType == TransactionType.EXPENSE)
-                        if (category.transactionType == TransactionType.EXPENSE) {
+                        iconAdapter.setIsExpense(category.type == TransactionType.EXPENSE)
+                        if (category.type == TransactionType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE
                             needOrWantToggleGroup.visibility = View.VISIBLE
                             needOrWantToggleGroup.check(if (category.isNeed == true) needButton.id else wantButton.id)

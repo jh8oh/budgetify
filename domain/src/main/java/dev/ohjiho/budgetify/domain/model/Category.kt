@@ -15,14 +15,14 @@ enum class TransactionType {
  *
  * @property uid The unique identifier that refers to this category.
  * @property name The name of the category.
- * @property transactionType The type of transaction this category falls under (expense, income, or transfer)
+ * @property type The type of transaction this category falls under (expense, income, or transfer)
  * @property icon The icon to be displayed by the category.
  * @property isNeed Whether or not this category falls under a necessity (otherwise, it's a want). [ONLY FOR EXPENSE CATEGORIES]
  */
 @Entity(tableName = "categories")
 data class Category(
     val name: String,
-    val transactionType: TransactionType,
+    val type: TransactionType,
     val icon: Icon,
     val isNeed: Boolean? = null,
 ) {

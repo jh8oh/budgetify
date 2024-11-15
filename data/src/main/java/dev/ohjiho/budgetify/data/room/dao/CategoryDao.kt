@@ -11,14 +11,14 @@ internal interface CategoryDao : BaseDao<Category> {
     suspend fun getCategory(uid: Int): Category
 
     // Transfer
-    @Query("SELECT * FROM categories WHERE transactionType = 'TRANSFER'")
-    fun getTransferCategory(): Category
+    @Query("SELECT * FROM categories WHERE type = 'TRANSFER'")
+    suspend fun getTransferCategory(): Category
 
     // Expense
-    @Query("SELECT * FROM categories WHERE transactionType = 'EXPENSE' ORDER BY isNeed DESC, name ASC")
+    @Query("SELECT * FROM categories WHERE type = 'EXPENSE' ORDER BY isNeed DESC, name ASC")
     fun getAllExpenseCategories(): Flow<List<Category>>
 
     // Income
-    @Query("SELECT * FROM categories WHERE transactionType = 'INCOME' ORDER BY name ASC")
+    @Query("SELECT * FROM categories WHERE type = 'INCOME' ORDER BY name ASC")
     fun getAllIncomeCategories(): Flow<List<Category>>
 }

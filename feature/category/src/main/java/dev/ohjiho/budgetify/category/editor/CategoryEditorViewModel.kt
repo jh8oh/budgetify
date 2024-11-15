@@ -38,7 +38,7 @@ internal class CategoryEditorViewModel @Inject constructor(
 
     fun updateState(name: String, isNeed: Boolean) {
         category.update {
-            it.copy(name = name, isNeed = if (it.transactionType == TransactionType.EXPENSE) isNeed else null).apply { uid = it.uid }
+            it.copy(name = name, isNeed = if (it.type == TransactionType.EXPENSE) isNeed else null).apply { uid = it.uid }
         }
     }
 

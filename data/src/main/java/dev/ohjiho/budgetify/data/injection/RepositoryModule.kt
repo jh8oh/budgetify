@@ -8,10 +8,12 @@ import dev.ohjiho.budgetify.data.repository.AccountRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.CategoryRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.CurrencyRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.SetUpRepositoryImpl
+import dev.ohjiho.budgetify.data.repository.TransactionRepositoryImpl
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.domain.repository.SetUpRepository
+import dev.ohjiho.budgetify.domain.repository.TransactionRepository
 import javax.inject.Singleton
 
 @Module
@@ -25,6 +27,10 @@ internal abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
+
+    @Singleton
+    @Binds
+    abstract fun bindTransactionRepository(repository: TransactionRepositoryImpl): TransactionRepository
 
     // SharedPrefs
     @Singleton

@@ -10,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import dev.ohjiho.budgetify.data.room.BudgetifyDatabase
 import dev.ohjiho.budgetify.data.room.dao.AccountDao
 import dev.ohjiho.budgetify.data.room.dao.CategoryDao
+import dev.ohjiho.budgetify.data.room.dao.TransactionDao
 import javax.inject.Singleton
 
 @Module
@@ -32,4 +33,7 @@ internal object RoomModule {
 
     @Provides
     fun provideCategoryDao(database: BudgetifyDatabase): CategoryDao = database.categoryDao()
+
+    @Provides
+    fun provideTransactionDao(database: BudgetifyDatabase): TransactionDao = database.transactionDao()
 }

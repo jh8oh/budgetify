@@ -2,9 +2,11 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.domain.model.Interval
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.icons.Icon
 import java.math.BigDecimal
+import java.time.DayOfWeek
 import java.time.LocalDate
 import java.util.Currency
 
@@ -53,15 +55,37 @@ internal class Converters {
         return isoCode?.let { Currency.getInstance(it) }
     }
 
+    // Day of Week
+    @TypeConverter
+    fun dayOfWeekToInt(dayOfWeek: DayOfWeek?): Int? {
+        return dayOfWeek?.value
+    }
+
+    @TypeConverter
+    fun intToDayOfWeek(numberedDayOfWeek: Int?): DayOfWeek? {
+        return numberedDayOfWeek?.let { DayOfWeek.of(numberedDayOfWeek) }
+    }
+
     // Icon
     @TypeConverter
-    fun iconToName(icon: Icon?): String? {
+    fun iconToString(icon: Icon?): String? {
         return icon?.name
     }
 
     @TypeConverter
-    fun nameToIcon(name: String?): Icon? {
+    fun stringToIcon(name: String?): Icon? {
         return name?.let { Icon.valueOf(it) }
+    }
+
+    // Interval
+    @TypeConverter
+    fun intervalToString(interval: Interval?): String? {
+        return interval?.name
+    }
+
+    @TypeConverter
+    fun stringToInterval(name: String?): Interval? {
+        return name?.let { Interval.valueOf(it) }
     }
 
     // LocalDate
