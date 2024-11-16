@@ -3,7 +3,6 @@ package dev.ohjiho.budgetify.setup
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
@@ -44,8 +43,8 @@ internal class SetUpViewModel @Inject constructor(
 
     private val screen = MutableStateFlow(SetUpScreen.WELCOME)
     private val toastMessage = MutableStateFlow<Event<String?>>(Event(null))
-    var editingAccountId: Int = NON_EXISTENT_ID
-    var editingCategoryId: Int = NON_EXISTENT_ID
+    var editingAccountId: Int? = null
+    var editingCategoryId: Int? = null
 
     val uiState = combine(screen, toastMessage) { screen, toastMessage ->
         SetUpUiState(screen = screen, toastMessage = toastMessage)
@@ -150,7 +149,12 @@ internal class SetUpViewModel @Inject constructor(
     }
 
     // Editing Account
-    fun addOrUpdateAccount(accountId: Int) {
+    fun addAccount() {
+        editingAccountId = null
+        screen.update { SetUpScreen.ACCOUNT_EDITOR }
+    }
+
+    fun updateAccount(accountId: Int) {
         editingAccountId = accountId
         screen.update { SetUpScreen.ACCOUNT_EDITOR }
     }
@@ -166,7 +170,12 @@ internal class SetUpViewModel @Inject constructor(
     }
 
     // Editing Category
-    fun addOrUpdateCategory(categoryId: Int) {
+    fun addCategory() {
+        editingCategoryId = null
+        screen.update { SetUpScreen.CATEGORY_EDITOR }
+    }
+
+    fun updateCategory(categoryId: Int) {
         editingCategoryId = categoryId
         screen.update { SetUpScreen.CATEGORY_EDITOR }
     }

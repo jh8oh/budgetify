@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.account.editor
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,8 +64,21 @@ class AccountEditorFragment : EditorFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(ACCOUNT_ID_ARG)?.let {
-                viewModel.initWithId(it)
+            val newAccount = arguments?.getBoolean(NEW_ACCOUNT_ARG) ?: false
+            val accountId = arguments?.getInt(ACCOUNT_ID_ARG) ?: 0
+
+            if (newAccount) {
+                viewModel.initNew()
+            } else if (accountId != 0) {
+                try {
+                    viewModel.initExisting(accountId)
+                } catch (e: NullPointerException) {
+                    Log.e(ACCOUNT_EDITOR_TAG, e.message ?: "")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            } else {
+                Log.e(ACCOUNT_EDITOR_TAG, ACCOUNT_EDITOR_NO_ARGS_ERROR)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }
@@ -166,16 +180,32 @@ class AccountEditorFragment : EditorFragment() {
     }
 
     companion object {
+        private const val ACCOUNT_EDITOR_TAG = "AccountEditor"
+
+        private const val NEW_ACCOUNT_ARG = "NEW_ACCOUNT"
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
 
-        fun newSetUpInstance(accountId: Int) = AccountEditorFragment().apply {
+        private const val ACCOUNT_EDITOR_NO_ARGS_ERROR = "No arguments found for $NEW_ACCOUNT_ARG or $ACCOUNT_ID_ARG"
+
+        fun getSetUpInstance(accountId: Int?) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
-                putInt(ACCOUNT_ID_ARG, accountId)
                 putBoolean(FROM_SET_UP_ARG, true)
+
+                if (accountId == null) {
+                    putBoolean(NEW_ACCOUNT_ARG, true)
+                } else {
+                    putInt(ACCOUNT_ID_ARG, accountId)
+                }
             }
         }
 
-        fun newInstance(accountId: Int) = AccountEditorFragment().apply {
+        fun getNewInstance() = AccountEditorFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(NEW_ACCOUNT_ARG, true)
+            }
+        }
+
+        fun getUpdateInstance(accountId: Int) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
                 putInt(ACCOUNT_ID_ARG, accountId)
             }

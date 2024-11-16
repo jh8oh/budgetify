@@ -7,5 +7,5 @@ import dev.ohjiho.budgetify.domain.model.Transaction
 @Dao
 internal interface TransactionDao: BaseDao<Transaction> {
     @Query("SELECT * FROM transactions WHERE :uid = uid")
-    suspend fun getTransaction(uid: Int): Transaction
+    suspend fun getTransaction(uid: Int): Transaction?
 }

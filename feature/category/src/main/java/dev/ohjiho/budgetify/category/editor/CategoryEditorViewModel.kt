@@ -3,7 +3,6 @@ package dev.ohjiho.budgetify.category.editor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
@@ -12,21 +11,26 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class CategoryEditorViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository,
 ) : ViewModel() {
 
-    var isNew = true
+    var isNew by Delegates.notNull<Boolean>()
     val category: MutableStateFlow<Category> = MutableStateFlow(Category("", TransactionType.EXPENSE, Icon.HOME, true))
 
-    fun initWithId(id: Int) {
-        if (id == NON_EXISTENT_ID) return
+    fun initNew(type: TransactionType) {
+        isNew = true
+        category.update { it.copy(type = type) }
+    }
 
+    fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            category.update { categoryRepository.getCategory(id) }
+            val c = categoryRepository.getCategory(id) ?: throw NullPointerException(NO_CATEGORY_FOUND_ERROR)
+            category.update { c }
         }
     }
 
@@ -56,5 +60,9 @@ internal class CategoryEditorViewModel @Inject constructor(
         viewModelScope.launch {
             categoryRepository.delete(category.value)
         }
+    }
+
+    companion object {
+        private const val NO_CATEGORY_FOUND_ERROR = "No category found with id: "
     }
 }

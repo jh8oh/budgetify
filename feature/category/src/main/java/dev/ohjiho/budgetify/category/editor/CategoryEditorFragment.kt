@@ -3,6 +3,7 @@ package dev.ohjiho.budgetify.category.editor
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -81,8 +82,26 @@ class CategoryEditorFragment : EditorFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(CATEGORY_ID)?.let {
-                viewModel.initWithId(it)
+            val transactionType = arguments?.getString(TRANSACTION_TYPE_ARG)
+            val categoryId = arguments?.getInt(CATEGORY_ID_ARG) ?: 0
+
+            if (transactionType != null) {
+                try {
+                    viewModel.initNew(TransactionType.valueOf(transactionType))
+                } catch (e: IllegalArgumentException) {
+                    Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            } else if (categoryId != 0) {
+                try {
+                    viewModel.initExisting(categoryId)
+                } catch (e: NullPointerException) {
+                    Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            } else {
+                Log.e(CATEGORY_EDITOR_TAG, CATEGORY_EDITOR_NO_ARGS_ERROR)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }
@@ -157,21 +176,37 @@ class CategoryEditorFragment : EditorFragment() {
     }
 
     companion object {
+        private const val CATEGORY_EDITOR_TAG = "CategoryEditor"
+
+        private const val TRANSACTION_TYPE_ARG = "TRANSACTION_TYPE"
+        private const val CATEGORY_ID_ARG = "CATEGORY_ID"
+
+        private const val CATEGORY_EDITOR_NO_ARGS_ERROR = "No arguments found for $TRANSACTION_TYPE_ARG or $CATEGORY_ID_ARG"
+
         private const val DIALOG_HORIZONTAL_PADDING = 12
         private const val DIALOG_VERTICAL_PADDING = 16
 
-        private const val CATEGORY_ID = "CATEGORY_ID"
-
-        fun newSetUpInstance(categoryId: Int) = CategoryEditorFragment().apply {
+        fun getSetUpInstance(categoryId: Int?) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {
-                putInt(CATEGORY_ID, categoryId)
                 putBoolean(FROM_SET_UP_ARG, true)
+
+                if (categoryId == null) {
+                    putString(TRANSACTION_TYPE_ARG, TransactionType.EXPENSE.name)
+                } else {
+                    putInt(CATEGORY_ID_ARG, categoryId)
+                }
             }
         }
 
-        fun newInstance(categoryId: Int) = CategoryEditorFragment().apply {
+        fun getNewInstance(type: TransactionType) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {
-                putInt(CATEGORY_ID, categoryId)
+                putString(TRANSACTION_TYPE_ARG, type.name)
+            }
+        }
+
+        fun getUpdateInstance(categoryId: Int) = CategoryEditorFragment().apply {
+            arguments = Bundle().apply {
+                putInt(CATEGORY_ID_ARG, categoryId)
             }
         }
     }

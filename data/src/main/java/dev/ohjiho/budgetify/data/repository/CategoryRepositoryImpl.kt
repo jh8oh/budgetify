@@ -9,7 +9,7 @@ import javax.inject.Inject
 internal class CategoryRepositoryImpl @Inject constructor(private val dao: CategoryDao) :
     BaseRoomRepositoryImpl<Category, CategoryDao>(dao), CategoryRepository {
 
-    override suspend fun getCategory(uid: Int): Category = dao.getCategory(uid)
+    override suspend fun getCategory(uid: Int): Category? = dao.getCategory(uid)
 
     // Transfer
     override suspend fun getTransferCategory(): Category = dao.getTransferCategory()

@@ -4,7 +4,7 @@ import dev.ohjiho.budgetify.domain.model.Category
 import kotlinx.coroutines.flow.Flow
 
 interface CategoryRepository : BaseRoomRepository<Category> {
-    suspend fun getCategory(uid: Int): Category
+    suspend fun getCategory(uid: Int): Category?
 
     // Transfer
     suspend fun getTransferCategory(): Category

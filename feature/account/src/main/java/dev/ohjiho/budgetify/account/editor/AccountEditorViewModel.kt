@@ -3,7 +3,6 @@ package dev.ohjiho.budgetify.account.editor
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
@@ -14,24 +13,28 @@ import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.Currency
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class AccountEditorViewModel @Inject constructor(
-    currencyRepository: CurrencyRepository,
     private val accountRepository: AccountRepository,
+    currencyRepository: CurrencyRepository,
 ) : ViewModel() {
 
-    var isNew = true
+    var isNew by Delegates.notNull<Boolean>()
     val account: MutableStateFlow<Account> =
         MutableStateFlow(Account("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
-    fun initWithId(id: Int) {
-        if (id == NON_EXISTENT_ID) return
+    fun initNew() {
+        isNew = true
+    }
 
+    fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            account.update { accountRepository.getAccount(id) }
+            val a = accountRepository.getAccount(id) ?: throw NullPointerException(NO_ACCOUNT_FOUND_ERROR + id)
+            account.update { a }
         }
     }
 
@@ -57,5 +60,9 @@ internal class AccountEditorViewModel @Inject constructor(
         viewModelScope.launch {
             accountRepository.delete(account.value)
         }
+    }
+
+    companion object {
+        private const val NO_ACCOUNT_FOUND_ERROR = "No account found with id: "
     }
 }

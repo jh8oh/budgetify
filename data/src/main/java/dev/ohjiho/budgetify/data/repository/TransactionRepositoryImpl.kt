@@ -7,5 +7,5 @@ import javax.inject.Inject
 
 internal class TransactionRepositoryImpl @Inject constructor(private val dao: TransactionDao) :
     BaseRoomRepositoryImpl<Transaction, TransactionDao>(dao), TransactionRepository {
-    override suspend fun getTransaction(uid: Int) = dao.getTransaction(uid)
+    override suspend fun getTransaction(uid: Int): Transaction? = dao.getTransaction(uid)
 }
