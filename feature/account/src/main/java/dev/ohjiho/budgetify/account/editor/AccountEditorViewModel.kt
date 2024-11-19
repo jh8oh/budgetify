@@ -33,7 +33,7 @@ internal class AccountEditorViewModel @Inject constructor(
     fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            val a = accountRepository.getAccount(id) ?: throw NullPointerException(NO_ACCOUNT_FOUND_ERROR + id)
+            val a = accountRepository.getAccount(id) ?: throw Exception(NO_ACCOUNT_FOUND_ERROR + id)
             account.update { a }
         }
     }

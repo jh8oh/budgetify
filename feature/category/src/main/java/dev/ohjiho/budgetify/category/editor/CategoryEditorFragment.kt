@@ -86,16 +86,11 @@ class CategoryEditorFragment : EditorFragment() {
             val categoryId = arguments?.getInt(CATEGORY_ID_ARG) ?: 0
 
             if (transactionType != null) {
-                try {
-                    viewModel.initNew(TransactionType.valueOf(transactionType))
-                } catch (e: IllegalArgumentException) {
-                    Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
-                    requireActivity().onBackPressedDispatcher.onBackPressed()
-                }
+                viewModel.initNew(TransactionType.valueOf(transactionType))
             } else if (categoryId != 0) {
                 try {
                     viewModel.initExisting(categoryId)
-                } catch (e: NullPointerException) {
+                } catch (e: Exception) {
                     Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }

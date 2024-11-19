@@ -29,7 +29,7 @@ internal class CategoryEditorViewModel @Inject constructor(
     fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            val c = categoryRepository.getCategory(id) ?: throw NullPointerException(NO_CATEGORY_FOUND_ERROR)
+            val c = categoryRepository.getCategory(id) ?: throw Exception(NO_CATEGORY_FOUND_ERROR)
             category.update { c }
         }
     }
