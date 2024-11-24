@@ -8,18 +8,18 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Currency
 
-fun BigDecimal.toCurrencyFormat(currency: Currency, showCurrencyCode: Boolean, context: Context? = null): String {
+fun BigDecimal.toCurrencyFormat(currency: Currency, context: Context? = null): String {
     val locale = context?.let { getLocale(it) } ?: getLocale()
     return (NumberFormat.getCurrencyInstance(locale) as DecimalFormat).run {
         this.currency = currency
-        this.decimalFormatSymbols = decimalFormatSymbols.apply {
-            currencySymbol = if (showCurrencyCode) "${currency.currencyCode} " else ""
+        decimalFormatSymbols = decimalFormatSymbols.apply {
+            currencySymbol = ""
         }
         format(this@toCurrencyFormat)
     }
 }
 
-fun String.reformat(currency: Currency, context: Context? = null): String {
+fun String.toCurrencyFormat(currency: Currency, context: Context? = null): String {
     if (isNullOrEmpty()) return "0"
-    return toBigDecimalAfterSanitize().toCurrencyFormat(currency, false, context)
+    return toBigDecimalAfterSanitize().toCurrencyFormat(currency, context)
 }

@@ -43,9 +43,9 @@ internal class SetUpIncomeFragment : Fragment() {
                         onSwitchIncomeBudgetToggle(it.isIncome)
                         currency.text = accountCurrency.currencyCode
                         if (it.amount != BigDecimal.ZERO) {
-                            amount.setText(it.amount.toCurrencyFormat(accountCurrency, false, context))
+                            amount.setText(it.amount.toCurrencyFormat(accountCurrency, context))
                         } else {
-                            amount.hint = BigDecimal.ZERO.toCurrencyFormat(accountCurrency, false, context)
+                            amount.hint = BigDecimal.ZERO.toCurrencyFormat(accountCurrency, context)
                         }
                         amount.reformatBalanceAfterTextChange(accountCurrency)
                         frequency.setText(if (it.isMonthly) FREQUENCY_LIST[1] else FREQUENCY_LIST[0], false)

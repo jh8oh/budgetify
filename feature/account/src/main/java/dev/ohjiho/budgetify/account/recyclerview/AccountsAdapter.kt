@@ -26,7 +26,8 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
                 } else {
                     accountInstitution.text = account.institution
                 }
-                accountBalance.text = account.balance.toCurrencyFormat(account.currency, true, binding.root.context)
+                accountCurrency.text = account.currency.currencyCode
+                accountBalance.text = account.balance.toCurrencyFormat(account.currency, binding.root.context)
             }
         }
     }

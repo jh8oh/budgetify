@@ -105,7 +105,7 @@ class AccountEditorFragment : EditorFragment() {
                         viewModel.account.collect { account ->
                             accountName.setText(account.name)
                             accountInstitution.setText(account.institution)
-                            accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
+                            accountBalance.setText(account.balance.toCurrencyFormat(account.currency, context))
                             currencyPicker.setSelectedCurrency(account.currency)
                             accountCurrency.setText(account.currency.currencyCode)
                             when (account.type) {
