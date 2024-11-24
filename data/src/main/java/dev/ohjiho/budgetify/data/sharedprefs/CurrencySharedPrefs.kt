@@ -17,15 +17,4 @@ internal class CurrencySharedPrefs(private val sharedPrefs: SharedPreferences) {
     var defaultCurrency: Currency
         get() = sharedPrefs.getString(DEFAULT_CURRENCY_KEY, null)?.let { Currency.getInstance(it) } ?: Currency.getInstance(getLocale())
         set(value) = sharedPrefs.edit().putString(DEFAULT_CURRENCY_KEY, value.currencyCode).apply()
-
-    fun getDefaultCurrencyAsFlow(): Flow<Currency> = callbackFlow {
-        trySendBlocking(defaultCurrency)
-        val listener = SharedPreferences.OnSharedPreferenceChangeListener { _, key ->
-            if (key == DEFAULT_CURRENCY_KEY) {
-                trySendBlocking(defaultCurrency)
-            }
-        }
-        sharedPrefs.registerOnSharedPreferenceChangeListener(listener)
-        awaitClose { sharedPrefs.unregisterOnSharedPreferenceChangeListener(listener) }
-    }
 }

@@ -7,8 +7,6 @@ import java.util.Currency
 import javax.inject.Inject
 
 internal class CurrencyRepositoryImpl @Inject constructor(private val sharedPrefs: CurrencySharedPrefs) : CurrencyRepository {
-    override fun getDefaultCurrencyAsFlow(): Flow<Currency> = sharedPrefs.getDefaultCurrencyAsFlow()
-
     override fun getDefaultCurrency() = sharedPrefs.defaultCurrency
 
     override fun setDefaultCurrency(currency: Currency) {

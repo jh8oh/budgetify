@@ -50,8 +50,11 @@ internal class SetUpViewModel @Inject constructor(
         SetUpUiState(screen = screen, toastMessage = toastMessage)
     }.stateIn(viewModelScope, WhileUiSubscribed, SetUpUiState())
 
-    val defaultCurrency = currencyRepository.getDefaultCurrencyAsFlow()
-        .stateIn(viewModelScope, WhileUiSubscribed, Currency.getInstance(getLocale()))
+    var defaultCurrency = currencyRepository.getDefaultCurrency()
+        set(value) {
+            currencyRepository.setDefaultCurrency(value)
+            field = value
+        }
     val accounts = accountRepository.getAllAccounts().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
     val setUpIncomeState = MutableStateFlow(SetUpIncomeState())
     val expenseCategories = categoryRepository.getAllExpenseCategories().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
@@ -141,11 +144,6 @@ internal class SetUpViewModel @Inject constructor(
 
             else -> false
         }
-    }
-
-    // Default Currency
-    fun setDefaultCurrency(currency: Currency) {
-        currencyRepository.setDefaultCurrency(currency)
     }
 
     // Editing Account

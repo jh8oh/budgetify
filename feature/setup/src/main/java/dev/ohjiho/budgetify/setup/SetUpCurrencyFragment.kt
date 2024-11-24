@@ -1,6 +1,7 @@
 package dev.ohjiho.budgetify.setup
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,20 +23,15 @@ internal class SetUpCurrencyFragment : Fragment(), CurrencyPicker.Listener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSetUpCurrencyBinding.inflate(inflater)
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.defaultCurrency.collect {
-                    binding.currencyPicker.setSelectedCurrency(it)
-                }
-            }
+        binding.currencyPicker.apply {
+            setSelectedCurrency(viewModel.defaultCurrency)
+            setListener(this@SetUpCurrencyFragment)
         }
-
-        binding.currencyPicker.setListener(this)
 
         return binding.root
     }
 
     override fun onCurrencySelected(currency: Currency) {
-        viewModel.setDefaultCurrency(currency)
+        viewModel.defaultCurrency = currency
     }
 }
