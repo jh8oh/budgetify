@@ -12,9 +12,13 @@
     <!-- ViewHolder -->
     <dimen name="item_header_margin_top">8dp</dimen>
 
+    <!-- Component - Money Display -->
+    <dimen name="component_money_display_padding_vertical">4dp</dimen>
+    <dimen name="component_money_display_currency_margin_end">8dp</dimen>
+
     <!-- Component - Keypad -->
-    <dimen name="component_keypad_height">56dp</dimen>
-    <dimen name="component_keypad_width">72dp</dimen>
+    <dimen name="component_keypad_height">68dp</dimen>
+    <dimen name="component_keypad_width">96dp</dimen>
     <dimen name="component_keypad_margin_between">3dp</dimen>
-    <dimen name="component_keypad_backspace_padding">18dp</dimen>
+    <dimen name="component_keypad_backspace_padding">24dp</dimen>
 </resources>
