@@ -2,17 +2,21 @@ package dev.ohjiho.budgetify.theme.component.keypad
 
 import android.content.Context
 import android.util.AttributeSet
-import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import dev.ohjiho.budgetify.theme.databinding.ComponentKeypadBinding
+import dev.ohjiho.budgetify.utils.data.getDecimalAmount
+import dev.ohjiho.budgetify.utils.data.getLocale
+import java.text.DecimalFormatSymbols
+import java.util.Currency
 
 class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val binding = ComponentKeypadBinding.inflate(LayoutInflater.from(context), this, true)
-
     private var listener: Listener? = null
+    private val decimalSymbol = DecimalFormatSymbols.getInstance(getLocale(context)).decimalSeparator
 
     interface Listener {
         fun onKeyPressed(key: Int)
@@ -26,6 +30,8 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     private fun setUpKeypad() {
         with(binding) {
+            dot.text = decimalSymbol.toString()
+
             one.setOnClickListener { listener?.onKeyPressed(1) }
             two.setOnClickListener { listener?.onKeyPressed(2) }
             three.setOnClickListener { listener?.onKeyPressed(3) }
@@ -43,5 +49,9 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     fun setListener(listener: Listener) {
         this.listener = listener
+    }
+
+    fun setCurrency(currency: Currency) {
+        binding.dot.visibility = if (getDecimalAmount(currency) > 0) View.VISIBLE else View.INVISIBLE
     }
 }

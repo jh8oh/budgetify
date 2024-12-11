@@ -8,6 +8,14 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Currency
 
+fun getDecimalAmount(currency: Currency): Int {
+    return when (currency.currencyCode) {
+        "CVE", "DJF", "GNF", "IDR", "JPY", "KMF", "KRW", "PYG", "RWF", "UGX", "VND", "VUV", "XAF", "XOF", "XPF" -> 0
+        "BHD", "IQD", "JOD", "KWD", "LYD", "OMR", "TND" -> 3
+        else -> 2
+    }
+}
+
 fun BigDecimal.toCurrencyFormat(currency: Currency, context: Context? = null): String {
     val locale = context?.let { getLocale(it) } ?: getLocale()
     return (NumberFormat.getCurrencyInstance(locale) as DecimalFormat).run {
