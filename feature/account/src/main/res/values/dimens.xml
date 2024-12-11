@@ -8,9 +8,6 @@
     <dimen name="item_account_currency_margin_end">4dp</dimen>
     <dimen name="item_account_balance_margin_end">8dp</dimen>
 
-    <dimen name="fragment_account_editor_app_bar_icon_size">32dp</dimen>
-    <dimen name="fragment_account_editor_app_bar_icon_padding">4dp</dimen>
-    <dimen name="fragment_account_editor_app_bar_icon_margin">16dp</dimen>
     <dimen name="fragment_account_editor_margin_horizontal">16dp</dimen>
     <dimen name="fragment_account_editor_name_margin_top">8dp</dimen>
     <dimen name="fragment_account_editor_margin_between">6dp</dimen>

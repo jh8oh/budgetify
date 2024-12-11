@@ -6,7 +6,6 @@
 
     <string name="fragment_account_editor_add_title">Add new account</string>
     <string name="fragment_account_editor_update_title">Update account</string>
-    <string name="fragment_account_editor_back">Back</string>
     <string name="fragment_account_editor_name_hint">Account Name</string>
     <string name="fragment_account_editor_name_blank_error">Please provide a name</string>
     <string name="fragment_account_editor_institution_hint">Institution (Optional)</string>
