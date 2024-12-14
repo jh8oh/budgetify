@@ -49,10 +49,8 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
     companion object {
         private const val CATEGORY_TYPE = "CATEGORY_TYPE"
 
-        fun newInstance(categoryType: CategoryType) = TransactionEditorFragment().apply {
-            arguments = Bundle().apply {
-                putInt(CATEGORY_TYPE, categoryType.ordinal)
-            }
+        fun bundle(categoryType: CategoryType) = Bundle().apply {
+            putInt(CATEGORY_TYPE, categoryType.ordinal)
         }
     }
 }

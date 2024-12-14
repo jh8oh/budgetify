@@ -7,6 +7,7 @@ import android.view.ViewTreeObserver
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
@@ -16,7 +17,6 @@ import dev.ohjiho.budgetify.databinding.DialogAddTransactionBinding
 import dev.ohjiho.budgetify.domain.model.CategoryType
 import dev.ohjiho.budgetify.setup.SetUpActivity
 import dev.ohjiho.budgetify.transaction.TransactionEditorFragment
-import dev.ohjiho.budgetify.utils.ui.navigateWithBackStackTo
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -28,25 +28,25 @@ class MainActivity : AppCompatActivity() {
     private val addTransactionDialog: AlertDialog by lazy {
         val binding = DialogAddTransactionBinding.inflate(LayoutInflater.from(this)).apply {
             newExpense.setOnClickListener {
-                supportFragmentManager.navigateWithBackStackTo(
-                    R.id.fragment_container,
-                    TransactionEditorFragment.newInstance(CategoryType.EXPENSE)
+                findNavController(R.id.fragment_container).navigate(
+                    R.id.nav_transaction_editor_fragment,
+                    TransactionEditorFragment.bundle(CategoryType.EXPENSE)
                 )
                 addTransactionDialog.dismiss()
             }
 
             newIncome.setOnClickListener {
-                supportFragmentManager.navigateWithBackStackTo(
-                    R.id.fragment_container,
-                    TransactionEditorFragment.newInstance(CategoryType.INCOME)
+                findNavController(R.id.fragment_container).navigate(
+                    R.id.nav_transaction_editor_fragment,
+                    TransactionEditorFragment.bundle(CategoryType.INCOME)
                 )
                 addTransactionDialog.dismiss()
             }
 
             newTransfer.setOnClickListener {
-                supportFragmentManager.navigateWithBackStackTo(
-                    R.id.fragment_container,
-                    TransactionEditorFragment.newInstance(CategoryType.TRANSFER)
+                findNavController(R.id.fragment_container).navigate(
+                    R.id.nav_transaction_editor_fragment,
+                    TransactionEditorFragment.bundle(CategoryType.TRANSFER)
                 )
                 addTransactionDialog.dismiss()
             }
