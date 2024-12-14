@@ -25,4 +25,9 @@
         android:name="dev.ohjiho.budgetify.settings.SettingsFragment"
         tools:layout="@layout/fragment_settings" />
 
+    <fragment
+        android:id="@+id/nav_transaction_editor_fragment"
+        android:name="dev.ohjiho.budgetify.transaction.TransactionEditorFragment"
+        tools:layout="@layout/fragment_transaction_editor" />
+
 </navigation>
