@@ -10,7 +10,7 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Background color -->
         <item name="android:colorBackground">@color/white</item>
-        <item name="colorOnBackground">@color/black_900</item>
+        <item name="colorOnBackground">@color/black_800</item>
         <!-- Surface color -->
         <item name="colorSurface">@color/black_100</item>
         <item name="colorOnSurface">@color/black_900</item>
