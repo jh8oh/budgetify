@@ -138,5 +138,6 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/background_keypad_key</item>
         <item name="android:textAppearance">@style/TextAppearance.Budgetify.BodyLarge</item>
+        <item name="android:textSize">@dimen/component_keypad_text_size</item>
     </style>
 </resources>
