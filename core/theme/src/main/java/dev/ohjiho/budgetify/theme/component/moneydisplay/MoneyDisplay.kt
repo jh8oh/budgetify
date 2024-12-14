@@ -46,7 +46,7 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var amount: String = ""
         private set(value) {
             field = value
-            binding.amount.text = value.toCurrencyFormat(currency, context).split("[.,]".toRegex())[0]
+            binding.amount.text = value.toCurrencyFormat(currency, context).split(decimalSymbol)[0]
         }
     private var decimalAmount: String = ""
         private set(value) {
@@ -65,7 +65,7 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     fun setAmount(amount: BigDecimal) {
         val fullAmount = amount.toCurrencyFormat(currency, context)
-        val integerAndDecimal = fullAmount.split("[.,]".toRegex())
+        val integerAndDecimal = fullAmount.split(decimalSymbol)
 
         this.amount = integerAndDecimal[0]
         this.decimalAmount = integerAndDecimal[1]
