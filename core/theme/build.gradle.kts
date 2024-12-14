@@ -8,7 +8,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -33,4 +33,5 @@ android {
 dependencies {
     // Core
     implementation(libs.material)
+    implementation(project(":core:utils"))
 }

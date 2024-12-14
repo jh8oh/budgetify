@@ -35,15 +35,15 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
     }
 
     override fun onKeyPressed(key: Int) {
-        binding.text.append(key.toString())
+        binding.display.addDigit(key)
     }
 
     override fun onDotPressed() {
-        binding.text.append(".")
+        binding.display.addDecimalDot()
     }
 
     override fun onBackspacePressed() {
-        binding.text.text = binding.text.text.let { if (it.isNotEmpty()) it.substring(0, it.length - 1) else it }
+        binding.display.backspace()
     }
 
     companion object {

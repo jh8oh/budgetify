@@ -52,6 +52,6 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     }
 
     fun setCurrency(currency: Currency) {
-        binding.dot.visibility = if (getDecimalAmount(currency) > 0) View.VISIBLE else View.INVISIBLE
+        binding.dot.visibility = if (currency.getDecimalAmount() > 0) View.VISIBLE else View.INVISIBLE
     }
 }

@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <dev.ohjiho.budgetify.theme.component.moneydisplay.MoneyDisplay
+        android:id="@+id/display"
+        style="@style/MoneyDisplay"
+        android:layout_marginBottom="@dimen/fragment_transaction_editor_money_display_margin_bottom"
         app:layout_constraintBottom_toTopOf="@id/keypad"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,11 +16,10 @@
 
     <dev.ohjiho.budgetify.theme.component.keypad.Keypad
         android:id="@+id/keypad"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Keypad"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text" />
+        app:layout_constraintTop_toBottomOf="@id/display" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
