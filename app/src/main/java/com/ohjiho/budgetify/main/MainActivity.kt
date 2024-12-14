@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
             newExpense.setOnClickListener {
                 findNavController(R.id.fragment_container).navigate(
                     R.id.nav_transaction_editor_fragment,
-                    TransactionEditorFragment.bundle(CategoryType.EXPENSE)
+                    TransactionEditorFragment.bundle(TransactionType.EXPENSE)
                 )
                 addTransactionDialog.dismiss()
             }
@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             newIncome.setOnClickListener {
                 findNavController(R.id.fragment_container).navigate(
                     R.id.nav_transaction_editor_fragment,
-                    TransactionEditorFragment.bundle(CategoryType.INCOME)
+                    TransactionEditorFragment.bundle(TransactionType.INCOME)
                 )
                 addTransactionDialog.dismiss()
             }
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             newTransfer.setOnClickListener {
                 findNavController(R.id.fragment_container).navigate(
                     R.id.nav_transaction_editor_fragment,
-                    TransactionEditorFragment.bundle(CategoryType.TRANSFER)
+                    TransactionEditorFragment.bundle(TransactionType.TRANSFER)
                 )
                 addTransactionDialog.dismiss()
             }
