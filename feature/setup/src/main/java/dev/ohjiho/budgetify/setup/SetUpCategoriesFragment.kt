@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -19,8 +20,16 @@ class SetUpCategoriesFragment : Fragment() {
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpCategoriesBinding
 
+    // Resources
+    private val setUpCategoriesTitle by lazy { resources.getString(R.string.fragment_setup_categories_title) }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSetUpCategoriesBinding.inflate(inflater)
+
+        (requireActivity() as AppCompatActivity).apply {
+            title = setUpCategoriesTitle
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {

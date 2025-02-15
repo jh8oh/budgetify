@@ -1,11 +1,11 @@
 package dev.ohjiho.budgetify.setup
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -22,12 +22,6 @@ class SetUpActivity : AppCompatActivity() {
     private val viewModel: SetUpViewModel by viewModels()
     private lateinit var binding: ActivitySetUpBinding
 
-    // Resources
-    private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
-    private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
-    private val setUpCategoriesTitle by lazy { resources.getString(R.string.fragment_setup_categories_title) }
-    private val setUpBudgetTitle by lazy { resources.getString(R.string.fragment_set_up_budget_title) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySetUpBinding.inflate(layoutInflater)
@@ -42,13 +36,13 @@ class SetUpActivity : AppCompatActivity() {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.uiState.collect {
                     when (it.screen) {
-                        SetUpScreen.WELCOME, SetUpScreen.SET_UP_CURRENCY -> showWelcomeAndSetUpCurrencyScreen()
-                        SetUpScreen.SET_UP_ACCOUNTS -> showAccountsScreen()
-                        SetUpScreen.ACCOUNT_EDITOR -> showAccountEditorScreen(viewModel.editingAccountId)
-                        SetUpScreen.SET_UP_INCOME -> showIncomeScreen()
-                        SetUpScreen.SET_UP_CATEGORIES -> showCategoriesScreen()
-                        SetUpScreen.CATEGORY_EDITOR -> showCategoryEditorScreen(viewModel.editingCategoryId)
-                        SetUpScreen.SET_UP_BUDGET -> showBudgetScreen()
+                        SetUpScreen.WELCOME, SetUpScreen.SET_UP_CURRENCY -> showScreen(WelcomeAndSetUpCurrencyFragment(), true)
+                        SetUpScreen.SET_UP_ACCOUNTS -> showScreen(SetUpAccountsFragment(), true)
+                        SetUpScreen.ACCOUNT_EDITOR -> showScreen(AccountEditorFragment.getSetUpInstance(viewModel.editingAccountId))
+                        SetUpScreen.SET_UP_INCOME -> showScreen(SetUpIncomeFragment())
+                        SetUpScreen.SET_UP_CATEGORIES -> showScreen(SetUpCategoriesFragment())
+                        SetUpScreen.CATEGORY_EDITOR -> showScreen(CategoryEditorFragment.getSetUpInstance(viewModel.editingCategoryId))
+                        SetUpScreen.SET_UP_BUDGET -> showScreen(SetUpBudgetFragment())
                     }
                     it.toastMessage.getContentIfNotHandled()?.let { message ->
                         Toast.makeText(this@SetUpActivity, message, Toast.LENGTH_LONG).show()
@@ -62,48 +56,7 @@ class SetUpActivity : AppCompatActivity() {
         }
     }
 
-    private fun showWelcomeAndSetUpCurrencyScreen() {
-        binding.appBar.visibility = View.GONE
-        supportFragmentManager.navigateTo(R.id.fragment_container, WelcomeAndSetUpCurrencyFragment(), true)
-    }
-
-    private fun showAccountsScreen() {
-        binding.appBar.visibility = View.VISIBLE
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        title = setUpAccountsTitle
-
-        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpAccountsFragment(), true)
-    }
-
-    private fun showAccountEditorScreen(accountId: Int?) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        supportFragmentManager.navigateTo(R.id.fragment_container, AccountEditorFragment.getSetUpInstance(accountId))
-    }
-
-    private fun showIncomeScreen() {
-        title = setUpIncomeTitle
-
-        // Requires new view so that the adapter is updated
-        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpIncomeFragment())
-    }
-
-    private fun showCategoriesScreen() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        title = setUpCategoriesTitle
-
-        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpCategoriesFragment())
-    }
-
-    private fun showCategoryEditorScreen(categoryId: Int?) {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        supportFragmentManager.navigateTo(R.id.fragment_container, CategoryEditorFragment.getSetUpInstance(categoryId))
-    }
-
-    private fun showBudgetScreen() {
-        title = setUpBudgetTitle
-
-        supportFragmentManager.navigateTo(R.id.fragment_container, SetUpBudgetFragment())
+    private fun showScreen(fragment: Fragment, isInstant: Boolean = false) {
+        supportFragmentManager.navigateTo(R.id.fragment_container, fragment, isInstant)
     }
 }

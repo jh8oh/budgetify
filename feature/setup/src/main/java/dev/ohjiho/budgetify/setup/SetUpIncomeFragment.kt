@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -31,8 +32,13 @@ internal class SetUpIncomeFragment : Fragment() {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, viewModel.accounts.value.map { it.name })
     }
 
+    // Resources
+    private val setUpIncomeTitle by lazy { resources.getString(R.string.fragment_set_up_income_title) }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSetUpIncomeBinding.inflate(inflater)
+
+        (requireActivity() as AppCompatActivity).title = setUpIncomeTitle
 
         with(binding) {
             viewLifecycleOwner.lifecycleScope.launch {

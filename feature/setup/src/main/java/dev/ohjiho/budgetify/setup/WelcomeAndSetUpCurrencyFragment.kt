@@ -26,28 +26,21 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
     private var prevScreen: SetUpScreen? = null
 
     // Resources
-    private val actionBarSize by lazy {
-        requireActivity().applicationContext.theme.obtainStyledAttributes(intArrayOf(android.R.attr.actionBarSize)).let {
-            val size = it.getDimensionPixelSize(0, 0)
-            it.recycle()
-            size
-        }
-    }
-    private var fortyFiveHeight by Delegates.notNull<Int>()
-    private var fiftyFiveHeight by Delegates.notNull<Int>()
+    private var backgroundStartGuidelineHeight by Delegates.notNull<Int>()
+    private var backgroundEndGuidelineHeight by Delegates.notNull<Int>()
 
     private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
     private val currencyNextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
 
     // Animations
     private val backgroundGuidelineAnimator by lazy {
-        val startGuidelineAnimator = ValueAnimator.ofInt(fortyFiveHeight, actionBarSize).apply {
+        val startGuidelineAnimator = ValueAnimator.ofInt(backgroundStartGuidelineHeight, 0).apply {
             duration = ANIMATION_DURATION_MILLIS
             addUpdateListener {
                 binding.backgroundStartGuideline.setGuidelineBegin(it.animatedValue as Int)
             }
         }
-        val endGuidelineAnimator = ValueAnimator.ofInt(fiftyFiveHeight, actionBarSize).apply {
+        val endGuidelineAnimator = ValueAnimator.ofInt(backgroundEndGuidelineHeight, 0).apply {
             duration = ANIMATION_DURATION_MILLIS
             addUpdateListener {
                 binding.backgroundEndGuideline.setGuidelineBegin(it.animatedValue as Int)
@@ -61,8 +54,8 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         ScreenMetricsCompat.getScreenSize(requireActivity().applicationContext).height.let {
-            fortyFiveHeight = (it * 0.45).toInt()
-            fiftyFiveHeight = (it * 0.55).toInt()
+            backgroundStartGuidelineHeight = (it * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
+            backgroundEndGuidelineHeight = (it * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
         }
     }
 
@@ -93,11 +86,10 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             if (prevScreen == SetUpScreen.SET_UP_CURRENCY) {
                 backgroundGuidelineAnimator.reverse()
             } else {
-                backgroundStartGuideline.setGuidelineBegin(fortyFiveHeight)
-                backgroundEndGuideline.setGuidelineBegin(fiftyFiveHeight)
+                backgroundStartGuideline.setGuidelineBegin(backgroundStartGuidelineHeight)
+                backgroundEndGuideline.setGuidelineBegin(backgroundEndGuidelineHeight)
             }
             appIcon.visibility = View.VISIBLE
-            title.visibility = View.GONE
             backButton.visibility = View.GONE
             nextButton.text = welcomeNextButtonText
         }
@@ -112,11 +104,10 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             if (prevScreen == SetUpScreen.WELCOME) {
                 backgroundGuidelineAnimator.start()
             } else {
-                backgroundStartGuideline.setGuidelineBegin(actionBarSize)
-                backgroundEndGuideline.setGuidelineBegin(actionBarSize)
+                backgroundStartGuideline.setGuidelineBegin(0)
+                backgroundEndGuideline.setGuidelineBegin(0)
             }
             appIcon.visibility = View.GONE
-            title.visibility = View.VISIBLE
             backButton.visibility = View.VISIBLE
             nextButton.text = currencyNextButtonText
         }
@@ -128,5 +119,8 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
 
     companion object {
         private const val ANIMATION_DURATION_MILLIS: Long = 500
+
+        private const val BACKGROUND_START_GUIDELINE_HEIGHT = 0.4
+        private const val BACKGROUND_END_GUIDELINE_HEIGHT = 0.48
     }
 }

@@ -56,6 +56,8 @@ abstract class EditorFragment : Fragment() {
                     }
                 }, viewLifecycleOwner, Lifecycle.State.RESUMED)
             }
+
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
     }
 

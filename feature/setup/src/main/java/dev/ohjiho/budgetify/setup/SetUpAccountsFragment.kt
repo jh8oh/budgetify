@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -19,8 +20,16 @@ internal class SetUpAccountsFragment : Fragment() {
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpAccountsBinding
 
+    // Resources
+    private val setUpAccountsTitle by lazy { resources.getString(R.string.fragment_set_up_accounts_title) }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentSetUpAccountsBinding.inflate(inflater)
+
+        (requireActivity() as AppCompatActivity).apply {
+            title = setUpAccountsTitle
+            supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        }
 
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
