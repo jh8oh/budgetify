@@ -1,5 +1,6 @@
 package dev.ohjiho.budgetify.account.editor
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,8 +8,7 @@ import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import dev.ohjiho.budgetify.utils.flow.combine
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.Currency
@@ -17,13 +17,25 @@ import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class AccountEditorViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val accountRepository: AccountRepository,
     currencyRepository: CurrencyRepository,
 ) : ViewModel() {
 
     var isNew by Delegates.notNull<Boolean>()
-    val account: MutableStateFlow<Account> =
-        MutableStateFlow(Account("", "", AccountType.CASH, BigDecimal.ZERO, currencyRepository.getDefaultCurrency()))
+    val account = combine(
+        savedStateHandle.getStateFlow(UID_SAVED_STATE_KEY, 0),
+        savedStateHandle.getStateFlow(NAME_SAVED_STATE_KEY, ""),
+        savedStateHandle.getStateFlow(INSTITUTION_SAVED_STATE_KEY, ""),
+        savedStateHandle.getStateFlow(ACCOUNT_TYPE_SAVED_STATE_KEY, AccountType.CASH),
+        savedStateHandle.getStateFlow(BALANCE_SAVED_STATE_KEY, "0"),
+        savedStateHandle.getStateFlow(CURRENCY_SAVED_STATE_KEY, currencyRepository.getDefaultCurrency().currencyCode),
+        viewModelScope
+    ) { uid, name, institution, accountType, balance, currencyCode ->
+        Account(name, institution, accountType, BigDecimal(balance), Currency.getInstance(currencyCode)).apply {
+            this.uid = uid
+        }
+    }
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initNew() {
@@ -34,16 +46,22 @@ internal class AccountEditorViewModel @Inject constructor(
         isNew = false
         viewModelScope.launch {
             val a = accountRepository.getAccount(id) ?: throw Exception(NO_ACCOUNT_FOUND_ERROR + id)
-            account.update { a }
+            savedStateHandle[UID_SAVED_STATE_KEY] = a.uid
+            savedStateHandle[NAME_SAVED_STATE_KEY] = a.name
+            savedStateHandle[INSTITUTION_SAVED_STATE_KEY] = a.institution
+            savedStateHandle[ACCOUNT_TYPE_SAVED_STATE_KEY] = a.type
+            savedStateHandle[BALANCE_SAVED_STATE_KEY] = a.balance.toString()
+            savedStateHandle[CURRENCY_SAVED_STATE_KEY] = a.currency.currencyCode
         }
     }
 
     fun updateState(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
-        account.update {
-            Account(name, institution, type, balance, currency).apply {
-                uid = it.uid
-            }
-        }
+        savedStateHandle[UID_SAVED_STATE_KEY] = account.value.uid
+        savedStateHandle[NAME_SAVED_STATE_KEY] = name
+        savedStateHandle[INSTITUTION_SAVED_STATE_KEY] = institution
+        savedStateHandle[ACCOUNT_TYPE_SAVED_STATE_KEY] = type
+        savedStateHandle[BALANCE_SAVED_STATE_KEY] = balance.toString()
+        savedStateHandle[CURRENCY_SAVED_STATE_KEY] = currency.currencyCode
     }
 
     fun saveAccount() {
@@ -63,6 +81,13 @@ internal class AccountEditorViewModel @Inject constructor(
     }
 
     companion object {
+        private const val UID_SAVED_STATE_KEY = "UIDSavedState"
+        private const val NAME_SAVED_STATE_KEY = "NameSavedState"
+        private const val INSTITUTION_SAVED_STATE_KEY = "InstitutionSavedState"
+        private const val ACCOUNT_TYPE_SAVED_STATE_KEY = "AccountTypeSavedState"
+        private const val BALANCE_SAVED_STATE_KEY = "BalanceSavedState"
+        private const val CURRENCY_SAVED_STATE_KEY = "CurrencySavedState"
+
         private const val NO_ACCOUNT_FOUND_ERROR = "No account found with id: "
     }
 }

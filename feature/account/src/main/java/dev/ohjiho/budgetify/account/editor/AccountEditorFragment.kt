@@ -176,11 +176,6 @@ class AccountEditorFragment : EditorFragment() {
         viewModel.deleteAccount()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        currencySpinnerDialog?.dismiss()
-    }
-
     companion object {
         private const val ACCOUNT_EDITOR_TAG = "AccountEditor"
 
