@@ -41,20 +41,7 @@ class AccountEditorFragment : EditorFragment() {
     }
 
     // Dialogs
-    private val currencyPicker by lazy {
-        CurrencyPicker(requireContext()).apply {
-            setListener(object : CurrencyPicker.Listener {
-                override fun onCurrencySelected(currency: Currency) {
-                    binding.accountCurrency.setText(currency.currencyCode)
-                    binding.accountBalance.reformatBalanceAfterTextChange(currency)
-                    currencySpinnerDialog.dismiss()
-                }
-            })
-        }
-    }
-    private val currencySpinnerDialog: AlertDialog by lazy {
-        AlertDialog.Builder(requireContext()).setView(currencyPicker).create()
-    }
+    private var currencySpinnerDialog: AlertDialog? = null
     private val moreInfoDialog: AlertDialog by lazy {
         AlertDialog.Builder(requireContext())
             .setView(R.layout.dialog_account_type_more_info)
@@ -106,7 +93,6 @@ class AccountEditorFragment : EditorFragment() {
                             accountName.setText(account.name)
                             accountInstitution.setText(account.institution)
                             accountBalance.setText(account.balance.toCurrencyFormat(account.currency, context))
-                            currencyPicker.setSelectedCurrency(account.currency)
                             accountCurrency.setText(account.currency.currencyCode)
                             when (account.type) {
                                 AccountType.CASH -> accountTypeToggleGroup.check(cashButton.id)
@@ -149,8 +135,19 @@ class AccountEditorFragment : EditorFragment() {
     }
 
     private fun showCurrencyPickerDialog() {
-        currencyPicker.setSelectedCurrency(Currency.getInstance(binding.accountCurrency.text.toString()))
-        currencySpinnerDialog.show()
+        val currencyPicker = CurrencyPicker(requireContext()).apply {
+            setSelectedCurrency(Currency.getInstance(binding.accountCurrency.text.toString()))
+            setListener(object : CurrencyPicker.Listener {
+                override fun onCurrencySelected(currency: Currency) {
+                    binding.accountCurrency.setText(currency.currencyCode)
+                    binding.accountBalance.reformatBalanceAfterTextChange(currency)
+                    currencySpinnerDialog?.dismiss()
+                }
+            })
+        }
+        currencySpinnerDialog = AlertDialog.Builder(requireContext()).setView(currencyPicker).create().also {
+            it.show()
+        }
     }
 
     override fun saveState() {
@@ -177,6 +174,11 @@ class AccountEditorFragment : EditorFragment() {
 
     override fun onDelete() {
         viewModel.deleteAccount()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        currencySpinnerDialog?.dismiss()
     }
 
     companion object {
