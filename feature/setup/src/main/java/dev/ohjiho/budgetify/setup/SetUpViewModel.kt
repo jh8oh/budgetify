@@ -1,5 +1,6 @@
 package dev.ohjiho.budgetify.setup
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -7,7 +8,6 @@ import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
-import dev.ohjiho.budgetify.utils.data.getLocale
 import dev.ohjiho.budgetify.utils.flow.Event
 import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,11 +15,10 @@ import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import java.math.BigDecimal
-import java.util.Currency
 import javax.inject.Inject
 
 internal enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, ACCOUNT_EDITOR, SET_UP_INCOME, SET_UP_CATEGORIES, CATEGORY_EDITOR, SET_UP_BUDGET
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET, ACCOUNT_EDITOR, CATEGORY_EDITOR,
 }
 
 internal data class SetUpUiState(
@@ -36,12 +35,13 @@ internal data class SetUpIncomeState(
 
 @HiltViewModel
 internal class SetUpViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val currencyRepository: CurrencyRepository,
     accountRepository: AccountRepository,
-    categoryRepository: CategoryRepository
+    categoryRepository: CategoryRepository,
 ) : ViewModel() {
 
-    private val screen = MutableStateFlow(SetUpScreen.WELCOME)
+    private val screen = savedStateHandle.getStateFlow(SCREEN_SAVED_STATE_KEY, SetUpScreen.WELCOME)
     private val toastMessage = MutableStateFlow<Event<String?>>(Event(null))
     var editingAccountId: Int? = null
     var editingCategoryId: Int? = null
@@ -61,67 +61,40 @@ internal class SetUpViewModel @Inject constructor(
 
     // Screen
     fun onBackPressed(): Boolean {
-        val currentScreen = uiState.value.screen
-
-        return when (currentScreen) {
+        return when (val currentScreen = uiState.value.screen) {
             SetUpScreen.WELCOME -> true
 
-            SetUpScreen.SET_UP_CURRENCY -> {
-                screen.update { SetUpScreen.WELCOME }
-                false
-            }
-
-            SetUpScreen.SET_UP_ACCOUNTS -> {
-                screen.update { SetUpScreen.SET_UP_CURRENCY }
+            SetUpScreen.SET_UP_CURRENCY, SetUpScreen.SET_UP_ACCOUNTS, SetUpScreen.SET_UP_INCOME, SetUpScreen.SET_UP_CATEGORIES, SetUpScreen.SET_UP_BUDGET -> {
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.entries[currentScreen.ordinal - 1]
                 false
             }
 
             SetUpScreen.ACCOUNT_EDITOR -> {
-                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
-                false
-            }
-
-            SetUpScreen.SET_UP_INCOME -> {
-                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
-                false
-            }
-
-            SetUpScreen.SET_UP_CATEGORIES -> {
-                screen.update { SetUpScreen.SET_UP_INCOME }
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_ACCOUNTS
                 false
             }
 
             SetUpScreen.CATEGORY_EDITOR -> {
-                screen.update { SetUpScreen.SET_UP_CATEGORIES }
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_CATEGORIES
                 false
             }
 
-            SetUpScreen.SET_UP_BUDGET -> {
-                screen.update { SetUpScreen.SET_UP_CATEGORIES }
-                false
-            }
         }
     }
 
     fun nextScreen(): Boolean {
-        val currentScreen = uiState.value.screen
-        return when (currentScreen) {
-            SetUpScreen.WELCOME -> {
-                screen.update { SetUpScreen.SET_UP_CURRENCY }
-                false
-            }
-
-            SetUpScreen.SET_UP_CURRENCY -> {
-                screen.update { SetUpScreen.SET_UP_ACCOUNTS }
+        return when (val currentScreen = uiState.value.screen) {
+            SetUpScreen.WELCOME, SetUpScreen.SET_UP_CURRENCY -> {
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.entries[currentScreen.ordinal + 1]
                 false
             }
 
             SetUpScreen.SET_UP_ACCOUNTS -> {
                 if (accounts.value.isEmpty()) {
                     toastMessage.update { Event(ACCOUNTS_EMPTY_TOAST_MSG) }
-                } else{
+                } else {
                     replaceIncomeAccountIfNotExist()
-                    screen.update { SetUpScreen.SET_UP_INCOME }
+                    savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_INCOME
                 }
                 false
             }
@@ -130,13 +103,14 @@ internal class SetUpViewModel @Inject constructor(
                 if (setUpIncomeState.value.amount == BigDecimal.ZERO) {
                     toastMessage.update { Event(INCOME_ZERO_TOAST_MSG) }
                 } else {
-                    screen.update { SetUpScreen.SET_UP_CATEGORIES }
+                    savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_CATEGORIES
                 }
                 false
             }
 
             SetUpScreen.SET_UP_CATEGORIES -> {
-                screen.update { SetUpScreen.SET_UP_BUDGET }
+                // TODO Category check
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_BUDGET
                 false
             }
 
@@ -149,12 +123,12 @@ internal class SetUpViewModel @Inject constructor(
     // Editing Account
     fun addAccount() {
         editingAccountId = null
-        screen.update { SetUpScreen.ACCOUNT_EDITOR }
+        savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.ACCOUNT_EDITOR
     }
 
     fun updateAccount(accountId: Int) {
         editingAccountId = accountId
-        screen.update { SetUpScreen.ACCOUNT_EDITOR }
+        savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.ACCOUNT_EDITOR
     }
 
     // Income
@@ -167,22 +141,24 @@ internal class SetUpViewModel @Inject constructor(
         }
     }
 
+    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, isMonthly: Boolean, account: Account?) {
+        setUpIncomeState.update { SetUpIncomeState(isIncome, amount, isMonthly, account) }
+    }
+
     // Editing Category
     fun addCategory() {
         editingCategoryId = null
-        screen.update { SetUpScreen.CATEGORY_EDITOR }
+        savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.CATEGORY_EDITOR
     }
 
     fun updateCategory(categoryId: Int) {
         editingCategoryId = categoryId
-        screen.update { SetUpScreen.CATEGORY_EDITOR }
-    }
-
-    fun updateIncomeState(isIncome: Boolean, amount:BigDecimal, isMonthly: Boolean, account: Account?) {
-        setUpIncomeState.update { SetUpIncomeState(isIncome, amount, isMonthly, account) }
+        savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.CATEGORY_EDITOR
     }
 
     companion object {
+        private const val SCREEN_SAVED_STATE_KEY = "ScreenSavedState"
+
         private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
         private const val INCOME_ZERO_TOAST_MSG = "Please set an income/budget"
     }
