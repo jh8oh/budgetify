@@ -1,8 +1,10 @@
 package dev.ohjiho.budgetify.setup
 
+import android.animation.Animator
+import android.animation.Animator.AnimatorListener
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
-import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -50,12 +52,32 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
             playTogether(startGuidelineAnimator, endGuidelineAnimator)
         }
     }
+    private var backgroundGuidelineAnimatorWelcomeLandListener: AnimatorListener? = null
+    private var backgroundGuidelineAnimatorCurrencyLandListener: AnimatorListener? = null
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        ScreenMetricsCompat.getScreenSize(requireActivity().applicationContext).height.let {
-            backgroundStartGuidelineHeight = (it * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
-            backgroundEndGuidelineHeight = (it * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val screenSize = ScreenMetricsCompat.getScreenSize(requireContext())
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            backgroundStartGuidelineHeight = (screenSize.width * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
+            backgroundEndGuidelineHeight = (screenSize.width * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
+
+            backgroundGuidelineAnimatorWelcomeLandListener = object : AnimatorListener {
+                override fun onAnimationRepeat(animator: Animator) {}
+                override fun onAnimationEnd(animator: Animator) {}
+                override fun onAnimationCancel(animator: Animator) {}
+                override fun onAnimationStart(animator: Animator) = (activity as SetUpActivity).setAppBarVisibility(View.GONE)
+            }
+            backgroundGuidelineAnimatorCurrencyLandListener = object : AnimatorListener {
+                override fun onAnimationRepeat(animator: Animator) {}
+                override fun onAnimationEnd(animator: Animator) = (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
+                override fun onAnimationCancel(animator: Animator) {}
+                override fun onAnimationStart(animator: Animator) {}
+            }
+        } else {
+            backgroundStartGuidelineHeight = (screenSize.height * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
+            backgroundEndGuidelineHeight = (screenSize.height * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
         }
     }
 
@@ -84,10 +106,16 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
     private fun showWelcomeScreen() {
         with(binding) {
             if (prevScreen == SetUpScreen.SET_UP_CURRENCY) {
-                backgroundGuidelineAnimator.reverse()
+                backgroundGuidelineAnimator.apply {
+                    addListener(backgroundGuidelineAnimatorWelcomeLandListener)
+                    removeListener(backgroundGuidelineAnimatorCurrencyLandListener)
+                }.reverse()
             } else {
                 backgroundStartGuideline.setGuidelineBegin(backgroundStartGuidelineHeight)
                 backgroundEndGuideline.setGuidelineBegin(backgroundEndGuidelineHeight)
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    (activity as SetUpActivity).setAppBarVisibility(View.GONE)
+                }
             }
             appIcon.visibility = View.VISIBLE
             backButton.visibility = View.GONE
@@ -102,10 +130,16 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
     private fun showCurrencyScreen() {
         with(binding) {
             if (prevScreen == SetUpScreen.WELCOME) {
-                backgroundGuidelineAnimator.start()
+                backgroundGuidelineAnimator.apply {
+                    addListener(backgroundGuidelineAnimatorCurrencyLandListener)
+                    removeListener(backgroundGuidelineAnimatorWelcomeLandListener)
+                }.start()
             } else {
                 backgroundStartGuideline.setGuidelineBegin(0)
                 backgroundEndGuideline.setGuidelineBegin(0)
+                if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
+                }
             }
             appIcon.visibility = View.GONE
             backButton.visibility = View.VISIBLE

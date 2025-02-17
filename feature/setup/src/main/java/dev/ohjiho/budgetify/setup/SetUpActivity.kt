@@ -59,4 +59,8 @@ class SetUpActivity : AppCompatActivity() {
     private fun showScreen(fragment: Fragment, isInstant: Boolean = false) {
         supportFragmentManager.navigateTo(R.id.fragment_container, fragment, isInstant)
     }
+
+    fun setAppBarVisibility(visibility: Int) {
+        binding.appBar.visibility = visibility
+    }
 }

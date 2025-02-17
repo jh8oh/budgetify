@@ -7,10 +7,12 @@
 
     <View
         android:id="@+id/background"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
         android:background="?colorPrimary"
-        app:layout_constraintBottom_toBottomOf="@id/background_start_guideline"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/background_start_guideline"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -19,7 +21,7 @@
         android:layout_height="@dimen/fragment_welcome_app_icon_size"
         android:importantForAccessibility="no"
         android:src="@drawable/app_icon"
-        app:layout_constraintBottom_toBottomOf="@id/background_start_guideline"
+        app:layout_constraintBottom_toBottomOf="@id/background"
         app:layout_constraintEnd_toEndOf="@id/background"
         app:layout_constraintStart_toStartOf="@id/background"
         app:layout_constraintTop_toTopOf="@id/background" />
@@ -28,39 +30,40 @@
         android:id="@+id/background_start_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintGuide_percent="0.32" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintGuide_percent="0.4" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="@dimen/fragment_welcome_land_wave_margin_end"
         android:importantForAccessibility="no"
         android:scaleType="fitXY"
         android:src="@drawable/background_wave"
-        app:layout_constraintBottom_toBottomOf="@id/background_end_guideline"
-        app:layout_constraintTop_toTopOf="@id/background_start_guideline" />
+        app:layout_constraintEnd_toEndOf="@id/background_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/background_start_guideline" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/background_end_guideline"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_constraintGuide_percent="0.4" />
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintGuide_percent="0.48" />
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/welcome_currency_fragment_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/nav_button_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/background_end_guideline" />
+        app:layout_constraintStart_toStartOf="@id/background_end_guideline"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/nav_button_container"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/set_up_default_padding_horizontal"
         android:layout_marginBottom="@dimen/set_up_margin_bottom"
@@ -68,7 +71,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="@id/background_end_guideline">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/back_button"

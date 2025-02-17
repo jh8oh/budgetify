@@ -6,6 +6,7 @@
     <dimen name="set_up_back_button_margin_end">8dp</dimen>
 
     <dimen name="fragment_welcome_app_icon_size">240dp</dimen>
+    <dimen name="fragment_welcome_land_wave_margin_end">16dp</dimen>
     <dimen name="fragment_welcome_padding_horizontal">16dp</dimen>
     <dimen name="fragment_welcome_greeting_margin_bottom">8dp</dimen>
 
