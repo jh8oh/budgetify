@@ -29,7 +29,7 @@ import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat.toPx
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class CategoryEditorFragment : EditorFragment() {
+class CategoryEditorFragment private constructor() : EditorFragment() {
 
     private val viewModel by viewModels<CategoryEditorViewModel>()
     private lateinit var binding: FragmentCategoryEditorBinding

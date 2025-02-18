@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 import java.util.Currency
 
 @AndroidEntryPoint
-class AccountEditorFragment : EditorFragment() {
+class AccountEditorFragment private constructor() : EditorFragment() {
 
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
