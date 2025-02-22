@@ -62,8 +62,7 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     fun setAmount(amount: BigDecimal) {
-        val fullAmount = amount.toCurrencyFormat(currency, context)
-        val integerAndDecimal = fullAmount.split(decimalSymbol)
+        val integerAndDecimal = amount.toString().split(decimalSymbol)
         val hasDecimal = amount.stripTrailingZeros().scale() > 0
 
         this.amount = integerAndDecimal[0]
