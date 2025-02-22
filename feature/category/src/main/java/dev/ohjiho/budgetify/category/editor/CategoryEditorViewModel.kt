@@ -40,7 +40,7 @@ internal class CategoryEditorViewModel @Inject constructor(
     fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            val c = categoryRepository.getCategory(id) ?: throw Exception(NO_CATEGORY_FOUND_ERROR)
+            val c = categoryRepository.getCategory(id) ?: throw NullPointerException(NO_CATEGORY_FOUND_ERROR)
             savedStateHandle[UID_SAVED_STATE_KEY] = c.uid
             savedStateHandle[NAME_SAVED_STATE_KEY] = c.name
             savedStateHandle[TRANSACTION_TYPE_SAVED_STATE_KEY] = c.type

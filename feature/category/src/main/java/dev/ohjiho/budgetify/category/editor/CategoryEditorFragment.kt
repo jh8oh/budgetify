@@ -90,7 +90,7 @@ class CategoryEditorFragment private constructor() : EditorFragment() {
             } else if (categoryId != 0) {
                 try {
                     viewModel.initExisting(categoryId)
-                } catch (e: Exception) {
+                } catch (e: NullPointerException) {
                     Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }

@@ -59,7 +59,7 @@ class AccountEditorFragment private constructor() : EditorFragment() {
             } else if (accountId != 0) {
                 try {
                     viewModel.initExisting(accountId)
-                } catch (e: Exception) {
+                } catch (e: NullPointerException) {
                     Log.e(ACCOUNT_EDITOR_TAG, e.message ?: "")
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }

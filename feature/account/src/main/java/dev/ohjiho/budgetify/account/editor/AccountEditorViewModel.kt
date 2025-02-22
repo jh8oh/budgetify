@@ -45,7 +45,7 @@ internal class AccountEditorViewModel @Inject constructor(
     fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            val a = accountRepository.getAccount(id) ?: throw Exception(NO_ACCOUNT_FOUND_ERROR + id)
+            val a = accountRepository.getAccount(id) ?: throw NullPointerException(NO_ACCOUNT_FOUND_ERROR + id)
             savedStateHandle[UID_SAVED_STATE_KEY] = a.uid
             savedStateHandle[NAME_SAVED_STATE_KEY] = a.name
             savedStateHandle[INSTITUTION_SAVED_STATE_KEY] = a.institution
