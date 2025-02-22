@@ -2,20 +2,20 @@
 <resources>
     <string name="fragment_editor_delete_title">Delete</string>
     
-    <!-- Component - Keypad -->
-    <string name="component_keypad_one">1</string>
-    <string name="component_keypad_two">2</string>
-    <string name="component_keypad_three">3</string>
-    <string name="component_keypad_four">4</string>
-    <string name="component_keypad_five">5</string>
-    <string name="component_keypad_six">6</string>
-    <string name="component_keypad_seven">7</string>
-    <string name="component_keypad_eight">8</string>
-    <string name="component_keypad_nine">9</string>
-    <string name="component_keypad_zero">0</string>
-    <string name="component_keypad_dot">.</string>
-    <string name="component_keypad_backspace_content_description">Backspace</string>
+    <!-- Widget - Keypad -->
+    <string name="widget_keypad_one">1</string>
+    <string name="widget_keypad_two">2</string>
+    <string name="widget_keypad_three">3</string>
+    <string name="widget_keypad_four">4</string>
+    <string name="widget_keypad_five">5</string>
+    <string name="widget_keypad_six">6</string>
+    <string name="widget_keypad_seven">7</string>
+    <string name="widget_keypad_eight">8</string>
+    <string name="widget_keypad_nine">9</string>
+    <string name="widget_keypad_zero">0</string>
+    <string name="widget_keypad_dot">.</string>
+    <string name="widget_keypad_backspace_content_description">Backspace</string>
 
-    <!-- Component - Money Display -->
-    <string name="component_money_display_decimal_amount_hint">.00</string>
+    <!-- Widget - Money Display -->
+    <string name="widget_money_display_decimal_amount_hint">.00</string>
 </resources>

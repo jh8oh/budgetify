@@ -14,6 +14,7 @@
         <item name="android:textSize">56sp</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">bold</item>
+        <item name="lineHeight">56sp</item>
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">

@@ -7,19 +7,9 @@
     <dev.ohjiho.budgetify.theme.widget.MoneyDisplay
         android:id="@+id/display"
         style="@style/MoneyDisplay"
-        android:layout_marginBottom="@dimen/fragment_transaction_editor_money_display_margin_bottom"
-        app:layout_constraintBottom_toTopOf="@id/keypad"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
-
-    <dev.ohjiho.budgetify.theme.widget.Keypad
-        android:id="@+id/keypad"
-        style="@style/Keypad"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/display" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

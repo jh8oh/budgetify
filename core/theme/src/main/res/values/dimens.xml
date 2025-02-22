@@ -15,6 +15,8 @@
     <!-- Widget - Money Display -->
     <dimen name="widget_money_display_default_margin_horizontal">16dp</dimen>
     <dimen name="widget_money_display_padding_vertical">4dp</dimen>
+    <dimen name="widget_money_display_padding_horizontal">12dp</dimen>
+    <dimen name="widget_money_display_currency_text_size">24sp</dimen>
     <dimen name="widget_money_display_currency_margin_end">8dp</dimen>
 
     <!-- Widget - Keypad -->
@@ -23,4 +25,10 @@
     <dimen name="widget_keypad_text_size">20sp</dimen>
     <dimen name="widget_keypad_margin_between">3dp</dimen>
     <dimen name="widget_keypad_backspace_padding">24dp</dimen>
+
+    <!-- Dialog - Money Input Bottom Sheet Dialog -->
+    <dimen name="dialog_money_input_padding_horizontal">24dp</dimen>
+    <dimen name="dialog_money_input_drag_handle_margin_top">8dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_top">24dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_bottom">24dp</dimen>
 </resources>

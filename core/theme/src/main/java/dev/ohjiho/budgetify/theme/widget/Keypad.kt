@@ -15,7 +15,9 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val binding = WidgetKeypadBinding.inflate(LayoutInflater.from(context), this, true)
+    private var moneyDisplay: MoneyDisplay? = null
     private var listener: Listener? = null
+
     private val decimalSymbol = DecimalFormatSymbols.getInstance(getLocale(context)).decimalSeparator
 
     interface Listener {
@@ -32,19 +34,27 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
         with(binding) {
             dot.text = decimalSymbol.toString()
 
-            one.setOnClickListener { listener?.onKeyPressed(1) }
-            two.setOnClickListener { listener?.onKeyPressed(2) }
-            three.setOnClickListener { listener?.onKeyPressed(3) }
-            four.setOnClickListener { listener?.onKeyPressed(4) }
-            five.setOnClickListener { listener?.onKeyPressed(5) }
-            six.setOnClickListener { listener?.onKeyPressed(6) }
-            seven.setOnClickListener { listener?.onKeyPressed(7) }
-            eight.setOnClickListener { listener?.onKeyPressed(8) }
-            nine.setOnClickListener { listener?.onKeyPressed(9) }
-            zero.setOnClickListener { listener?.onKeyPressed(0) }
-            dot.setOnClickListener { listener?.onDotPressed() }
-            backspace.setOnClickListener { listener?.onBackspacePressed() }
+            val keypadButtons = arrayOf(zero, one, two, three, four, five, six, seven, eight, nine)
+            keypadButtons.forEachIndexed { index, button ->
+                button.setOnClickListener {
+                    moneyDisplay?.addDigit(index)
+                    listener?.onKeyPressed(index)
+                }
+            }
+            dot.setOnClickListener {
+                moneyDisplay?.addDecimalDot()
+                listener?.onDotPressed()
+            }
+            backspace.setOnClickListener {
+                moneyDisplay?.backspace()
+                listener?.onBackspacePressed()
+            }
         }
+    }
+
+    fun setMoneyDisplay(moneyDisplay: MoneyDisplay) {
+        this.moneyDisplay = moneyDisplay
+        setCurrency(moneyDisplay.currency)
     }
 
     fun setListener(listener: Listener) {

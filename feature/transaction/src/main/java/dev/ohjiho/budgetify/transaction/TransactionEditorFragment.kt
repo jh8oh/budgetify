@@ -7,11 +7,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.domain.model.TransactionType
-import dev.ohjiho.budgetify.theme.widget.Keypad
+import dev.ohjiho.budgetify.theme.fragment.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBinding
+import java.math.BigDecimal
 
 @AndroidEntryPoint
-class TransactionEditorFragment : Fragment(), Keypad.Listener {
+class TransactionEditorFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionEditorBinding
 
@@ -28,22 +29,18 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
         binding = FragmentTransactionEditorBinding.inflate(inflater)
 
         with(binding) {
-            binding.keypad.setListener(this@TransactionEditorFragment)
+            display.setOnClickListener {
+                MoneyInputBottomSheetDialogFragment.getInstance(display.getAmount()).apply {
+                    setListener(object : MoneyInputBottomSheetDialogFragment.Listener {
+                        override fun onDialogDismiss(amount: BigDecimal) {
+                            display.setAmount(amount)
+                        }
+                    })
+                }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
+            }
         }
 
         return binding.root
-    }
-
-    override fun onKeyPressed(key: Int) {
-        binding.display.addDigit(key)
-    }
-
-    override fun onDotPressed() {
-        binding.display.addDecimalDot()
-    }
-
-    override fun onBackspacePressed() {
-        binding.display.backspace()
     }
 
     companion object {
