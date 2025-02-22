@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <dev.ohjiho.budgetify.theme.component.moneydisplay.MoneyDisplay
+    <dev.ohjiho.budgetify.theme.widget.MoneyDisplay
         android:id="@+id/display"
         style="@style/MoneyDisplay"
         android:layout_marginBottom="@dimen/fragment_transaction_editor_money_display_margin_bottom"
@@ -14,7 +14,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />
 
-    <dev.ohjiho.budgetify.theme.component.keypad.Keypad
+    <dev.ohjiho.budgetify.theme.widget.Keypad
         android:id="@+id/keypad"
         style="@style/Keypad"
         app:layout_constraintBottom_toBottomOf="parent"

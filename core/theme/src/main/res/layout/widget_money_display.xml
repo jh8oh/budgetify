@@ -6,14 +6,14 @@
     android:background="@drawable/background_money_display"
     android:gravity="center_horizontal"
     android:orientation="horizontal"
-    android:paddingVertical="@dimen/component_money_display_padding_vertical">
+    android:paddingVertical="@dimen/widget_money_display_padding_vertical">
 
     <TextView
         android:id="@+id/currency"
         style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/component_money_display_currency_margin_end"
+        android:layout_marginEnd="@dimen/widget_money_display_currency_margin_end"
         tools:text="CAD" />
 
     <TextView

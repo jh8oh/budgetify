@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.component.moneydisplay
+package dev.ohjiho.budgetify.theme.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
-import dev.ohjiho.budgetify.theme.databinding.ComponentMoneyDisplayBinding
+import dev.ohjiho.budgetify.theme.databinding.WidgetMoneyDisplayBinding
 import dev.ohjiho.budgetify.utils.data.getDecimalAmount
 import dev.ohjiho.budgetify.utils.data.getLocale
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
@@ -18,7 +18,7 @@ import java.util.Currency
 class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
 
-    private val binding = ComponentMoneyDisplayBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = WidgetMoneyDisplayBinding.inflate(LayoutInflater.from(context), this, true)
 
     var currency: Currency = Currency.getInstance(getLocale(context))
         set(value) {
@@ -43,7 +43,7 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
     private var amount: String = ""
         private set(value) {
             field = value
-            binding.amount.text = value.toCurrencyFormat(currency, context)
+            binding.amount.text = value.toCurrencyFormat(currency, context).split(decimalSymbol)[0]
         }
     private var decimalAmount: String = ""
         private set(value) {

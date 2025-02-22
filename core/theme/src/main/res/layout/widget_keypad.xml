@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/two"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_two"
         app:layout_constraintBottom_toTopOf="@id/five"
         app:layout_constraintEnd_toStartOf="@id/three"
@@ -26,7 +26,7 @@
     <TextView
         android:id="@+id/three"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_three"
         app:layout_constraintBottom_toTopOf="@id/six"
         app:layout_constraintEnd_toEndOf="parent"
@@ -36,7 +36,7 @@
     <TextView
         android:id="@+id/four"
         style="@style/KeypadKey"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_four"
         app:layout_constraintBottom_toTopOf="@id/seven"
         app:layout_constraintEnd_toStartOf="@id/five"
@@ -46,8 +46,8 @@
     <TextView
         android:id="@+id/five"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_five"
         app:layout_constraintBottom_toTopOf="@id/eight"
         app:layout_constraintEnd_toStartOf="@id/six"
@@ -57,8 +57,8 @@
     <TextView
         android:id="@+id/six"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_six"
         app:layout_constraintBottom_toTopOf="@id/nine"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,7 +68,7 @@
     <TextView
         android:id="@+id/seven"
         style="@style/KeypadKey"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_seven"
         app:layout_constraintBottom_toTopOf="@id/dot"
         app:layout_constraintEnd_toStartOf="@id/eight"
@@ -78,8 +78,8 @@
     <TextView
         android:id="@+id/eight"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_eight"
         app:layout_constraintBottom_toTopOf="@id/zero"
         app:layout_constraintEnd_toStartOf="@id/nine"
@@ -89,8 +89,8 @@
     <TextView
         android:id="@+id/nine"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_nine"
         app:layout_constraintBottom_toTopOf="@id/backspace"
         app:layout_constraintEnd_toEndOf="parent"
@@ -100,7 +100,7 @@
     <TextView
         android:id="@+id/dot"
         style="@style/KeypadKey"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_dot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/zero"
@@ -110,8 +110,8 @@
     <TextView
         android:id="@+id/zero"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:text="@string/component_keypad_zero"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/backspace"
@@ -121,10 +121,10 @@
     <ImageView
         android:id="@+id/backspace"
         style="@style/KeypadKey"
-        android:layout_marginStart="@dimen/component_keypad_margin_between"
-        android:layout_marginTop="@dimen/component_keypad_margin_between"
+        android:layout_marginStart="@dimen/widget_keypad_margin_between"
+        android:layout_marginTop="@dimen/widget_keypad_margin_between"
         android:contentDescription="@string/component_keypad_backspace_content_description"
-        android:padding="@dimen/component_keypad_backspace_padding"
+        android:padding="@dimen/widget_keypad_backspace_padding"
         android:src="@drawable/ic_backspace"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
