@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.widget
+package dev.ohjiho.budgetify.presentation.widget
 
 import android.content.Context
 import android.util.AttributeSet

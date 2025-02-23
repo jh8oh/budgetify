@@ -55,6 +55,7 @@ dependencies {
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
+    implementation(project(":core:presentation"))
     implementation(project(":domain"))
     implementation(project(":feature:account"))
     implementation(project(":feature:category"))

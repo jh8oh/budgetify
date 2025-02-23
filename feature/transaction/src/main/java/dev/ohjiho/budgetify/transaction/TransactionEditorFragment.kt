@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.domain.model.TransactionType
-import dev.ohjiho.budgetify.theme.fragment.MoneyInputBottomSheetDialogFragment
+import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBinding
 import java.math.BigDecimal
 

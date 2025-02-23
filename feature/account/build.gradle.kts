@@ -53,6 +53,7 @@ dependencies {
 
     // Modules
     implementation(project(":core:theme"))
+    implementation(project(":core:presentation"))
     implementation(project(":core:utils"))
     implementation(project(":domain"))
 }

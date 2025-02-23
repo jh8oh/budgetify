@@ -2,7 +2,7 @@ package dev.ohjiho.budgetify.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import dev.ohjiho.budgetify.icons.Icon
+import dev.ohjiho.budgetify.domain.enums.Icon
 
 enum class TransactionType {
     EXPENSE,

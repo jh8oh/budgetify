@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.fragment
+package dev.ohjiho.budgetify.presentation.fragment
 
 import android.content.DialogInterface
 import android.os.Bundle
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import dev.ohjiho.budgetify.theme.databinding.DialogMoneyInputBinding
+import dev.ohjiho.budgetify.presentation.databinding.DialogMoneyInputBinding
 import java.math.BigDecimal
 
 class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
@@ -22,7 +22,7 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         with(binding) {
             keypad.setMoneyDisplay(moneyDisplay)
-            moneyDisplay.setAmount(arguments?.getString(AMOUNT_ARG)?.let { BigDecimal(it) } ?: BigDecimal.ZERO)
+            moneyDisplay.setAmount(arguments?.getString(dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment.AMOUNT_ARG)?.let { BigDecimal(it) } ?: BigDecimal.ZERO)
         }
 
         return binding.root

@@ -7,7 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
-import dev.ohjiho.budgetify.icons.Icon
+import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.utils.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject

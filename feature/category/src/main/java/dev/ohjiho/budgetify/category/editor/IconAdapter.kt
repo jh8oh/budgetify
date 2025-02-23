@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.ItemIconBinding
-import dev.ohjiho.budgetify.icons.Icon
+import dev.ohjiho.budgetify.domain.enums.Icon
 
 class IconAdapter(private val context: Context, private val onClick: (Icon) -> Unit) :
     RecyclerView.Adapter<IconAdapter.ViewHolder>() {

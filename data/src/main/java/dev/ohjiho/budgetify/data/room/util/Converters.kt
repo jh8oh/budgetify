@@ -4,7 +4,7 @@ import androidx.room.TypeConverter
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.model.Interval
 import dev.ohjiho.budgetify.domain.model.TransactionType
-import dev.ohjiho.budgetify.icons.Icon
+import dev.ohjiho.budgetify.domain.enums.Icon
 import java.math.BigDecimal
 import java.time.DayOfWeek
 import java.time.LocalDate

@@ -22,7 +22,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="CAD" />
 
-    <dev.ohjiho.budgetify.theme.widget.BaselineLastLineTextView
+    <dev.ohjiho.budgetify.presentation.widget.BaselineLastLineTextView
         android:id="@+id/amount"
         style="@style/TextAppearance.Budgetify.HeadlineExtraLarge"
         android:layout_width="wrap_content"

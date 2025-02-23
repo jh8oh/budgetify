@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Fragment - Editor -->
     <string name="fragment_editor_delete_title">Delete</string>
-    
+
     <!-- Widget - Keypad -->
     <string name="widget_keypad_one">1</string>
     <string name="widget_keypad_two">2</string>

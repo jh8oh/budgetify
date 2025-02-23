@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.fragment
+package dev.ohjiho.budgetify.presentation.fragment
 
 import android.os.Bundle
 import android.util.TypedValue
@@ -10,7 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import dev.ohjiho.budgetify.theme.R
+import dev.ohjiho.budgetify.presentation.R
 
 abstract class EditorFragment : Fragment() {
 

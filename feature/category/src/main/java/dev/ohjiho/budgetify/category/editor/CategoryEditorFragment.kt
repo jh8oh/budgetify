@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.FragmentCategoryEditorBinding
 import dev.ohjiho.budgetify.domain.model.TransactionType
-import dev.ohjiho.budgetify.theme.fragment.EditorFragment
+import dev.ohjiho.budgetify.presentation.fragment.EditorFragment
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat.toPx
 import kotlinx.coroutines.launch

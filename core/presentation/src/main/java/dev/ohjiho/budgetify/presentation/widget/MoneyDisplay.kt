@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.theme.widget
+package dev.ohjiho.budgetify.presentation.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
-import dev.ohjiho.budgetify.theme.databinding.WidgetMoneyDisplayBinding
+import dev.ohjiho.budgetify.presentation.databinding.WidgetMoneyDisplayBinding
 import dev.ohjiho.budgetify.utils.data.getDecimalAmount
 import dev.ohjiho.budgetify.utils.data.getLocale
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat

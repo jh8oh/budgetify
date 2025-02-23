@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "dev.ohjiho.budgetify.icons"
+    namespace = "dev.ohjiho.budgetify.presentation"
     compileSdk = 34
 
     defaultConfig {
@@ -17,6 +17,9 @@ android {
         release {
             isMinifyEnabled = true
         }
+    }
+    buildFeatures {
+        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -32,5 +35,6 @@ dependencies {
     implementation(libs.material)
 
     // Modules
+    implementation(project(":core:utils"))
     implementation(project(":core:theme"))
 }

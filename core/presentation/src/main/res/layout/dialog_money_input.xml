@@ -11,12 +11,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="@dimen/dialog_money_input_drag_handle_margin_top"/>
 
-    <dev.ohjiho.budgetify.theme.widget.MoneyDisplay
+    <dev.ohjiho.budgetify.presentation.widget.MoneyDisplay
         android:id="@+id/money_display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <dev.ohjiho.budgetify.theme.widget.Keypad
+    <dev.ohjiho.budgetify.presentation.widget.Keypad
         android:id="@+id/keypad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
