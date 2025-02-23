@@ -22,7 +22,7 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
         with(binding) {
             keypad.setMoneyDisplay(moneyDisplay)
-            moneyDisplay.setAmount(arguments?.getString(dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment.AMOUNT_ARG)?.let { BigDecimal(it) } ?: BigDecimal.ZERO)
+            moneyDisplay.setAmount(arguments?.getString(AMOUNT_ARG)?.let { BigDecimal(it) } ?: BigDecimal.ZERO)
         }
 
         return binding.root

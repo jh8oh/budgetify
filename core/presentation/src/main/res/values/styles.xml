@@ -1,16 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="MoneyDisplay">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginHorizontal">@dimen/widget_money_display_default_margin_horizontal</item>
-    </style>
-
-    <style name="Keypad">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">wrap_content</item>
-    </style>
-
     <style name="KeypadKey">
         <item name="android:layout_width">@dimen/widget_keypad_width</item>
         <item name="android:layout_height">@dimen/widget_keypad_height</item>

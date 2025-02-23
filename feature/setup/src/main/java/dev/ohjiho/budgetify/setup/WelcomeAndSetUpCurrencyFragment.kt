@@ -81,7 +81,7 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentWelcomeAndSetUpCurrencyBinding.inflate(inflater)
 
         viewLifecycleOwner.lifecycleScope.launch {

@@ -135,7 +135,7 @@ internal class SetUpIncomeFragment : Fragment() {
     }
 
     companion object {
-        private val IMPOSSIBLE_THRESHOLD = 1000
+        private const val IMPOSSIBLE_THRESHOLD = 1000
         private val FREQUENCY_LIST = listOf("week", "month")
     }
 }

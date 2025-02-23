@@ -102,7 +102,7 @@ class CategoryEditorFragment private constructor() : EditorFragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCategoryEditorBinding.inflate(inflater)
 
         setUpEditorAppBar(viewModel.isNew)

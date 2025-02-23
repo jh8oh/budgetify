@@ -1,5 +1,3 @@
 package dev.ohjiho.budgetify.transaction
 
-class TransactionEditorViewModel {
-
-}
+class TransactionEditorViewModel
