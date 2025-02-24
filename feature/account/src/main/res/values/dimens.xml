@@ -25,4 +25,9 @@
     <dimen name="dialog_account_type_title_margin_bottom">12dp</dimen>
     <dimen name="dialog_account_type_spacing_vertical">12dp</dimen>
     <dimen name="dialog_account_type_spacing_horizontal">8dp</dimen>
+
+    <dimen name="widget_account_container_padding_horizontal">16dp</dimen>
+    <dimen name="widget_account_container_padding_vertical">8dp</dimen>
+    <dimen name="widget_account_container_icon_size">24dp</dimen>
+    <dimen name="widget_account_container_icon_margin_end">4dp</dimen>
 </resources>
