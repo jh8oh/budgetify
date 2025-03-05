@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.ohjiho.budgetify.presentation.databinding.DialogMoneyInputBinding
 import java.math.BigDecimal
 
-class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
+class MoneyInputBottomSheetDialogFragment private constructor() : BottomSheetDialogFragment() {
     private lateinit var binding: DialogMoneyInputBinding
     private var listener: Listener? = null
 
