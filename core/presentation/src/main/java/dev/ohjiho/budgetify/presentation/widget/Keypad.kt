@@ -20,12 +20,6 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     private val decimalSymbol = DecimalFormatSymbols.getInstance(getLocale(context)).decimalSeparator
 
-    interface Listener {
-        fun onKeyPressed(key: Int)
-        fun onDotPressed()
-        fun onBackspacePressed()
-    }
-
     init {
         setUpKeypad()
     }
@@ -63,5 +57,11 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
 
     fun setCurrency(currency: Currency) {
         binding.dot.visibility = if (currency.getDecimalAmount() > 0) View.VISIBLE else View.INVISIBLE
+    }
+
+    interface Listener {
+        fun onKeyPressed(key: Int)
+        fun onDotPressed()
+        fun onBackspacePressed()
     }
 }

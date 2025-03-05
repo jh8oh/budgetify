@@ -13,10 +13,6 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: DialogMoneyInputBinding
     private var listener: Listener? = null
 
-    interface Listener {
-        fun onDialogDismiss(amount: BigDecimal)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = DialogMoneyInputBinding.inflate(inflater, container, false)
 
@@ -35,6 +31,10 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
 
     fun setListener(listener: Listener) {
         this.listener = listener
+    }
+
+    interface Listener {
+        fun onDialogDismiss(amount: BigDecimal)
     }
 
     companion object {

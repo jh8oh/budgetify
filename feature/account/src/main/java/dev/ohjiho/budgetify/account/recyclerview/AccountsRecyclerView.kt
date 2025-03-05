@@ -14,10 +14,6 @@ class AccountsRecyclerView @JvmOverloads constructor(
 
     private var listener: Listener? = if (context is Listener) context else null
 
-    interface Listener {
-        fun onClick(account: Account)
-    }
-
     init {
         adapter = AccountsAdapter { listener?.onClick(it) }
 
@@ -30,5 +26,9 @@ class AccountsRecyclerView @JvmOverloads constructor(
 
     fun setAccountList(accountList: List<Account>) {
         (adapter as AccountsAdapter).setAccountList(accountList)
+    }
+
+    interface Listener {
+        fun onClick(account: Account)
     }
 }
