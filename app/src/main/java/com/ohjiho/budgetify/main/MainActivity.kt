@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkIfSetUp() {
-        val isSetUp = true
+        val isSetUp = false
         if (!isSetUp) {
             startActivity(Intent(this, SetUpActivity::class.java))
             finish()

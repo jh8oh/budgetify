@@ -25,7 +25,7 @@ internal class CategoryEditorViewModel @Inject constructor(
         savedStateHandle.getStateFlow(NAME_SAVED_STATE_KEY, ""),
         savedStateHandle.getStateFlow(TRANSACTION_TYPE_SAVED_STATE_KEY, TransactionType.EXPENSE),
         savedStateHandle.getStateFlow(ICON_SAVED_STATE_KEY, Icon.HOME),
-        savedStateHandle.getStateFlow(IS_NEED_SAVED_STATE_KEY, null),
+        savedStateHandle.getStateFlow<Boolean?>(IS_NEED_SAVED_STATE_KEY, null),
         viewModelScope
     ) { uid, name, transactionType, icon, isNeed ->
         Category(name, transactionType, icon, isNeed).apply { this.uid = uid }

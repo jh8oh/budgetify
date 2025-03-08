@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "dev.ohjiho.budgetify.presentation"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26

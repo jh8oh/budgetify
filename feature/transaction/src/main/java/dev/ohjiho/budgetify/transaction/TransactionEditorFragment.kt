@@ -12,7 +12,7 @@ import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBin
 import java.math.BigDecimal
 
 @AndroidEntryPoint
-class TransactionEditorFragment private constructor() : Fragment() {
+class TransactionEditorFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionEditorBinding
 

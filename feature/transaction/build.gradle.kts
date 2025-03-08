@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "dev.ohjiho.budgetify.transaction"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -31,7 +31,6 @@ android {
         jvmTarget = "1.8"
     }
 }
-
 dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
