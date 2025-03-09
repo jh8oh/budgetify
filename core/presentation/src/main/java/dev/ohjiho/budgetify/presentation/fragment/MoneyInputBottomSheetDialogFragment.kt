@@ -9,7 +9,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dev.ohjiho.budgetify.presentation.databinding.DialogMoneyInputBinding
 import java.math.BigDecimal
 
-class MoneyInputBottomSheetDialogFragment private constructor() : BottomSheetDialogFragment() {
+class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment() {
     private lateinit var binding: DialogMoneyInputBinding
     private var listener: Listener? = null
 
@@ -18,7 +18,10 @@ class MoneyInputBottomSheetDialogFragment private constructor() : BottomSheetDia
 
         with(binding) {
             keypad.setMoneyDisplay(moneyDisplay)
-            moneyDisplay.setAmount(arguments?.getString(AMOUNT_ARG)?.let { BigDecimal(it) } ?: BigDecimal.ZERO)
+            moneyDisplay.setAmount(
+                savedInstanceState?.getString(AMOUNT_ARG)?.let { BigDecimal(it) } ?:
+                arguments?.getString(AMOUNT_ARG)?.let { BigDecimal(it) } ?:
+                BigDecimal.ZERO)
         }
 
         return binding.root
@@ -27,6 +30,11 @@ class MoneyInputBottomSheetDialogFragment private constructor() : BottomSheetDia
     override fun onDismiss(dialog: DialogInterface) {
         listener?.onDialogDismiss(binding.moneyDisplay.getAmount())
         super.onDismiss(dialog)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString(AMOUNT_ARG, binding.moneyDisplay.getAmount().toString())
+        super.onSaveInstanceState(outState)
     }
 
     fun setListener(listener: Listener) {
