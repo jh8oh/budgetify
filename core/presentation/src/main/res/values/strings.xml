@@ -19,4 +19,7 @@
 
     <!-- Widget - Money Display -->
     <string name="widget_money_display_decimal_amount_hint">.00</string>
+
+    <!-- Widget - Repeat Display -->
+    <string name="widget_repeat_display_content_description">Repeat</string>
 </resources>

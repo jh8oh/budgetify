@@ -44,4 +44,5 @@ dependencies {
 
     // Modules
     implementation(project(":core:theme"))
+    implementation(project(":core:utils"))
 }

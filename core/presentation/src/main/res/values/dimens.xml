@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Dialog - Money Input Bottom Sheet Dialog -->
+    <dimen name="dialog_money_input_padding_horizontal">24dp</dimen>
+    <dimen name="dialog_money_input_drag_handle_margin_top">8dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_top">24dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_bottom">24dp</dimen>
+
     <!-- ViewHolder - Header -->
     <dimen name="item_header_margin_top">8dp</dimen>
 
@@ -16,9 +22,8 @@
     <dimen name="widget_keypad_margin_between">3dp</dimen>
     <dimen name="widget_keypad_backspace_padding">24dp</dimen>
 
-    <!-- Dialog - Money Input Bottom Sheet Dialog -->
-    <dimen name="dialog_money_input_padding_horizontal">24dp</dimen>
-    <dimen name="dialog_money_input_drag_handle_margin_top">8dp</dimen>
-    <dimen name="dialog_money_input_keypad_margin_top">24dp</dimen>
-    <dimen name="dialog_money_input_keypad_margin_bottom">24dp</dimen>
+    <!-- Widget - Repeat Display -->
+    <dimen name="widget_repeat_display_padding_vertical">4dp</dimen>
+    <dimen name="widget_repeat_display_padding_horizontal">8dp</dimen>
+    <dimen name="widget_repeat_display_text_margin_start">8dp</dimen>
 </resources>

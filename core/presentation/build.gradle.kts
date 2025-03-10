@@ -37,4 +37,5 @@ dependencies {
     // Modules
     implementation(project(":core:utils"))
     implementation(project(":core:theme"))
+    implementation(project(":domain"))
 }
