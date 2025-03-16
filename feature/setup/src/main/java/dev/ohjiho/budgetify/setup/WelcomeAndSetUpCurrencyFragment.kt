@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
@@ -16,11 +17,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.ohjiho.budgetify.setup.databinding.FragmentWelcomeAndSetUpCurrencyBinding
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
-import dev.ohjiho.budgetify.utils.ui.navigateTo
+import dev.ohjiho.currencypicker.CurrencyPicker
 import kotlinx.coroutines.launch
+import java.util.Currency
 import kotlin.properties.Delegates
 
-internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
+internal class WelcomeAndSetUpCurrencyFragment : Fragment(), CurrencyPicker.Listener {
 
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentWelcomeAndSetUpCurrencyBinding
@@ -30,6 +32,8 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
     // Resources
     private var backgroundStartGuidelineHeight by Delegates.notNull<Int>()
     private var backgroundEndGuidelineHeight by Delegates.notNull<Int>()
+
+    private val setUpCurrencyTitle by lazy { resources.getString(R.string.fragment_set_up_currency_title) }
 
     private val welcomeNextButtonText by lazy { resources.getString(R.string.fragment_welcome_next_button) }
     private val currencyNextButtonText by lazy { resources.getString(R.string.fragment_set_up_next_button) }
@@ -96,6 +100,13 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
         }
 
         with(binding) {
+            currencyPicker.apply {
+                setSelectedCurrency(viewModel.defaultCurrency)
+                setListener(this@WelcomeAndSetUpCurrencyFragment)
+            }
+
+            startEndSplitGuideline?.setGuidelineBegin(backgroundEndGuidelineHeight)
+
             backButton.setOnClickListener { viewModel.onBackPressed() }
             nextButton.setOnClickListener { viewModel.nextScreen() }
         }
@@ -105,6 +116,10 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
 
     private fun showWelcomeScreen() {
         with(binding) {
+            // Title
+            (requireActivity() as AppCompatActivity).title = null
+
+            // Start/End Guideline
             if (prevScreen == SetUpScreen.SET_UP_CURRENCY) {
                 backgroundGuidelineAnimator.apply {
                     addListener(backgroundGuidelineAnimatorWelcomeLandListener)
@@ -117,18 +132,27 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
                     (activity as SetUpActivity).setAppBarVisibility(View.GONE)
                 }
             }
+
+            // Content
+            welcomeLayout.visibility = View.VISIBLE
+            currencyDescription.visibility = View.GONE
+            currencyPicker.visibility = View.GONE
+
+            // App icon & navigation buttons
             appIcon.visibility = View.VISIBLE
             backButton.visibility = View.GONE
             nextButton.text = welcomeNextButtonText
         }
-
-        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, WelcomeFragment())
 
         prevScreen = SetUpScreen.WELCOME
     }
 
     private fun showCurrencyScreen() {
         with(binding) {
+            // Title
+            (requireActivity() as AppCompatActivity).title = setUpCurrencyTitle
+
+            // Start/End Guideline
             if (prevScreen == SetUpScreen.WELCOME) {
                 backgroundGuidelineAnimator.apply {
                     addListener(backgroundGuidelineAnimatorCurrencyLandListener)
@@ -141,14 +165,23 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment() {
                     (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
                 }
             }
+
+            // Content
+            welcomeLayout.visibility = View.GONE
+            currencyDescription.visibility = View.VISIBLE
+            currencyPicker.visibility = View.VISIBLE
+
+            // App icon & navigation buttons
             appIcon.visibility = View.GONE
             backButton.visibility = View.VISIBLE
             nextButton.text = currencyNextButtonText
         }
 
-        childFragmentManager.navigateTo(R.id.welcome_currency_fragment_container, SetUpCurrencyFragment())
-
         prevScreen = SetUpScreen.SET_UP_CURRENCY
+    }
+
+    override fun onCurrencySelected(currency: Currency) {
+        viewModel.defaultCurrency = currency
     }
 
     companion object {

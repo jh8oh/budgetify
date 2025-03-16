@@ -7,11 +7,11 @@
 
     <dimen name="fragment_welcome_app_icon_size">240dp</dimen>
     <dimen name="fragment_welcome_land_wave_margin_end">16dp</dimen>
-    <dimen name="fragment_welcome_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_welcome_layout_padding_horizontal">16dp</dimen>
     <dimen name="fragment_welcome_greeting_margin_bottom">8dp</dimen>
 
-    <dimen name="fragment_set_up_currency_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
-    <dimen name="fragment_set_up_currency_padding_vertical">@dimen/set_up_default_margin_top</dimen>
+    <dimen name="fragment_set_up_currency_margin_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+    <dimen name="fragment_set_up_currency_margin_vertical">@dimen/set_up_default_margin_top</dimen>
     <dimen name="fragment_set_up_currency_currency_picker_margin_top">12dp</dimen>
 
     <dimen name="fragment_set_up_accounts_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>

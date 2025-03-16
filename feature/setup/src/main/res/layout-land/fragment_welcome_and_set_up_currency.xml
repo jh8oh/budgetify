@@ -52,14 +52,68 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:layout_constraintGuide_percent="0.48" />
 
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/welcome_currency_fragment_container"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_end_split_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_constraintGuide_percent="0.48" />
+
+    <LinearLayout
+        android:id="@+id/welcome_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/fragment_welcome_layout_padding_horizontal"
         app:layout_constraintBottom_toTopOf="@id/nav_button_container"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/background_end_guideline"
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            style="?textAppearanceHeadlineLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/fragment_welcome_greeting_margin_bottom"
+            android:text="@string/fragment_welcome_greeting" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/fragment_welcome_description"
+            android:textAlignment="center" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/currency_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/fragment_set_up_currency_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_set_up_currency_margin_vertical"
+        android:layout_marginEnd="@dimen/fragment_set_up_currency_margin_horizontal"
+        android:gravity="center"
+        android:text="@string/fragment_set_up_currency_default_description"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/nav_button_container"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <dev.ohjiho.currencypicker.CurrencyPicker
+        android:id="@+id/currency_picker"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginStart="@dimen/fragment_set_up_currency_margin_horizontal"
+        android:layout_marginTop="@dimen/fragment_set_up_currency_margin_vertical"
+        android:layout_marginEnd="@dimen/fragment_set_up_currency_margin_horizontal"
+        android:layout_marginBottom="@dimen/fragment_set_up_currency_margin_vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@id/start_end_split_guideline"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
         android:id="@+id/nav_button_container"
@@ -71,7 +125,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/background_end_guideline">
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/back_button"
