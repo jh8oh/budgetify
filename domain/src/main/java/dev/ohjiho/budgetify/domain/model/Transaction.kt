@@ -38,13 +38,11 @@ data class Reoccurrence(
  */
 @Entity(tableName = "transactions")
 data class Transaction(
+    @PrimaryKey(autoGenerate = true) var uid: Int,
     val fromAccountId: Int,
     val toAccountId: Int?,
     val categoryId: Int,
     val amount: BigDecimal,
     val localDate: LocalDate,
     @Embedded val reoccurrence: Reoccurrence?,
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
+)

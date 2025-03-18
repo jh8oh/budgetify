@@ -30,12 +30,10 @@ enum class AccountType {
  */
 @Entity(tableName = "accounts")
 data class Account(
+    @PrimaryKey(autoGenerate = true) val uid: Int,
     val name: String,
     val institution: String,
     val type: AccountType,
     val balance: BigDecimal,
     val currency: Currency,
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
+)

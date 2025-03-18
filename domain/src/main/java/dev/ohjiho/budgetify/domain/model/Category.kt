@@ -21,11 +21,9 @@ enum class TransactionType {
  */
 @Entity(tableName = "categories")
 data class Category(
+    @PrimaryKey(autoGenerate = true) var uid: Int,
     val name: String,
     val type: TransactionType,
     val icon: Icon,
     val isNeed: Boolean? = null,
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
-}
+)

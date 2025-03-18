@@ -32,9 +32,7 @@ internal class AccountEditorViewModel @Inject constructor(
         savedStateHandle.getStateFlow(CURRENCY_SAVED_STATE_KEY, currencyRepository.getDefaultCurrency().currencyCode),
         viewModelScope
     ) { uid, name, institution, accountType, balance, currencyCode ->
-        Account(name, institution, accountType, BigDecimal(balance), Currency.getInstance(currencyCode)).apply {
-            this.uid = uid
-        }
+        Account(uid, name, institution, accountType, BigDecimal(balance), Currency.getInstance(currencyCode))
     }
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
