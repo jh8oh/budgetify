@@ -150,8 +150,7 @@ class CategoryEditorFragment : EditorFragment() {
                     categoryName.setText("")    // Clears text in case it only contains whitespace
                     categoryName.error = categoryNameBlankError
                 } else {
-                    saveState()
-                    viewModel.saveCategory()
+                    viewModel.saveToDatabase(categoryName.text.toString(), needOrWantToggleGroup.checkedButtonId == needButton.id)
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
             }

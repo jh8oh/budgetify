@@ -124,8 +124,13 @@ class AccountEditorFragment : EditorFragment() {
                     accountName.setText("")     // Clears text in case it only contains whitespace
                     accountName.error = accountNameBlankError
                 } else {
-                    saveState()
-                    viewModel.saveAccount()
+                    viewModel.saveToDatabase(
+                        accountName.text.toString().trim(),
+                        accountInstitution.text.toString().trim(),
+                        getAccountType(),
+                        accountBalance.text.toString().toBigDecimalAfterSanitize(),
+                        Currency.getInstance(accountCurrency.text.toString())
+                    )
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
             }
@@ -151,16 +156,6 @@ class AccountEditorFragment : EditorFragment() {
     }
 
     override fun saveState() {
-        fun getAccountType(): AccountType {
-            with(binding) {
-                return when (accountTypeToggleGroup.checkedButtonId) {
-                    cashButton.id -> AccountType.CASH
-                    creditButton.id -> AccountType.CREDIT
-                    else -> AccountType.INVESTMENTS
-                }
-            }
-        }
-
         with(binding) {
             viewModel.updateState(
                 accountName.text.toString().trim(),
@@ -169,6 +164,16 @@ class AccountEditorFragment : EditorFragment() {
                 accountBalance.text.toString().toBigDecimalAfterSanitize(),
                 Currency.getInstance(accountCurrency.text.toString())
             )
+        }
+    }
+
+    private fun getAccountType(): AccountType {
+        with(binding) {
+            return when (accountTypeToggleGroup.checkedButtonId) {
+                cashButton.id -> AccountType.CASH
+                creditButton.id -> AccountType.CREDIT
+                else -> AccountType.INVESTMENTS
+            }
         }
     }
 

@@ -62,12 +62,14 @@ internal class AccountEditorViewModel @Inject constructor(
         savedStateHandle[CURRENCY_SAVED_STATE_KEY] = currency.currencyCode
     }
 
-    fun saveAccount() {
+    fun saveToDatabase(name: String, institution: String, type: AccountType, balance: BigDecimal, currency: Currency) {
         viewModelScope.launch {
-            if (isNew) {
-                accountRepository.insert(account.value)
-            } else {
-                accountRepository.update(account.value)
+            Account(account.value.uid, name, institution, type, balance, currency).let {
+                if (isNew) {
+                    accountRepository.insert(it)
+                } else {
+                    accountRepository.update(it)
+                }
             }
         }
     }

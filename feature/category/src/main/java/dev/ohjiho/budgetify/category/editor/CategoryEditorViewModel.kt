@@ -4,10 +4,10 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
-import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.utils.flow.combine
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -59,12 +59,20 @@ internal class CategoryEditorViewModel @Inject constructor(
         savedStateHandle[IS_NEED_SAVED_STATE_KEY] = if (category.value.type == TransactionType.EXPENSE) isNeed else null
     }
 
-    fun saveCategory() {
+    fun saveToDatabase(name: String, isNeed: Boolean) {
         viewModelScope.launch {
-            if (isNew) {
-                categoryRepository.insert(category.value)
-            } else {
-                categoryRepository.update(category.value)
+            Category(
+                category.value.uid,
+                name,
+                category.value.type,
+                category.value.icon,
+                if (category.value.type == TransactionType.EXPENSE) isNeed else null
+            ).let {
+                if (isNew) {
+                    categoryRepository.insert(it)
+                } else {
+                    categoryRepository.update(it)
+                }
             }
         }
     }

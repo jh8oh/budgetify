@@ -24,6 +24,7 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
                 if (account.institution.isBlank()) {
                     accountInstitution.visibility = View.GONE
                 } else {
+                    accountInstitution.visibility = View.VISIBLE
                     accountInstitution.text = account.institution
                 }
                 accountCurrency.text = account.currency.currencyCode
