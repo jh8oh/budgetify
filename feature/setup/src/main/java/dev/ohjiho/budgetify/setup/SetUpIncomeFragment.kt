@@ -12,14 +12,12 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpIncomeBinding
-import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
-import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
-import dev.ohjiho.budgetify.utils.ui.reformatBalanceAfterTextChange
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-internal class SetUpIncomeFragment : Fragment() {
+internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFragment.Listener {
 
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpIncomeBinding
@@ -47,13 +45,10 @@ internal class SetUpIncomeFragment : Fragment() {
                         val accountCurrency = it.account!!.currency
                         incomeBudgetToggle.check(if (it.isIncome) incomeButton.id else budgetButton.id)
                         onSwitchIncomeBudgetToggle(it.isIncome)
-                        currency.text = accountCurrency.currencyCode
-                        if (it.amount != BigDecimal.ZERO) {
-                            amount.setText(it.amount.toCurrencyFormat(accountCurrency, context))
-                        } else {
-                            amount.hint = BigDecimal.ZERO.toCurrencyFormat(accountCurrency, context)
+                        moneyDisplay.apply {
+                            currency = accountCurrency
+                            setAmount(it.amount)
                         }
-                        amount.reformatBalanceAfterTextChange(accountCurrency)
                         frequency.setText(if (it.isMonthly) FREQUENCY_LIST[1] else FREQUENCY_LIST[0], false)
                         account.setText(it.account.name, false)
                     }
@@ -65,6 +60,11 @@ internal class SetUpIncomeFragment : Fragment() {
                     onSwitchIncomeBudgetToggle(checkedId == incomeButton.id)
                 }
             }
+            moneyDisplay.setOnClickListener {
+                MoneyInputBottomSheetDialogFragment.getInstance(moneyDisplay.getAmount()).apply {
+                    setListener(this@SetUpIncomeFragment)
+                }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
+            }
             frequency.apply {
                 setAdapter(frequencyAdapter)
                 threshold = IMPOSSIBLE_THRESHOLD
@@ -74,8 +74,9 @@ internal class SetUpIncomeFragment : Fragment() {
                 threshold = IMPOSSIBLE_THRESHOLD
                 setOnItemClickListener { _, _, position, _ ->
                     val accountCurrency = viewModel.accounts.value[position].currency
-                    currency.text = accountCurrency.currencyCode
-                    amount.reformatBalanceAfterTextChange(accountCurrency)
+                    moneyDisplay.apply {
+                        currency = accountCurrency
+                    }
                 }
             }
             backButton.setOnClickListener {
@@ -91,6 +92,10 @@ internal class SetUpIncomeFragment : Fragment() {
         return binding.root
     }
 
+    override fun onDialogDismiss(amount: BigDecimal) {
+        binding.moneyDisplay.setAmount(amount)
+    }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         saveIncomeState()
@@ -100,7 +105,7 @@ internal class SetUpIncomeFragment : Fragment() {
         with(binding) {
             viewModel.updateIncomeState(
                 incomeBudgetToggle.checkedButtonId == incomeButton.id,
-                amount.text.toString().toBigDecimalAfterSanitize(),
+                moneyDisplay.getAmount(),
                 frequency.text.toString() == FREQUENCY_LIST[1],
                 viewModel.accounts.value.find { it.name == account.text.toString() }
             )
@@ -113,8 +118,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 val typedValue = TypedValue()
                 requireContext().theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
                 val primaryColor = typedValue.data
-                currency.setTextColor(primaryColor)
-                amount.setTextColor(primaryColor)
+                moneyDisplay.setCurrencyTextColor(primaryColor)
 
                 perLabel.visibility = View.VISIBLE
                 frequencyContainer.visibility = View.VISIBLE
@@ -122,8 +126,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 accountContainer.visibility = View.VISIBLE
             } else {
                 resources.getColor(R.color.orange_700, requireContext().theme).let {
-                    currency.setTextColor(it)
-                    amount.setTextColor(it)
+                    moneyDisplay.setCurrencyTextColor(it)
                 }
 
                 perLabel.visibility = View.GONE

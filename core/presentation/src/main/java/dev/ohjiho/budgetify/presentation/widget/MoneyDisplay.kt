@@ -99,11 +99,7 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
     }
 
-    fun setTextColor(@ColorInt color: Int) {
-        with(binding) {
-            currency.setTextColor(color)
-            amount.setTextColor(color)
-            decimal.setTextColor(color)
-        }
+    fun setCurrencyTextColor(@ColorInt color: Int) {
+        binding.currency.setTextColor(color)
     }
 }

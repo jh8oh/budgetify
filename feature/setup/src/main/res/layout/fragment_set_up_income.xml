@@ -44,36 +44,12 @@
 
     </com.google.android.material.button.MaterialButtonToggleGroup>
 
-    <TextView
-        android:id="@+id/currency"
-        style="?textAppearanceHeadlineLarge"
-        android:layout_width="wrap_content"
+    <dev.ohjiho.budgetify.presentation.widget.MoneyDisplay
+        android:id="@+id/money_display"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/fragment_set_up_income_currency_margin_end"
-        android:textColor="?colorPrimaryVariant"
-        app:layout_constraintBaseline_toBaselineOf="@id/amount"
-        app:layout_constraintBottom_toBottomOf="@id/amount"
-        app:layout_constraintEnd_toStartOf="@id/amount"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:text="CAD" />
-
-    <EditText
-        android:id="@+id/amount"
-        style="@style/TextAppearance.Budgetify.HeadlineExtraLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/fragment_set_up_income_amount_margin_top"
-        android:background="@android:color/transparent"
-        android:imeOptions="actionDone"
-        android:importantForAutofill="no"
-        android:inputType="numberDecimal"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/currency"
-        app:layout_constraintTop_toBottomOf="@id/income_budget_toggle"
-        tools:ignore="LabelFor"
-        tools:text="1332.32" />
+        android:layout_marginTop="@dimen/fragment_set_up_income_money_display_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/income_budget_toggle" />
 
     <TextView
         android:id="@+id/per_label"
@@ -133,7 +109,7 @@
         app:layout_constrainedWidth="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/into_label"
-        app:layout_constraintTop_toBottomOf="@id/amount">
+        app:layout_constraintTop_toBottomOf="@id/money_display">
 
         <com.google.android.material.textfield.MaterialAutoCompleteTextView
             android:id="@+id/account"
