@@ -28,7 +28,7 @@
     <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
@@ -40,16 +40,19 @@
     <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Label" parent="TextAppearance.Material3.LabelMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">13sp</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
@@ -57,6 +60,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <!-- Text Inputs -->
@@ -86,8 +90,10 @@
     </style>
 
     <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal
+        </item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal
+        </item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
         </item>
@@ -102,18 +108,27 @@
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal
+        </item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal
+        </item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
         </item>
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:paddingStart">
+            @dimen/theme_budgetify_button_extra_small_padding_horizontal
+        </item>
+        <item name="android:paddingEnd">
+            @dimen/theme_budgetify_button_extra_small_padding_horizontal
+        </item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical
+        </item>
+        <item name="android:paddingBottom">
+            @dimen/theme_budgetify_button_extra_small_padding_vertical
+        </item>
         <item name="android:minHeight">0dp</item>
         <item name="android:textSize">12sp</item>
     </style>
