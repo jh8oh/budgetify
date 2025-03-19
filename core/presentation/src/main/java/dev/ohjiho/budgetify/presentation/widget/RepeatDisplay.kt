@@ -5,8 +5,8 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import dev.ohjiho.budgetify.domain.model.Repetition
-import dev.ohjiho.budgetify.domain.model.Repetition.Companion.NEVER_REPEATED_DISPLAY_TEXT
+import dev.ohjiho.budgetify.domain.model.Reoccurrence
+import dev.ohjiho.budgetify.domain.model.Reoccurrence.Companion.NEVER_REPEATED_DISPLAY_TEXT
 import dev.ohjiho.budgetify.presentation.databinding.WidgetRepeatDisplayBinding
 
 class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
@@ -14,7 +14,7 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
 
     private val binding: WidgetRepeatDisplayBinding = WidgetRepeatDisplayBinding.inflate(LayoutInflater.from(context), this, true)
 
-    var repetition: Repetition? = null
+    var reoccurrence: Reoccurrence? = null
         set(value) {
             field = value
 
