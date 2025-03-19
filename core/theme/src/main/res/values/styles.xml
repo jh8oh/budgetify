@@ -11,6 +11,7 @@
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineExtraLarge" parent="TextAppearance.Budgetify.Body">
+        <item name="android:textColor">@color/black_700</item>
         <item name="android:textSize">56sp</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">bold</item>
