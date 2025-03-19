@@ -17,11 +17,11 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
     var reoccurrence: Reoccurrence? = null
         set(value) {
             field = value
-
-            binding.repeatText.text = value?.toString() ?: NEVER_REPEATED_DISPLAY_TEXT
+            updateView()
         }
 
     init {
+        updateView()
         setUpDisplay()
     }
 
@@ -30,5 +30,9 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
             Toast.makeText(context, "Repeat Dialog to open", Toast.LENGTH_SHORT).show()
             // TODO: repeat dialog
         }
+    }
+
+    private fun updateView() {
+        binding.repeatText.text = reoccurrence?.toString() ?: NEVER_REPEATED_DISPLAY_TEXT
     }
 }

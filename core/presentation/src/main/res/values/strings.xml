@@ -3,6 +3,9 @@
     <!-- Fragment - Editor -->
     <string name="fragment_editor_delete_title">Delete</string>
 
+    <!-- Widget - Account Display -->
+    <string name="widget_account_display_icon_content_description">Account Icon</string>
+
     <!-- Widget - Keypad -->
     <string name="widget_keypad_one">1</string>
     <string name="widget_keypad_two">2</string>

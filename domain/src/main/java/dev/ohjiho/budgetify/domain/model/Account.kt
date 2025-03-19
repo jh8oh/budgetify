@@ -1,12 +1,23 @@
 package dev.ohjiho.budgetify.domain.model
 
+import androidx.annotation.DrawableRes
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import dev.ohjiho.budgetify.theme.R
 import java.math.BigDecimal
 import java.util.Currency
 
 enum class AccountType {
     CASH, CREDIT, INVESTMENTS;
+
+    @DrawableRes
+    fun getIconRes(): Int {
+        return when (this) {
+            CASH -> R.drawable.ic_inc_bills
+            CREDIT -> R.drawable.ic_inc_credit
+            INVESTMENTS -> R.drawable.ic_inc_investment
+        }
+    }
 
     override fun toString(): String {
         return when (this) {

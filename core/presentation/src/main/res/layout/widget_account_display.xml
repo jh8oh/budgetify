@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/widget_account_display_padding_horizontal"
+    android:paddingVertical="@dimen/widget_account_display_padding_vertical"
+    tools:ignore="UseCompoundDrawables">
+
+    <ImageView
+        android:id="@+id/account_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/widget_account_display_icon_margin_end"
+        android:contentDescription="@string/widget_account_display_icon_content_description"
+        app:tint="?colorOnBackground"
+        tools:src="@drawable/ic_inc_bills" />
+
+    <TextView
+        android:id="@+id/account_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Chequing" />
+
+</LinearLayout>
