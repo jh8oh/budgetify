@@ -12,7 +12,8 @@
     <!-- Widget - Account Display -->
     <dimen name="widget_account_display_padding_vertical">4dp</dimen>
     <dimen name="widget_account_display_padding_horizontal">8dp</dimen>
-    <dimen name="widget_account_display_icon_margin_end">8dp</dimen>
+    <dimen name="widget_account_display_icon_margin_top">4dp</dimen>
+    <dimen name="widget_account_display_name_margin_start">6dp</dimen>
 
     <!-- Widget - Money Display -->
     <dimen name="widget_money_display_padding_vertical">4dp</dimen>
@@ -29,6 +30,15 @@
 
     <!-- Widget - Repeat Display -->
     <dimen name="widget_repeat_display_padding_vertical">4dp</dimen>
+    <dimen name="widget_repeat_display_icon_margin_top">4dp</dimen>
     <dimen name="widget_repeat_display_padding_horizontal">8dp</dimen>
-    <dimen name="widget_repeat_display_text_margin_start">8dp</dimen>
+    <dimen name="widget_repeat_display_text_margin_start">6dp</dimen>
+
+    <dimen name="dialog_repeat_padding">16dp</dimen>
+    <dimen name="dialog_repeat_interval_selection_button_padding_horizontal">12dp</dimen>
+    <dimen name="dialog_repeat_interval_selection_button_padding_vertical">6dp</dimen>
+    <dimen name="dialog_repeat_selection_container_margin_top">12dp</dimen>
+    <dimen name="dialog_repeat_day_selection_button_padding">2dp</dimen>
+    <dimen name="dialog_repeat_monthly_day_of_month_margin_start">6dp</dimen>
+    <dimen name="dialog_repeat_monthly_day_of_month_min_width">60dp</dimen>
 </resources>

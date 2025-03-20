@@ -1,10 +1,13 @@
 package dev.ohjiho.budgetify.setup
 
+import android.os.Parcelable
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.domain.model.Account
+import dev.ohjiho.budgetify.domain.model.Interval
+import dev.ohjiho.budgetify.domain.model.Reoccurrence
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
@@ -14,6 +17,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.parcelize.Parcelize
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -26,12 +30,13 @@ internal data class SetUpUiState(
     val toastMessage: Event<String?> = Event(null),
 )
 
+@Parcelize
 internal data class SetUpIncomeState(
     val isIncome: Boolean = true,
     val amount: BigDecimal = BigDecimal.ZERO,
-    val isMonthly: Boolean = true,
-    val account: Account? = null,
-)
+    val reoccurrence: Reoccurrence = Reoccurrence.with(Interval.WEEKLY, setOf(1)),
+    val accountIndex: Int = 0
+) : Parcelable
 
 @HiltViewModel
 internal class SetUpViewModel @Inject constructor(
@@ -56,7 +61,7 @@ internal class SetUpViewModel @Inject constructor(
             field = value
         }
     val accounts = accountRepository.getAllAccounts().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
-    val setUpIncomeState = MutableStateFlow(SetUpIncomeState())
+    val setUpIncomeState = savedStateHandle.getStateFlow(INCOME_STATE_SAVED_STATE_KEY, SetUpIncomeState())
     val expenseCategories = categoryRepository.getAllExpenseCategories().stateIn(viewModelScope, WhileUiSubscribed, emptyList())
 
     // Screen
@@ -136,13 +141,13 @@ internal class SetUpViewModel @Inject constructor(
         if (accounts.value.isEmpty()) return
 
         // Check if the account set in income still exists. Otherwise, set the income account to be the first of list of accounts if it's not empty
-        if (setUpIncomeState.value.account == null || !accounts.value.contains(setUpIncomeState.value.account)) {
-            setUpIncomeState.update { setUpIncomeState.value.copy(account = accounts.value[0]) }
+        if (setUpIncomeState.value.accountIndex > accounts.value.size) {
+            savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = setUpIncomeState.value.copy(accountIndex = 0)
         }
     }
 
-    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, isMonthly: Boolean, account: Account?) {
-        setUpIncomeState.update { SetUpIncomeState(isIncome, amount, isMonthly, account) }
+    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence, accountIndex: Int) {
+        savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = SetUpIncomeState(isIncome, amount, reoccurrence, accountIndex)
     }
 
     // Editing Category
@@ -158,6 +163,7 @@ internal class SetUpViewModel @Inject constructor(
 
     companion object {
         private const val SCREEN_SAVED_STATE_KEY = "ScreenSavedState"
+        private const val INCOME_STATE_SAVED_STATE_KEY = "IncomeSavedState"
 
         private const val ACCOUNTS_EMPTY_TOAST_MSG = "Please create an account to continue"
         private const val INCOME_ZERO_TOAST_MSG = "Please set an income/budget"

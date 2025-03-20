@@ -1,28 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+    android:background="?selectableItemBackground"
     android:paddingHorizontal="@dimen/widget_account_display_padding_horizontal"
-    android:paddingVertical="@dimen/widget_account_display_padding_vertical"
-    tools:ignore="UseCompoundDrawables">
+    android:paddingVertical="@dimen/widget_account_display_padding_vertical">
 
-    <ImageView
-        android:id="@+id/account_icon"
+    <TextView
+        android:id="@+id/title"
+        style="?textAppearanceLabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/widget_account_display_icon_margin_end"
+        android:text="@string/widget_account_display_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/widget_account_display_icon_margin_top"
         android:contentDescription="@string/widget_account_display_icon_content_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
         app:tint="?colorOnBackground"
         tools:src="@drawable/ic_inc_bills" />
 
     <TextView
-        android:id="@+id/account_name"
+        android:id="@+id/name"
+        style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_account_display_name_margin_start"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toBottomOf="@id/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@id/icon"
+        app:layout_constraintTop_toTopOf="@id/icon"
         tools:text="Chequing" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

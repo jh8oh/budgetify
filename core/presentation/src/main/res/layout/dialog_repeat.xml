@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dialog_repeat_padding">
+
+    <com.google.android.material.button.MaterialButtonToggleGroup
+        android:id="@+id/interval_selection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:singleSelection="true">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/weekly"
+            style="@style/IntervalSelectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dialog_repeat_weekly_button_text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/biweekly"
+            style="@style/IntervalSelectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dialog_repeat_biweekly_button_text" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/monthly"
+            style="@style/IntervalSelectionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dialog_repeat_monthly_button_text" />
+
+    </com.google.android.material.button.MaterialButtonToggleGroup>
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/weekly_container"
+        style="@style/Theme.Budgetify.ChipGroup.Singular"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_repeat_selection_container_margin_top"
+        android:visibility="gone"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/interval_selection">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/monday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_mon" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/tuesday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_tue" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/wednesday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_wed" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/thursday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_thu" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/friday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_fri" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/saturday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_sat" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/sunday"
+            style="@style/Theme.Budgetify.Chip.Choice.Singular"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_sun" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/monthly_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dialog_repeat_selection_container_margin_top"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/interval_selection">
+
+        <TextView
+            android:id="@+id/day_of_month_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:labelFor="@id/day_of_month"
+            android:text="@string/dialog_repeat_monthly_on_the"
+            app:layout_constraintBottom_toBottomOf="@id/day_of_month"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/day_of_month" />
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/day_of_month"
+            style="@style/Theme.Budgetify.TextInputEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dialog_repeat_monthly_day_of_month_margin_start"
+            android:imeOptions="actionDone"
+            android:inputType="numberPassword"
+            android:minWidth="@dimen/dialog_repeat_monthly_day_of_month_min_width"
+            app:layout_constraintStart_toEndOf="@id/day_of_month_label"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            style="?textAppearanceLabelMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/dialog_repeat_monthly_info_text"
+            app:layout_constraintTop_toBottomOf="@id/day_of_month" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

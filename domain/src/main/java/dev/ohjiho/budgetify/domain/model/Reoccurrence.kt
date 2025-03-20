@@ -54,20 +54,20 @@ data class Reoccurrence(val interval: Interval, val indexOfRepetition: Set<Int>)
 
     override fun toString(): String {
         val timePeriodDisplayText = interval.toString()
-        val requiresThe = if (interval == Interval.MONTHLY) "the" else ""
+        val requiresThe = if (interval == Interval.MONTHLY) "the " else ""
         val repeatedDays = if (interval == Interval.MONTHLY)
             indexOfRepetition.map { it.ordinal() }
         else indexOfRepetition.map {
             DayOfWeek.of(it).getDisplayName(TextStyle.SHORT, getLocale())
         }
 
-        return "$timePeriodDisplayText on $requiresThe ${repeatedDays.joinToString()}"
+        return "$timePeriodDisplayText on $requiresThe${repeatedDays.joinToString()}"
     }
 
     companion object {
         const val NEVER_REPEATED_DISPLAY_TEXT = "Never"
 
-        operator fun invoke(interval: Interval, indexOfRepetition: List<Int>): Reoccurrence {
+        fun with(interval: Interval, indexOfRepetition: Set<Int>): Reoccurrence {
             if (indexOfRepetition.isEmpty()) {
                 throw  IllegalArgumentException("Index of Repetition cannot be empty")
             }
@@ -90,7 +90,7 @@ data class Reoccurrence(val interval: Interval, val indexOfRepetition: Set<Int>)
                 }
             }
 
-            return Reoccurrence(interval, indexOfRepetition.distinct())
+            return Reoccurrence(interval, indexOfRepetition)
         }
     }
 }

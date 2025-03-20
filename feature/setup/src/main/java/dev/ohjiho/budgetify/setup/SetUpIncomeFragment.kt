@@ -13,19 +13,35 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
+import dev.ohjiho.budgetify.presentation.widget.RepeatDisplay
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpIncomeBinding
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 
-internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFragment.Listener {
+internal class SetUpIncomeFragment : Fragment() {
 
     private val viewModel: SetUpViewModel by activityViewModels()
     private lateinit var binding: FragmentSetUpIncomeBinding
 
-    // Adapters
-    private val frequencyAdapter by lazy {
-        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, FREQUENCY_LIST)
+    // Listener
+    private val moneyInputBottomSheetDialogListener by lazy {
+        object : MoneyInputBottomSheetDialogFragment.Listener {
+            override fun onDialogDismiss(amount: BigDecimal) {
+                binding.moneyDisplay.setAmount(amount)
+            }
+        }
     }
+
+    private val repeatDisplayListener by lazy {
+        object : RepeatDisplay.Listener {
+            override fun showDialog(dialog: RepeatDisplay.Dialog) {
+                dialog.show(childFragmentManager, RepeatDisplay.TAG)
+            }
+        }
+    }
+
+    // Adapters
     private val accountAdapter by lazy {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, viewModel.accounts.value.map { it.name })
     }
@@ -41,19 +57,25 @@ internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFrag
         with(binding) {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.setUpIncomeState.collect {
-                        val accountCurrency = it.account!!.currency
-                        incomeBudgetToggle.check(if (it.isIncome) incomeButton.id else budgetButton.id)
-                        onSwitchIncomeBudgetToggle(it.isIncome)
+                    viewModel.setUpIncomeState.combine(viewModel.accounts) { state, accounts -> Pair(state, accounts) }.collect {
+                        val state = it.first
+                        val accounts = it.second
+
+                        val account = accounts[state.accountIndex]
+                        incomeBudgetToggle.check(if (state.isIncome) incomeButton.id else budgetButton.id)
+                        onSwitchIncomeBudgetToggle(state.isIncome)
                         moneyDisplay.apply {
-                            currency = accountCurrency
-                            setAmount(it.amount)
+                            currency = account.currency
+                            setAmount(state.amount)
                         }
-                        frequency.setText(if (it.isMonthly) FREQUENCY_LIST[1] else FREQUENCY_LIST[0], false)
-                        account.setText(it.account.name, false)
+                        repeatDisplay.reoccurrence = state.reoccurrence
+                        accountDisplay.account = account
                     }
                 }
             }
+
+            repeatDisplay.allowNeverRepeat = false
+            repeatDisplay.setListener(repeatDisplayListener)
 
             incomeBudgetToggle.addOnButtonCheckedListener { _, checkedId, isChecked ->
                 if (isChecked) {
@@ -62,22 +84,8 @@ internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFrag
             }
             moneyDisplay.setOnClickListener {
                 MoneyInputBottomSheetDialogFragment.getInstance(moneyDisplay.getAmount()).apply {
-                    setListener(this@SetUpIncomeFragment)
+                    setListener(moneyInputBottomSheetDialogListener)
                 }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
-            }
-            frequency.apply {
-                setAdapter(frequencyAdapter)
-                threshold = IMPOSSIBLE_THRESHOLD
-            }
-            account.apply {
-                setAdapter(accountAdapter)
-                threshold = IMPOSSIBLE_THRESHOLD
-                setOnItemClickListener { _, _, position, _ ->
-                    val accountCurrency = viewModel.accounts.value[position].currency
-                    moneyDisplay.apply {
-                        currency = accountCurrency
-                    }
-                }
             }
             backButton.setOnClickListener {
                 saveIncomeState()
@@ -92,10 +100,6 @@ internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFrag
         return binding.root
     }
 
-    override fun onDialogDismiss(amount: BigDecimal) {
-        binding.moneyDisplay.setAmount(amount)
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         saveIncomeState()
@@ -103,12 +107,7 @@ internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFrag
 
     private fun saveIncomeState() {
         with(binding) {
-            viewModel.updateIncomeState(
-                incomeBudgetToggle.checkedButtonId == incomeButton.id,
-                moneyDisplay.getAmount(),
-                frequency.text.toString() == FREQUENCY_LIST[1],
-                viewModel.accounts.value.find { it.name == account.text.toString() }
-            )
+
         }
     }
 
@@ -120,25 +119,20 @@ internal class SetUpIncomeFragment : Fragment(), MoneyInputBottomSheetDialogFrag
                 val primaryColor = typedValue.data
                 moneyDisplay.setCurrencyTextColor(primaryColor)
 
-                perLabel.visibility = View.VISIBLE
-                frequencyContainer.visibility = View.VISIBLE
-                intoLabel.visibility = View.VISIBLE
-                accountContainer.visibility = View.VISIBLE
+                repeatDisplay.visibility = View.VISIBLE
+                accountDisplay.visibility = View.VISIBLE
             } else {
                 resources.getColor(R.color.orange_700, requireContext().theme).let {
                     moneyDisplay.setCurrencyTextColor(it)
                 }
 
-                perLabel.visibility = View.GONE
-                frequencyContainer.visibility = View.GONE
-                intoLabel.visibility = View.GONE
-                accountContainer.visibility = View.GONE
+                repeatDisplay.visibility = View.GONE
+                accountDisplay.visibility = View.GONE
             }
         }
     }
 
     companion object {
         private const val IMPOSSIBLE_THRESHOLD = 1000
-        private val FREQUENCY_LIST = listOf("week", "month")
     }
 }

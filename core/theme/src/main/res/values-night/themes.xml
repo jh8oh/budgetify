@@ -32,5 +32,8 @@
         <item name="textAppearanceButton">@style/TextAppearance.Budgetify.Button</item>
 
         <item name="android:textViewStyle">?textAppearanceBodyMedium</item>
+
+        <!-- Backgrounds -->
+        <item name="selectableItemBackgroundCircular">@drawable/background_selectable_item_circular</item>
     </style>
 </resources>

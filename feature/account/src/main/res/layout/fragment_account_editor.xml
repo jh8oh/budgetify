@@ -114,7 +114,7 @@
         android:layout_width="@dimen/fragment_account_editor_info_button_size"
         android:layout_height="@dimen/fragment_account_editor_info_button_size"
         android:layout_marginStart="@dimen/fragment_account_editor_info_button_margin_start"
-        android:background="@drawable/background_selectable_circular"
+        android:background="?selectableItemBackgroundCircular"
         android:clickable="true"
         android:contentDescription="@string/fragment_account_editor_info_button_content_description"
         android:padding="@dimen/fragment_account_editor_info_button_padding"

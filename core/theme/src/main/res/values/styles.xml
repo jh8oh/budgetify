@@ -90,16 +90,18 @@
     </style>
 
     <style name="Theme.Budgetify.Button.Outlined.Small" parent="Theme.Budgetify.Button.Outlined">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal
-        </item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal
-        </item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
         <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
         <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
         </item>
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle" parent="Theme.Budgetify.Button.Outlined">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="strokeColor">@color/color_button_stroke</item>
         <item name="backgroundTint">@color/color_button_background_tint</item>
@@ -107,33 +109,43 @@
         <item name="android:textColor">@color/color_button_text</item>
     </style>
 
-    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal
-        </item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal
-        </item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
-        </item>
-    </style>
-
     <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">
-            @dimen/theme_budgetify_button_extra_small_padding_horizontal
-        </item>
-        <item name="android:paddingEnd">
-            @dimen/theme_budgetify_button_extra_small_padding_horizontal
-        </item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical
-        </item>
-        <item name="android:paddingBottom">
-            @dimen/theme_budgetify_button_extra_small_padding_vertical
-        </item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_extra_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_extra_small_padding_vertical</item>
         <item name="android:minHeight">0dp</item>
         <item name="android:textSize">12sp</item>
     </style>
 
     <style name="Theme.Budgetify.IconButton.Outlined" parent="@style/Widget.Material3.Button.IconButton.Outlined">
         <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
+    </style>
+
+    <!-- Chips -->
+    <style name="Theme.Budgetify.ChipGroup" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">@dimen/theme_budgetify_chip_group_spacing_horizontal</item>
+    </style>
+
+    <style name="Theme.Budgetify.Chip.Choice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/color_button_stroke</item>
+        <item name="chipStrokeWidth">@dimen/theme_budgetify_chip_stroke_width</item>
+        <item name="chipBackgroundColor">@color/color_background_chip</item>
+        <item name="android:textColor">?colorOnBackground</item>
+    </style>
+
+    <style name="Theme.Budgetify.ChipGroup.Singular" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">@dimen/theme_budgetify_chip_group_singular_spacing_horizontal</item>
+    </style>
+
+    <style name="Theme.Budgetify.Chip.Choice.Singular" parent="Theme.Budgetify.Chip.Choice">
+        <item name="android:minWidth">@dimen/theme_budgetify_chip_singular_min_size</item>
+        <item name="android:minHeight">@dimen/theme_budgetify_chip_singular_min_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="ensureMinTouchTargetSize">false</item>
     </style>
 </resources>

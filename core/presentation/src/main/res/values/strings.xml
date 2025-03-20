@@ -4,6 +4,7 @@
     <string name="fragment_editor_delete_title">Delete</string>
 
     <!-- Widget - Account Display -->
+    <string name="widget_account_display_title">Account</string>
     <string name="widget_account_display_icon_content_description">Account Icon</string>
 
     <!-- Widget - Keypad -->
@@ -24,5 +25,21 @@
     <string name="widget_money_display_decimal_amount_hint">.00</string>
 
     <!-- Widget - Repeat Display -->
+    <string name="widget_repeat_display_title">Repeats</string>
     <string name="widget_repeat_display_content_description">Repeat</string>
+
+    <string name="dialog_repeat_weekly_button_text">Weekly</string>
+    <string name="dialog_repeat_biweekly_button_text">Biweekly</string>
+    <string name="dialog_repeat_monthly_button_text">Monthly</string>
+    <string name="dialog_repeat_mon">M</string>
+    <string name="dialog_repeat_tue">T</string>
+    <string name="dialog_repeat_wed">W</string>
+    <string name="dialog_repeat_thu">T</string>
+    <string name="dialog_repeat_fri">F</string>
+    <string name="dialog_repeat_sat">S</string>
+    <string name="dialog_repeat_sun">S</string>
+    <string name="dialog_repeat_monthly_on_the">Repeat on the</string>
+    <string name="dialog_repeat_monthly_info_text">If the selected day exceeds a month\'s length, the event will occur on the last day of that month. (i.e. selecting the 31st means it happens on the 30th or 28th in shorter months)</string>
+    <string name="dialog_repeat_positive">Save</string>
+    <string name="dialog_repeat_negative">Cancel</string>
 </resources>

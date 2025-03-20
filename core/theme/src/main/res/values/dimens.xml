@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Background -->
+    <dimen name="background_circular_selectable_stroke_width">1dp</dimen>
+
     <!-- Buttons -->
     <dimen name="theme_budgetify_button_padding_horizontal">36dp</dimen>
     <dimen name="theme_budgetify_button_padding_vertical">18dp</dimen>
@@ -8,4 +11,11 @@
     <dimen name="theme_budgetify_button_small_padding_vertical">12dp</dimen>
     <dimen name="theme_budgetify_button_extra_small_padding_horizontal">12dp</dimen>
     <dimen name="theme_budgetify_button_extra_small_padding_vertical">6dp</dimen>
+
+    <!-- Chips -->
+    <dimen name="theme_budgetify_chip_group_spacing_horizontal">2dp</dimen>
+    <dimen name="theme_budgetify_chip_group_singular_spacing_horizontal">6dp</dimen>
+    <dimen name="theme_budgetify_chip_stroke_width">1dp</dimen>
+    <dimen name="theme_budgetify_chip_singular_min_size">40dp</dimen>
+    <dimen name="theme_budgetify_chip_singular_padding">2dp</dimen>
 </resources>

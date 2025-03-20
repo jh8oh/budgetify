@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Widget - Keypad -->
     <style name="KeypadKey">
         <item name="android:layout_width">@dimen/widget_keypad_width</item>
         <item name="android:layout_height">@dimen/widget_keypad_height</item>
@@ -7,5 +8,15 @@
         <item name="android:background">@drawable/background_keypad_key</item>
         <item name="android:textAppearance">@style/TextAppearance.Budgetify.BodyLarge</item>
         <item name="android:textSize">@dimen/widget_keypad_text_size</item>
+    </style>
+
+    <!-- Widget - Repeat Display -->
+    <style name="IntervalSelectionButton" parent="@style/Theme.Budgetify.Button.Toggle">
+        <item name="android:paddingStart">@dimen/dialog_repeat_interval_selection_button_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/dialog_repeat_interval_selection_button_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/dialog_repeat_interval_selection_button_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/dialog_repeat_interval_selection_button_padding_vertical</item>
+        <item name="textAllCaps">false</item>
+        <item name="android:textAllCaps">false</item>
     </style>
 </resources>
