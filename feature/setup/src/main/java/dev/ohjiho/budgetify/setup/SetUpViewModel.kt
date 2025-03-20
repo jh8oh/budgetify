@@ -34,7 +34,7 @@ internal data class SetUpUiState(
 internal data class SetUpIncomeState(
     val isIncome: Boolean = true,
     val amount: BigDecimal = BigDecimal.ZERO,
-    val reoccurrence: Reoccurrence = Reoccurrence.with(Interval.WEEKLY, setOf(1)),
+    val reoccurrence: Reoccurrence? = Reoccurrence.with(Interval.WEEKLY, setOf(1)),
     val accountIndex: Int = 0
 ) : Parcelable
 
@@ -146,7 +146,7 @@ internal class SetUpViewModel @Inject constructor(
         }
     }
 
-    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence, accountIndex: Int) {
+    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence?, accountIndex: Int) {
         savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = SetUpIncomeState(isIncome, amount, reoccurrence, accountIndex)
     }
 

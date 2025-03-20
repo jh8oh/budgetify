@@ -107,7 +107,12 @@ internal class SetUpIncomeFragment : Fragment() {
 
     private fun saveIncomeState() {
         with(binding) {
-
+            viewModel.updateIncomeState(
+                incomeBudgetToggle.checkedButtonId == incomeButton.id,
+                moneyDisplay.getAmount(),
+                repeatDisplay.reoccurrence,
+                0
+            )
         }
     }
 
