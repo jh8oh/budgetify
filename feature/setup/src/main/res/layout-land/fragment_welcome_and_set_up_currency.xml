@@ -58,16 +58,18 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="0.48" />
 
     <LinearLayout
         android:id="@+id/welcome_layout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_gravity="center"
+        android:layout_marginStart="@dimen/set_up_default_split_guideline_spacing"
+        android:layout_marginTop="@dimen/set_up_default_margin_vertical_land"
+        android:layout_marginEnd="@dimen/set_up_default_padding_horizontal_land"
         android:gravity="center"
         android:orientation="vertical"
-        android:paddingHorizontal="@dimen/fragment_welcome_layout_padding_horizontal"
         app:layout_constraintBottom_toTopOf="@id/nav_button_container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
@@ -83,6 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:text="@string/fragment_welcome_description"
             android:textAlignment="center" />
 
@@ -92,9 +95,9 @@
         android:id="@+id/currency_description"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/fragment_set_up_currency_margin_horizontal"
-        android:layout_marginTop="@dimen/fragment_set_up_currency_margin_vertical"
-        android:layout_marginEnd="@dimen/fragment_set_up_currency_margin_horizontal"
+        android:layout_marginStart="@dimen/set_up_default_split_guideline_spacing"
+        android:layout_marginTop="@dimen/set_up_default_margin_vertical_land"
+        android:layout_marginEnd="@dimen/set_up_default_padding_horizontal_land"
         android:gravity="center"
         android:text="@string/fragment_set_up_currency_default_description"
         android:visibility="gone"
@@ -107,10 +110,8 @@
         android:id="@+id/currency_picker"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginStart="@dimen/fragment_set_up_currency_margin_horizontal"
-        android:layout_marginTop="@dimen/fragment_set_up_currency_margin_vertical"
-        android:layout_marginEnd="@dimen/fragment_set_up_currency_margin_horizontal"
-        android:layout_marginBottom="@dimen/fragment_set_up_currency_margin_vertical"
+        android:layout_marginVertical="@dimen/set_up_default_margin_vertical_land"
+        android:layout_marginStart="@dimen/set_up_default_padding_horizontal_land"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="@id/start_end_split_guideline"
         app:layout_constraintStart_toStartOf="parent" />
@@ -119,8 +120,9 @@
         android:id="@+id/nav_button_container"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/set_up_default_padding_horizontal"
-        android:layout_marginBottom="@dimen/set_up_margin_bottom"
+        android:layout_marginStart="@dimen/set_up_default_split_guideline_spacing"
+        android:layout_marginEnd="@dimen/set_up_default_padding_horizontal_land"
+        android:layout_marginBottom="@dimen/set_up_nav_buttons_margin_bottom"
         android:animateLayoutChanges="true"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

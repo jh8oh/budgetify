@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="set_up_margin_bottom">24dp</dimen>
-    <dimen name="set_up_default_padding_horizontal">16dp</dimen>
     <dimen name="set_up_default_margin_top">16dp</dimen>
+    <dimen name="set_up_default_margin_vertical_land">12dp</dimen>
+    <dimen name="set_up_default_padding_horizontal">16dp</dimen>
+    <dimen name="set_up_default_padding_horizontal_land">16dp</dimen>
+    <dimen name="set_up_default_split_guideline_spacing">12dp</dimen>
     <dimen name="set_up_back_button_margin_end">8dp</dimen>
+    <dimen name="set_up_nav_buttons_margin_bottom">24dp</dimen>
 
     <dimen name="fragment_welcome_app_icon_size">240dp</dimen>
     <dimen name="fragment_welcome_land_wave_margin_end">16dp</dimen>

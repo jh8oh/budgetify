@@ -106,7 +106,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/set_up_default_padding_horizontal"
-        android:layout_marginBottom="@dimen/set_up_margin_bottom"
+        android:layout_marginBottom="@dimen/set_up_nav_buttons_margin_bottom"
         android:animateLayoutChanges="true"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"

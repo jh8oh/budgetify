@@ -61,7 +61,7 @@
         style="@style/Theme.Budgetify.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/set_up_margin_bottom"
+        android:layout_marginBottom="@dimen/set_up_nav_buttons_margin_bottom"
         android:text="@string/fragment_set_up_next_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
