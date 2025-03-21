@@ -16,6 +16,7 @@
         <item name="colorOnSurface">@color/black_900</item>
         <!-- Text color -->
         <item name="android:textColorPrimary">@color/color_text_primary</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
         <!-- Outline color -->
         <item name="colorOutline">@color/black_700_alpha_40</item>
         <!-- Pressed color -->

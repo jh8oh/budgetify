@@ -9,7 +9,7 @@
         <item name="colorSurface">@color/black_800</item>
         <item name="colorOnSurface">@color/black_100</item>
         <!-- Outline color -->
-        <item name="colorOutline">@color/black_500</item>
+        <item name="colorOutline">@color/black_400</item>
     </style>
 
     <style name="Theme.Budgetify" parent="BaseTheme.Night" />
