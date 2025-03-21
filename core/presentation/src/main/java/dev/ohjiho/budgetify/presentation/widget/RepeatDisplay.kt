@@ -40,7 +40,7 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
     }
 
     private fun setUpDisplay() {
-        binding.root.setOnClickListener {
+        binding.clickArea.setOnClickListener {
             listener?.showDialog(Dialog().apply {
                 repeatDisplay = this@RepeatDisplay
             })
