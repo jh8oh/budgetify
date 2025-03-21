@@ -11,6 +11,7 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import dev.ohjiho.budgetify.presentation.R
+import dev.ohjiho.budgetify.theme.R as themeR
 
 abstract class EditorFragment : Fragment() {
 
@@ -38,7 +39,7 @@ abstract class EditorFragment : Fragment() {
                 addMenuProvider(object : MenuProvider {
                     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                         menuInflater.inflate(R.menu.menu_editor, menu)
-                        menu.findItem(R.id.delete).icon = ContextCompat.getDrawable(requireContext(), R.drawable.ic_delete)?.apply {
+                        menu.findItem(R.id.delete).icon = ContextCompat.getDrawable(requireContext(), themeR.drawable.ic_delete)?.apply {
                             setTint(if (arguments?.getBoolean(FROM_SET_UP_ARG) == true) onAppBarSetUpColor else onAppBarNonSetUpColor)
                         }
                     }
