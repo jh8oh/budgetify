@@ -3,7 +3,7 @@
     <style name="BaseTheme.Night"  parent="BaseTheme">
         <!-- Colors -->
         <!-- Background color -->
-        <item name="android:colorBackground">@color/black_850</item>
+        <item name="android:colorBackground">@color/black_900</item>
         <item name="colorOnBackground">@color/black_100</item>
         <!-- Surface color -->
         <item name="colorSurface">@color/black_800</item>
