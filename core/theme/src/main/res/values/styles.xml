@@ -148,4 +148,15 @@
         <item name="android:paddingBottom">@dimen/theme_budgetify_chip_singular_padding</item>
         <item name="ensureMinTouchTargetSize">false</item>
     </style>
+
+    <!-- Popup Menu -->
+    <style name="Theme.Budgetify.PopupMenu.ListPopupWindow" parent="Widget.Material3.PopupMenu.ListPopupWindow">
+        <item name="android:popupBackground">?colorSurface</item>
+    </style>
+
+    <!-- Dropdown item -->
+    <style name="Theme.Budgetify.DropDownItem" parent="@style/Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:paddingLeft">@dimen/theme_budgetify_dropdown_list_item_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/theme_budgetify_dropdown_list_item_padding_horizontal</item>
+    </style>
 </resources>

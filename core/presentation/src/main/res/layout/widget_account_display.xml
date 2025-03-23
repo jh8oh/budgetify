@@ -5,42 +5,54 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="?selectableItemBackground"
-    android:paddingHorizontal="@dimen/widget_account_display_padding_horizontal"
-    android:paddingVertical="@dimen/widget_account_display_padding_vertical">
+    android:minWidth="@dimen/widget_account_display_min_width">
 
     <TextView
         android:id="@+id/title"
         style="?textAppearanceLabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_account_display_padding_horizontal"
+        android:layout_marginTop="@dimen/widget_account_display_padding_vertical"
         android:text="@string/widget_account_display_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/widget_account_display_icon_margin_top"
-        android:contentDescription="@string/widget_account_display_icon_content_description"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        app:tint="?colorOnBackground"
-        tools:src="@drawable/ic_inc_bills" />
 
     <TextView
         android:id="@+id/name"
         style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/widget_account_display_name_margin_start"
+        android:layout_marginStart="@dimen/widget_account_display_padding_horizontal"
+        android:layout_marginTop="@dimen/widget_account_display_name_margin_top"
+        android:layout_marginBottom="@dimen/widget_account_display_padding_vertical"
         app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="@id/icon"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/arrow_down"
         app:layout_constraintHorizontal_bias="0"
-        app:layout_constraintStart_toEndOf="@id/icon"
-        app:layout_constraintTop_toTopOf="@id/icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title"
         tools:text="Chequing" />
+
+    <ImageView
+        android:id="@+id/arrow_down"
+        android:layout_width="@dimen/widget_account_display_arrow_down_size"
+        android:layout_height="@dimen/widget_account_display_arrow_down_size"
+        android:layout_marginEnd="@dimen/widget_account_display_padding_horizontal"
+        android:importantForAccessibility="no"
+        android:src="@drawable/ic_arrow_down"
+        app:layout_constraintBottom_toBottomOf="@id/name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/name" />
+
+    <View
+        android:id="@+id/click_area"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="?selectableItemBackground"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

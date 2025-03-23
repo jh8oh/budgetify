@@ -35,8 +35,8 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
     var allowNeverRepeat = true
 
     init {
-        updateView()
         setUpDisplay()
+        updateView()
     }
 
     private fun setUpDisplay() {

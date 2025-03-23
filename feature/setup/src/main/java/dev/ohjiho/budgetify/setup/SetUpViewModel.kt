@@ -146,7 +146,12 @@ internal class SetUpViewModel @Inject constructor(
         }
     }
 
-    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence?, accountIndex: Int) {
+    fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence?, account: Account?) {
+        val accountIndex = account?.let {
+            val unsafeIndex = accounts.value.indexOf(account)
+            if (unsafeIndex == -1) 0 else unsafeIndex
+        } ?: 0
+
         savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = SetUpIncomeState(isIncome, amount, reoccurrence, accountIndex)
     }
 

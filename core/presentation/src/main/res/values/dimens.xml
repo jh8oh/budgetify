@@ -10,10 +10,11 @@
     <dimen name="item_header_margin_top">8dp</dimen>
 
     <!-- Widget - Account Display -->
+    <dimen name="widget_account_display_min_width">250dp</dimen>
     <dimen name="widget_account_display_padding_vertical">4dp</dimen>
     <dimen name="widget_account_display_padding_horizontal">8dp</dimen>
-    <dimen name="widget_account_display_icon_margin_top">4dp</dimen>
-    <dimen name="widget_account_display_name_margin_start">6dp</dimen>
+    <dimen name="widget_account_display_name_margin_top">4dp</dimen>
+    <dimen name="widget_account_display_arrow_down_size">18dp</dimen>
 
     <!-- Widget - Money Display -->
     <dimen name="widget_money_display_padding_vertical">4dp</dimen>

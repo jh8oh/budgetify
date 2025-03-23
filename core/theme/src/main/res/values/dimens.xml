@@ -18,4 +18,8 @@
     <dimen name="theme_budgetify_chip_stroke_width">1dp</dimen>
     <dimen name="theme_budgetify_chip_singular_min_size">40dp</dimen>
     <dimen name="theme_budgetify_chip_singular_padding">2dp</dimen>
+
+    <!-- Dropdown -->
+    <dimen name="theme_budgetify_dropdown_list_item_preferred_height">48dp</dimen>
+    <dimen name="theme_budgetify_dropdown_list_item_padding_horizontal">8dp</dimen>
 </resources>
