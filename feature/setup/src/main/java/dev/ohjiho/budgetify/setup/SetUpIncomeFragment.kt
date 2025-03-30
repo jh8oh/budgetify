@@ -1,7 +1,6 @@
 package dev.ohjiho.budgetify.setup
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,9 +14,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.presentation.widget.RepeatDisplay
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpIncomeBinding
+import dev.ohjiho.budgetify.utils.ui.getColor
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
+import com.google.android.material.R as materialR
+import dev.ohjiho.budgetify.theme.R as themeR
 
 internal class SetUpIncomeFragment : Fragment() {
 
@@ -120,9 +122,8 @@ internal class SetUpIncomeFragment : Fragment() {
     private fun onSwitchIncomeBudgetToggle(isIncome: Boolean) {
         with(binding) {
             if (isIncome) {
-                val typedValue = TypedValue()
-                requireContext().theme.resolveAttribute(androidx.appcompat.R.attr.colorPrimary, typedValue, true)
-                val primaryColor = typedValue.data
+                val primaryColor =
+                    requireContext().getColor(materialR.attr.colorPrimary, themeR.color.teal_500)
                 moneyDisplay.setCurrencyTextColor(primaryColor)
 
                 repeatDisplay.visibility = View.VISIBLE

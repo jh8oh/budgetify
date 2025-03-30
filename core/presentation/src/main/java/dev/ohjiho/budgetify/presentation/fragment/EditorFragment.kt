@@ -1,7 +1,6 @@
 package dev.ohjiho.budgetify.presentation.fragment
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -11,6 +10,8 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import dev.ohjiho.budgetify.presentation.R
+import dev.ohjiho.budgetify.utils.ui.getColor
+import com.google.android.material.R as materialR
 import dev.ohjiho.budgetify.theme.R as themeR
 
 abstract class EditorFragment : Fragment() {
@@ -19,16 +20,9 @@ abstract class EditorFragment : Fragment() {
     abstract val newTitle: String
     abstract val updateTitle: String
 
-    private val onAppBarSetUpColor by lazy {
-        val typedValue = TypedValue()
-        context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnPrimary, typedValue, true)
-        typedValue.data
-    }
-    private val onAppBarNonSetUpColor by lazy {
-        val typedValue = TypedValue()
-        context?.theme?.resolveAttribute(com.google.android.material.R.attr.colorOnBackground, typedValue, true)
-        typedValue.data
-    }
+    private val onAppBarSetUpColor = requireContext().getColor(materialR.attr.colorOnPrimary, themeR.color.white)
+    private val onAppBarNonSetUpColor =
+        requireContext().getColor(materialR.attr.colorOnBackground, themeR.color.black_800, themeR.color.black_100)
 
     protected fun setUpEditorAppBar(isNew: Boolean) {
         (activity as AppCompatActivity).apply {
