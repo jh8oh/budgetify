@@ -113,7 +113,7 @@ class CategoryEditorFragment : EditorFragment() {
                     viewModel.category.collect { category ->
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
-                        categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
+                        categoryIcon.setColorFilter(ContextCompat.getColor(requireContext(), category.icon.colorRes))
                         iconAdapter.setIsExpense(category.type == TransactionType.EXPENSE)
                         if (category.type == TransactionType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE

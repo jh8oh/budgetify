@@ -28,7 +28,7 @@ class IconAdapter(private val context: Context, private val onClick: (Icon) -> U
         fun bind(icon: Icon) {
             binding.icon.apply {
                 setImageResource(icon.drawableRes)
-                setBackgroundColor(ContextCompat.getColor(itemView.context, icon.colorRes))
+                setColorFilter(ContextCompat.getColor(itemView.context, icon.colorRes))
             }
         }
     }
