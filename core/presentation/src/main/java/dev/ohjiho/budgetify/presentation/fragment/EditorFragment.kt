@@ -20,9 +20,12 @@ abstract class EditorFragment : Fragment() {
     abstract val newTitle: String
     abstract val updateTitle: String
 
-    private val onAppBarSetUpColor = requireContext().getColor(materialR.attr.colorOnPrimary, themeR.color.white)
-    private val onAppBarNonSetUpColor =
+    private val onAppBarSetUpColor by lazy {
+        requireContext().getColor(materialR.attr.colorOnPrimary, themeR.color.white)
+    }
+    private val onAppBarNonSetUpColor by lazy {
         requireContext().getColor(materialR.attr.colorOnBackground, themeR.color.black_800, themeR.color.black_100)
+    }
 
     protected fun setUpEditorAppBar(isNew: Boolean) {
         (activity as AppCompatActivity).apply {
