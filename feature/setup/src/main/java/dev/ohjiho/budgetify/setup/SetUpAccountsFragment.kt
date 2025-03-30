@@ -31,15 +31,15 @@ internal class SetUpAccountsFragment : Fragment() {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.accounts.collect {
-                    binding.accountsRecyclerView.setAccountList(it)
+        with(binding) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.accounts.collect {
+                        accountsRecyclerView.setAccountList(it)
+                    }
                 }
             }
-        }
 
-        with(binding) {
             accountsRecyclerView.setListener(object : AccountsRecyclerView.Listener {
                 override fun onClick(account: Account) {
                     viewModel.updateAccount(account.uid)

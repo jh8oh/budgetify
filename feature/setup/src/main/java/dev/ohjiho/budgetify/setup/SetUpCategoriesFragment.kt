@@ -31,15 +31,15 @@ class SetUpCategoriesFragment : Fragment() {
             supportActionBar?.setDisplayHomeAsUpEnabled(false)
         }
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.expenseCategories.collect {
-                    binding.categoryRecyclerView.setCategories(true, it)
+        with(binding) {
+            viewLifecycleOwner.lifecycleScope.launch {
+                repeatOnLifecycle(Lifecycle.State.STARTED) {
+                    viewModel.expenseCategories.collect {
+                        categoryRecyclerView.setCategories(true, it)
+                    }
                 }
             }
-        }
 
-        with(binding) {
             categoryRecyclerView.setListener(object : CategoryRecyclerView.Listener {
                 override fun onClick(category: Category) {
                     viewModel.updateCategory(category.uid)
