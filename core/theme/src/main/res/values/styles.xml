@@ -11,48 +11,49 @@
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineExtraLarge" parent="TextAppearance.Budgetify.Body">
-        <item name="android:textColor">?android:textColorSecondary</item>
-        <item name="android:textSize">56sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_extra_large_text_size</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">bold</item>
-        <item name="lineHeight">56sp</item>
+        <item name="lineHeight">@dimen/theme_budgetify_headline_extra_large_text_size</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_large_text_size</item>
         <item name="android:letterSpacing">-0.02</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_large_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_small_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Label" parent="TextAppearance.Material3.LabelMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_label_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
@@ -60,7 +61,7 @@
         <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_button_text_size</item>
     </style>
 
     <!-- Text Inputs -->

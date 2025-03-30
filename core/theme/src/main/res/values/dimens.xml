@@ -3,6 +3,16 @@
     <!-- Background -->
     <dimen name="background_circular_selectable_stroke_width">1dp</dimen>
 
+    <!-- Text -->
+    <dimen name="theme_budgetify_headline_extra_large_text_size">56sp</dimen>
+    <dimen name="theme_budgetify_headline_large_text_size">32sp</dimen>
+    <dimen name="theme_budgetify_headline_text_size">15sp</dimen>
+    <dimen name="theme_budgetify_body_large_text_size">18sp</dimen>
+    <dimen name="theme_budgetify_body_text_size">15sp</dimen>
+    <dimen name="theme_budgetify_body_small_text_size">13sp</dimen>
+    <dimen name="theme_budgetify_label_text_size">13sp</dimen>
+    <dimen name="theme_budgetify_button_text_size">15sp</dimen>
+
     <!-- Buttons -->
     <dimen name="theme_budgetify_button_padding_horizontal">36dp</dimen>
     <dimen name="theme_budgetify_button_padding_vertical">18dp</dimen>
