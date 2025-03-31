@@ -9,6 +9,7 @@ import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.Interval
 import dev.ohjiho.budgetify.domain.model.Reoccurrence
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
+import dev.ohjiho.budgetify.domain.repository.BudgetRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.utils.flow.Event
@@ -44,6 +45,7 @@ internal class SetUpViewModel @Inject constructor(
     private val currencyRepository: CurrencyRepository,
     accountRepository: AccountRepository,
     categoryRepository: CategoryRepository,
+    budgetRepository: BudgetRepository,
 ) : ViewModel() {
 
     private val screen = savedStateHandle.getStateFlow(SCREEN_SAVED_STATE_KEY, SetUpScreen.WELCOME)

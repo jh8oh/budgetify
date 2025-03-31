@@ -4,11 +4,11 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.domain.model.Interval
 import dev.ohjiho.budgetify.domain.model.Reoccurrence
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.YearMonth
 import java.util.Currency
 
 internal class Converters {
@@ -75,7 +75,7 @@ internal class Converters {
 
     @TypeConverter
     fun stringToLocalDate(string: String?): LocalDate? {
-        return string?.let { LocalDate.parse(string) }
+        return string?.let { LocalDate.parse(it) }
     }
 
     // Reoccurrence
@@ -91,5 +91,16 @@ internal class Converters {
         } catch (e: Exception) {
             null
         }
+    }
+
+    // YearMonth
+    @TypeConverter
+    fun yearMonthToString(yearMonth: YearMonth?): String? {
+        return yearMonth?.toString()
+    }
+
+    @TypeConverter
+    fun stringToYearMonth(string: String?): YearMonth? {
+        return string?.let { YearMonth.parse(it) }
     }
 }

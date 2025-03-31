@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.domain.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import java.math.BigDecimal
 import java.time.YearMonth
 
 /**
@@ -15,5 +16,5 @@ import java.time.YearMonth
 data class Budget(
     @ColumnInfo(name = "category_id") var categoryId: Int,
     @ColumnInfo(name = "year_month") var yearMonth: YearMonth,
-    var amount: Int,
+    var amount: BigDecimal,
 )

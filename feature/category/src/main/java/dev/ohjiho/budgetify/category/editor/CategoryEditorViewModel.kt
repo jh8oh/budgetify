@@ -5,17 +5,22 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.ohjiho.budgetify.domain.enums.Icon
+import dev.ohjiho.budgetify.domain.model.Budget
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.TransactionType
+import dev.ohjiho.budgetify.domain.repository.BudgetRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.utils.flow.combine
 import kotlinx.coroutines.launch
+import java.math.BigDecimal
+import java.time.YearMonth
 import javax.inject.Inject
 import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class CategoryEditorViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
+    private val budgetRepository: BudgetRepository,
     private val categoryRepository: CategoryRepository,
 ) : ViewModel() {
 
@@ -70,6 +75,9 @@ internal class CategoryEditorViewModel @Inject constructor(
             ).let {
                 if (isNew) {
                     categoryRepository.insert(it)
+                    if (it.type == TransactionType.EXPENSE) {
+                        budgetRepository.insert(Budget(it.uid, YearMonth.now(), BigDecimal.ZERO))
+                    }
                 } else {
                     categoryRepository.update(it)
                 }
@@ -80,6 +88,7 @@ internal class CategoryEditorViewModel @Inject constructor(
     fun deleteCategory() {
         viewModelScope.launch {
             categoryRepository.delete(category.value)
+            budgetRepository.deleteCategory(category.value.uid)
         }
     }
 
