@@ -42,4 +42,10 @@
     <dimen name="dialog_repeat_day_selection_button_padding">2dp</dimen>
     <dimen name="dialog_repeat_monthly_day_of_month_margin_start">6dp</dimen>
     <dimen name="dialog_repeat_monthly_day_of_month_min_width">60dp</dimen>
+
+    <!-- Widget - SegmentedBar -->
+    <dimen name="widget_segmented_bar_height">24dp</dimen>
+    <dimen name="widget_segmented_bar_corner_radius">4dp</dimen>
+    <dimen name="widget_segmented_bar_text_top_margin">4dp</dimen>
+    <dimen name="widget_segmented_bar_text_end_margin">4dp</dimen>
 </resources>

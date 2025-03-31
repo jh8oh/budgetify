@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="@dimen/fragment_set_up_budget_padding_horizontal">
 
     <TextView
+        android:id="@+id/set_up_budget_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Budget"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/fragment_set_up_budget_description_margin_top"
+        android:text="@string/fragment_set_up_budget_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <dev.ohjiho.budgetify.presentation.widget.graph.SegmentedBar
+        android:id="@+id/budget_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_budget_bar_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/set_up_budget_description"
+        tools:layout_height="24dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_button"

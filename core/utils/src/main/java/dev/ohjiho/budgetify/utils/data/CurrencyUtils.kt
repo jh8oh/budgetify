@@ -27,6 +27,10 @@ fun BigDecimal.toCurrencyFormat(currency: Currency, context: Context? = null): S
     }
 }
 
+fun Float.toCurrencyFormat(currency: Currency, context: Context? = null): String {
+    return this.toBigDecimal().toCurrencyFormat(currency, context)
+}
+
 fun String.toCurrencyFormat(currency: Currency, context: Context? = null): String {
     if (isNullOrEmpty()) return "0"
     return toBigDecimalAfterSanitize().toCurrencyFormat(currency, context)
