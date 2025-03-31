@@ -70,7 +70,11 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
         inDecimalMode = hasDecimal
     }
 
-    fun getAmount() = BigDecimal("${amount.ifEmpty { "0" }}.${decimalAmount.ifEmpty { "0" }}")
+    fun getAmount(): BigDecimal {
+        val nonEmptyAmount = amount.ifEmpty { "0" }
+        val nonEmptyDecimalAmount = decimalAmount.ifEmpty { "0" }
+        return if (nonEmptyAmount == "0" && nonEmptyDecimalAmount == "0") BigDecimal.ZERO else BigDecimal("$nonEmptyAmount.$nonEmptyDecimalAmount")
+    }
 
     fun addDigit(digit: Int) {
         if (!inDecimalMode) {
