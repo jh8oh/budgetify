@@ -13,6 +13,7 @@ import dev.ohjiho.budgetify.presentation.R
 import dev.ohjiho.budgetify.utils.data.sumOf
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 import dev.ohjiho.budgetify.utils.ui.getColor
+import kotlin.math.min
 import com.google.android.material.R as materialR
 import dev.ohjiho.budgetify.theme.R as themeR
 
@@ -24,7 +25,7 @@ class SegmentedBar @JvmOverloads constructor(
 ) : SegmentedGraph(context, attrs, defStyleAttr, defStyleRes) {
 
     // Resources
-    private val barHeight = resources.getDimension(R.dimen.widget_segmented_bar_height)
+    private var barHeight = resources.getDimension(R.dimen.widget_segmented_bar_height)
     private val cornerRadius = resources.getDimension(R.dimen.widget_segmented_bar_corner_radius)
     private val textTopMargin = resources.getDimension(R.dimen.widget_segmented_bar_text_top_margin)
     private val textEndMargin = resources.getDimension(R.dimen.widget_segmented_bar_text_end_margin)
@@ -45,7 +46,19 @@ class SegmentedBar @JvmOverloads constructor(
         floatArrayOf(0f, 0f, cornerRadius, cornerRadius, cornerRadius, cornerRadius, 0f, 0f)
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        // Get text bounds
+        generateText().let {
+            textPaint.getTextBounds(it, 0, it.length, textBounds)
+        }
+        barHeight = min(barHeight, MeasureSpec.getSize(heightMeasureSpec) - (textBounds.height() + textTopMargin))
+
+        setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), (barHeight + textBounds.height() + textTopMargin).toInt())
+    }
+
     override fun onDraw(canvas: Canvas) {
+        Log.i("asdf", height.toString())
+
         // Draw background and border
         segmentRectF.set(0f, 0f, width.toFloat(), barHeight)
         canvas.drawRoundRect(segmentRectF, cornerRadius, cornerRadius, backgroundPaint)
@@ -87,10 +100,8 @@ class SegmentedBar @JvmOverloads constructor(
         }
 
         // Draw text underneath
-        val text = generateText()
-        textPaint.getTextBounds(text, 0, text.length, textBounds)
         canvas.drawText(
-            text,
+            generateText(),
             width - textBounds.width().toFloat() - textEndMargin,
             barHeight + textBounds.height().toFloat() + textTopMargin,
             textPaint

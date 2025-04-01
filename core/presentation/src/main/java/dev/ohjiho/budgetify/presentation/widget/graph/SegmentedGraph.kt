@@ -65,6 +65,7 @@ abstract class SegmentedGraph @JvmOverloads constructor(
                 return
             }
         }
+        invalidate()
     }
 
     private fun sortSegmentList() {

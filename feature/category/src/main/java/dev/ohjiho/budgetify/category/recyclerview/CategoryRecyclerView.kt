@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.category.recyclerview
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.domain.model.Category
@@ -26,6 +27,7 @@ class CategoryRecyclerView @JvmOverloads constructor(
 
     fun setCategories(isExpense: Boolean, categoryList: List<Category>) {
         (adapter as CategoryAdapter).setCategoryList(isExpense, categoryList)
+        Log.i("asdf", categoryList.joinToString { it.name })
     }
 
     interface Listener {

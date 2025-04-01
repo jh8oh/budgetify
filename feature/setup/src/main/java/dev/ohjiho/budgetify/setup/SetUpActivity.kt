@@ -40,9 +40,8 @@ class SetUpActivity : AppCompatActivity() {
                         SetUpScreen.SET_UP_ACCOUNTS -> showScreen(SetUpAccountsFragment(), true)
                         SetUpScreen.ACCOUNT_EDITOR -> showScreen(AccountEditorFragment.getSetUpInstance(viewModel.editingAccountId))
                         SetUpScreen.SET_UP_INCOME -> showScreen(SetUpIncomeFragment())
-                        SetUpScreen.SET_UP_CATEGORIES -> showScreen(SetUpCategoriesFragment())
+                        SetUpScreen.SET_UP_BUDGETS -> showScreen(SetUpBudgetsFragment())
                         SetUpScreen.CATEGORY_EDITOR -> showScreen(CategoryEditorFragment.getSetUpInstance(viewModel.editingCategoryId))
-                        SetUpScreen.SET_UP_BUDGET -> showScreen(SetUpBudgetFragment())
                     }
                     it.toastMessage.getContentIfNotHandled()?.let { message ->
                         Toast.makeText(this@SetUpActivity, message, Toast.LENGTH_LONG).show()

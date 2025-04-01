@@ -23,7 +23,7 @@ import java.math.BigDecimal
 import javax.inject.Inject
 
 internal enum class SetUpScreen {
-    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_CATEGORIES, SET_UP_BUDGET, ACCOUNT_EDITOR, CATEGORY_EDITOR,
+    WELCOME, SET_UP_CURRENCY, SET_UP_ACCOUNTS, SET_UP_INCOME, SET_UP_BUDGETS, ACCOUNT_EDITOR, CATEGORY_EDITOR,
 }
 
 internal data class SetUpUiState(
@@ -71,7 +71,7 @@ internal class SetUpViewModel @Inject constructor(
         return when (val currentScreen = uiState.value.screen) {
             SetUpScreen.WELCOME -> true
 
-            SetUpScreen.SET_UP_CURRENCY, SetUpScreen.SET_UP_ACCOUNTS, SetUpScreen.SET_UP_INCOME, SetUpScreen.SET_UP_CATEGORIES, SetUpScreen.SET_UP_BUDGET -> {
+            SetUpScreen.SET_UP_CURRENCY, SetUpScreen.SET_UP_ACCOUNTS, SetUpScreen.SET_UP_INCOME, SetUpScreen.SET_UP_BUDGETS -> {
                 savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.entries[currentScreen.ordinal - 1]
                 false
             }
@@ -82,7 +82,7 @@ internal class SetUpViewModel @Inject constructor(
             }
 
             SetUpScreen.CATEGORY_EDITOR -> {
-                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_CATEGORIES
+                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_BUDGETS
                 false
             }
 
@@ -110,18 +110,15 @@ internal class SetUpViewModel @Inject constructor(
                 if (setUpIncomeState.value.amount == BigDecimal.ZERO) {
                     toastMessage.update { Event(INCOME_ZERO_TOAST_MSG) }
                 } else {
-                    savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_CATEGORIES
+                    savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_BUDGETS
                 }
                 false
             }
 
-            SetUpScreen.SET_UP_CATEGORIES -> {
-                // TODO Category check
-                savedStateHandle[SCREEN_SAVED_STATE_KEY] = SetUpScreen.SET_UP_BUDGET
-                false
+            SetUpScreen.SET_UP_BUDGETS -> {
+                // Category Check
+                true
             }
-
-            SetUpScreen.SET_UP_BUDGET -> true
 
             else -> false
         }
