@@ -35,7 +35,6 @@ internal object RoomModule {
                 db.apply {
                     beginTransaction()
                     try {
-                        insertFromAssets(context, "budget.sql")
                         insertFromAssets(context, "category.sql")
                         setTransactionSuccessful()
                     } finally {
