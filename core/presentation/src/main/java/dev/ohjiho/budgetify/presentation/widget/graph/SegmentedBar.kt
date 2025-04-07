@@ -31,6 +31,7 @@ class SegmentedBar @JvmOverloads constructor(
     private val textEndMargin = resources.getDimension(R.dimen.widget_segmented_bar_text_end_margin)
 
     // Draw
+    private val backgroundRectF = RectF()
     private val segmentRectF = RectF()
     private val segmentPaint = Paint()
     private val segmentPath = Path()
@@ -57,12 +58,9 @@ class SegmentedBar @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        Log.i("asdf", height.toString())
-
-        // Draw background and border
-        segmentRectF.set(0f, 0f, width.toFloat(), barHeight)
-        canvas.drawRoundRect(segmentRectF, cornerRadius, cornerRadius, backgroundPaint)
-        canvas.drawRoundRect(segmentRectF, cornerRadius, cornerRadius, borderPaint)
+        // Draw background
+        backgroundRectF.set(0f, 0f, width.toFloat(), barHeight)
+        canvas.drawRoundRect(backgroundRectF, cornerRadius, cornerRadius, backgroundPaint)
 
         // Draw each segment
         var drawnSegmentWidth = 0f
@@ -98,6 +96,9 @@ class SegmentedBar @JvmOverloads constructor(
                 drawnSegmentWidth += fl
             }
         }
+
+        // Draw border
+        canvas.drawRoundRect(backgroundRectF, cornerRadius, cornerRadius, borderPaint)
 
         // Draw text underneath
         canvas.drawText(
