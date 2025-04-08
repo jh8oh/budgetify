@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="crimson">#ff5c5c</color>
+    <color name="brick_red">#e25b51</color>
+    <color name="tomato">#ff7661</color>
+    <color name="burnt_orange">#ff843e</color>
+    <color name="amber">#ffd34f</color>
+    <color name="goldenrod">#e2ba52</color>
+    <color name="olive_drab">#92ac3b</color>
+    <color name="forest_green">#49aa49</color>
+    <color name="medium_sea_green">#63d691</color>
+    <color name="aqua_marine">#9fffe1</color>
+    <color name="cadet_blue">#80b7b7</color>
+    <color name="deep_sky_blue">#33ccff</color>
+    <color name="dodger_blue">#559eff</color>
+    <color name="sapphire">#4779d6</color>
+    <color name="slate_blue">#9080ff</color>
+    <color name="dark_violet">#b266ff</color>
+    <color name="orchid">#e89dee</color>
+    <color name="hot_pink">#ff86c5</color>
+    <color name="raspberry">#ff4089</color>
+    <color name="mulberry">#9e4561</color>
+    <color name="deep_purple">#663399</color>
+    <color name="thistle">#e6d5e6</color>
+    <color name="light_slate">#a0b0c0</color>
+    <color name="light_khaki">#f7f0aa</color>
+</resources>
