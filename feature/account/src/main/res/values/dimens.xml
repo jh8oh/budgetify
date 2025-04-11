@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_account_height">65dp</dimen>
+    <dimen name="item_account_height">58dp</dimen>
     <dimen name="item_account_name_margin_start">12dp</dimen>
     <dimen name="item_account_name_margin_end">4dp</dimen>
-    <dimen name="item_account_institution_margin_top">4dp</dimen>
+    <dimen name="item_account_institution_margin_top">2dp</dimen>
     <dimen name="item_account_institution_margin_end">@dimen/item_account_name_margin_end</dimen>
     <dimen name="item_account_currency_margin_end">4dp</dimen>
     <dimen name="item_account_balance_margin_end">8dp</dimen>
