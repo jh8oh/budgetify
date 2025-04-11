@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.constraintlayout.widget.ConstraintLayout
@@ -85,7 +86,6 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
             }
         }
 
-        @SuppressLint("SetTextI18n")
         private fun setUpView(savedInstanceState: Bundle?): View {
             return binding.run {
                 (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -159,16 +159,7 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
                 dayOfMonth.apply {
                     transformationMethod = null
                     runAfterTextChange {
-                        try {
-                            val parsedText = dayOfMonth.text.toString().toInt()
-                            if (parsedText < 1) {
-                                dayOfMonth.setText("1")
-                            } else if (parsedText > 31) {
-                                dayOfMonth.setText("31")
-                            }
-                        } catch (e: NumberFormatException) {
-                            Log.e(TAG, "dayOfMonth's text is not a number")
-                        }
+                        setValidDayOfMonth()
                     }
                 }
 
@@ -178,6 +169,8 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
 
         private fun onPositiveButtonPress(): Boolean {
             return try {
+                setValidDayOfMonth()
+
                 val interval = getRepetitionInterval()
                 val repetitionIndexes = getRepetitionIndexes()
 
@@ -251,6 +244,22 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
 
                     null -> emptySet()
                 }
+            }
+        }
+
+        @SuppressLint("SetTextI18n")
+        private fun setValidDayOfMonth() {
+            try {
+                with(binding) {
+                    val parsedText = dayOfMonth.text.toString().toInt()
+                    if (parsedText < 1) {
+                        dayOfMonth.setText("1")
+                    } else if (parsedText > 31) {
+                        dayOfMonth.setText("31")
+                    }
+                }
+            } catch (e: NumberFormatException) {
+                Log.e(TAG, "dayOfMonth's text is not a number")
             }
         }
     }
