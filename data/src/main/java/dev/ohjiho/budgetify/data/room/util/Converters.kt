@@ -2,8 +2,10 @@ package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.AccountType
+import dev.ohjiho.budgetify.domain.model.Budget
 import dev.ohjiho.budgetify.domain.model.Reoccurrence
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import java.math.BigDecimal
@@ -32,6 +34,21 @@ internal class Converters {
     @TypeConverter
     fun stringToBigDecimal(string: String?): BigDecimal? {
         return string?.toBigDecimalOrNull()
+    }
+
+    // Budgets
+    @TypeConverter
+    fun budgetsToJson(budgets: List<Budget>?): String? {
+        return Gson().toJson(budgets)
+    }
+
+    @TypeConverter
+    fun jsonToBudgets(json: String?): List<Budget>? {
+        return try {
+            Gson().fromJson(json, object : TypeToken<List<Budget>>() {}.type)
+        } catch (e: Exception) {
+            null
+        }
     }
 
     // Category Type

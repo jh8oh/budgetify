@@ -5,13 +5,11 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import dev.ohjiho.budgetify.data.repository.AccountRepositoryImpl
-import dev.ohjiho.budgetify.data.repository.BudgetRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.CategoryRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.CurrencyRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.SetUpRepositoryImpl
 import dev.ohjiho.budgetify.data.repository.TransactionRepositoryImpl
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
-import dev.ohjiho.budgetify.domain.repository.BudgetRepository
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
 import dev.ohjiho.budgetify.domain.repository.SetUpRepository
@@ -25,10 +23,6 @@ internal abstract class RepositoryModule {
     @Singleton
     @Binds
     abstract fun bindAccountRepository(repository: AccountRepositoryImpl): AccountRepository
-
-    @Singleton
-    @Binds
-    abstract fun bindBudgetRepository(repositoryImpl: BudgetRepositoryImpl): BudgetRepository
 
     @Singleton
     @Binds
