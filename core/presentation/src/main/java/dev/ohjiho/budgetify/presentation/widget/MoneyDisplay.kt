@@ -2,11 +2,15 @@ package dev.ohjiho.budgetify.presentation.widget
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import androidx.core.content.withStyledAttributes
+import dev.ohjiho.budgetify.presentation.R
 import dev.ohjiho.budgetify.presentation.databinding.WidgetMoneyDisplayBinding
 import dev.ohjiho.budgetify.utils.data.getDecimalAmount
 import dev.ohjiho.budgetify.utils.data.getLocale
@@ -14,6 +18,7 @@ import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 import java.math.BigDecimal
 import java.text.DecimalFormatSymbols
 import java.util.Currency
+import dev.ohjiho.budgetify.theme.R as themeR
 
 class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0, defStyleRes: Int = 0) :
     LinearLayout(context, attrs, defStyleAttr, defStyleRes) {
@@ -56,7 +61,35 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
             }
         }
 
+    var size: Size = Size.LARGE
+        set(value) {
+            field = value
+            with(binding) {
+                when (value) {
+                    Size.LARGE -> {
+                        amount.setTextAppearance(themeR.style.TextAppearance_Budgetify_HeadlineExtraLarge)
+                        currency.apply {
+                            setTextAppearance(themeR.style.TextAppearance_Budgetify_BodyLarge)
+                            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.widget_money_display_currency_text_size))
+                            setTypeface(currency.typeface, Typeface.BOLD)
+                        }
+                    }
+
+                    Size.SMALL -> {
+                        amount.setTextAppearance(themeR.style.TextAppearance_Budgetify_HeadlineLarge)
+                        currency.apply {
+                            setTextAppearance(themeR.style.TextAppearance_Budgetify_Body)
+                            setTypeface(currency.typeface, Typeface.BOLD)
+                        }
+                    }
+                }
+            }
+        }
+
     init {
+        context.withStyledAttributes(attrs, R.styleable.MoneyDisplay) {
+            size = Size.entries.toTypedArray()[getInt(R.styleable.MoneyDisplay_size, 0)]
+        }
         currency = Currency.getInstance(getLocale(context))
         setAmount(BigDecimal.ZERO)
     }
@@ -105,5 +138,11 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     fun setCurrencyTextColor(@ColorInt color: Int) {
         binding.currency.setTextColor(color)
+    }
+
+    companion object {
+        enum class Size {
+            LARGE, SMALL
+        }
     }
 }
