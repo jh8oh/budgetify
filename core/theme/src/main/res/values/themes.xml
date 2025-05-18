@@ -1,6 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="BaseTheme" parent="Theme.Material3.DayNight">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+
         <!-- Colors -->
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/teal_500</item>
