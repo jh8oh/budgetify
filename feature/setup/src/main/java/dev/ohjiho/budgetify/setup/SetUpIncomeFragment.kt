@@ -11,7 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
+import dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.presentation.widget.RepeatDisplay
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpIncomeBinding
 import dev.ohjiho.budgetify.utils.ui.getColor
@@ -67,7 +67,7 @@ internal class SetUpIncomeFragment : Fragment() {
                         incomeBudgetToggle.check(if (state.isIncome) incomeButton.id else budgetButton.id)
                         onSwitchIncomeBudgetToggle(state.isIncome)
                         moneyDisplay.apply {
-                            currency = account.currency
+                            setCurrency(account.currency)
                             setAmount(state.amount)
                         }
                         repeatDisplay.reoccurrence = state.reoccurrence
@@ -86,7 +86,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 }
             }
             moneyDisplay.setOnClickListener {
-                MoneyInputBottomSheetDialogFragment.getInstance(moneyDisplay.getAmount()).apply {
+                MoneyInputBottomSheetDialogFragment.getInstance(moneyDisplay.getCurrency(), moneyDisplay.getAmount()).apply {
                     setListener(moneyInputBottomSheetDialogListener)
                 }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
             }

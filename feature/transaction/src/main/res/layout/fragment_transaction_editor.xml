@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <dev.ohjiho.budgetify.presentation.widget.MoneyDisplay
+    <dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyDisplay
         android:id="@+id/display"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

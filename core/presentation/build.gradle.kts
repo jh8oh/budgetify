@@ -33,6 +33,7 @@ android {
 dependencies {
     // Core
     implementation(libs.material)
+    implementation(libs.androidx.fragment.ktx)
 
     // Modules
     implementation(project(":core:utils"))

@@ -3,23 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/background_money_display"
-    android:paddingHorizontal="@dimen/widget_money_display_padding_horizontal"
-    android:paddingVertical="@dimen/widget_money_display_padding_vertical">
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/border"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="@dimen/widget_money_display_border_margin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/hint"
+        style="@style/TextAppearance.Budgetify.Label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_money_display_hint_margin_start"
+        android:paddingHorizontal="@dimen/widget_money_display_hint_padding_horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/border"
+        app:layout_constraintStart_toStartOf="@+id/border"
+        app:layout_constraintTop_toTopOf="@id/border" />
 
     <TextView
         android:id="@+id/currency"
         style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/widget_money_display_padding_horizontal"
         android:layout_marginEnd="@dimen/widget_money_display_currency_margin_end"
         android:textSize="@dimen/widget_money_display_currency_text_size"
         android:textStyle="bold"
         app:layout_constraintBaseline_toBaselineOf="@id/amount"
         app:layout_constraintEnd_toStartOf="@id/amount"
         app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="@id/border"
         tools:text="CAD" />
 
     <dev.ohjiho.budgetify.presentation.widget.BaselineLastLineTextView
@@ -27,11 +46,12 @@
         style="@style/TextAppearance.Budgetify.HeadlineExtraLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/widget_money_display_padding_vertical"
         app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/border"
         app:layout_constraintEnd_toStartOf="@id/decimal"
         app:layout_constraintStart_toEndOf="@id/currency"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/border"
         tools:text="1132" />
 
     <TextView
@@ -39,11 +59,12 @@
         style="?textAppearanceHeadlineLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/widget_money_display_padding_horizontal"
         android:hint="@string/widget_money_display_decimal_amount_hint"
         android:visibility="gone"
         app:layout_constrainedWidth="true"
         app:layout_constraintBaseline_toBaselineOf="@id/amount"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/border"
         app:layout_constraintStart_toEndOf="@id/amount"
         tools:text=".21" />
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.domain.model.TransactionType
-import dev.ohjiho.budgetify.presentation.fragment.MoneyInputBottomSheetDialogFragment
+import dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBinding
 import java.math.BigDecimal
 
@@ -30,7 +30,7 @@ class TransactionEditorFragment : Fragment() {
 
         with(binding) {
             display.setOnClickListener {
-                MoneyInputBottomSheetDialogFragment.getInstance(display.getAmount()).apply {
+                MoneyInputBottomSheetDialogFragment.getInstance(display.getCurrency(), display.getAmount()).apply {
                     setListener(object : MoneyInputBottomSheetDialogFragment.Listener {
                         override fun onDialogDismiss(amount: BigDecimal) {
                             display.setAmount(amount)

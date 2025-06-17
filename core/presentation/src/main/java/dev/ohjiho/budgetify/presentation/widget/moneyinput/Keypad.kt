@@ -1,4 +1,4 @@
-package dev.ohjiho.budgetify.presentation.widget
+package dev.ohjiho.budgetify.presentation.widget.moneyinput
 
 import android.content.Context
 import android.util.AttributeSet
@@ -15,7 +15,6 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
     ConstraintLayout(context, attrs, defStyleAttr, defStyleRes) {
 
     private val binding = WidgetKeypadBinding.inflate(LayoutInflater.from(context), this, true)
-    private var moneyDisplay: MoneyDisplay? = null
     private var listener: Listener? = null
 
     private val decimalSymbol = DecimalFormatSymbols.getInstance(getLocale(context)).decimalSeparator
@@ -31,24 +30,16 @@ class Keypad @JvmOverloads constructor(context: Context, attrs: AttributeSet? = 
             val keypadButtons = arrayOf(zero, one, two, three, four, five, six, seven, eight, nine)
             keypadButtons.forEachIndexed { index, button ->
                 button.setOnClickListener {
-                    moneyDisplay?.addDigit(index)
                     listener?.onKeyPressed(index)
                 }
             }
             dot.setOnClickListener {
-                moneyDisplay?.addDecimalDot()
                 listener?.onDotPressed()
             }
             backspace.setOnClickListener {
-                moneyDisplay?.backspace()
                 listener?.onBackspacePressed()
             }
         }
-    }
-
-    fun setMoneyDisplay(moneyDisplay: MoneyDisplay) {
-        this.moneyDisplay = moneyDisplay
-        setCurrency(moneyDisplay.currency)
     }
 
     fun setListener(listener: Listener) {
