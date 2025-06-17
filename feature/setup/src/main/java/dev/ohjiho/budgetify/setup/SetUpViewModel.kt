@@ -35,7 +35,7 @@ internal data class SetUpIncomeState(
     val isIncome: Boolean = true,
     val amount: BigDecimal = BigDecimal.ZERO,
     val reoccurrence: Reoccurrence? = Reoccurrence.with(Interval.WEEKLY, setOf(1)),
-    val accountIndex: Int = 0
+    val accountId: Int = 0
 ) : Parcelable
 
 @HiltViewModel
@@ -135,21 +135,14 @@ internal class SetUpViewModel @Inject constructor(
 
     // Income
     private fun replaceIncomeAccountIfNotExist() {
-        if (accounts.value.isEmpty()) return
-
         // Check if the account set in income still exists. Otherwise, set the income account to be the first of list of accounts if it's not empty
-        if (setUpIncomeState.value.accountIndex > accounts.value.size) {
-            savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = setUpIncomeState.value.copy(accountIndex = 0)
+        if (!accounts.value.map { it.uid }.contains(setUpIncomeState.value.accountId)) {
+            savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = setUpIncomeState.value.copy(accountId = 0)
         }
     }
 
     fun updateIncomeState(isIncome: Boolean, amount: BigDecimal, reoccurrence: Reoccurrence?, account: Account?) {
-        val accountIndex = account?.let {
-            val unsafeIndex = accounts.value.indexOf(account)
-            if (unsafeIndex == -1) 0 else unsafeIndex
-        } ?: 0
-
-        savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = SetUpIncomeState(isIncome, amount, reoccurrence, accountIndex)
+        savedStateHandle[INCOME_STATE_SAVED_STATE_KEY] = SetUpIncomeState(isIncome, amount, reoccurrence, account?.uid ?: 0)
     }
 
     // Editing Category

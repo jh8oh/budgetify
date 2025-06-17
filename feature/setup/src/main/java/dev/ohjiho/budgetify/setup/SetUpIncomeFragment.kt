@@ -59,11 +59,16 @@ internal class SetUpIncomeFragment : Fragment() {
         with(binding) {
             viewLifecycleOwner.lifecycleScope.launch {
                 repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    viewModel.setUpIncomeState.combine(viewModel.accounts) { state, accounts -> Pair(state, accounts) }.collect {
-                        val state = it.first
-                        val accounts = it.second
+                    viewModel.setUpIncomeState.combine(viewModel.accounts) { state, accounts -> Pair(state, accounts) }.collect { flow ->
+                        val state = flow.first
+                        val accounts = flow.second
 
-                        val account = accounts[state.accountIndex]
+                        // Return to previous screen if accounts is somehow empty
+                        if (accounts.isEmpty()){
+                            viewModel.onBackPressed()
+                        }
+
+                        val account = accounts.find { it.uid == state.accountId } ?: accounts[0]
                         incomeBudgetToggle.check(if (state.isIncome) incomeButton.id else budgetButton.id)
                         onSwitchIncomeBudgetToggle(state.isIncome)
                         moneyDisplay.apply {
