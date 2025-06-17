@@ -8,7 +8,6 @@ import android.graphics.Rect
 import android.graphics.RectF
 import android.text.TextPaint
 import android.util.AttributeSet
-import android.util.Log
 import dev.ohjiho.budgetify.presentation.R
 import dev.ohjiho.budgetify.utils.data.sumOf
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
