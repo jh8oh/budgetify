@@ -32,8 +32,9 @@ abstract class SegmentedGraph @JvmOverloads constructor(
     internal val borderPaint by lazy {
         Paint().apply {
             isAntiAlias = true
-            color = context.getColor(materialR.attr.colorOnBackground, themeR.color.black_800, themeR.color.black_100)
+            color = context.getColor(materialR.attr.colorOutline, themeR.color.black_700_alpha_40, themeR.color.black_400)
             style = Paint.Style.STROKE
+            strokeWidth = BORDER_STROKE_WIDTH
         }
     }
     internal val backgroundPaint by lazy {
@@ -74,5 +75,7 @@ abstract class SegmentedGraph @JvmOverloads constructor(
 
     companion object {
         const val DEFAULT_MAX_PROGRESS = 1f
+
+        const val BORDER_STROKE_WIDTH = 2f
     }
 }

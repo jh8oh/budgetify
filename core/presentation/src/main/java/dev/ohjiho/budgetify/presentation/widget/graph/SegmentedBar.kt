@@ -58,7 +58,7 @@ class SegmentedBar @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         // Draw background
-        backgroundRectF.set(0f, 0f, width.toFloat(), barHeight)
+        backgroundRectF.set(BORDER_STROKE_WIDTH, BORDER_STROKE_WIDTH, width.toFloat() - BORDER_STROKE_WIDTH, barHeight - BORDER_STROKE_WIDTH)
         canvas.drawRoundRect(backgroundRectF, cornerRadius, cornerRadius, backgroundPaint)
 
         // Draw each segment
@@ -77,18 +77,18 @@ class SegmentedBar @JvmOverloads constructor(
                     // Drawing first segment requires rounded start corners
                     segmentPath.apply {
                         reset()
-                        addRoundRect(0f, 0f, fl, barHeight, startSegmentCorners, Path.Direction.CW)
+                        addRoundRect(BORDER_STROKE_WIDTH, BORDER_STROKE_WIDTH, fl, barHeight - BORDER_STROKE_WIDTH, startSegmentCorners, Path.Direction.CW)
                     }
                     canvas.drawPath(segmentPath, segmentPaint)
-                } else if (drawnSegmentWidth + fl >= width) {
+                } else if (drawnSegmentWidth + fl >= width - BORDER_STROKE_WIDTH) {
                     // Drawing last segment requires rounded end corners when reaching the end
                     segmentPath.apply {
                         reset()
-                        addRoundRect(drawnSegmentWidth, 0f, drawnSegmentWidth + fl, barHeight, endSegmentCorners, Path.Direction.CW)
+                        addRoundRect(drawnSegmentWidth - 1f, BORDER_STROKE_WIDTH, drawnSegmentWidth + fl - BORDER_STROKE_WIDTH, barHeight - BORDER_STROKE_WIDTH, endSegmentCorners, Path.Direction.CW)
                     }
                     canvas.drawPath(segmentPath, segmentPaint)
                 } else {
-                    segmentRectF.set(drawnSegmentWidth, 0f, drawnSegmentWidth + fl, barHeight)
+                    segmentRectF.set(drawnSegmentWidth - 1f, BORDER_STROKE_WIDTH, drawnSegmentWidth + fl, barHeight - BORDER_STROKE_WIDTH)
                     canvas.drawRect(segmentRectF, segmentPaint)
                 }
 
