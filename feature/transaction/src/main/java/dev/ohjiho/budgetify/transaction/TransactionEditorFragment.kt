@@ -16,6 +16,16 @@ class TransactionEditorFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionEditorBinding
 
+    private val moneyInputBottomSheetDialogListener by lazy {
+        object : MoneyInputBottomSheetDialogFragment.Listener {
+            override var isMoneyInputDialogShown: Boolean = false
+
+            override fun onDialogDismiss(amount: BigDecimal) {
+                binding.display.setAmount(amount)
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
@@ -31,11 +41,7 @@ class TransactionEditorFragment : Fragment() {
         with(binding) {
             display.setOnClickListener {
                 MoneyInputBottomSheetDialogFragment.getInstance(display.getCurrency(), display.getAmount()).apply {
-                    setListener(object : MoneyInputBottomSheetDialogFragment.Listener {
-                        override fun onDialogDismiss(amount: BigDecimal) {
-                            display.setAmount(amount)
-                        }
-                    })
+                    setListener(moneyInputBottomSheetDialogListener)
                 }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
             }
         }

@@ -29,6 +29,8 @@ internal class SetUpIncomeFragment : Fragment() {
     // Listener
     private val moneyInputBottomSheetDialogListener by lazy {
         object : MoneyInputBottomSheetDialogFragment.Listener {
+            override var isMoneyInputDialogShown: Boolean = false
+
             override fun onDialogDismiss(amount: BigDecimal) {
                 binding.moneyDisplay.setAmount(amount)
             }

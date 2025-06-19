@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -69,8 +71,35 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment(), Keypad.
         binding.moneyDisplay.backspace()
     }
 
+    override fun show(manager: FragmentManager, tag: String?) {
+        if (listener?.isMoneyInputDialogShown == false) {
+            super.show(manager, tag)
+            listener?.isMoneyInputDialogShown = true
+        }
+    }
+
+    override fun show(transaction: FragmentTransaction, tag: String?): Int {
+        return if (listener?.isMoneyInputDialogShown == false) {
+            super.show(transaction, tag).also {
+                listener?.isMoneyInputDialogShown = true
+            }
+        } else {
+            -1
+        }
+    }
+
+    override fun showNow(manager: FragmentManager, tag: String?) {
+        if (listener?.isMoneyInputDialogShown == false) {
+            super.showNow(manager, tag)
+            listener?.isMoneyInputDialogShown = true
+        }
+    }
+
     override fun onDismiss(dialog: DialogInterface) {
-        listener?.onDialogDismiss(binding.moneyDisplay.getAmount())
+        listener?.apply {
+            isMoneyInputDialogShown = false
+            onDialogDismiss(binding.moneyDisplay.getAmount())
+        }
         super.onDismiss(dialog)
     }
 
@@ -84,6 +113,7 @@ class MoneyInputBottomSheetDialogFragment : BottomSheetDialogFragment(), Keypad.
     }
 
     interface Listener {
+        var isMoneyInputDialogShown: Boolean
         fun onDialogDismiss(amount: BigDecimal)
     }
 
