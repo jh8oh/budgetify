@@ -14,12 +14,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/widget_account_display_padding_horizontal"
         android:layout_marginTop="@dimen/widget_account_display_padding_vertical"
-        android:text="@string/widget_account_display_title"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Account" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/selected_item"
         style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,9 +41,9 @@
         android:layout_marginEnd="@dimen/widget_account_display_padding_horizontal"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_arrow_down"
-        app:layout_constraintBottom_toBottomOf="@id/name"
+        app:layout_constraintBottom_toBottomOf="@id/selected_item"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/name" />
+        app:layout_constraintTop_toTopOf="@id/selected_item" />
 
     <View
         android:id="@+id/click_area"

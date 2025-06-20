@@ -62,13 +62,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/money_display" />
 
-    <dev.ohjiho.budgetify.presentation.widget.AccountDisplay
+    <dev.ohjiho.budgetify.presentation.widget.DropdownMenu
         android:id="@+id/account_display"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/fragment_set_up_income_account_margin_top"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/repeat_display" />
+        app:layout_constraintTop_toBottomOf="@id/repeat_display"
+        app:title="@string/fragment_set_up_income_account_title" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/back_button"

@@ -78,8 +78,8 @@ internal class SetUpIncomeFragment : Fragment() {
                             setAmount(state.amount)
                         }
                         repeatDisplay.reoccurrence = state.reoccurrence
-                        accountDisplay.selectedAccount = account
-                        accountDisplay.accounts = accounts
+                        accountDisplay.items = accounts.map { it.name }
+                        accountDisplay.selectedItemIndex = accounts.indexOf(account)
                     }
                 }
             }
@@ -121,7 +121,7 @@ internal class SetUpIncomeFragment : Fragment() {
                 incomeBudgetToggle.checkedButtonId == incomeButton.id,
                 moneyDisplay.getAmount(),
                 repeatDisplay.reoccurrence,
-                accountDisplay.selectedAccount
+                viewModel.accounts.value[accountDisplay.selectedItemIndex]
             )
         }
     }
