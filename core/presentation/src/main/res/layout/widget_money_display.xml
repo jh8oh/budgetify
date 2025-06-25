@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:minHeight="@dimen/widget_money_display_min_height">
 
     <View
         android:id="@+id/border"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/widget_money_display_border_margin"
+        android:layout_marginTop="@dimen/widget_money_display_border_margin_top"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,6 +21,7 @@
         style="@style/TextAppearance.Budgetify.Label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:includeFontPadding="false"
         android:layout_marginStart="@dimen/widget_money_display_hint_margin_start"
         android:paddingHorizontal="@dimen/widget_money_display_hint_padding_horizontal"
         app:layout_constraintBottom_toTopOf="@+id/border"

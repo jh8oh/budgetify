@@ -4,6 +4,10 @@
         <attr name="title" format="string" />
     </declare-styleable>
     <declare-styleable name="MoneyDisplay">
+        <attr name="style" format="enum">
+            <enum name="standard" value="0" />
+            <enum name="large" value="1" />
+        </attr>
         <attr name="android:hint" format="string" />
     </declare-styleable>
 </resources>

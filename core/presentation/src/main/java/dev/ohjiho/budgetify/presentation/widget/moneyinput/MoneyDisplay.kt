@@ -3,11 +3,14 @@ package dev.ohjiho.budgetify.presentation.widget.moneyinput
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorInt
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.withStyledAttributes
 import com.google.android.material.shape.ShapeAppearanceModel
 import dev.ohjiho.budgetify.presentation.R
@@ -28,6 +31,8 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
 
     private val binding = WidgetMoneyDisplayBinding.inflate(LayoutInflater.from(context), this, true)
 
+    private var style: Style = Style.STANDARD
+
     private var hint: String? = null
     private var currency: Currency = Currency.getInstance(getLocale(context))
     private var inDecimalMode = false
@@ -47,13 +52,31 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
             binding.decimal.text = if (value.isNotEmpty()) "$decimalSymbol$value" else ""
         }
 
+    // ConstraintSets
+    private val standardConstraintSet by lazy {
+        ConstraintSet().apply {
+            clone(largeConstraintSet)
+            with(binding) {
+                connect(amount.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START, resources.getDimensionPixelSize(R.dimen.widget_money_display_padding_horizontal))
+                clear(decimal.id, ConstraintSet.END)
+                clear(currency.id, ConstraintSet.START)
+                connect(currency.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END, resources.getDimensionPixelSize(R.dimen.widget_money_display_padding_horizontal))
+            }
+        }
+    }
+    private val largeConstraintSet = ConstraintSet().apply { clone(binding.root) }
+
+    // Resources
+    private val borderStrokeWidth by lazy { resources.getDimension(R.dimen.widget_money_display_border_stroke_width) }
+    private val borderStrokeCornerRadius by lazy { resources.getDimension(R.dimen.widget_money_display_border_stroke_corner_radius) }
+
     init {
         val borderShapeAppearanceModel = ShapeAppearanceModel.Builder()
-            .setAllCornerSizes(BORDER_SHAPE_CORNER_SIZE)
+            .setAllCornerSizes(borderStrokeCornerRadius)
             .build()
         val cutoutDrawable = CutoutDrawable.create(borderShapeAppearanceModel).apply {
             setStroke(
-                BORDER_SHAPE_STROKE,
+                borderStrokeWidth,
                 context.getColor(materialR.attr.colorOutline, themeR.color.black_700_alpha_40, themeR.color.black_400)
             )
             fillColor = ColorStateList.valueOf(Color.TRANSPARENT)
@@ -78,10 +101,39 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
         }
 
         context.withStyledAttributes(attrs, R.styleable.MoneyDisplay) {
+            setStyle(Style.entries.toTypedArray()[getInt(R.styleable.MoneyDisplay_style, 0)])
             setHint(getString(R.styleable.MoneyDisplay_android_hint))
         }
         setCurrency(Currency.getInstance(getLocale(context)))
         setAmount(BigDecimal.ZERO)
+    }
+
+    fun setStyle(style: Style) {
+        this.style = style
+
+        with(binding) {
+            when (style) {
+                Style.STANDARD -> {
+                    currency.setTextAppearance(themeR.style.TextAppearance_Budgetify_Body)
+                    amount.setTextAppearance(themeR.style.TextAppearance_Budgetify_Body)
+                    decimal.setTextAppearance(themeR.style.TextAppearance_Budgetify_Body)
+
+                    standardConstraintSet.applyTo(binding.root)
+                }
+
+                Style.LARGE -> {
+                    currency.apply {
+                        setTextAppearance(themeR.style.TextAppearance_Budgetify_BodyLarge)
+                        setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimension(R.dimen.widget_money_display_currency_text_size))
+                        setTypeface(currency.typeface, Typeface.BOLD)
+                    }
+                    amount.setTextAppearance(themeR.style.TextAppearance_Budgetify_HeadlineExtraLarge)
+                    decimal.setTextAppearance(themeR.style.TextAppearance_Budgetify_HeadlineLarge)
+
+                    largeConstraintSet.applyTo(binding.root)
+                }
+            }
+        }
     }
 
     fun setHint(hint: String?) {
@@ -161,7 +213,8 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
     }
 
     companion object {
-        private const val BORDER_SHAPE_STROKE = 4f
-        private const val BORDER_SHAPE_CORNER_SIZE = 16f
+        enum class Style {
+            STANDARD, LARGE
+        }
     }
 }

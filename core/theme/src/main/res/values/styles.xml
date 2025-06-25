@@ -65,9 +65,13 @@
     </style>
 
     <!-- Text Inputs -->
-    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/color_text_box_outline_stroke</item>
+    </style>
 
-    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/color_text_box_outline_stroke</item>
+    </style>
 
     <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
         <item name="android:textAppearance">?textAppearanceBodyMedium</item>

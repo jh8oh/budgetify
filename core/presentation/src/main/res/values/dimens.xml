@@ -17,9 +17,12 @@
     <dimen name="widget_account_display_arrow_down_size">18dp</dimen>
 
     <!-- Widget - Money Display -->
-    <dimen name="widget_money_display_border_margin">7sp</dimen>
+    <dimen name="widget_money_display_min_height">59dp</dimen>
+    <dimen name="widget_money_display_border_margin_top">6sp</dimen>
+    <dimen name="widget_money_display_border_stroke_width">1dp</dimen>
+    <dimen name="widget_money_display_border_stroke_corner_radius">4dp</dimen>
     <dimen name="widget_money_display_padding_vertical">4dp</dimen>
-    <dimen name="widget_money_display_padding_horizontal">12dp</dimen>
+    <dimen name="widget_money_display_padding_horizontal">14dp</dimen>
     <dimen name="widget_money_display_hint_margin_start">12dp</dimen>
     <dimen name="widget_money_display_hint_padding_horizontal">6dp</dimen>
     <dimen name="widget_money_display_currency_text_size">24sp</dimen>
