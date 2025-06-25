@@ -88,13 +88,13 @@ class MoneyDisplay @JvmOverloads constructor(context: Context, attrs: AttributeS
                 // offset the position by the margin of the content view
                 val realLeft = left - border.left
                 val realTop = top - border.top
-                val realRigth = right - border.left
+                val realRight = right - border.left
                 val realBottom = bottom - border.top
                 // update the cutout part of the drawable
                 cutoutDrawable.setCutout(
                     realLeft.toFloat(),
                     realTop.toFloat(),
-                    realRigth.toFloat(),
+                    realRight.toFloat(),
                     realBottom.toFloat()
                 )
             }

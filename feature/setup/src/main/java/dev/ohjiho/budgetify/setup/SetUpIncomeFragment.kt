@@ -4,15 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.presentation.widget.RepeatDisplay
+import dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.setup.databinding.FragmentSetUpIncomeBinding
 import dev.ohjiho.budgetify.utils.ui.getColor
 import kotlinx.coroutines.flow.combine
@@ -43,11 +42,6 @@ internal class SetUpIncomeFragment : Fragment() {
                 dialog.show(childFragmentManager, RepeatDisplay.TAG)
             }
         }
-    }
-
-    // Adapters
-    private val accountAdapter by lazy {
-        ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, viewModel.accounts.value.map { it.name })
     }
 
     // Resources
@@ -144,9 +138,5 @@ internal class SetUpIncomeFragment : Fragment() {
                 accountDisplay.visibility = View.GONE
             }
         }
-    }
-
-    companion object {
-        private const val IMPOSSIBLE_THRESHOLD = 1000
     }
 }

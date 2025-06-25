@@ -1,10 +1,8 @@
 package dev.ohjiho.budgetify.domain.model
 
-import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
-import java.time.DayOfWeek
 import java.time.LocalDate
 
 /**

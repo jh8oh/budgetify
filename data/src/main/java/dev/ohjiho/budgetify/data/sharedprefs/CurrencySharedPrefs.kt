@@ -3,6 +3,7 @@ package dev.ohjiho.budgetify.data.sharedprefs
 import android.content.SharedPreferences
 import dev.ohjiho.budgetify.utils.data.getLocale
 import java.util.Currency
+import androidx.core.content.edit
 
 internal class CurrencySharedPrefs(private val sharedPrefs: SharedPreferences) {
     companion object {
@@ -12,5 +13,5 @@ internal class CurrencySharedPrefs(private val sharedPrefs: SharedPreferences) {
 
     var defaultCurrency: Currency
         get() = sharedPrefs.getString(DEFAULT_CURRENCY_KEY, null)?.let { Currency.getInstance(it) } ?: Currency.getInstance(getLocale())
-        set(value) = sharedPrefs.edit().putString(DEFAULT_CURRENCY_KEY, value.currencyCode).apply()
+        set(value) = sharedPrefs.edit { putString(DEFAULT_CURRENCY_KEY, value.currencyCode) }
 }
