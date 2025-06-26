@@ -16,7 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/weekly"
             style="@style/IntervalSelectionButton"
             android:layout_width="wrap_content"
@@ -24,7 +24,7 @@
             android:layout_weight="1"
             android:text="@string/dialog_repeat_weekly_button_text" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/biweekly"
             style="@style/IntervalSelectionButton"
             android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:text="@string/dialog_repeat_biweekly_button_text" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/monthly"
             style="@style/IntervalSelectionButton"
             android:layout_width="wrap_content"

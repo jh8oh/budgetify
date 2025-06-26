@@ -113,7 +113,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/back_button"
             style="@style/Theme.Budgetify.IconButton.Outlined"
             android:layout_width="wrap_content"
@@ -121,7 +121,7 @@
             android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
             app:icon="@drawable/ic_arrow_back" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/next_button"
             style="@style/Theme.Budgetify.Button"
             android:layout_width="match_parent"

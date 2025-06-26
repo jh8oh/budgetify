@@ -60,14 +60,14 @@
         app:selectionRequired="true"
         app:singleSelection="true">
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/need_button"
             style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/fragment_category_editor_need_button" />
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/want_button"
             style="@style/Theme.Budgetify.Button.Toggle"
             android:layout_width="wrap_content"
