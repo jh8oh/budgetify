@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:minWidth="@dimen/widget_account_display_min_width">
+    android:minWidth="@dimen/widget_dropdown_menu_min_width">
 
     <TextView
         android:id="@+id/title"
         style="?textAppearanceLabelMedium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/widget_account_display_padding_horizontal"
-        android:layout_marginTop="@dimen/widget_account_display_padding_vertical"
+        android:layout_marginStart="@dimen/widget_dropdown_menu_content_padding_horizontal"
+        android:layout_marginTop="@dimen/widget_dropdown_menu_title_margin_top"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Account" />
@@ -22,22 +22,22 @@
         style="?textAppearanceBodyLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/widget_account_display_padding_horizontal"
-        android:layout_marginTop="@dimen/widget_account_display_name_margin_top"
-        android:layout_marginBottom="@dimen/widget_account_display_padding_vertical"
+        android:layout_marginVertical="@dimen/widget_dropdown_menu_content_padding_vertical"
+        android:layout_marginStart="@dimen/widget_dropdown_menu_content_padding_horizontal"
+        android:layout_marginEnd="@dimen/widget_dropdown_menu_selected_item_margin_end"
         app:layout_constrainedWidth="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/click_area"
         app:layout_constraintEnd_toStartOf="@id/arrow_down"
         app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
+        app:layout_constraintTop_toTopOf="@id/click_area"
         tools:text="Chequing" />
 
     <ImageView
         android:id="@+id/arrow_down"
-        android:layout_width="@dimen/widget_account_display_arrow_down_size"
-        android:layout_height="@dimen/widget_account_display_arrow_down_size"
-        android:layout_marginEnd="@dimen/widget_account_display_padding_horizontal"
+        android:layout_width="@dimen/widget_dropdown_menu_arrow_down_size"
+        android:layout_height="@dimen/widget_dropdown_menu_arrow_down_size"
+        android:layout_marginEnd="@dimen/widget_dropdown_menu_content_padding_horizontal"
         android:importantForAccessibility="no"
         android:src="@drawable/ic_arrow_down"
         app:layout_constraintBottom_toBottomOf="@id/selected_item"
@@ -51,6 +51,7 @@
         android:background="?selectableItemBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_min="@dimen/widget_dropdown_menu_content_min_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title" />
 
