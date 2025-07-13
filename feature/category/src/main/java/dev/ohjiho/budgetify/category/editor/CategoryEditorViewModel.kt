@@ -8,7 +8,9 @@ import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.Category
 import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
-import dev.ohjiho.budgetify.utils.flow.combine
+import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 import kotlin.properties.Delegates
@@ -25,11 +27,10 @@ internal class CategoryEditorViewModel @Inject constructor(
         savedStateHandle.getStateFlow(NAME_SAVED_STATE_KEY, ""),
         savedStateHandle.getStateFlow(TRANSACTION_TYPE_SAVED_STATE_KEY, TransactionType.EXPENSE),
         savedStateHandle.getStateFlow(ICON_SAVED_STATE_KEY, Icon.HOME),
-        savedStateHandle.getStateFlow<Boolean?>(IS_NEED_SAVED_STATE_KEY, null),
-        viewModelScope
+        savedStateHandle.getStateFlow<Boolean?>(IS_NEED_SAVED_STATE_KEY, null)
     ) { uid, name, transactionType, icon, isNeed ->
         Category(uid, name, transactionType, icon, isNeed)
-    }
+    }.stateIn(viewModelScope, WhileUiSubscribed, Category())
 
     fun initNew(type: TransactionType) {
         isNew = true

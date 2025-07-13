@@ -8,7 +8,9 @@ import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
 import dev.ohjiho.budgetify.domain.repository.AccountRepository
 import dev.ohjiho.budgetify.domain.repository.CurrencyRepository
+import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
 import dev.ohjiho.budgetify.utils.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.Currency
@@ -29,11 +31,10 @@ internal class AccountEditorViewModel @Inject constructor(
         savedStateHandle.getStateFlow(INSTITUTION_SAVED_STATE_KEY, ""),
         savedStateHandle.getStateFlow(ACCOUNT_TYPE_SAVED_STATE_KEY, AccountType.CASH),
         savedStateHandle.getStateFlow(BALANCE_SAVED_STATE_KEY, "0"),
-        savedStateHandle.getStateFlow(CURRENCY_SAVED_STATE_KEY, currencyRepository.getDefaultCurrency().currencyCode),
-        viewModelScope
+        savedStateHandle.getStateFlow(CURRENCY_SAVED_STATE_KEY, currencyRepository.getDefaultCurrency().currencyCode)
     ) { uid, name, institution, accountType, balance, currencyCode ->
         Account(uid, name, institution, accountType, BigDecimal(balance), Currency.getInstance(currencyCode))
-    }
+    }.stateIn(viewModelScope, WhileUiSubscribed, Account())
     val uniqueInstitution = accountRepository.getAllUniqueInstitutions()
 
     fun initNew() {

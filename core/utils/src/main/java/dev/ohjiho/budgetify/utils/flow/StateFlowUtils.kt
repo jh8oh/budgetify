@@ -1,12 +1,9 @@
 package dev.ohjiho.budgetify.utils.flow
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.stateIn
 
 private const val StopTimeoutMillis: Long = 5000
 
@@ -26,37 +23,17 @@ private const val StopTimeoutMillis: Long = 5000
 val WhileUiSubscribed: SharingStarted = SharingStarted.WhileSubscribed(StopTimeoutMillis)
 
 /**
- * Combine 5 flows into one using the function given in transform
- */
-@OptIn(DelicateCoroutinesApi::class)
-fun <T1, T2, T3, T4, T5, R> combine(
-    flow: StateFlow<T1>,
-    flow2: StateFlow<T2>,
-    flow3: StateFlow<T3>,
-    flow4: StateFlow<T4>,
-    flow5: StateFlow<T5>,
-    scope: CoroutineScope = GlobalScope,
-    sharingStarted: SharingStarted = WhileUiSubscribed,
-    transform: (T1, T2, T3, T4, T5) -> R,
-): StateFlow<R> = combine(flow, flow2, flow3, flow4, flow5) { f1, f2, f3, f4, f5 ->
-    transform(f1, f2, f3, f4, f5)
-}.stateIn(scope, sharingStarted, transform.invoke(flow.value, flow2.value, flow3.value, flow4.value, flow5.value))
-
-/**
  * Combine 6 flows into one using the function given in transform
  */
-@OptIn(DelicateCoroutinesApi::class)
 fun <T1, T2, T3, T4, T5, T6, R> combine(
-    flow: StateFlow<T1>,
-    flow2: StateFlow<T2>,
-    flow3: StateFlow<T3>,
-    flow4: StateFlow<T4>,
-    flow5: StateFlow<T5>,
-    flow6: StateFlow<T6>,
-    scope: CoroutineScope = GlobalScope,
-    sharingStarted: SharingStarted = WhileUiSubscribed,
+    flow: Flow<T1>,
+    flow2: Flow<T2>,
+    flow3: Flow<T3>,
+    flow4: Flow<T4>,
+    flow5: Flow<T5>,
+    flow6: Flow<T6>,
     transform: (T1, T2, T3, T4, T5, T6) -> R,
-): StateFlow<R> = combine(
+) = combine(
     combine(flow, flow2, flow3, ::Triple),
     combine(flow4, flow5, flow6, ::Triple)
 ) { t1, t2 ->
@@ -68,4 +45,4 @@ fun <T1, T2, T3, T4, T5, T6, R> combine(
         t2.second,
         t2.third
     )
-}.stateIn(scope, sharingStarted, transform.invoke(flow.value, flow2.value, flow3.value, flow4.value, flow5.value, flow6.value))
+}
