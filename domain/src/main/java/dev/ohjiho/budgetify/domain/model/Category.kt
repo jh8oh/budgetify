@@ -23,10 +23,10 @@ data class BudgetInfo(
  */
 @Entity(tableName = "categories")
 data class Category(
-    @PrimaryKey(autoGenerate = true) var uid: Int,
-    val name: String,
-    val type: TransactionType,
-    val icon: Icon,
+    @PrimaryKey(autoGenerate = true) var uid: Int = 0,
+    val name: String = "",
+    val type: TransactionType = TransactionType.EXPENSE,
+    val icon: Icon = Icon.HOME,
     val isNeed: Boolean? = null,
     @Embedded val budgetInfo: BudgetInfo? = null,
 )

@@ -17,11 +17,11 @@ import java.time.LocalDate
  */
 @Entity(tableName = "transactions")
 data class Transaction(
-    @PrimaryKey(autoGenerate = true) var uid: Int,
-    val fromAccountId: Int,
-    val toAccountId: Int?,
-    val categoryId: Int,
-    val amount: BigDecimal,
-    val localDate: LocalDate,
-    val reoccurrence: Reoccurrence?,
+    @PrimaryKey(autoGenerate = true) var uid: Int = 0,
+    val fromAccountId: Int = 0,
+    val toAccountId: Int? = null,
+    val categoryId: Int = 0,
+    val amount: BigDecimal = BigDecimal.ZERO,
+    val localDate: LocalDate = LocalDate.now(),
+    val reoccurrence: Reoccurrence? = null,
 )

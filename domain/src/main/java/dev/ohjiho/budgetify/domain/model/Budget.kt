@@ -13,7 +13,7 @@ import java.time.YearMonth
  */
 @Entity(tableName = "budgets", primaryKeys = ["categoryId", "yearMonth"])
 data class Budget(
-    val categoryId: Int,
-    val yearMonth: YearMonth,
-    val amount: BigDecimal
+    val categoryId: Int = 0,
+    val yearMonth: YearMonth = YearMonth.now(),
+    val amount: BigDecimal = BigDecimal.ZERO
 )
