@@ -56,8 +56,80 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment(), CurrencyPicker.List
             playTogether(startGuidelineAnimator, endGuidelineAnimator)
         }
     }
-    private var backgroundGuidelineAnimatorWelcomeLandListener: AnimatorListener? = null
-    private var backgroundGuidelineAnimatorCurrencyLandListener: AnimatorListener? = null
+    private val backgroundGuidelineAnimatorWelcomeVertListener: AnimatorListener by lazy {
+        object : AnimatorListener {
+            override fun onAnimationStart(animator: Animator) {
+                with(binding) {
+                    welcomeLayout.visibility = View.VISIBLE
+                    currencyDescription.visibility = View.GONE
+                    currencyPicker.visibility = View.GONE
+                    appIcon.visibility = View.VISIBLE
+                    backButton.visibility = View.GONE
+                }
+            }
+
+            override fun onAnimationEnd(animator: Animator) {}
+            override fun onAnimationCancel(animator: Animator) {}
+            override fun onAnimationRepeat(animator: Animator) {}
+        }
+    }
+    private val backgroundGuidelineAnimatorCurrencyVertListener: AnimatorListener by lazy {
+        object : AnimatorListener {
+            override fun onAnimationStart(animator: Animator) {
+                with(binding) {
+                    welcomeLayout.visibility = View.GONE
+                    currencyDescription.visibility = View.VISIBLE
+                    currencyPicker.visibility = View.VISIBLE
+                    appIcon.visibility = View.GONE
+                    backButton.visibility = View.VISIBLE
+                }
+            }
+
+            override fun onAnimationEnd(animator: Animator) {}
+            override fun onAnimationCancel(animator: Animator) {}
+            override fun onAnimationRepeat(animator: Animator) {}
+        }
+    }
+    private val backgroundGuidelineAnimatorWelcomeLandListener: AnimatorListener by lazy {
+        object : AnimatorListener {
+            override fun onAnimationStart(animator: Animator) {
+                (activity as SetUpActivity).setAppBarVisibility(View.GONE)
+                with(binding) {
+                    welcomeLayout.visibility = View.VISIBLE
+                    currencyDescription.visibility = View.GONE
+                    currencyPicker.visibility = View.GONE
+                    backButton.visibility = View.GONE
+                }
+            }
+
+            override fun onAnimationEnd(animator: Animator) {
+                binding.appIcon.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationCancel(animator: Animator) {}
+            override fun onAnimationRepeat(animator: Animator) {}
+        }
+    }
+    private val backgroundGuidelineAnimatorCurrencyLandListener: AnimatorListener by lazy {
+        object : AnimatorListener {
+            override fun onAnimationStart(animator: Animator) {
+                (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
+                with(binding) {
+                    welcomeLayout.visibility = View.GONE
+                    currencyDescription.visibility = View.VISIBLE
+                    backButton.visibility = View.VISIBLE
+                    appIcon.visibility = View.GONE
+                }
+            }
+
+            override fun onAnimationEnd(animator: Animator) {
+                binding.currencyPicker.visibility = View.VISIBLE
+            }
+
+            override fun onAnimationCancel(animator: Animator) {}
+            override fun onAnimationRepeat(animator: Animator) {}
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,19 +138,6 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment(), CurrencyPicker.List
         if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
             backgroundStartGuidelineHeight = (screenSize.width * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
             backgroundEndGuidelineHeight = (screenSize.width * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
-
-            backgroundGuidelineAnimatorWelcomeLandListener = object : AnimatorListener {
-                override fun onAnimationRepeat(animator: Animator) {}
-                override fun onAnimationEnd(animator: Animator) {}
-                override fun onAnimationCancel(animator: Animator) {}
-                override fun onAnimationStart(animator: Animator) = (activity as SetUpActivity).setAppBarVisibility(View.GONE)
-            }
-            backgroundGuidelineAnimatorCurrencyLandListener = object : AnimatorListener {
-                override fun onAnimationRepeat(animator: Animator) {}
-                override fun onAnimationEnd(animator: Animator) = (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
-                override fun onAnimationCancel(animator: Animator) {}
-                override fun onAnimationStart(animator: Animator) {}
-            }
         } else {
             backgroundStartGuidelineHeight = (screenSize.height * BACKGROUND_START_GUIDELINE_HEIGHT).toInt()
             backgroundEndGuidelineHeight = (screenSize.height * BACKGROUND_END_GUIDELINE_HEIGHT).toInt()
@@ -116,32 +175,35 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment(), CurrencyPicker.List
 
     private fun showWelcomeScreen() {
         with(binding) {
-            // Title
             (requireActivity() as AppCompatActivity).title = null
+            nextButton.text = welcomeNextButtonText
 
-            // Start/End Guideline
             if (prevScreen == SetUpScreen.SET_UP_CURRENCY) {
+                // Animate
                 backgroundGuidelineAnimator.apply {
-                    addListener(backgroundGuidelineAnimatorWelcomeLandListener)
-                    removeListener(backgroundGuidelineAnimatorCurrencyLandListener)
+                    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        addListener(backgroundGuidelineAnimatorWelcomeLandListener)
+                        removeListener(backgroundGuidelineAnimatorCurrencyLandListener)
+                    } else {
+                        addListener(backgroundGuidelineAnimatorWelcomeVertListener)
+                        removeListener(backgroundGuidelineAnimatorCurrencyVertListener)
+                    }
                 }.reverse()
             } else {
+                // Don't animate
                 backgroundStartGuideline.setGuidelineBegin(backgroundStartGuidelineHeight)
                 backgroundEndGuideline.setGuidelineBegin(backgroundEndGuidelineHeight)
+
+                welcomeLayout.visibility = View.VISIBLE
+                currencyDescription.visibility = View.GONE
+                currencyPicker.visibility = View.GONE
+                appIcon.visibility = View.VISIBLE
+                backButton.visibility = View.GONE
+
                 if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     (activity as SetUpActivity).setAppBarVisibility(View.GONE)
                 }
             }
-
-            // Content
-            welcomeLayout.visibility = View.VISIBLE
-            currencyDescription.visibility = View.GONE
-            currencyPicker.visibility = View.GONE
-
-            // App icon & navigation buttons
-            appIcon.visibility = View.VISIBLE
-            backButton.visibility = View.GONE
-            nextButton.text = welcomeNextButtonText
         }
 
         prevScreen = SetUpScreen.WELCOME
@@ -149,32 +211,35 @@ internal class WelcomeAndSetUpCurrencyFragment : Fragment(), CurrencyPicker.List
 
     private fun showCurrencyScreen() {
         with(binding) {
-            // Title
             (requireActivity() as AppCompatActivity).title = setUpCurrencyTitle
+            nextButton.text = currencyNextButtonText
 
-            // Start/End Guideline
             if (prevScreen == SetUpScreen.WELCOME) {
+                // Animate
                 backgroundGuidelineAnimator.apply {
-                    addListener(backgroundGuidelineAnimatorCurrencyLandListener)
-                    removeListener(backgroundGuidelineAnimatorWelcomeLandListener)
+                    if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+                        addListener(backgroundGuidelineAnimatorCurrencyLandListener)
+                        removeListener(backgroundGuidelineAnimatorWelcomeLandListener)
+                    } else {
+                        addListener(backgroundGuidelineAnimatorCurrencyVertListener)
+                        removeListener(backgroundGuidelineAnimatorWelcomeVertListener)
+                    }
                 }.start()
             } else {
+                // Don't animate
                 backgroundStartGuideline.setGuidelineBegin(0)
                 backgroundEndGuideline.setGuidelineBegin(0)
+
+                welcomeLayout.visibility = View.GONE
+                currencyDescription.visibility = View.VISIBLE
+                currencyPicker.visibility = View.VISIBLE
+                appIcon.visibility = View.GONE
+                backButton.visibility = View.VISIBLE
+
                 if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
                     (activity as SetUpActivity).setAppBarVisibility(View.VISIBLE)
                 }
             }
-
-            // Content
-            welcomeLayout.visibility = View.GONE
-            currencyDescription.visibility = View.VISIBLE
-            currencyPicker.visibility = View.VISIBLE
-
-            // App icon & navigation buttons
-            appIcon.visibility = View.GONE
-            backButton.visibility = View.VISIBLE
-            nextButton.text = currencyNextButtonText
         }
 
         prevScreen = SetUpScreen.SET_UP_CURRENCY
