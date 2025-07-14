@@ -27,6 +27,7 @@
     <dimen name="fragment_set_up_income_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
     <dimen name="fragment_set_up_income_description_margin_top">@dimen/set_up_default_margin_top</dimen>
     <dimen name="fragment_set_up_income_budget_toggle_margin_top">6dp</dimen>
+    <dimen name="fragment_set_up_income_land_budget_toggle_margin_top">12dp</dimen>
     <dimen name="fragment_set_up_income_money_display_margin_top">12dp</dimen>
     <dimen name="fragment_set_up_income_reoccurrence_margin_top">12dp</dimen>
     <dimen name="fragment_set_up_income_account_margin_top">12dp</dimen>

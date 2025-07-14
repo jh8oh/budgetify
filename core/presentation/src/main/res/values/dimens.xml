@@ -3,8 +3,12 @@
     <!-- Dialog - Money Input Bottom Sheet Dialog -->
     <dimen name="dialog_money_input_padding_horizontal">24dp</dimen>
     <dimen name="dialog_money_input_drag_handle_margin_top">8dp</dimen>
+    <dimen name="dialog_money_input_land_money_display_margin_start">12dp</dimen>
+    <dimen name="dialog_money_input_land_money_display_margin_end">12dp</dimen>
     <dimen name="dialog_money_input_keypad_margin_top">24dp</dimen>
     <dimen name="dialog_money_input_keypad_margin_bottom">24dp</dimen>
+    <dimen name="dialog_money_input_land_keypad_margin_end">12dp</dimen>
+    <dimen name="dialog_money_input_land_keypad_margin_bottom">12dp</dimen>
 
     <!-- ViewHolder - Header -->
     <dimen name="item_header_margin_top">8dp</dimen>
