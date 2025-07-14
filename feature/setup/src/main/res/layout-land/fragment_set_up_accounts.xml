@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/set_up_default_padding_horizontal_land">
+
+    <dev.ohjiho.budgetify.account.recyclerview.AccountsRecyclerView
+        android:id="@+id/accounts_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="@dimen/set_up_default_margin_vertical_land"
+        app:layout_constraintEnd_toEndOf="@id/start_end_split_guideline"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:listitem="@layout/item_account" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/start_end_split_guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintGuide_percent="@dimen/set_up_landscape_split_guideline_percent" />
+
+    <TextView
+        android:id="@+id/set_up_accounts_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/set_up_default_split_guideline_spacing"
+        android:gravity="center"
+        android:text="@string/fragment_set_up_accounts_description"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintBottom_toTopOf="@id/add_account_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/add_account_button"
+        style="@style/Theme.Budgetify.Button.Outlined.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_accounts_add_account_button_margin_top"
+        android:text="@string/fragment_set_up_accounts_add_button"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
+        app:layout_constraintTop_toBottomOf="@id/set_up_accounts_description" />
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Theme.Budgetify.IconButton.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/set_up_default_split_guideline_spacing"
+        android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
+        app:icon="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/next_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        app:layout_constraintStart_toStartOf="@id/start_end_split_guideline"
+        app:layout_constraintTop_toTopOf="@id/next_button" />
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/set_up_nav_buttons_margin_bottom"
+        android:text="@string/fragment_set_up_next_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

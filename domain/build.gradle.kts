@@ -2,11 +2,12 @@ plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.parcelize)
 }
 
 android {
     namespace = "dev.ohjiho.budgetify.domain"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -44,5 +45,5 @@ dependencies {
 
     // Modules
     implementation(project(":core:theme"))
-    implementation(project(":core:icons"))
+    implementation(project(":core:utils"))
 }

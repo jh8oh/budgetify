@@ -3,6 +3,7 @@ package dev.ohjiho.budgetify.category.editor
 import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
@@ -21,8 +22,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.category.R
 import dev.ohjiho.budgetify.category.databinding.FragmentCategoryEditorBinding
-import dev.ohjiho.budgetify.domain.model.CategoryType
-import dev.ohjiho.budgetify.theme.fragment.EditorFragment
+import dev.ohjiho.budgetify.domain.model.TransactionType
+import dev.ohjiho.budgetify.presentation.fragment.EditorFragment
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat
 import dev.ohjiho.budgetify.utils.ui.ScreenMetricsCompat.toPx
 import kotlinx.coroutines.launch
@@ -33,7 +34,19 @@ class CategoryEditorFragment : EditorFragment() {
     private val viewModel by viewModels<CategoryEditorViewModel>()
     private lateinit var binding: FragmentCategoryEditorBinding
 
-    // Dialog
+    // Resources
+    override val newTitle by lazy { resources.getString(R.string.fragment_category_editor_add_title) }
+    override val updateTitle by lazy { resources.getString(R.string.fragment_category_editor_update_title) }
+    private val categoryNameBlankError by lazy { resources.getString(R.string.fragment_category_editor_name_blank_error) }
+
+    private val iconPressAnimation by lazy {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_press)
+    }
+    private val iconReleaseAnimation by lazy {
+        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_release)
+    }
+
+    // Adapter
     private val iconAdapter: IconAdapter by lazy {
         IconAdapter(requireContext()) {
             viewModel.updateIconState(it)
@@ -41,6 +54,7 @@ class CategoryEditorFragment : EditorFragment() {
         }
     }
 
+    // Dialog
     private val iconDialog: AlertDialog by lazy {
         val dialogView = FrameLayout(requireContext()).apply {
             layoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT)
@@ -65,29 +79,30 @@ class CategoryEditorFragment : EditorFragment() {
         }.create()
     }
 
-    // Resources
-    override val newTitle by lazy { resources.getString(R.string.fragment_category_editor_add_title) }
-    override val updateTitle by lazy { resources.getString(R.string.fragment_category_editor_update_title) }
-    private val categoryNameBlankError by lazy { resources.getString(R.string.fragment_category_editor_name_blank_error) }
-
-    private val iconPressAnimation by lazy {
-        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_press)
-    }
-    private val iconReleaseAnimation by lazy {
-        AnimationUtils.loadAnimation(requireContext(), R.anim.anim_icon_on_release)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(CATEGORY_ID)?.let {
-                viewModel.initWithId(it)
+            val transactionType = arguments?.getString(TRANSACTION_TYPE_ARG)
+            val categoryId = arguments?.getInt(CATEGORY_ID_ARG) ?: 0
+
+            if (transactionType != null) {
+                viewModel.initNew(TransactionType.valueOf(transactionType))
+            } else if (categoryId != 0) {
+                try {
+                    viewModel.initExisting(categoryId)
+                } catch (e: NullPointerException) {
+                    Log.e(CATEGORY_EDITOR_TAG, e.message ?: "")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            } else {
+                Log.e(CATEGORY_EDITOR_TAG, CATEGORY_EDITOR_NO_ARGS_ERROR)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentCategoryEditorBinding.inflate(inflater)
 
         setUpEditorAppBar(viewModel.isNew)
@@ -98,9 +113,9 @@ class CategoryEditorFragment : EditorFragment() {
                     viewModel.category.collect { category ->
                         categoryName.setText(category.name)
                         categoryIcon.setImageResource(category.icon.drawableRes)
-                        categoryIcon.setBackgroundColor(ContextCompat.getColor(requireContext(), category.icon.colorRes))
-                        iconAdapter.setIsExpense(category.type == CategoryType.EXPENSE)
-                        if (category.type == CategoryType.EXPENSE) {
+                        categoryIcon.setColorFilter(ContextCompat.getColor(requireContext(), category.icon.colorRes))
+                        iconAdapter.setIsExpense(category.type == TransactionType.EXPENSE)
+                        if (category.type == TransactionType.EXPENSE) {
                             needOrWantLabel.visibility = View.VISIBLE
                             needOrWantToggleGroup.visibility = View.VISIBLE
                             needOrWantToggleGroup.check(if (category.isNeed == true) needButton.id else wantButton.id)
@@ -135,8 +150,7 @@ class CategoryEditorFragment : EditorFragment() {
                     categoryName.setText("")    // Clears text in case it only contains whitespace
                     categoryName.error = categoryNameBlankError
                 } else {
-                    saveState()
-                    viewModel.saveCategory()
+                    viewModel.saveToDatabase(categoryName.text.toString(), needOrWantToggleGroup.checkedButtonId == needButton.id)
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
             }
@@ -145,26 +159,48 @@ class CategoryEditorFragment : EditorFragment() {
         return binding.root
     }
 
-    override fun onDelete() {
-        viewModel.deleteCategory()
-    }
-
     override fun saveState() {
         with(binding) {
             viewModel.updateState(categoryName.text.toString(), needOrWantToggleGroup.checkedButtonId == needButton.id)
         }
     }
 
+    override fun onDelete() {
+        viewModel.deleteCategory()
+    }
+
     companion object {
+        private const val CATEGORY_EDITOR_TAG = "CategoryEditor"
+
+        private const val TRANSACTION_TYPE_ARG = "TRANSACTION_TYPE"
+        private const val CATEGORY_ID_ARG = "CATEGORY_ID"
+
+        private const val CATEGORY_EDITOR_NO_ARGS_ERROR = "No arguments found for $TRANSACTION_TYPE_ARG or $CATEGORY_ID_ARG"
+
         private const val DIALOG_HORIZONTAL_PADDING = 12
         private const val DIALOG_VERTICAL_PADDING = 16
 
-        private const val CATEGORY_ID = "CATEGORY_ID"
-
-        fun newInstance(categoryId: Int, fromSetUp: Boolean = false) = CategoryEditorFragment().apply {
+        fun getSetUpInstance(categoryId: Int?) = CategoryEditorFragment().apply {
             arguments = Bundle().apply {
-                putInt(CATEGORY_ID, categoryId)
-                putBoolean(FROM_SET_UP_ARG, fromSetUp)
+                putBoolean(FROM_SET_UP_ARG, true)
+
+                if (categoryId == null) {
+                    putString(TRANSACTION_TYPE_ARG, TransactionType.EXPENSE.name)
+                } else {
+                    putInt(CATEGORY_ID_ARG, categoryId)
+                }
+            }
+        }
+
+        fun getNewInstance(type: TransactionType) = CategoryEditorFragment().apply {
+            arguments = Bundle().apply {
+                putString(TRANSACTION_TYPE_ARG, type.name)
+            }
+        }
+
+        fun getUpdateInstance(categoryId: Int) = CategoryEditorFragment().apply {
+            arguments = Bundle().apply {
+                putInt(CATEGORY_ID_ARG, categoryId)
             }
         }
     }

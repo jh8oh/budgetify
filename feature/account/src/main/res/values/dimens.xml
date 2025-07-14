@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="item_account_height">65dp</dimen>
+    <dimen name="item_account_height">58dp</dimen>
     <dimen name="item_account_name_margin_start">12dp</dimen>
     <dimen name="item_account_name_margin_end">4dp</dimen>
-    <dimen name="item_account_institution_margin_top">4dp</dimen>
+    <dimen name="item_account_institution_margin_top">2dp</dimen>
     <dimen name="item_account_institution_margin_end">@dimen/item_account_name_margin_end</dimen>
-    <dimen name="item_account_current_amount_margin_end">8dp</dimen>
+    <dimen name="item_account_currency_margin_end">4dp</dimen>
+    <dimen name="item_account_balance_margin_end">8dp</dimen>
 
-    <dimen name="fragment_account_editor_app_bar_icon_size">32dp</dimen>
-    <dimen name="fragment_account_editor_app_bar_icon_padding">4dp</dimen>
-    <dimen name="fragment_account_editor_app_bar_icon_margin">16dp</dimen>
     <dimen name="fragment_account_editor_margin_horizontal">16dp</dimen>
     <dimen name="fragment_account_editor_name_margin_top">8dp</dimen>
     <dimen name="fragment_account_editor_margin_between">6dp</dimen>
     <dimen name="fragment_account_editor_balance_margin_end">8dp</dimen>
     <dimen name="fragment_account_editor_currency_min_width">100dp</dimen>
-    <dimen name="fragment_account_editor_type_margin_top">16dp</dimen>
-    <dimen name="fragment_account_editor_info_button_size">24dp</dimen>
-    <dimen name="fragment_account_editor_info_button_padding">2dp</dimen>
-    <dimen name="fragment_account_editor_info_button_margin_start">6dp</dimen>
-    <dimen name="fragment_account_editor_type_toggle_group_margin_top">4dp</dimen>
+    <dimen name="fragment_account_editor_info_button_size">32dp</dimen>
+    <dimen name="fragment_account_editor_info_button_padding">4dp</dimen>
+    <dimen name="fragment_account_editor_info_button_margin_start">8dp</dimen>
+    <dimen name="fragment_account_editor_info_button_margin_top">4dp</dimen>
+    <dimen name="fragment_account_editor_type_toggle_group_margin_top">2dp</dimen>
     <dimen name="fragment_account_editor_save_button_margin_bottom">24dp</dimen>
 
     <dimen name="dialog_account_type_more_info_padding_horizontal">12dp</dimen>

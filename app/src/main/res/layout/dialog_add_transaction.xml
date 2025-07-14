@@ -41,7 +41,7 @@
         android:paddingHorizontal="@dimen/dialog_add_transaction_padding_horizontal"
         android:paddingVertical="@dimen/dialog_add_transaction_padding_vertical"
         android:text="@string/dialog_add_transaction_transfer"
-        app:drawableStartCompat="@drawable/ic_transfer"
+        app:drawableStartCompat="@drawable/category_ic_transfer"
         app:drawableTint="?colorOnBackground" />
 
 </LinearLayout>

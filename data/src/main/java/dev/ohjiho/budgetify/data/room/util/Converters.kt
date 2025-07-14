@@ -1,11 +1,14 @@
 package dev.ohjiho.budgetify.data.room.util
 
 import androidx.room.TypeConverter
+import com.google.gson.Gson
+import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.domain.model.CategoryType
-import dev.ohjiho.budgetify.icons.Icon
+import dev.ohjiho.budgetify.domain.model.Reoccurrence
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import java.math.BigDecimal
 import java.time.LocalDate
+import java.time.YearMonth
 import java.util.Currency
 
 internal class Converters {
@@ -33,13 +36,13 @@ internal class Converters {
 
     // Category Type
     @TypeConverter
-    fun categoryTypeToString(categoryType: CategoryType?): String? {
-        return categoryType?.name
+    fun categoryTypeToString(transactionType: TransactionType?): String? {
+        return transactionType?.name
     }
 
     @TypeConverter
-    fun stringToCategoryType(name: String?): CategoryType? {
-        return name?.let { CategoryType.valueOf(it) }
+    fun stringToCategoryType(name: String?): TransactionType? {
+        return name?.let { TransactionType.valueOf(it) }
     }
 
     // Currency
@@ -55,12 +58,12 @@ internal class Converters {
 
     // Icon
     @TypeConverter
-    fun iconToName(icon: Icon?): String? {
+    fun iconToString(icon: Icon?): String? {
         return icon?.name
     }
 
     @TypeConverter
-    fun nameToIcon(name: String?): Icon? {
+    fun stringToIcon(name: String?): Icon? {
         return name?.let { Icon.valueOf(it) }
     }
 
@@ -72,6 +75,32 @@ internal class Converters {
 
     @TypeConverter
     fun stringToLocalDate(string: String?): LocalDate? {
-        return string?.let { LocalDate.parse(string) }
+        return string?.let { LocalDate.parse(it) }
+    }
+
+    // Reoccurrence
+    @TypeConverter
+    fun reoccurrenceToJson(reoccurrence: Reoccurrence?): String? {
+        return Gson().toJson(reoccurrence)
+    }
+
+    @TypeConverter
+    fun jsonToReoccurrence(json: String?): Reoccurrence? {
+        return try {
+            Gson().fromJson(json, Reoccurrence::class.java)
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    // YearMonth
+    @TypeConverter
+    fun yearMonthToString(yearMonth: YearMonth?): String? {
+        return yearMonth?.toString()
+    }
+
+    @TypeConverter
+    fun stringToYearMonth(string: String?): YearMonth? {
+        return string?.let { YearMonth.parse(it) }
     }
 }

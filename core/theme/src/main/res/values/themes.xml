@@ -1,6 +1,8 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.Budgetify" parent="Theme.Material3.DayNight">
+    <style name="BaseTheme" parent="Theme.Material3.DayNight">
+        <item name="android:windowOptOutEdgeToEdgeEnforcement" tools:targetApi="35">true</item>
+
         <!-- Colors -->
         <!-- Primary brand color -->
         <item name="colorPrimary">@color/teal_500</item>
@@ -10,14 +12,15 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Background color -->
         <item name="android:colorBackground">@color/white</item>
-        <item name="colorOnBackground">@color/black_900</item>
+        <item name="colorOnBackground">@color/black_800</item>
         <!-- Surface color -->
         <item name="colorSurface">@color/black_100</item>
         <item name="colorOnSurface">@color/black_900</item>
         <!-- Text color -->
         <item name="android:textColorPrimary">@color/color_text_primary</item>
+        <item name="android:textColorSecondary">@color/color_text_secondary</item>
         <!-- Outline color -->
-        <item name="colorOutline">@color/black_700_alpha_12</item>
+        <item name="colorOutline">@color/black_700_alpha_40</item>
         <!-- Pressed color -->
         <item name="android:colorPressedHighlight">@color/teal_500_alpha_12</item>
 
@@ -32,7 +35,21 @@
         <item name="textAppearanceButton">@style/TextAppearance.Budgetify.Button</item>
 
         <item name="android:textViewStyle">?textAppearanceBodyMedium</item>
+
+        <!-- Backgrounds -->
+        <item name="selectableItemBackgroundCircular">@drawable/background_selectable_item_circular</item>
+
+        <!-- Popup menu -->
+        <item name="listPopupWindowStyle">@style/Theme.Budgetify.PopupMenu.ListPopupWindow</item>
+
+        <!-- Dropdown Item -->
+        <item name="android:dropDownItemStyle">@style/Theme.Budgetify.DropDownItem</item>
+        <item name="android:textAppearanceLargePopupMenu">?textAppearanceBodyLarge</item>
+        <item name="textAppearanceLargePopupMenu">?textAppearanceBodyLarge</item>
+        <item name="android:listPreferredItemHeight">@dimen/theme_budgetify_dropdown_list_item_preferred_height</item>
     </style>
+
+    <style name="Theme.Budgetify" parent="BaseTheme" />
 
     <style name="Theme.Budgetify.NoActionBar" parent="Theme.Budgetify">
         <item name="windowActionBar">false</item>

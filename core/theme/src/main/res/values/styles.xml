@@ -11,44 +11,49 @@
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineExtraLarge" parent="TextAppearance.Budgetify.Body">
-        <item name="android:textColor">?colorPrimaryVariant</item>
-        <item name="android:textSize">56sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_extra_large_text_size</item>
         <item name="android:letterSpacing">0.02</item>
         <item name="android:textStyle">bold</item>
+        <item name="lineHeight">@dimen/theme_budgetify_headline_extra_large_text_size</item>
+        <item name="android:textColor">?android:textColorSecondary</item>
     </style>
 
     <style name="TextAppearance.Budgetify.HeadlineLarge" parent="TextAppearance.Material3.HeadlineLarge">
-        <item name="android:textColor">?android:textColorPrimary</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_large_text_size</item>
         <item name="android:letterSpacing">-0.02</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Headline" parent="@style/TextAppearance.Material3.HeadlineMedium">
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_headline_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodyLarge" parent="TextAppearance.Material3.BodyLarge">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_large_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Body" parent="@style/TextAppearance.Material3.BodyMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.BodySmall" parent="@style/TextAppearance.Material3.BodySmall">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/theme_budgetify_body_small_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Label" parent="TextAppearance.Material3.LabelMedium">
         <item name="fontFamily">@font/montserrat_regular</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/theme_budgetify_label_text_size</item>
     </style>
 
     <style name="TextAppearance.Budgetify.Button" parent="TextAppearance.Material3.BodyMedium">
@@ -56,12 +61,17 @@
         <item name="android:textAllCaps">true</item>
         <item name="fontFamily">@font/montserrat_medium</item>
         <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:textSize">@dimen/theme_budgetify_button_text_size</item>
     </style>
 
     <!-- Text Inputs -->
-    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox" />
+    <style name="Theme.Budgetify.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/color_text_box_outline_stroke</item>
+    </style>
 
-    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu" />
+    <style name="Theme.Budgetify.TextInputLayout.DropdownMenu" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/color_text_box_outline_stroke</item>
+    </style>
 
     <style name="Theme.Budgetify.TextInputEditText" parent="ThemeOverlay.Material3.TextInputEditText.OutlinedBox">
         <item name="android:textAppearance">?textAppearanceBodyMedium</item>
@@ -93,19 +103,15 @@
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle" parent="Theme.Budgetify.Button.Outlined">
+        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical</item>
         <item name="shapeAppearance">?attr/shapeAppearanceSmallComponent</item>
         <item name="strokeColor">@color/color_button_stroke</item>
         <item name="backgroundTint">@color/color_button_background_tint</item>
         <item name="rippleColor">?android:colorPressedHighlight</item>
         <item name="android:textColor">@color/color_button_text</item>
-    </style>
-
-    <style name="Theme.Budgetify.Button.Toggle.Small" parent="Theme.Budgetify.Button.Toggle">
-        <item name="android:paddingStart">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingEnd">@dimen/theme_budgetify_button_small_padding_horizontal</item>
-        <item name="android:paddingTop">@dimen/theme_budgetify_button_small_padding_vertical</item>
-        <item name="android:paddingBottom">@dimen/theme_budgetify_button_small_padding_vertical
-        </item>
     </style>
 
     <style name="Theme.Budgetify.Button.Toggle.Option" parent="Theme.Budgetify.Button.Toggle">
@@ -121,12 +127,41 @@
         <item name="android:padding">@dimen/theme_budgetify_icon_button_padding</item>
     </style>
 
-    <!-- Component Styles -->
-    <style name="KeypadKey">
-        <item name="android:layout_width">@dimen/component_keypad_width</item>
-        <item name="android:layout_height">@dimen/component_keypad_height</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/background_keypad_key</item>
-        <item name="android:textAppearance">@style/TextAppearance.Budgetify.Button</item>
+    <!-- Chips -->
+    <style name="Theme.Budgetify.ChipGroup" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">@dimen/theme_budgetify_chip_group_spacing_horizontal</item>
+    </style>
+
+    <style name="Theme.Budgetify.Chip.Choice" parent="@style/Widget.MaterialComponents.Chip.Choice">
+        <item name="chipStrokeColor">@color/color_button_stroke</item>
+        <item name="chipStrokeWidth">@dimen/theme_budgetify_chip_stroke_width</item>
+        <item name="chipBackgroundColor">@color/color_background_chip</item>
+        <item name="android:textColor">?colorOnBackground</item>
+    </style>
+
+    <style name="Theme.Budgetify.ChipGroup.Singular" parent="Widget.MaterialComponents.ChipGroup">
+        <item name="chipSpacingHorizontal">@dimen/theme_budgetify_chip_group_singular_spacing_horizontal</item>
+    </style>
+
+    <style name="Theme.Budgetify.Chip.Choice.Singular" parent="Theme.Budgetify.Chip.Choice">
+        <item name="android:minWidth">@dimen/theme_budgetify_chip_singular_min_size</item>
+        <item name="android:minHeight">@dimen/theme_budgetify_chip_singular_min_size</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:paddingStart">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingEnd">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingTop">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="android:paddingBottom">@dimen/theme_budgetify_chip_singular_padding</item>
+        <item name="ensureMinTouchTargetSize">false</item>
+    </style>
+
+    <!-- Popup Menu -->
+    <style name="Theme.Budgetify.PopupMenu.ListPopupWindow" parent="Widget.Material3.PopupMenu.ListPopupWindow">
+        <item name="android:popupBackground">?colorSurface</item>
+    </style>
+
+    <!-- Dropdown item -->
+    <style name="Theme.Budgetify.DropDownItem" parent="@style/Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:paddingLeft">@dimen/theme_budgetify_dropdown_list_item_padding_horizontal</item>
+        <item name="android:paddingRight">@dimen/theme_budgetify_dropdown_list_item_padding_horizontal</item>
     </style>
 </resources>

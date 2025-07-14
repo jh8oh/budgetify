@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingHorizontal="@dimen/fragment_set_up_budgets_padding_horizontal">
+
+    <TextView
+        android:id="@+id/set_up_budgets_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_budgets_description_margin_top"
+        android:text="@string/fragment_set_up_budgets_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <dev.ohjiho.budgetify.presentation.widget.graph.SegmentedBar
+        android:id="@+id/budget_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_budget_bar_margin_top"
+        app:layout_constraintTop_toBottomOf="@id/set_up_budgets_description"
+        tools:layout_height="24dp" />
+
+    <dev.ohjiho.budgetify.category.recyclerview.CategoryRecyclerView
+        android:id="@+id/category_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_budgets_recyclerview_margin_top"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/add_category_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/budget_bar"
+        app:layout_constraintVertical_bias="0"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:listitem="@layout/item_category" />
+
+    <Button
+        android:id="@+id/add_category_button"
+        style="@style/Theme.Budgetify.Button.Outlined.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/fragment_set_up_budgets_add_category_button_margin_top"
+        android:layout_marginBottom="@dimen/fragment_set_up_budgets_add_category_button_margin_bottom"
+        android:text="@string/fragment_set_up_budgets_add_button"
+        app:icon="@drawable/ic_add"
+        app:layout_constraintBottom_toTopOf="@id/next_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/category_recycler_view" />
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Theme.Budgetify.IconButton.Outlined"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/set_up_back_button_margin_end"
+        app:icon="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/next_button"
+        app:layout_constraintEnd_toStartOf="@id/next_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/next_button" />
+
+    <Button
+        android:id="@+id/next_button"
+        style="@style/Theme.Budgetify.Button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/set_up_nav_buttons_margin_bottom"
+        android:text="@string/fragment_set_up_budgets_next_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/back_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

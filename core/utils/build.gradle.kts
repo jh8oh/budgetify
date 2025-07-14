@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "dev.ohjiho.budgetify.utils"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -31,6 +31,7 @@ dependencies {
     // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.material)
 
     // Testing
     testImplementation(libs.junit)

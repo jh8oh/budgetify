@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Dialog - Money Input Bottom Sheet Dialog -->
+    <dimen name="dialog_money_input_padding_horizontal">24dp</dimen>
+    <dimen name="dialog_money_input_drag_handle_margin_top">8dp</dimen>
+    <dimen name="dialog_money_input_land_money_display_margin_start">12dp</dimen>
+    <dimen name="dialog_money_input_land_money_display_margin_end">12dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_top">24dp</dimen>
+    <dimen name="dialog_money_input_keypad_margin_bottom">24dp</dimen>
+    <dimen name="dialog_money_input_land_keypad_margin_end">12dp</dimen>
+    <dimen name="dialog_money_input_land_keypad_margin_bottom">12dp</dimen>
+
+    <!-- ViewHolder - Header -->
+    <dimen name="item_header_margin_top">8dp</dimen>
+
+    <!-- Widget - Dropdown menu -->
+    <dimen name="widget_dropdown_menu_min_width">250dp</dimen>
+    <dimen name="widget_dropdown_menu_title_margin_top">4dp</dimen>
+    <dimen name="widget_dropdown_menu_content_min_height">48dp</dimen>
+    <dimen name="widget_dropdown_menu_content_padding_vertical">4dp</dimen>
+    <dimen name="widget_dropdown_menu_content_padding_horizontal">6dp</dimen>
+    <dimen name="widget_dropdown_menu_selected_item_margin_end">4dp</dimen>
+    <dimen name="widget_dropdown_menu_arrow_down_size">18dp</dimen>
+
+    <!-- Widget - Money Display -->
+    <dimen name="widget_money_display_min_height">59dp</dimen>
+    <dimen name="widget_money_display_border_margin_top">6sp</dimen>
+    <dimen name="widget_money_display_border_stroke_width">1dp</dimen>
+    <dimen name="widget_money_display_border_stroke_corner_radius">4dp</dimen>
+    <dimen name="widget_money_display_padding_vertical">4dp</dimen>
+    <dimen name="widget_money_display_padding_horizontal">14dp</dimen>
+    <dimen name="widget_money_display_hint_margin_start">12dp</dimen>
+    <dimen name="widget_money_display_hint_padding_horizontal">6dp</dimen>
+    <dimen name="widget_money_display_currency_text_size">24sp</dimen>
+    <dimen name="widget_money_display_currency_margin_end">8dp</dimen>
+
+    <!-- Widget - Keypad -->
+    <dimen name="widget_keypad_height">68dp</dimen>
+    <dimen name="widget_keypad_width">96dp</dimen>
+    <dimen name="widget_keypad_text_size">20sp</dimen>
+    <dimen name="widget_keypad_margin_between">3dp</dimen>
+    <dimen name="widget_keypad_backspace_padding">24dp</dimen>
+
+    <!-- Widget - Repeat Display -->
+    <dimen name="widget_repeat_display_content_min_height">48dp</dimen>
+    <dimen name="widget_repeat_display_padding_vertical">4dp</dimen>
+    <dimen name="widget_repeat_display_icon_margin_top">4dp</dimen>
+    <dimen name="widget_repeat_display_padding_horizontal">6dp</dimen>
+    <dimen name="widget_repeat_display_text_margin_start">6dp</dimen>
+    <dimen name="widget_repeat_display_text_margin_vertical">4dp</dimen>
+
+    <dimen name="dialog_repeat_padding">16dp</dimen>
+    <dimen name="dialog_repeat_interval_selection_button_padding_horizontal">12dp</dimen>
+    <dimen name="dialog_repeat_interval_selection_button_padding_vertical">6dp</dimen>
+    <dimen name="dialog_repeat_selection_container_margin_top">12dp</dimen>
+    <dimen name="dialog_repeat_day_selection_button_padding">2dp</dimen>
+    <dimen name="dialog_repeat_monthly_day_of_month_margin_start">6dp</dimen>
+    <dimen name="dialog_repeat_monthly_day_of_month_min_width">60dp</dimen>
+
+    <!-- Widget - SegmentedBar -->
+    <dimen name="widget_segmented_bar_height">26dp</dimen>
+    <dimen name="widget_segmented_bar_corner_radius">4dp</dimen>
+    <dimen name="widget_segmented_bar_text_top_margin">4dp</dimen>
+    <dimen name="widget_segmented_bar_text_end_margin">4dp</dimen>
+</resources>

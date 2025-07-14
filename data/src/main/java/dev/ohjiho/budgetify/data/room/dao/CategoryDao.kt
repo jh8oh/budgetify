@@ -8,11 +8,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 internal interface CategoryDao : BaseDao<Category> {
     @Query("SELECT * FROM categories WHERE :uid = uid")
-    suspend fun getCategory(uid: Int): Category
+    suspend fun getCategory(uid: Int): Category?
 
     // Transfer
     @Query("SELECT * FROM categories WHERE type = 'TRANSFER'")
-    fun getTransferCategory(): Category
+    suspend fun getTransferCategory(): Category
 
     // Expense
     @Query("SELECT * FROM categories WHERE type = 'EXPENSE' ORDER BY isNeed DESC, name ASC")

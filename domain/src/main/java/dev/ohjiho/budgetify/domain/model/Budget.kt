@@ -1,19 +1,19 @@
 package dev.ohjiho.budgetify.domain.model
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
+import java.math.BigDecimal
 import java.time.YearMonth
 
 /**
- * Sets a limit on a category. The categoryId and yearMonth properties are the primary key for this entity.
+ * Sets a limit on a category on a YearMonth.
  *
- * @property categoryId The id of the **expense** category to set the limit on.
+ * @property categoryId The id of the category this budget is for.
  * @property yearMonth The month and the year the budget was created (Budget continues monthly until new budget is created).
  * @property amount The maximum limit of the budget.
  */
-@Entity(tableName = "budgets", primaryKeys = ["category_id", "year_month"])
+@Entity(tableName = "budgets", primaryKeys = ["categoryId", "yearMonth"])
 data class Budget(
-    @ColumnInfo(name = "category_id") var categoryId: Int,
-    @ColumnInfo(name = "year_month") var yearMonth: YearMonth,
-    var amount: Int,
+    val categoryId: Int = 0,
+    val yearMonth: YearMonth = YearMonth.now(),
+    val amount: BigDecimal = BigDecimal.ZERO
 )

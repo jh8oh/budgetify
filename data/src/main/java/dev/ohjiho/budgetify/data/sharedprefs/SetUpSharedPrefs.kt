@@ -1,6 +1,7 @@
 package dev.ohjiho.budgetify.data.sharedprefs
 
 import android.content.SharedPreferences
+import androidx.core.content.edit
 
 internal class SetUpSharedPrefs(private val sharedPrefs: SharedPreferences) {
     companion object {
@@ -10,5 +11,5 @@ internal class SetUpSharedPrefs(private val sharedPrefs: SharedPreferences) {
 
     var isSetUp: Boolean
         get() = sharedPrefs.getBoolean(IS_SET_UP_KEY, false)
-        set(value) = sharedPrefs.edit().putBoolean(IS_SET_UP_KEY, value).apply()
+        set(value) = sharedPrefs.edit { putBoolean(IS_SET_UP_KEY, value) }
 }

@@ -6,7 +6,7 @@
         android:title="@string/nav_overview_title" />
     <item
         android:id="@+id/nav_finances_fragment"
-        android:icon="@drawable/ic_inc_bills"
+        android:icon="@drawable/ic_wallet"
         android:title="@string/nav_finances_title" />
     <item
         android:id="@+id/nav_stats_fragment"

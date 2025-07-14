@@ -7,8 +7,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.category.databinding.ItemCategoryBinding
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.theme.databinding.ItemHeaderBinding
-import dev.ohjiho.budgetify.theme.viewholder.HeaderViewHolder
+import dev.ohjiho.budgetify.presentation.databinding.ItemHeaderBinding
+import dev.ohjiho.budgetify.presentation.viewholder.HeaderViewHolder
 
 internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -18,7 +18,7 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
         fun bind(category: Category) {
             with(binding) {
                 categoryIcon.setImageResource(category.icon.drawableRes)
-                categoryIcon.setBackgroundColor(ContextCompat.getColor(itemView.context, category.icon.colorRes))
+                categoryIcon.setColorFilter(ContextCompat.getColor(itemView.context, category.icon.colorRes))
                 categoryName.text = category.name
             }
         }
@@ -34,7 +34,14 @@ internal class CategoryAdapter(private val onClick: ((Category) -> Unit)) : Recy
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            HEADER_VIEW_TYPE -> HeaderViewHolder(ItemHeaderBinding.inflate(layoutInflater, parent, false))
+            HEADER_VIEW_TYPE -> HeaderViewHolder(
+                ItemHeaderBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            )
+
             else -> CategoryViewHolder(ItemCategoryBinding.inflate(layoutInflater, parent, false)).apply {
                 itemView.setOnClickListener {
                     onClick(categories[adapterPosition] as Category)

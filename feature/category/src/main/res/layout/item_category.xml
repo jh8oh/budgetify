@@ -5,19 +5,19 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/item_category_height"
     android:background="?selectableItemBackground"
-    android:paddingHorizontal="@dimen/item_category_padding_horizontal">
+    android:paddingHorizontal="@dimen/item_category_padding_horizontal"
+    tools:ignore="Overdraw">
 
     <ImageView
         android:id="@+id/category_icon"
         android:layout_width="@dimen/item_category_icon_size"
         android:layout_height="@dimen/item_category_icon_size"
         android:contentDescription="@string/category_icon_content_description"
-        android:padding="@dimen/item_category_icon_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:background="@color/cyan"
-        tools:src="@drawable/ic_exp_home" />
+        tools:src="@drawable/category_ic_home"
+        tools:tint="@color/goldenrod" />
 
     <TextView
         android:id="@+id/category_name"

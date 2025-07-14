@@ -2,6 +2,7 @@ package dev.ohjiho.budgetify.account.editor
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,7 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.ohjiho.budgetify.account.R
 import dev.ohjiho.budgetify.account.databinding.FragmentAccountEditorBinding
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.theme.fragment.EditorFragment
+import dev.ohjiho.budgetify.presentation.fragment.EditorFragment
 import dev.ohjiho.budgetify.utils.data.toBigDecimalAfterSanitize
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 import dev.ohjiho.budgetify.utils.ui.reformatBalanceAfterTextChange
@@ -29,42 +30,42 @@ class AccountEditorFragment : EditorFragment() {
     private val viewModel by viewModels<AccountEditorViewModel>()
     private lateinit var binding: FragmentAccountEditorBinding
 
+    // Resources
+    override val newTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
+    override val updateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
+    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
+
     // Adapter
     private val institutionAdapter by lazy {
         ArrayAdapter(requireContext(), android.R.layout.simple_spinner_dropdown_item, arrayListOf<String>())
     }
 
     // Dialogs
-    private val currencyPicker by lazy {
-        CurrencyPicker(requireContext()).apply {
-            setListener(object : CurrencyPicker.Listener {
-                override fun onCurrencySelected(currency: Currency) {
-                    binding.accountCurrency.setText(currency.currencyCode)
-                    binding.accountBalance.reformatBalanceAfterTextChange(currency)
-                    currencySpinnerDialog.dismiss()
-                }
-            })
-        }
-    }
-    private val currencySpinnerDialog: AlertDialog by lazy {
-        AlertDialog.Builder(requireContext()).setView(currencyPicker).create()
-    }
+    private var currencySpinnerDialog: AlertDialog? = null
     private val moreInfoDialog: AlertDialog by lazy {
         AlertDialog.Builder(requireContext())
             .setView(R.layout.dialog_account_type_more_info)
             .create()
     }
 
-    // Resources
-    override val newTitle by lazy { resources.getString(R.string.fragment_account_editor_add_title) }
-    override val updateTitle by lazy { resources.getString(R.string.fragment_account_editor_update_title) }
-    private val accountNameBlankError by lazy { resources.getString(R.string.fragment_account_editor_name_blank_error) }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(ACCOUNT_ID_ARG)?.let {
-                viewModel.initWithId(it)
+            val newAccount = arguments?.getBoolean(NEW_ACCOUNT_ARG) ?: false
+            val accountId = arguments?.getInt(ACCOUNT_ID_ARG) ?: 0
+
+            if (newAccount) {
+                viewModel.initNew()
+            } else if (accountId != 0) {
+                try {
+                    viewModel.initExisting(accountId)
+                } catch (e: NullPointerException) {
+                    Log.e(ACCOUNT_EDITOR_TAG, e.message ?: "")
+                    requireActivity().onBackPressedDispatcher.onBackPressed()
+                }
+            } else {
+                Log.e(ACCOUNT_EDITOR_TAG, ACCOUNT_EDITOR_NO_ARGS_ERROR)
+                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
     }
@@ -91,8 +92,7 @@ class AccountEditorFragment : EditorFragment() {
                         viewModel.account.collect { account ->
                             accountName.setText(account.name)
                             accountInstitution.setText(account.institution)
-                            accountBalance.setText(account.balance.toCurrencyFormat(account.currency, false, context))
-                            currencyPicker.setSelectedCurrency(account.currency)
+                            accountBalance.setText(account.balance.toCurrencyFormat(account.currency, context))
                             accountCurrency.setText(account.currency.currencyCode)
                             when (account.type) {
                                 AccountType.CASH -> accountTypeToggleGroup.check(cashButton.id)
@@ -124,8 +124,13 @@ class AccountEditorFragment : EditorFragment() {
                     accountName.setText("")     // Clears text in case it only contains whitespace
                     accountName.error = accountNameBlankError
                 } else {
-                    saveState()
-                    viewModel.saveAccount()
+                    viewModel.saveToDatabase(
+                        accountName.text.toString().trim(),
+                        accountInstitution.text.toString().trim(),
+                        getAccountType(),
+                        accountBalance.text.toString().toBigDecimalAfterSanitize(),
+                        Currency.getInstance(accountCurrency.text.toString())
+                    )
                     requireActivity().onBackPressedDispatcher.onBackPressed()
                 }
             }
@@ -135,12 +140,19 @@ class AccountEditorFragment : EditorFragment() {
     }
 
     private fun showCurrencyPickerDialog() {
-        currencyPicker.setSelectedCurrency(Currency.getInstance(binding.accountCurrency.text.toString()))
-        currencySpinnerDialog.show()
-    }
-
-    override fun onDelete() {
-        viewModel.deleteAccount()
+        val currencyPicker = CurrencyPicker(requireContext()).apply {
+            setSelectedCurrency(Currency.getInstance(binding.accountCurrency.text.toString()))
+            setListener(object : CurrencyPicker.Listener {
+                override fun onCurrencySelected(currency: Currency) {
+                    binding.accountCurrency.setText(currency.currencyCode)
+                    binding.accountBalance.reformatBalanceAfterTextChange(currency)
+                    currencySpinnerDialog?.dismiss()
+                }
+            })
+        }
+        currencySpinnerDialog = AlertDialog.Builder(requireContext()).setView(currencyPicker).create().also {
+            it.show()
+        }
     }
 
     override fun saveState() {
@@ -165,13 +177,39 @@ class AccountEditorFragment : EditorFragment() {
         }
     }
 
+    override fun onDelete() {
+        viewModel.deleteAccount()
+    }
+
     companion object {
+        private const val ACCOUNT_EDITOR_TAG = "AccountEditor"
+
+        private const val NEW_ACCOUNT_ARG = "NEW_ACCOUNT"
         private const val ACCOUNT_ID_ARG = "ACCOUNT_ID"
 
-        fun newInstance(accountId: Int, fromSetUp: Boolean = false) = AccountEditorFragment().apply {
+        private const val ACCOUNT_EDITOR_NO_ARGS_ERROR = "No arguments found for $NEW_ACCOUNT_ARG or $ACCOUNT_ID_ARG"
+
+        fun getSetUpInstance(accountId: Int?) = AccountEditorFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(FROM_SET_UP_ARG, true)
+
+                if (accountId == null) {
+                    putBoolean(NEW_ACCOUNT_ARG, true)
+                } else {
+                    putInt(ACCOUNT_ID_ARG, accountId)
+                }
+            }
+        }
+
+        fun getNewInstance() = AccountEditorFragment().apply {
+            arguments = Bundle().apply {
+                putBoolean(NEW_ACCOUNT_ARG, true)
+            }
+        }
+
+        fun getUpdateInstance(accountId: Int) = AccountEditorFragment().apply {
             arguments = Bundle().apply {
                 putInt(ACCOUNT_ID_ARG, accountId)
-                putBoolean(FROM_SET_UP_ARG, fromSetUp)
             }
         }
     }

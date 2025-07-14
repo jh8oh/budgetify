@@ -4,8 +4,7 @@
     android:id="@+id/icon"
     android:layout_width="@dimen/item_icon_size"
     android:layout_height="@dimen/item_icon_size"
-    android:contentDescription="@string/category_icon_content_description"
-    android:padding="@dimen/item_icon_padding"
     android:layout_margin="@dimen/item_icon_margin"
-    tools:background="@color/cyan"
-    tools:src="@drawable/ic_exp_home" />
+    android:contentDescription="@string/category_icon_content_description"
+    tools:src="@drawable/category_ic_home"
+    tools:tint="@color/goldenrod" />

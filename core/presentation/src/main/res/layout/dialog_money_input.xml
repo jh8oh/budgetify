@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="@dimen/dialog_money_input_padding_horizontal">
+
+    <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dialog_money_input_drag_handle_margin_top" />
+
+    <dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyDisplay
+        android:id="@+id/money_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:style="large" />
+
+    <dev.ohjiho.budgetify.presentation.widget.moneyinput.Keypad
+        android:id="@+id/keypad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/dialog_money_input_keypad_margin_top"
+        android:layout_marginBottom="@dimen/dialog_money_input_keypad_margin_bottom" />
+
+</LinearLayout>

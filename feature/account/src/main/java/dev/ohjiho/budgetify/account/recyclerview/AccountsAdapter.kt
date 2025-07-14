@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import dev.ohjiho.budgetify.account.databinding.ItemAccountBinding
 import dev.ohjiho.budgetify.domain.model.Account
 import dev.ohjiho.budgetify.domain.model.AccountType
-import dev.ohjiho.budgetify.theme.databinding.ItemHeaderBinding
-import dev.ohjiho.budgetify.theme.viewholder.HeaderViewHolder
+import dev.ohjiho.budgetify.presentation.databinding.ItemHeaderBinding
+import dev.ohjiho.budgetify.presentation.viewholder.HeaderViewHolder
 import dev.ohjiho.budgetify.utils.data.toCurrencyFormat
 
 internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
@@ -24,9 +24,11 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
                 if (account.institution.isBlank()) {
                     accountInstitution.visibility = View.GONE
                 } else {
+                    accountInstitution.visibility = View.VISIBLE
                     accountInstitution.text = account.institution
                 }
-                accountBalance.text = account.balance.toCurrencyFormat(account.currency, true, binding.root.context)
+                accountCurrency.text = account.currency.currencyCode
+                accountBalance.text = account.balance.toCurrencyFormat(account.currency, binding.root.context)
             }
         }
     }
@@ -41,7 +43,14 @@ internal class AccountsAdapter(private val onClick: (Account) -> Unit) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return when (viewType) {
-            HEADER_VIEW_TYPE -> HeaderViewHolder(ItemHeaderBinding.inflate(layoutInflater, parent, false))
+            HEADER_VIEW_TYPE -> HeaderViewHolder(
+                ItemHeaderBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            )
+
             else -> AccountViewHolder(ItemAccountBinding.inflate(layoutInflater, parent, false)).apply {
                 itemView.setOnClickListener {
                     onClick(accounts[adapterPosition] as Account)

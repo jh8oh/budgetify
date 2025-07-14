@@ -22,43 +22,26 @@ object ScreenMetricsCompat {
 
     @Suppress("DEPRECATION")
     private open class Api {
-        open var widthPx: Int = 0
-        open var heightPx: Int = 0
-        open var density: Float = 0f
-
         open fun getDensity(context: Context): Float {
-            return if (density != 0f) {
-                density
+            val display = context.getSystemService(WindowManager::class.java).defaultDisplay
+            val metrics = if (display != null) {
+                DisplayMetrics().also { display.getMetrics(it) }
             } else {
-                val display = context.getSystemService(WindowManager::class.java).defaultDisplay
-                val metrics = if (display != null) {
-                    DisplayMetrics().also { display.getRealMetrics(it) }
-                } else {
-                    Resources.getSystem().displayMetrics
-                }
-                metrics.density
-                    .also {
-                        density = it
-                    }
+                Resources.getSystem().displayMetrics
             }
+            return metrics.density
         }
 
         open fun getScreenSize(context: Context, isDp: Boolean): Size {
-            if (widthPx == 0 || heightPx == 0 || density == 0f) {
-                val display = context.getSystemService(WindowManager::class.java).defaultDisplay
-                val metrics = if (display != null) {
-                    DisplayMetrics().also { display.getRealMetrics(it) }
-                } else {
-                    Resources.getSystem().displayMetrics
-                }
-
-                widthPx = metrics.widthPixels
-                heightPx = metrics.heightPixels
-                density = metrics.density
+            val display = context.getSystemService(WindowManager::class.java).defaultDisplay
+            val metrics = if (display != null) {
+                DisplayMetrics().also { display.getRealMetrics(it) }
+            } else {
+                Resources.getSystem().displayMetrics
             }
 
-            val width = if (isDp) widthPx.toDp(density) else widthPx
-            val height = if (isDp) heightPx.toDp(density) else heightPx
+            val width = if (isDp) metrics.widthPixels.toDp(metrics.density) else metrics.widthPixels
+            val height = if (isDp) metrics.heightPixels.toDp(metrics.density) else metrics.heightPixels
             return Size(width, height)
         }
     }
@@ -66,26 +49,16 @@ object ScreenMetricsCompat {
     @RequiresApi(Build.VERSION_CODES.UPSIDE_DOWN_CAKE)
     private class ApiLevel34 : Api() {
         override fun getDensity(context: Context): Float {
-            return if (density != 0f) {
-                density
-            } else {
-                context.getSystemService(WindowManager::class.java).currentWindowMetrics.density.also {
-                    density = it
-                }
-            }
+            return context.getSystemService(WindowManager::class.java).currentWindowMetrics.density
         }
 
         override fun getScreenSize(context: Context, isDp: Boolean): Size {
-            if (widthPx == 0 || heightPx == 0 || density == 0f) {
-                val metrics: WindowMetrics = context.getSystemService(WindowManager::class.java).currentWindowMetrics
+            val metrics: WindowMetrics = context.getSystemService(WindowManager::class.java).currentWindowMetrics
+            val widthPx = metrics.bounds.width()
+            val heightPx = metrics.bounds.height()
 
-                widthPx = metrics.bounds.width()
-                heightPx = metrics.bounds.height()
-                density = metrics.density
-            }
-
-            val width = if (isDp) widthPx.toDp(density) else widthPx
-            val height = if (isDp) heightPx.toDp(density) else heightPx
+            val width = if (isDp) widthPx.toDp(metrics.density) else widthPx
+            val height = if (isDp) heightPx.toDp(metrics.density) else heightPx
             return Size(width, height)
         }
     }

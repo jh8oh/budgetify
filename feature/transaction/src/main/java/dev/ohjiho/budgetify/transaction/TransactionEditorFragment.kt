@@ -6,19 +6,30 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import dagger.hilt.android.AndroidEntryPoint
-import dev.ohjiho.budgetify.domain.model.CategoryType
-import dev.ohjiho.budgetify.theme.component.keypad.Keypad
+import dev.ohjiho.budgetify.domain.model.TransactionType
+import dev.ohjiho.budgetify.presentation.widget.moneyinput.MoneyInputBottomSheetDialogFragment
 import dev.ohjiho.budgetify.transaction.databinding.FragmentTransactionEditorBinding
+import java.math.BigDecimal
 
 @AndroidEntryPoint
-class TransactionEditorFragment : Fragment(), Keypad.Listener {
+class TransactionEditorFragment : Fragment() {
 
     private lateinit var binding: FragmentTransactionEditorBinding
+
+    private val moneyInputBottomSheetDialogListener by lazy {
+        object : MoneyInputBottomSheetDialogFragment.Listener {
+            override var isMoneyInputDialogShown: Boolean = false
+
+            override fun onDialogDismiss(amount: BigDecimal) {
+                binding.display.setAmount(amount)
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (savedInstanceState == null) {
-            arguments?.getInt(CATEGORY_TYPE)?.let {
+            arguments?.getInt(TRANSACTION_TYPE)?.let {
 
             }
         }
@@ -28,29 +39,21 @@ class TransactionEditorFragment : Fragment(), Keypad.Listener {
         binding = FragmentTransactionEditorBinding.inflate(inflater)
 
         with(binding) {
-            binding.keypad.setListener(this@TransactionEditorFragment)
+            display.setOnClickListener {
+                MoneyInputBottomSheetDialogFragment.getInstance(display.getCurrency(), display.getAmount()).apply {
+                    setListener(moneyInputBottomSheetDialogListener)
+                }.show(childFragmentManager, MoneyInputBottomSheetDialogFragment.MONEY_INPUT_BSD_TAG)
+            }
         }
 
         return binding.root
     }
 
-    override fun onKeyPressed(key: Int) {
-        binding.text.append(key.toString())
-    }
-
-    override fun onDotPressed() {
-        binding.text.append(".")
-    }
-
-    override fun onBackspacePressed() {
-        binding.text.text = binding.text.text.let { if (it.isNotEmpty()) it.substring(0, it.length - 1) else it }
-    }
-
     companion object {
-        private const val CATEGORY_TYPE = "CATEGORY_TYPE"
+        private const val TRANSACTION_TYPE = "TRANSACTION_TYPE"
 
-        fun bundle(categoryType: CategoryType) = Bundle().apply {
-            putInt(CATEGORY_TYPE, categoryType.ordinal)
+        fun bundle(transactionType: TransactionType) = Bundle().apply {
+            putInt(TRANSACTION_TYPE, transactionType.ordinal)
         }
     }
 }

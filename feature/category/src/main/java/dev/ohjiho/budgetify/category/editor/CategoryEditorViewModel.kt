@@ -1,53 +1,81 @@
 package dev.ohjiho.budgetify.category.editor
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.ohjiho.budgetify.domain.NON_EXISTENT_ID
+import dev.ohjiho.budgetify.domain.enums.Icon
 import dev.ohjiho.budgetify.domain.model.Category
-import dev.ohjiho.budgetify.domain.model.CategoryType
+import dev.ohjiho.budgetify.domain.model.TransactionType
 import dev.ohjiho.budgetify.domain.repository.CategoryRepository
-import dev.ohjiho.budgetify.icons.Icon
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.update
+import dev.ohjiho.budgetify.utils.flow.WhileUiSubscribed
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 internal class CategoryEditorViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val categoryRepository: CategoryRepository,
 ) : ViewModel() {
 
-    var isNew = true
-    val category: MutableStateFlow<Category> = MutableStateFlow(Category("", CategoryType.EXPENSE, Icon.HOME, true))
+    var isNew by Delegates.notNull<Boolean>()
+    val category = combine(
+        savedStateHandle.getStateFlow(UID_SAVED_STATE_KEY, 0),
+        savedStateHandle.getStateFlow(NAME_SAVED_STATE_KEY, ""),
+        savedStateHandle.getStateFlow(TRANSACTION_TYPE_SAVED_STATE_KEY, TransactionType.EXPENSE),
+        savedStateHandle.getStateFlow(ICON_SAVED_STATE_KEY, Icon.HOME),
+        savedStateHandle.getStateFlow<Boolean?>(IS_NEED_SAVED_STATE_KEY, null)
+    ) { uid, name, transactionType, icon, isNeed ->
+        Category(uid, name, transactionType, icon, isNeed)
+    }.stateIn(viewModelScope, WhileUiSubscribed, Category())
 
-    fun initWithId(id: Int) {
-        if (id == NON_EXISTENT_ID) return
+    // Initialize
+    fun initNew(type: TransactionType) {
+        isNew = true
+        savedStateHandle[TRANSACTION_TYPE_SAVED_STATE_KEY] = type
+        savedStateHandle[IS_NEED_SAVED_STATE_KEY] = if (type == TransactionType.EXPENSE) true else null
+    }
 
+    fun initExisting(id: Int) {
         isNew = false
         viewModelScope.launch {
-            category.update { categoryRepository.getCategory(id) }
+            val c = categoryRepository.getCategory(id) ?: throw NullPointerException(NO_CATEGORY_FOUND_ERROR)
+            savedStateHandle[UID_SAVED_STATE_KEY] = c.uid
+            savedStateHandle[NAME_SAVED_STATE_KEY] = c.name
+            savedStateHandle[TRANSACTION_TYPE_SAVED_STATE_KEY] = c.type
+            savedStateHandle[ICON_SAVED_STATE_KEY] = c.icon
+            savedStateHandle[IS_NEED_SAVED_STATE_KEY] = c.isNeed
         }
     }
 
+    // Update SavedStateHandle
     fun updateIconState(icon: Icon) {
-        category.update {
-            it.copy(icon = icon).apply { uid = it.uid }
-        }
+        savedStateHandle[ICON_SAVED_STATE_KEY] = icon
     }
 
     fun updateState(name: String, isNeed: Boolean) {
-        category.update {
-            it.copy(name = name, isNeed = if (it.type == CategoryType.EXPENSE) isNeed else null).apply { uid = it.uid }
-        }
+        savedStateHandle[NAME_SAVED_STATE_KEY] = name
+        savedStateHandle[IS_NEED_SAVED_STATE_KEY] = if (category.value.type == TransactionType.EXPENSE) isNeed else null
     }
 
-    fun saveCategory() {
+    // Database
+    fun saveToDatabase(name: String, isNeed: Boolean) {
         viewModelScope.launch {
-            if (isNew) {
-                categoryRepository.insert(category.value)
-            } else {
-                categoryRepository.update(category.value)
+            Category(
+                category.value.uid,
+                name,
+                category.value.type,
+                category.value.icon,
+                if (category.value.type == TransactionType.EXPENSE) isNeed else null
+            ).let {
+                if (isNew) {
+                    categoryRepository.insert(it)
+                } else {
+                    categoryRepository.update(it)
+                }
             }
         }
     }
@@ -56,5 +84,15 @@ internal class CategoryEditorViewModel @Inject constructor(
         viewModelScope.launch {
             categoryRepository.delete(category.value)
         }
+    }
+
+    companion object {
+        private const val UID_SAVED_STATE_KEY = "UIDSavedState"
+        private const val NAME_SAVED_STATE_KEY = "NameSavedState"
+        private const val TRANSACTION_TYPE_SAVED_STATE_KEY = "TransactionTypeSavedStateKey"
+        private const val ICON_SAVED_STATE_KEY = "IconSavedState"
+        private const val IS_NEED_SAVED_STATE_KEY = "IsNeedSavedState"
+
+        private const val NO_CATEGORY_FOUND_ERROR = "No category found with id: "
     }
 }

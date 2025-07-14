@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="set_up_margin_bottom">24dp</dimen>
-    <dimen name="set_up_default_padding_horizontal">16dp</dimen>
     <dimen name="set_up_default_margin_top">16dp</dimen>
+    <dimen name="set_up_default_margin_vertical_land">12dp</dimen>
+    <dimen name="set_up_default_padding_horizontal">16dp</dimen>
+    <dimen name="set_up_default_padding_horizontal_land">16dp</dimen>
+    <item name="set_up_landscape_split_guideline_percent" format="float" type="dimen">0.48</item>
+    <dimen name="set_up_default_split_guideline_spacing">12dp</dimen>
     <dimen name="set_up_back_button_margin_end">8dp</dimen>
+    <dimen name="set_up_nav_buttons_margin_bottom">24dp</dimen>
 
-    <dimen name="fragment_welcome_padding_horizontal">16dp</dimen>
+    <dimen name="fragment_welcome_app_icon_size">240dp</dimen>
+    <dimen name="fragment_welcome_land_wave_margin_end">16dp</dimen>
+    <dimen name="fragment_welcome_layout_padding_horizontal">16dp</dimen>
     <dimen name="fragment_welcome_greeting_margin_bottom">8dp</dimen>
 
-    <dimen name="fragment_set_up_currency_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
-    <dimen name="fragment_set_up_currency_padding_vertical">@dimen/set_up_default_margin_top</dimen>
+    <dimen name="fragment_set_up_currency_margin_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+    <dimen name="fragment_set_up_currency_margin_vertical">@dimen/set_up_default_margin_top</dimen>
     <dimen name="fragment_set_up_currency_currency_picker_margin_top">12dp</dimen>
 
     <dimen name="fragment_set_up_accounts_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
@@ -21,16 +27,15 @@
     <dimen name="fragment_set_up_income_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
     <dimen name="fragment_set_up_income_description_margin_top">@dimen/set_up_default_margin_top</dimen>
     <dimen name="fragment_set_up_income_budget_toggle_margin_top">6dp</dimen>
-    <dimen name="fragment_set_up_income_amount_margin_top">8dp</dimen>
-    <dimen name="fragment_set_up_income_currency_margin_end">8dp</dimen>
-    <dimen name="fragment_set_up_income_per_margin_top">12dp</dimen>
-    <dimen name="fragment_set_up_income_frequency_account_margin_between">8dp</dimen>
+    <dimen name="fragment_set_up_income_land_budget_toggle_margin_top">12dp</dimen>
+    <dimen name="fragment_set_up_income_money_display_margin_top">12dp</dimen>
+    <dimen name="fragment_set_up_income_reoccurrence_margin_top">12dp</dimen>
+    <dimen name="fragment_set_up_income_account_margin_top">12dp</dimen>
 
-    <dimen name="fragment_set_up_categories_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
-    <dimen name="fragment_set_up_categories_description_margin_top">@dimen/set_up_default_margin_top</dimen>
-    <dimen name="fragment_set_up_categories_recyclerview_margin_top">8dp</dimen>
-    <dimen name="fragment_set_up_categories_add_category_button_margin_top">8dp</dimen>
-    <dimen name="fragment_set_up_categories_add_category_button_margin_bottom">12dp</dimen>
-
-    <dimen name="fragment_set_up_budget_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+    <dimen name="fragment_set_up_budgets_padding_horizontal">@dimen/set_up_default_padding_horizontal</dimen>
+    <dimen name="fragment_set_up_budgets_description_margin_top">@dimen/set_up_default_margin_top</dimen>
+    <dimen name="fragment_set_up_budget_bar_margin_top">12dp</dimen>
+    <dimen name="fragment_set_up_budgets_recyclerview_margin_top">8dp</dimen>
+    <dimen name="fragment_set_up_budgets_add_category_button_margin_top">8dp</dimen>
+    <dimen name="fragment_set_up_budgets_add_category_button_margin_bottom">12dp</dimen>
 </resources>

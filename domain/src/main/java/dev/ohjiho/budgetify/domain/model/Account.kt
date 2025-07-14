@@ -5,19 +5,6 @@ import androidx.room.PrimaryKey
 import java.math.BigDecimal
 import java.util.Currency
 
-enum class AccountType {
-    CASH, CREDIT, INVESTMENTS;
-
-    override fun toString(): String {
-        return when (this) {
-            CASH -> "Cash Accounts"
-            CREDIT -> "Credit"
-            INVESTMENTS -> "Investments"
-        }
-    }
-}
-
-
 /**
  * An account that the user holds
  *
@@ -30,12 +17,22 @@ enum class AccountType {
  */
 @Entity(tableName = "accounts")
 data class Account(
-    val name: String,
-    val institution: String,
-    val type: AccountType,
-    val balance: BigDecimal,
-    val currency: Currency,
-) {
-    @PrimaryKey(autoGenerate = true)
-    var uid: Int = 0
+    @PrimaryKey(autoGenerate = true) val uid: Int = 0,
+    val name: String = "",
+    val institution: String = "",
+    val type: AccountType = AccountType.CASH,
+    val balance: BigDecimal = BigDecimal.ZERO,
+    val currency: Currency = Currency.getInstance("CAD"),
+)
+
+enum class AccountType {
+    CASH, CREDIT, INVESTMENTS;
+
+    override fun toString(): String {
+        return when (this) {
+            CASH -> "Cash Accounts"
+            CREDIT -> "Credit"
+            INVESTMENTS -> "Investments"
+        }
+    }
 }

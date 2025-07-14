@@ -1,13 +1,14 @@
 plugins {
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsKotlinAndroid)
-    alias(libs.plugins.kapt)
+    alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
+    alias(libs.plugins.parcelize)
 }
 
 android {
     namespace = "dev.ohjiho.budgetify.setup"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         minSdk = 26
@@ -42,7 +43,7 @@ dependencies {
 
     // Hilt
     implementation(libs.hilt.android.core)
-    kapt(libs.hilt.compiler)
+    ksp(libs.hilt.compiler)
 
     // Currency Picker
     implementation(libs.ohjiho.currencypicker)
@@ -55,6 +56,7 @@ dependencies {
     // Modules
     implementation(project(":core:theme"))
     implementation(project(":core:utils"))
+    implementation(project(":core:presentation"))
     implementation(project(":domain"))
     implementation(project(":feature:account"))
     implementation(project(":feature:category"))

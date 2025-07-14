@@ -14,10 +14,6 @@ class CategoryRecyclerView @JvmOverloads constructor(
 
     private var listener: Listener? = if (context is Listener) context else null
 
-    interface Listener {
-        fun onClick(category: Category)
-    }
-
     init {
         adapter = CategoryAdapter { listener?.onClick(it) }
 
@@ -30,5 +26,9 @@ class CategoryRecyclerView @JvmOverloads constructor(
 
     fun setCategories(isExpense: Boolean, categoryList: List<Category>) {
         (adapter as CategoryAdapter).setCategoryList(isExpense, categoryList)
+    }
+
+    interface Listener {
+        fun onClick(category: Category)
     }
 }

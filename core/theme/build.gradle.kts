@@ -5,10 +5,10 @@ plugins {
 
 android {
     namespace = "dev.ohjiho.budgetify.theme"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = 24
+        minSdk = 26
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -17,9 +17,6 @@ android {
         release {
             isMinifyEnabled = true
         }
-    }
-    buildFeatures {
-        viewBinding = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8

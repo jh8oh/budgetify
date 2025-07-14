@@ -10,21 +10,17 @@
     <string name="fragment_set_up_currency_default_description">Please set your default currency. Not all your accounts have to use this currency.</string>
 
     <string name="fragment_set_up_accounts_title">Set up your accounts</string>
-    <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track. Feel free to edit any existing ones as needed.</string>
+    <string name="fragment_set_up_accounts_description">Please register all the accounts you wish to track.</string>
     <string name="fragment_set_up_accounts_add_button">Add new account</string>
 
     <string name="fragment_set_up_income_title">Set your income</string>
     <string name="fragment_set_up_income_button">Income</string>
     <string name="fragment_set_up_income_budget_button">Budget</string>
-    <string name="fragment_set_up_income_description">Please enter your current income. Otherwise, enter the amount you\'d like to use as the basis for your monthly budget.</string>
-    <string name="fragment_set_up_income_per">per</string>
-    <string name="fragment_set_up_income_frequency_default">month</string>
-    <string name="fragment_set_up_income_into">into</string>
+    <string name="fragment_set_up_income_description">Please enter your current income. Alternatively, enter the amount you\'d like to use as the basis for your total monthly budget.</string>
+    <string name="fragment_set_up_income_account_title">Account</string>
 
-    <string name="fragment_setup_categories_title">Set up your categories</string>
-    <string name="fragment_set_up_categories_description">Add in the categories you wish to include for your budget.</string>
-    <string name="fragment_set_up_categories_add_button">Add new category</string>
-
-    <string name="fragment_set_up_budget_title">Set up your budget</string>
-    <string name="fragment_set_up_budget_next_button">Finish</string>
+    <string name="fragment_set_up_budgets_title">Set up your budgets</string>
+    <string name="fragment_set_up_budgets_description">Add in the categories you wish to include and set your budgets across them. Feel free to edit any existing ones as needed.</string>
+    <string name="fragment_set_up_budgets_add_button">Add new category</string>
+    <string name="fragment_set_up_budgets_next_button">Finish</string>
 </resources>
