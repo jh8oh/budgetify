@@ -133,7 +133,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dialog_repeat_monthly_day_of_month_margin_start"
             android:imeOptions="actionDone"
-            android:inputType="numberPassword"
+            android:digits="0123456789"
+            android:inputType="numberDecimal"
             android:minWidth="@dimen/dialog_repeat_monthly_day_of_month_min_width"
             app:layout_constraintStart_toEndOf="@id/day_of_month_label"
             app:layout_constraintTop_toTopOf="parent" />

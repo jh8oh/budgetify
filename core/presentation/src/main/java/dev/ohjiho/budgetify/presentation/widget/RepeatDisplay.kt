@@ -155,11 +155,8 @@ class RepeatDisplay @JvmOverloads constructor(context: Context, attrs: Attribute
                     }
                 }
 
-                dayOfMonth.apply {
-                    transformationMethod = null
-                    runAfterTextChange {
-                        setValidDayOfMonth()
-                    }
+                dayOfMonth.runAfterTextChange {
+                    setValidDayOfMonth()
                 }
 
                 root
