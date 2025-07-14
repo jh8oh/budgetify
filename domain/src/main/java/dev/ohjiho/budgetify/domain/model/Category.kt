@@ -6,9 +6,20 @@ import androidx.room.PrimaryKey
 import dev.ohjiho.budgetify.domain.enums.Icon
 import java.math.BigDecimal
 
+data class RolloverAmount(
+    val minRolloverAmount: BigDecimal,
+    val maxRolloverAmount: BigDecimal
+)
+
+/**
+ * A monthly budget for a category
+ *
+ * @property budgetAmount The base monthly amount for a category's budget
+ * @property rolloverAmount The minimum and maximum amount to rollover to next month (minimum can be negative)
+ */
 data class BudgetInfo(
-    val budgetAmountMonthly: BigDecimal,
-    val rollover: BigDecimal = BigDecimal.ZERO
+    val budgetAmount: BigDecimal,
+    @Embedded val rolloverAmount: RolloverAmount? = null,
 )
 
 /**
@@ -16,10 +27,10 @@ data class BudgetInfo(
  *
  * @property uid The unique identifier that refers to this category.
  * @property name The name of the category.
- * @property type The type of transaction this category falls under (expense, income, or transfer)
+ * @property type The type of transaction this category falls under. [expense, income, or transfer]
  * @property icon The icon to be displayed by the category.
  * @property isNeed Whether or not this category falls under a necessity (otherwise, it's a want). [ONLY FOR EXPENSE CATEGORIES]
- * @property budgetInfo Information regarding the budget for this category [ONLY FOR EXPENSE CATEGORIES]
+ * @property budgetInfo Information regarding the budget for this category. [ONLY FOR EXPENSE CATEGORIES]
  */
 @Entity(tableName = "categories")
 data class Category(

@@ -7,7 +7,7 @@ import java.time.YearMonth
 /**
  * Sets a limit on a category on a YearMonth.
  *
- * @property categoryId
+ * @property categoryId The id of the category this budget is for.
  * @property yearMonth The month and the year the budget was created (Budget continues monthly until new budget is created).
  * @property amount The maximum limit of the budget.
  */
