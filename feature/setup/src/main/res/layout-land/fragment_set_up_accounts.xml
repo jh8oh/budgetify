@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintGuide_percent="0.48" />
+        app:layout_constraintGuide_percent="@dimen/set_up_landscape_split_guideline_percent" />
 
     <TextView
         android:id="@+id/set_up_accounts_description"
