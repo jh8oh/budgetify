@@ -32,6 +32,7 @@ internal class CategoryEditorViewModel @Inject constructor(
         Category(uid, name, transactionType, icon, isNeed)
     }.stateIn(viewModelScope, WhileUiSubscribed, Category())
 
+    // Initialize
     fun initNew(type: TransactionType) {
         isNew = true
         savedStateHandle[TRANSACTION_TYPE_SAVED_STATE_KEY] = type
@@ -50,16 +51,17 @@ internal class CategoryEditorViewModel @Inject constructor(
         }
     }
 
+    // Update SavedStateHandle
     fun updateIconState(icon: Icon) {
         savedStateHandle[ICON_SAVED_STATE_KEY] = icon
     }
 
     fun updateState(name: String, isNeed: Boolean) {
-        savedStateHandle[UID_SAVED_STATE_KEY] = category.value.uid
         savedStateHandle[NAME_SAVED_STATE_KEY] = name
         savedStateHandle[IS_NEED_SAVED_STATE_KEY] = if (category.value.type == TransactionType.EXPENSE) isNeed else null
     }
 
+    // Database
     fun saveToDatabase(name: String, isNeed: Boolean) {
         viewModelScope.launch {
             Category(

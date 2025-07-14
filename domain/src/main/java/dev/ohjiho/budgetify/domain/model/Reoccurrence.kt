@@ -7,18 +7,6 @@ import kotlinx.parcelize.Parcelize
 import java.time.DayOfWeek
 import java.time.format.TextStyle
 
-enum class Interval {
-    WEEKLY, BIWEEKLY, MONTHLY;
-
-    override fun toString(): String {
-        return when (this) {
-            WEEKLY -> "Weekly"
-            BIWEEKLY -> "Biweekly"
-            MONTHLY -> "Monthly"
-        }
-    }
-}
-
 /**
  * The days in which a transaction is repeated
  *
@@ -91,6 +79,18 @@ data class Reoccurrence(val interval: Interval, val indexOfRepetition: Set<Int>)
             }
 
             return Reoccurrence(interval, indexOfRepetition)
+        }
+    }
+}
+
+enum class Interval {
+    WEEKLY, BIWEEKLY, MONTHLY;
+
+    override fun toString(): String {
+        return when (this) {
+            WEEKLY -> "Weekly"
+            BIWEEKLY -> "Biweekly"
+            MONTHLY -> "Monthly"
         }
     }
 }
